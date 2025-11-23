@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  hashedPassword String
+  role           Role     @default(USER)
+  apiaries       Apiary[]
+}
+
+model Apiary {
+  id       Int           @id @default(autoincrement())
+  name     String
+  location String
+  userId   String
+  user     User          @relation(fields: [userId], references: [id])
+  hives    Hive[]
+  plants   ApiaryPlant[]
+}
+
+model Hive {
+  id           Int           @id @default(autoincrement())
+  type         String
+  colonyType   String
+  apiaryId     Int
+  apiary       Apiary        @relation(fields: [apiaryId], references: [id])
+  observations Observation[]
+}
+
+model Observation {
+  id          Int      @id @default(autoincrement())
+  hiveId      Int
+  hive        Hive     @relation(fields: [hiveId], references: [id])
+  beeCount    Int
+  pollenColor String
+  notes       String?
+  createdAt   DateTime @default(now())
+}
+
+model Plant {
+  id             Int     @id @default(autoincrement())
+  name           String
+  latinName      String?
+  type           String? // nectar, pollen, beide
+  floweringStart Int? // standaard maand  
+  floweringEnd   Int?
+
+  apiaries ApiaryPlant[]
+}
+
+model ApiaryPlant {
+  id String @id @default(cuid())
+
+  apiaryId    Int
+  apiary      Apiary           @relation(fields: [apiaryId], references: [id])
+  plantId     Int
+  plant       Plant            @relation(fields: [plantId], references: [id])
+  observedAt  DateTime         @default(now())
+  notes       String? //bvb veel gele pollen gezien
+  intensity   ForageIntensity? // hoe sterk de plant dracht levert 
+  customStart Int? //als er een afwijkende bloeiperiode is
+  customEnd   Int?
+}
+
+enum ForageIntensity {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Role {
+  USER
+  ADMIN
+}
