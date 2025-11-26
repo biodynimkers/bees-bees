@@ -1,0 +1,40 @@
+/* Icon Component - Consistent icon styling */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: var(--color-background-alt);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-3xl);
+  transition: all var(--transition-base);
+}
+
+.icon--large {
+  width: 80px;
+  height: 80px;
+  font-size: var(--font-size-4xl);
+}
+
+.icon--small {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-xl);
+}
+
+.icon--primary {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.icon--primary {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.card--hover:hover .icon {
+  transform: scale(1.1);
+}

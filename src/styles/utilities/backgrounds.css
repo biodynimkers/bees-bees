@@ -1,0 +1,13 @@
+/* Background Utilities - Reusable backgrounds */
+
+.bg-white {
+  background-color: var(--color-background);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+.bg-alt {
+  background-color: var(--color-background-alt);
+}

@@ -1,0 +1,13 @@
+/* Hide Next.js development indicators */
+
+#__next-build-watcher {
+  display: none !important;
+}
+
+[data-nextjs-toast-errors] {
+  display: none !important;
+}
+
+nextjs-portal {
+  display: none !important;
+}
