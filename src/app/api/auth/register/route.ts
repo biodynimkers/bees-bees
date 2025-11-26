@@ -11,8 +11,6 @@ export type RegisterResult =
 
 // Server action to create a user. Returns structured fieldErrors when validation fails.
 export async function createItem(formData: FormData): Promise<RegisterResult> {
-  'use server';
-
   // Convert FormData to plain object. Values should be strings for our fields.
   const rawFormData = Object.fromEntries(formData.entries()) as Record<
     string,
