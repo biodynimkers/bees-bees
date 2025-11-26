@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation';
 import { registerSchema } from '@/lib/validators/schemas';
 import { set } from 'zod';
 
-//TODO ook zod validatie clientside toevoegen voor betere UX en weergeven in messages
-
 type FormProps = {
   createItem: (formData: FormData) => Promise<RegisterResult>;
 };
@@ -69,9 +67,7 @@ export function RegisterForm({ createItem }: FormProps) {
       </div>
 
       <div>
-        <label htmlFor="" className="font-semibold text-sm">
-          E-mail
-        </label>
+        <label htmlFor="">E-mail</label>
         <input type="email" name="email" placeholder="john.doe@example.com" />
         {errors?.email && (
           <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
