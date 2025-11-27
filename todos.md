@@ -67,6 +67,7 @@
 ### 5. Applicatie Layout
 
 - [ ] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
+- [ ] **Home Page** (`page.tsx`): Direct server action for the data expected TODO
 - [ ] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
 - [ ] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
 - [ ] **Configuratie** (`next.config.ts`): Lettertype optimalisatie
