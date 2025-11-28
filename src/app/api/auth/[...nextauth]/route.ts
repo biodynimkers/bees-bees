@@ -5,7 +5,8 @@ import type { JWT } from 'next-auth/jwt';
 import type { Session } from 'next-auth';
 import prisma from '@/lib/client';
 import bcrypt from 'bcrypt';
-
+import z from 'zod';
+import { loginSchema } from '@/lib/validators/schemas';
 const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
@@ -15,6 +16,11 @@ const authOptions: AuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
+        const result = loginSchema.safeParse(credentials);
+        if (!result.success) {
+          // Optionally: log or handle validation errors
+          return null;
+        }
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
@@ -61,9 +67,9 @@ const authOptions: AuthOptions = {
       return session;
     },
   },
-  // pages: {
-  //   signIn: 'auth/login',
-  // },
+  pages: {
+    signIn: 'auth/login',
+  },
 };
 
 const handler = NextAuth(authOptions);

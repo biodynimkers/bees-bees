@@ -45,7 +45,7 @@ export function RegisterForm({ createItem }: FormProps) {
         return;
       }
       // success: redirect to login
-      router.push('/login');
+      router.push('/auth/login');
     } catch (err) {
       console.error(err);
       setErrors({ form: ['Er is iets misgegaan. Probeer later opnieuw.'] });
@@ -56,11 +56,11 @@ export function RegisterForm({ createItem }: FormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        {errors?.form && (
-          <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-            {errors.form[0]}
+        {errors?.form?.map((msg, i) => (
+          <p key={i} style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
+            {msg}
           </p>
-        )}
+        ))}
         <label htmlFor="">Naam</label>
         <input
           type="text"
