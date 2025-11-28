@@ -28,8 +28,8 @@
 
 ### 🔄 4. Beveiliging & Toegangscontrole
 
-- [ ] **Middleware aanmaken**: `src/middleware.ts` voor route bescherming TODO
-- [ ] **Hulpfuncties**: `src/lib/auth-helpers.ts` voor rechtencontrole (`isAdmin`, `isOwner`)
+- [x] **Middleware aanmaken**: `src/middleware.ts` voor route bescherming
+- [x] **Hulpfuncties**: `src/lib/auth-helpers.ts` voor rechtencontrole (`isAdmin`, `isOwner`),
 - [ ] **Rolgebaseerde autorisatie** implementeren in sessies
 
 ---
@@ -41,7 +41,7 @@
 ### 🔐 Authenticatie Endpoints
 
 - [x] **POST** `/api/auth/register` → Gebruikersregistratie
-- [ ] **POST** `/api/auth/signin` → TODO Inloggen, maar met custom formulier
+- [x] **POST** `/api/auth/signin` → Inloggen met custom formulier
 
 ### 🏠 Bijenstand Beheer
 
