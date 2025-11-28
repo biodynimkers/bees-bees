@@ -56,6 +56,11 @@ export function RegisterForm({ createItem }: FormProps) {
   return (
     <form onSubmit={onSubmit}>
       <div>
+        {errors?.form && (
+          <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
+            {errors.form[0]}
+          </p>
+        )}
         <label htmlFor="">Naam</label>
         <input type="text" name="name" placeholder="John Doe" />
         {errors?.name && (
@@ -68,20 +73,20 @@ export function RegisterForm({ createItem }: FormProps) {
       <div>
         <label htmlFor="">E-mail</label>
         <input type="email" name="email" placeholder="john.doe@example.com" />
-        {errors?.email && (
-          <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-            {errors.email[0]}
+        {errors?.email?.map((msg, i) => (
+          <p key={i} style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
+            {msg}
           </p>
-        )}
+        ))}
       </div>
       <div>
         <label htmlFor="">Paswoord</label>
         <input type="password" name="password" placeholder="test@123!" />
-        {errors?.password && (
-          <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-            {errors.password[0]}
+        {errors?.password?.map((msg, i) => (
+          <p key={i} style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
+            {msg}
           </p>
-        )}
+        ))}
       </div>
       <button type="submit" disabled={loading}>
         {loading ? 'Bezig...' : 'Verstuur'}
