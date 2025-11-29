@@ -143,8 +143,13 @@ export default async function Home() {
                 aan u.
               </p>
             </div>
-            <div className="image-placeholder">
-              [Foto: Imkers in overleg bij bijenstanden]
+            <div className="content-with-image__image">
+              <Image
+                src="/assets/hive-1.jpg"
+                alt="Imkers in overleg bij bijenstanden"
+                fill
+                style={{ objectFit: "cover" }}
+              />
             </div>
           </div>
         </div>
@@ -157,8 +162,7 @@ export default async function Home() {
             <div className="philosophy-section__content">
               <h2 className="section__title">Imkeren naar aard en wezen</h2>
               <p className="text-large philosophy-section__intro">
-                We 
-                delen het respect voor de honingbij en de imme als een levend
+                We delen het respect voor de honingbij en de imme als een levend
                 organisme en grijpen zo minimum mogelijk in op haar natuurlijke
                 levenswijze.
               </p>
@@ -177,7 +181,7 @@ export default async function Home() {
       <section className="section section--standard bg-alt">
         <div className="container">
           <h2 className="section__title">Data voor onderzoek en bescherming</h2>
-         
+
           <div className="grid grid--2">
             <article className="card">
               <h3 className="card__title">Wetenschappelijke bijdrage</h3>

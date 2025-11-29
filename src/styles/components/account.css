@@ -1,0 +1,360 @@
+/* Account Page Styles */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.account-header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.account-header .title {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.stat-card {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card--link {
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.stat-card--link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-secondary);
+}
+
+.stat-card__number {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-xs);
+  line-height: 1;
+}
+
+.stat-card__label {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* Quick Actions */
+.quick-actions {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.quick-actions .section__title {
+  text-align: left;
+  margin-bottom: var(--spacing-xl);
+}
+
+.action-card {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 2px solid transparent;
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-secondary);
+}
+
+.action-card .card__title {
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Apiaries Overview */
+.apiaries-overview {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.apiaries-overview .section__title {
+  text-align: left;
+  margin-bottom: var(--spacing-xl);
+}
+
+.apiaries-list {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+.apiary-card {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.apiary-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.apiary-card__header .card__title {
+  margin-bottom: 0;
+}
+
+.badge {
+  background-color: var(--color-secondary);
+  color: var(--color-background);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 100px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.apiary-card__actions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.apiary-card--link {
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.apiary-card--link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-secondary);
+}
+
+/* Hives List */
+.hives-list {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+.hive-card {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.hive-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.hive-card__header .card__title {
+  margin-bottom: 0;
+}
+
+.hive-card--link {
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.hive-card--link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-secondary);
+}
+
+.badge--secondary {
+  background-color: var(--color-primary);
+}
+
+/* Observations List */
+.observations-list {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+.observation-card {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.observation-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.observation-card__header .card__title {
+  margin-bottom: 0;
+}
+
+.observation-card--link {
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.observation-card--link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-secondary);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  background-color: var(--color-background);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state .section__title {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Apiary Detail */
+.apiary-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-3xl);
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+}
+
+.hives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+/* Hive Detail */
+.hive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-3xl);
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+}
+
+.breadcrumb {
+  color: var(--color-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: var(--spacing-sm);
+}
+
+.breadcrumb:hover {
+  text-decoration: underline;
+}
+
+.hive-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+}
+
+.map-container {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+}
+
+.map-placeholder {
+  aspect-ratio: 1;
+  background-color: var(--color-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.map-hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.observations-section {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl);
+  border-radius: 16px;
+}
+
+.observations-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.observation-card {
+  padding: var(--spacing-md);
+  background-color: var(--color-background-alt);
+  border-radius: 8px;
+}
+
+.observation-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.observation-card__date {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.observation-card__notes {
+  margin-top: var(--spacing-xs);
+  color: var(--color-text);
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .apiary-card__actions {
+    flex-direction: column;
+  }
+
+  .apiary-card__actions .button {
+    width: 100%;
+  }
+}

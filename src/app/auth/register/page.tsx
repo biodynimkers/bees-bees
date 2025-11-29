@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/components/registerForm";
+import { RegisterForm } from "@/components/forms/RegisterForm";
 import { createItem } from "@/app/actions/register";
 import Link from "next/link";
 

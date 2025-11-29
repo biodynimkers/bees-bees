@@ -1,4 +1,4 @@
-import SessionWrapper from "@/components/sessionwrapper";
+import SessionWrapper from "@/components/auth/SessionWrapper";
 import Navigation from "@/components/shared/Navigation";
 import Footer from "@/components/shared/Footer";
 import "@/styles/main.css";

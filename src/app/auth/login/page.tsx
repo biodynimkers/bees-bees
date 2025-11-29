@@ -41,7 +41,7 @@ export default function Login() {
       const res = await signIn("credentials", {
         ...rawFormData,
         redirect: false,
-        callbackUrl: "/",
+        callbackUrl: "/account",
       });
       if (!res?.ok) {
         console.log("signIn errors:", res?.error);
@@ -55,7 +55,7 @@ export default function Login() {
         setLoading(false);
         return;
       }
-      router.push("/");
+      router.push("/account");
     } catch (err) {
       console.error(err);
       setErrors("Er is iets misgegaan. Probeer later opnieuw.");

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import prisma from "@/lib/client";
 
-export default async function AccountApiariesPage() {
+export default async function AccountHivesPage() {
   const session = await getServerSession();
   if (!session?.user?.email) redirect("/auth/login");
 
@@ -20,43 +20,52 @@ export default async function AccountApiariesPage() {
 
   if (!user) redirect("/auth/login");
 
+  const allHives = user.apiaries.flatMap((apiary) =>
+    apiary.hives.map((hive) => ({
+      ...hive,
+      apiaryName: apiary.name,
+      apiaryId: apiary.id,
+    }))
+  );
+
   return (
     <section className="section section--standard bg-alt">
       <div className="container">
         <div className="page-header">
-          <h1 className="title">Mijn bijenstanden</h1>
-          <Link href="/account/apiaries/new" className="button button--primary">
-            + Nieuwe bijenstand
-          </Link>
+          <h1 className="title">Mijn kasten</h1>
         </div>
 
-        {user.apiaries.length > 0 ? (
-          <div className="apiaries-list">
-            {user.apiaries.map((apiary) => (
+        {allHives.length > 0 ? (
+          <div className="hives-list">
+            {allHives.map((hive) => (
               <Link
-                key={apiary.id}
-                href={`/account/apiaries/${apiary.id}`}
-                className="apiary-card apiary-card--link"
+                key={hive.id}
+                href={`/account/apiaries/${hive.apiaryId}/hives/${hive.id}`}
+                className="hive-card hive-card--link"
               >
-                <div className="apiary-card__header">
-                  <h3 className="card__title">{apiary.name}</h3>
-                  <span className="badge">{apiary.hives.length} kasten</span>
+                <div className="hive-card__header">
+                  <h3 className="card__title">{hive.type}</h3>
+                  <span className="badge badge--secondary">
+                    {hive.colonyType}
+                  </span>
                 </div>
-                <p className="card__text">{apiary.location}</p>
+                <p className="card__text text-secondary">
+                  Bijenstand: {hive.apiaryName}
+                </p>
               </Link>
             ))}
           </div>
         ) : (
           <div className="empty-state">
-            <h2 className="section__title">Nog geen bijenstanden</h2>
+            <h2 className="section__title">Nog geen kasten</h2>
             <p className="text-secondary mb-lg">
-              Begin met het toevoegen van uw eerste bijenstand
+              Voeg eerst een bijenstand toe om kasten te kunnen aanmaken
             </p>
             <Link
               href="/account/apiaries/new"
               className="button button--primary button--large"
             >
-              + Eerste bijenstand toevoegen
+              + Bijenstand toevoegen
             </Link>
           </div>
         )}

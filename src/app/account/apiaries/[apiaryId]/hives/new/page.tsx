@@ -1,4 +1,20 @@
-//new hive for an apiary of a user
-export default function AccountApiaryNewHivePage() {
-  return <div>Account Apiary New Hive Page</div>;
+import { redirect } from "next/navigation";
+import prisma from "@/lib/client";
+import NewHiveForm from "@/components/forms/NewHiveForm";
+
+export default async function AccountApiaryNewHivePage({
+  params,
+}: {
+  params: Promise<{ apiaryId: string }>;
+}) {
+  const { apiaryId } = await params;
+
+  const apiary = await prisma.apiary.findUnique({
+    where: { id: parseInt(apiaryId) },
+    select: { name: true },
+  });
+
+  if (!apiary) redirect("/account/apiaries");
+
+  return <NewHiveForm apiaryId={apiaryId} apiaryName={apiary.name} />;
 }
