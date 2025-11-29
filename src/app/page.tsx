@@ -1,7 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
+import prisma from "@/lib/client";
+import StatsSection from "@/components/home/StatsSection";
 
-export default function Home() {
+export default async function Home() {
+  // Haal statistieken op uit de database
+  const totalObservations = await prisma.observation.count();
+  const totalUsers = await prisma.user.count();
+  const totalApiaries = await prisma.apiary.count();
+  const totalHives = await prisma.hive.count();
   return (
     <>
       {/* A. Hero Section */}
@@ -24,13 +31,20 @@ export default function Home() {
               </span>
             </h1>
             <p className="subtitle subtitle--hero">
-              Registreer je bijenstanden, kasten en observaties op één overzichtelijk platform.
+              Registreer je bijenstanden, kasten en observaties op één
+              overzichtelijk platform.
             </p>
             <div className="button-group">
-              <Link href="/auth/register" className="button button--primary button--large">
+              <Link
+                href="/auth/register"
+                className="button button--primary button--large"
+              >
                 Registreer als imker
               </Link>
-              <Link href="/about" className="button button--outline button--large">
+              <Link
+                href="/about"
+                className="button button--outline button--large"
+              >
                 Over dit project
               </Link>
             </div>
@@ -42,7 +56,7 @@ export default function Home() {
       <section className="section section--standard bg-white">
         <div className="container">
           <h2 className="section__title text-center mb-xl">Wat kan je doen?</h2>
-          
+
           <div className="grid grid--2">
             <article className="feature-card">
               <h3 className="feature-card__title">Bijenstanden opslaan</h3>
@@ -101,7 +115,8 @@ export default function Home() {
             </div>
             <div className="benefit">
               <p className="benefit__text">
-                Je ziet via de kaart welke planten binnen 2 km en 7 km invloed hebben op jouw bijenvolken
+                Je ziet via de kaart welke planten binnen 2 km en 7 km invloed
+                hebben op jouw bijenvolken
               </p>
             </div>
           </div>
@@ -143,31 +158,19 @@ export default function Home() {
       </section>
 
       {/* E. Cijfers */}
-      <section className="section section--compact bg-surface">
-        <div className="container">
-          <div className="stats">
-            <div className="stat">
-              <span className="stat__number">244</span>
-              <span className="stat__label">Geregistreerde observaties</span>
-            </div>
-            <div className="stat">
-              <span className="stat__number">37</span>
-              <span className="stat__label">Actieve imkers</span>
-            </div>
-            <div className="stat">
-              <span className="stat__number">23</span>
-              <span className="stat__label">Gem. bijen/min in april</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <StatsSection
+        totalObservations={totalObservations}
+        totalUsers={totalUsers}
+        totalHives={totalHives}
+      />
 
       {/* F. Link naar geschiedenis */}
       <section className="section section--standard bg-white">
         <div className="container container--narrow text-center">
           <h2 className="section__title mb-md">Over de Biodyn Imkers</h2>
           <p className="text-secondary mb-lg">
-            Sinds 1980 bouwen aan kennis en observaties. Duurzame imkerij met respect voor de bij en de natuur.
+            Sinds 1980 bouwen aan kennis en observaties. Duurzame imkerij met
+            respect voor de bij en de natuur.
           </p>
           <Link href="/about" className="button button--outline">
             Lees ons verhaal
