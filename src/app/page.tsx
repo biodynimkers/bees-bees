@@ -1,7 +1,9 @@
-import Link from "next/link";
-import Image from "next/image";
-import prisma from "@/lib/client";
-import StatsSection from "@/components/home/StatsSection";
+import Link from 'next/link';
+import Image from 'next/image';
+import prisma from '@/lib/client';
+import StatsSection from '@/components/home/StatsSection';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   // Haal statistieken op uit de database
@@ -18,7 +20,7 @@ export default async function Home() {
             src="/assets/hero.jpg"
             alt="Bijenwaarnemingen"
             fill
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: 'cover' }}
             priority
           />
         </div>
@@ -148,7 +150,7 @@ export default async function Home() {
                 src="/assets/hive-1.jpg"
                 alt="Imkers in overleg bij bijenstanden"
                 fill
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: 'cover' }}
               />
             </div>
           </div>
