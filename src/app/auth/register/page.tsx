@@ -1,5 +1,5 @@
 import { RegisterForm } from '@/components/registerForm';
-import { createItem } from '@/app/api/auth/register/route';
+import { createItem } from '@/app/actions/register';
 
 export default function Register() {
   return (

@@ -1,9 +1,8 @@
 'use client';
-import type { RegisterResult } from '@/app/api/auth/register/route';
+import type { RegisterResult } from '@/app/actions/register';
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { registerSchema } from '@/lib/validators/schemas';
-import { set } from 'zod';
 
 type FormProps = {
   createItem: (formData: FormData) => Promise<RegisterResult>;
@@ -16,7 +15,7 @@ export function RegisterForm({ createItem }: FormProps) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors(null);
     setLoading(true);
@@ -46,7 +45,7 @@ export function RegisterForm({ createItem }: FormProps) {
         return;
       }
       // success: redirect to login
-      router.push('/login');
+      router.push('/auth/login');
     } catch (err) {
       console.error(err);
       setErrors({ form: ['Er is iets misgegaan. Probeer later opnieuw.'] });
@@ -55,34 +54,80 @@ export function RegisterForm({ createItem }: FormProps) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="">Naam</label>
-        <input type="text" name="name" placeholder="John Doe" />
-        {errors?.name && (
-          <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-            {errors.name[0]}
+        {errors?.form?.map((msg, i) => (
+          <p key={i} style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
+            {msg}
           </p>
-        )}
+        ))}
+        <label htmlFor="">Naam</label>
+        <input
+          type="text"
+          name="name"
+          placeholder="John Doe"
+          //remove the name error when user starts typing
+          onChange={e => {
+            if (errors?.name) {
+              setErrors(prev => {
+                if (!prev) return null;
+                const { name, ...rest } = prev;
+                return Object.keys(rest).length ? rest : null;
+              });
+            }
+          }}
+        />
+
+        {errors?.name?.map((msg, i) => (
+          <p key={i} style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
+            {msg}
+          </p>
+        ))}
       </div>
 
       <div>
         <label htmlFor="">E-mail</label>
-        <input type="email" name="email" placeholder="john.doe@example.com" />
-        {errors?.email && (
-          <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-            {errors.email[0]}
+        <input
+          type="email"
+          name="email"
+          placeholder="john.doe@example.com" //remove the name error when user starts typing
+          onChange={e => {
+            if (errors?.email) {
+              setErrors(prev => {
+                if (!prev) return null;
+                const { email, ...rest } = prev;
+                return Object.keys(rest).length ? rest : null;
+              });
+            }
+          }}
+        />
+        {errors?.email?.map((msg, i) => (
+          <p key={i} style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
+            {msg}
           </p>
-        )}
+        ))}
       </div>
       <div>
         <label htmlFor="">Paswoord</label>
-        <input type="password" name="password" placeholder="test@123!" />
-        {errors?.password && (
-          <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-            {errors.password[0]}
+        <input
+          type="password"
+          name="password"
+          placeholder="test@123!" //remove the name error when user starts typing
+          onChange={e => {
+            if (errors?.password) {
+              setErrors(prev => {
+                if (!prev) return null;
+                const { password, ...rest } = prev;
+                return Object.keys(rest).length ? rest : null;
+              });
+            }
+          }}
+        />
+        {errors?.password?.map((msg, i) => (
+          <p key={i} style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
+            {msg}
           </p>
-        )}
+        ))}
       </div>
       <button type="submit" disabled={loading}>
         {loading ? 'Bezig...' : 'Verstuur'}

@@ -28,8 +28,8 @@
 
 ### 🔄 4. Beveiliging & Toegangscontrole
 
-- [ ] **Middleware aanmaken**: `src/middleware.ts` voor route bescherming
-- [ ] **Hulpfuncties**: `src/lib/auth-helpers.ts` voor rechtencontrole (`isAdmin`, `isOwner`)
+- [x] **Middleware aanmaken**: `src/middleware.ts` voor route bescherming
+- [x] **Hulpfuncties**: `src/lib/auth-helpers.ts` voor rechtencontrole (`isAdmin`, `isOwner`),
 - [ ] **Rolgebaseerde autorisatie** implementeren in sessies
 
 ---
@@ -40,8 +40,8 @@
 
 ### 🔐 Authenticatie Endpoints
 
-- [ ] **POST** `/api/auth/register` → Gebruikersregistratie
-- [ ] **POST** `/api/auth/signin` → Inloggen
+- [x] **POST** `/api/auth/register` → Gebruikersregistratie
+- [x] **POST** `/api/auth/signin` → Inloggen met custom formulier
 
 ### 🏠 Bijenstand Beheer
 
@@ -67,6 +67,7 @@
 ### 5. Applicatie Layout
 
 - [ ] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
+- [ ] **Home Page** (`page.tsx`): Direct server action for the data expected TODO
 - [ ] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
 - [ ] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
 - [ ] **Configuratie** (`next.config.ts`): Lettertype optimalisatie

@@ -1,17 +1,15 @@
+'use server';
 import bcrypt from 'bcrypt';
 import prisma from '@/lib/client';
 import { registerSchema } from '@/lib/validators/schemas';
-import { Role } from '@prisma/client';
-// avoid importing Prisma error class which can have typing issues in this environment
 
+// avoid importing Prisma error class which can have typing issues in this environment
 export type RegisterResult =
   | { ok: true }
   | { ok: false; errors: Record<string, string[]> }; // is a utility type in TypeScript dat describes an object type.
 
 // Server action to create a user. Returns structured fieldErrors when validation fails.
 export async function createItem(formData: FormData): Promise<RegisterResult> {
-  'use server';
-
   // Convert FormData to plain object. Values should be strings for our fields.
   const rawFormData = Object.fromEntries(formData.entries()) as Record<
     string,
