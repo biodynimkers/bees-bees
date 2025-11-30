@@ -179,3 +179,5 @@
 ### 🎯 Eindresultaat
 
 Een volledig functionele bijenstandbeheer applicatie met robuuste backend, gebruikersvriendelijke interface en professionele codebase, klaar voor styling door een frontend specialist.
+
+TODO test vercel
