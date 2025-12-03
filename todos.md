@@ -30,7 +30,7 @@
 
 - [x] **Middleware aanmaken**: `src/middleware.ts` voor route bescherming
 - [x] **Hulpfuncties**: `src/lib/auth-helpers.ts` voor rechtencontrole (`isAdmin`, `isOwner`),
-- [ ] **Rolgebaseerde autorisatie** implementeren in sessies
+- [x] **Rolgebaseerde autorisatie** implementeren in sessies
 
 ---
 
