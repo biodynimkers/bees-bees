@@ -2,17 +2,18 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import prisma from '@/lib/client';
+import { authOptions } from '@/lib/auth-options';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AccountApiaryHivePage({
   params,
 }: {
-  params: Promise<{ apiaryId: string; hiveId: string }>;
+  params: Promise<{ userId: string; apiaryId: string; hiveId: string }>;
 }) {
-  const { apiaryId, hiveId } = await params;
-  const session = await getServerSession();
-  if (!session?.user?.email) redirect('/auth/login');
+  const { userId, apiaryId, hiveId } = await params;
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) redirect('/auth/login');
 
   const hive = await prisma.hive.findUnique({
     where: { id: parseInt(hiveId) },
@@ -32,7 +33,10 @@ export default async function AccountApiaryHivePage({
       <div className="container">
         <div className="hive-header">
           <div>
-            <Link href={`/account/apiaries/${apiaryId}`} className="breadcrumb">
+            <Link
+              href={`/account/${userId}/apiaries/${apiaryId}`}
+              className="breadcrumb"
+            >
               ← {hive.apiary.name}
             </Link>
             <h1 className="title">
@@ -41,7 +45,7 @@ export default async function AccountApiaryHivePage({
             <p className="text-secondary">{hive.apiary.location}</p>
           </div>
           <Link
-            href={`/account/apiaries/${apiaryId}/hives/${hive.id}/observations/new`}
+            href={`/account/${userId}/apiaries/${apiaryId}/hives/${hive.id}/observations/new`}
             className="button button--primary"
           >
             + Nieuwe observatie

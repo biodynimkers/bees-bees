@@ -1,35 +1,37 @@
-"use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface NewObservationFormProps {
+  userId: string;
   apiaryId: string;
   hiveId: string;
   hiveName: string;
 }
 
 export default function NewObservationForm({
+  userId,
   apiaryId,
   hiveId,
   hiveName,
 }: NewObservationFormProps) {
-  const [beeCount, setBeeCount] = useState("");
-  const [pollenColor, setPollenColor] = useState("");
-  const [notes, setNotes] = useState("");
+  const [beeCount, setBeeCount] = useState('');
+  const [pollenColor, setPollenColor] = useState('');
+  const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setError('');
     setLoading(true);
 
     try {
-      const response = await fetch("/api/observations", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/observations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           hiveId: parseInt(hiveId),
           beeCount: parseInt(beeCount),
@@ -38,11 +40,11 @@ export default function NewObservationForm({
         }),
       });
 
-      if (!response.ok) throw new Error("Kon observatie niet aanmaken");
+      if (!response.ok) throw new Error('Kon observatie niet aanmaken');
 
-      router.push(`/account/apiaries/${apiaryId}/hives/${hiveId}`);
+      router.push(`/account/${userId}/apiaries/${apiaryId}/hives/${hiveId}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Er ging iets mis");
+      setError(err instanceof Error ? err.message : 'Er ging iets mis');
       setLoading(false);
     }
   }
@@ -53,7 +55,7 @@ export default function NewObservationForm({
         <div className="auth-container">
           <div className="auth-header">
             <Link
-              href={`/account/apiaries/${apiaryId}/hives/${hiveId}`}
+              href={`/account/${userId}/apiaries/${apiaryId}/hives/${hiveId}`}
               className="breadcrumb"
             >
               ← Terug naar kast
@@ -73,7 +75,7 @@ export default function NewObservationForm({
                 type="number"
                 id="beeCount"
                 value={beeCount}
-                onChange={(e) => setBeeCount(e.target.value)}
+                onChange={e => setBeeCount(e.target.value)}
                 className="form-input"
                 placeholder="Geschat aantal bijen"
                 required
@@ -89,7 +91,7 @@ export default function NewObservationForm({
                 type="text"
                 id="pollenColor"
                 value={pollenColor}
-                onChange={(e) => setPollenColor(e.target.value)}
+                onChange={e => setPollenColor(e.target.value)}
                 className="form-input"
                 placeholder="bv. Geel, Oranje, Wit"
                 required
@@ -103,7 +105,7 @@ export default function NewObservationForm({
               <textarea
                 id="notes"
                 value={notes}
-                onChange={(e) => setNotes(e.target.value)}
+                onChange={e => setNotes(e.target.value)}
                 className="form-input"
                 placeholder="Extra opmerkingen over de kast..."
                 rows={4}
@@ -115,7 +117,7 @@ export default function NewObservationForm({
               className="button button--primary button--large"
               disabled={loading}
             >
-              {loading ? "Bezig met opslaan..." : "Observatie toevoegen"}
+              {loading ? 'Bezig met opslaan...' : 'Observatie toevoegen'}
             </button>
           </form>
         </div>

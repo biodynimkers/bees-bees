@@ -1,26 +1,24 @@
 import { withAuth } from 'next-auth/middleware';
 import { NextResponse } from 'next/server';
+
 export default withAuth(
   function middleware(req) {
-    const token = req.nextauth.token; //  Middleware READS the JWT token from the cookie
-    // The token now contains: { email, name, role, id, exp, iat, etc. }
-    // req betekent het inkomende request object via de url
+    const token = req.nextauth.token;
+    const pathname = req.nextUrl.pathname;
 
-    const pathname = req.nextUrl.pathname; //req.nextUrl geeft de volledige url info van het inkomende request
-
-    // 1. User-specific admin pages
-    if (pathname.startsWith('/admin/users/') && pathname !== '/admin/users/') {
+    // 1. Account routes with userId
+    if (pathname.startsWith('/account/') && pathname !== '/account') {
       const pathSegments = pathname.split('/');
-      const userIdFromUrl = pathSegments[2]; // adjust index if needed
+      const userIdFromUrl = pathSegments[2];
 
+      // Allow if admin or if accessing own account
       if (token?.role === 'ADMIN' || token?.id === userIdFromUrl) {
         return NextResponse.next();
       } else {
         return NextResponse.redirect(new URL('/unauthorized', req.url));
       }
     }
-
-    // 2. All other admin pages
+    // 2. All admin pages
     if (pathname.startsWith('/admin')) {
       if (token?.role !== 'ADMIN') {
         return NextResponse.redirect(new URL('/unauthorized', req.url));
@@ -28,12 +26,12 @@ export default withAuth(
     }
   },
   {
-    // Als je niet ingelogd bent, redirect NextAuth je naar /login in plaats van je eigen redirect naar /unauthorized.
-
     callbacks: {
-      authorized: () => true, // Laat iedereen door, ik bepaal zelf de redirect in de middleware
+      authorized: ({ token }) => !!token, // Only allow authenticated users
     },
   }
 );
 
-export const config = { matcher: ['/admin/:path*'] };
+export const config = {
+  matcher: ['/account/:userId*', '/admin/:path*'],
+};

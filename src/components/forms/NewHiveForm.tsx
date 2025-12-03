@@ -1,32 +1,34 @@
-"use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface NewHiveFormProps {
+  userId: string;
   apiaryId: string;
   apiaryName: string;
 }
 
 export default function NewHiveForm({
+  userId,
   apiaryId,
   apiaryName,
 }: NewHiveFormProps) {
-  const [type, setType] = useState("");
-  const [colonyType, setColonyType] = useState("");
+  const [type, setType] = useState('');
+  const [colonyType, setColonyType] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
+    setError('');
     setLoading(true);
 
     try {
-      const response = await fetch("/api/hives", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/hives', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           type,
           colonyType,
@@ -34,11 +36,11 @@ export default function NewHiveForm({
         }),
       });
 
-      if (!response.ok) throw new Error("Kon kast niet aanmaken");
+      if (!response.ok) throw new Error('Kon kast niet aanmaken');
 
-      router.push(`/account/apiaries/${apiaryId}`);
+      router.push(`/account/${userId}/apiaries/${apiaryId}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Er ging iets mis");
+      setError(err instanceof Error ? err.message : 'Er ging iets mis');
       setLoading(false);
     }
   }
@@ -69,7 +71,7 @@ export default function NewHiveForm({
                 id="type"
                 className="form-input"
                 value={type}
-                onChange={(e) => setType(e.target.value)}
+                onChange={e => setType(e.target.value)}
                 required
               >
                 <option value="">-- Selecteer type --</option>
@@ -90,7 +92,7 @@ export default function NewHiveForm({
                 id="colonyType"
                 className="form-input"
                 value={colonyType}
-                onChange={(e) => setColonyType(e.target.value)}
+                onChange={e => setColonyType(e.target.value)}
                 required
               >
                 <option value="">-- Selecteer volk --</option>
@@ -109,7 +111,7 @@ export default function NewHiveForm({
                 disabled={loading}
                 className="button button--primary button--large"
               >
-                {loading ? "Toevoegen..." : "Kast toevoegen"}
+                {loading ? 'Toevoegen...' : 'Kast toevoegen'}
               </button>
               <Link
                 href={`/account/apiaries/${apiaryId}`}

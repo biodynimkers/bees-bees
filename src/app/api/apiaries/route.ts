@@ -1,17 +1,18 @@
-import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
-import prisma from "@/lib/client";
+import { getServerSession } from 'next-auth';
+import { NextResponse } from 'next/server';
+import prisma from '@/lib/client';
+import { authOptions } from '@/lib/auth-options';
 
 export async function GET(req: Request) {
-  return new Response("Apiaries endpoint");
+  return new Response('Apiaries endpoint');
 }
 
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
 
-    if (!session?.user?.email) {
-      return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
     }
 
     const body = await req.json();
@@ -19,21 +20,16 @@ export async function POST(req: Request) {
 
     if (!name || !location) {
       return NextResponse.json(
-        { error: "Naam en locatie zijn verplicht" },
+        { error: 'Naam en locatie zijn verplicht' },
         { status: 400 }
       );
     }
 
     // Haal userId op
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-    });
+    const userId = session.user.id;
 
-    if (!user) {
-      return NextResponse.json(
-        { error: "Gebruiker niet gevonden" },
-        { status: 404 }
-      );
+    if (!userId) {
+      return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
     }
 
     // Maak bijenstand aan
@@ -41,15 +37,15 @@ export async function POST(req: Request) {
       data: {
         name,
         location,
-        userId: user.id,
+        userId: userId,
       },
     });
 
     return NextResponse.json(apiary, { status: 201 });
   } catch (error) {
-    console.error("Error creating apiary:", error);
+    console.error('Error creating apiary:', error);
     return NextResponse.json(
-      { error: "Er ging iets mis bij het aanmaken van de bijenstand" },
+      { error: 'Er ging iets mis bij het aanmaken van de bijenstand' },
       { status: 500 }
     );
   }

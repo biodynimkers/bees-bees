@@ -2,17 +2,27 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import prisma from '@/lib/client';
+import { authOptions } from '@/lib/auth-options';
+import { hasAccess } from '@/lib/auth-helpers';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AccountApiaryPage({
   params,
 }: {
-  params: Promise<{ apiaryId: string }>;
+  params: Promise<{ userId: string; apiaryId: string }>;
 }) {
-  const { apiaryId } = await params;
-  const session = await getServerSession();
-  if (!session?.user?.email) redirect('/auth/login');
+  const { userId, apiaryId } = await params;
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    redirect('/auth/login');
+  }
+
+  // Check if user has access to this account
+  if (!hasAccess(session, userId)) {
+    redirect('/unauthorized');
+  }
 
   const apiary = await prisma.apiary.findUnique({
     where: { id: parseInt(apiaryId) },
@@ -28,7 +38,14 @@ export default async function AccountApiaryPage({
     },
   });
 
-  if (!apiary) redirect('/account');
+  if (!apiary) {
+    redirect(`/account/${userId}`);
+  }
+
+  // Extra check: verify apiary belongs to this user
+  if (apiary.userId !== session.user.id && session.user.role !== 'ADMIN') {
+    redirect('/unauthorized');
+  }
 
   return (
     <section className="section section--standard bg-alt">
@@ -39,7 +56,7 @@ export default async function AccountApiaryPage({
             <p className="text-secondary">{apiary.location}</p>
           </div>
           <Link
-            href={`/account/apiaries/${apiary.id}/hives/new`}
+            href={`/account/${userId}/apiaries/${apiary.id}/hives/new`}
             className="button button--primary"
           >
             + Nieuwe kast
@@ -57,7 +74,7 @@ export default async function AccountApiaryPage({
                   {hive.observations.length} observaties
                 </p>
                 <Link
-                  href={`/account/apiaries/${apiary.id}/hives/${hive.id}`}
+                  href={`/account/${userId}/apiaries/${apiary.id}/hives/${hive.id}`}
                   className="button button--outline"
                 >
                   Bekijk details
@@ -72,7 +89,7 @@ export default async function AccountApiaryPage({
               Voeg uw eerste bijenkast toe aan deze stand
             </p>
             <Link
-              href={`/account/apiaries/${apiary.id}/hives/new`}
+              href={`/account/${userId}/apiaries/${apiary.id}/hives/new`}
               className="button button--primary button--large"
             >
               + Eerste kast toevoegen

@@ -1,6 +1,11 @@
-import NewApiaryForm from "@/components/forms/NewApiaryForm";
+import NewApiaryForm from '@/components/forms/NewApiaryForm';
 
-export default function AccountNewApiaryPage() {
+export default async function AccountNewApiaryPage({
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}) {
+  const { userId } = await params;
   return (
     <section className="section section--standard bg-alt">
       <div className="container container--narrow">
@@ -12,7 +17,7 @@ export default function AccountNewApiaryPage() {
             </p>
           </div>
 
-          <NewApiaryForm />
+          <NewApiaryForm userId={userId} />
         </div>
       </div>
     </section>
