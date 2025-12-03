@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface NewApiaryFormProps {
-  userId: string;
+  userId: string | undefined;
   onSuccess?: () => void;
 }
 
