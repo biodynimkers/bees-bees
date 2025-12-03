@@ -1,9 +1,10 @@
-'use client';
-import React from 'react';
-import { loginSchema } from '@/lib/validators/schemas';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+"use client";
+import React from "react";
+import { loginSchema } from "@/lib/validators/schemas";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Link from "next/link";
 
 export default function Login() {
   type Errors = string | undefined | null;
@@ -15,7 +16,7 @@ export default function Login() {
   > | null>(null);
   const [loading, setLoading] = React.useState(false);
 
-  const router = useRouter(); //om de user na succesvolle login te redirecten
+  const router = useRouter();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,81 +38,114 @@ export default function Login() {
       return;
     }
     try {
-      const res = await signIn('credentials', {
+      const res = await signIn("credentials", {
         ...rawFormData,
         redirect: false,
-        callbackUrl: '/',
+        callbackUrl: "/account",
       });
       if (!res?.ok) {
-        console.log('signIn errors:', res?.error);
-        if (res?.error === 'CredentialsSignin') {
+        console.log("signIn errors:", res?.error);
+        if (res?.error === "CredentialsSignin") {
           setErrors(
-            'Al een account? Controleer je e-mail en paswoord en probeer opnieuw.'
+            "Onjuiste inloggegevens. Controleer uw e-mail en wachtwoord."
           );
         } else if (res?.error) {
-          setErrors('Er is iets misgegaan. Probeer later opnieuw.');
+          setErrors("Er is iets misgegaan. Probeer later opnieuw.");
         }
         setLoading(false);
         return;
       }
-      router.push('/');
+      router.push("/account");
     } catch (err) {
       console.error(err);
-      setErrors('Er is iets misgegaan. Probeer later opnieuw.');
+      setErrors("Er is iets misgegaan. Probeer later opnieuw.");
       setLoading(false);
     }
   }
+
   return (
-    <div>
-      <h1>Log in</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          {errors && (
-            <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-              {errors}
+    <section className="section section--standard bg-alt">
+      <div className="container container--narrow">
+        <div className="auth-container">
+          <div className="auth-header">
+            <h1 className="title">Inloggen</h1>
+            <p className="subtitle subtitle--centered">
+              Welkom terug bij uw bijenwaarnemingen
             </p>
-          )}
-          <label htmlFor="">E-mail</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="john.doe@example.com"
-            onChange={e => {
-              // Clear error when user starts typing
-              if (fieldErrors?.email) {
-                setFieldErrors(prev => ({ ...prev, email: [] }));
-              }
-            }}
-          />
-          {fieldErrors?.email && (
-            <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-              {fieldErrors?.email}
+          </div>
+
+          <form onSubmit={handleSubmit} className="form">
+            {errors && (
+              <div className="form-error form-error--general">
+                <p>{errors}</p>
+              </div>
+            )}
+
+            <div className="form-group">
+              <label htmlFor="email" className="form-label">
+                E-mailadres
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                className="form-input"
+                placeholder="uw.naam@voorbeeld.be"
+                onChange={(e) => {
+                  if (fieldErrors?.email) {
+                    setFieldErrors((prev) => ({ ...prev, email: [] }));
+                  }
+                }}
+              />
+              {fieldErrors?.email && (
+                <div className="form-error">
+                  <p>{fieldErrors.email}</p>
+                </div>
+              )}
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">
+                Wachtwoord
+              </label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                className="form-input"
+                placeholder="Uw wachtwoord"
+                onChange={(e) => {
+                  if (fieldErrors?.password) {
+                    setFieldErrors((prev) => ({ ...prev, password: [] }));
+                  }
+                }}
+              />
+              {fieldErrors?.password && (
+                <div className="form-error">
+                  <p>{fieldErrors.password}</p>
+                </div>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="button button--primary button--large button--full-width"
+            >
+              {loading ? "Inloggen..." : "Inloggen"}
+            </button>
+          </form>
+
+          <div className="auth-footer">
+            <p className="text-secondary">
+              Nog geen account?{" "}
+              <Link href="/auth/register" className="auth-link">
+                Registreer hier
+              </Link>
             </p>
-          )}
+          </div>
         </div>
-        <div>
-          <label htmlFor="">Paswoord</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="test@123!"
-            onChange={e => {
-              // Clear error when user starts typing
-              if (fieldErrors?.password) {
-                setFieldErrors(prev => ({ ...prev, password: [] }));
-              }
-            }}
-          />
-          {fieldErrors?.password && (
-            <p style={{ color: 'red', fontSize: '0.9em', margin: 0 }}>
-              {fieldErrors.password}
-            </p>
-          )}
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Bezig met inloggen...' : 'Verstuur'}
-        </button>
-      </form>
-    </div>
+      </div>
+    </section>
   );
 }

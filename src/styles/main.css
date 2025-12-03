@@ -1,0 +1,31 @@
+/* Main CSS - Importeert alles */
+
+/* Base */
+@import "./base/reset.css";
+@import "./base/variables.css";
+@import "./base/typography.css";
+
+/* Layout */
+@import "./layout/header.css";
+@import "./layout/container.css";
+@import "./layout/grid.css";
+@import "./layout/section.css";
+@import "./layout/content-with-image.css";
+
+/* Shared Components - Herbruikbare UI elementen */
+@import "./shared/buttons.css";
+@import "./shared/button-group.css";
+@import "./shared/card.css";
+@import "./shared/title.css";
+@import "./shared/subtitle.css";
+@import "./shared/forms.css";
+@import "./shared/utilities.css";
+
+/* Components - Page-specifieke elementen */
+@import "./components/logo.css";
+@import "./components/navigation.css";
+@import "./components/footer.css";
+@import "./components/hero.css";
+@import "./components/stats.css";
+@import "./components/account.css";
+@import "./components/page-specific.css";

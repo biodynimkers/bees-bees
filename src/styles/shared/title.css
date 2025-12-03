@@ -1,0 +1,27 @@
+.title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--spacing-lg);
+}
+
+.title--hero {
+  color: var(--color-text-primary);
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.title--section {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.title__highlight {
+  color: var(--color-primary);
+  display: block;
+}
+
+.title__highlight--primary {
+  color: var(--color-primary);
+}

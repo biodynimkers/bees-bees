@@ -57,8 +57,8 @@
 
 ### 👥 Gebruikersbeheer (Beheerder)
 
-- [ ] **GET** `/api/users` → Alle gebruikers tonen (alleen beheerders)
-- [ ] **DELETE** `/api/users/:id` → Gebruiker verwijderen (alleen beheerders)
+- [ ] **GET** `/api/users` → Alle gebruikers tonen (alleen beheerders) TODO
+- [ ] **DELETE** `/api/users/:id` → Gebruiker verwijderen (alleen beheerders)TODO
 
 ---
 

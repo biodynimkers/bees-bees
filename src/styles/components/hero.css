@@ -1,0 +1,50 @@
+/* Hero Component - Split screen layout */
+
+.hero {
+  background-color: var(--color-background);
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
+
+.hero__image {
+  flex: 1;
+  position: relative;
+  min-height: 100vh;
+}
+
+.hero__image img {
+  object-fit: cover;
+}
+
+.hero__content-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3xl) var(--spacing-2xl);
+  background-color: var(--color-background-alt);
+  min-height: 100vh;
+}
+
+.hero__content {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 968px) {
+  .hero {
+    flex-direction: column;
+  }
+
+  .hero__image {
+    min-height: 50vh;
+  }
+
+  .hero__content-wrapper {
+    padding: var(--spacing-2xl) var(--container-padding);
+  }
+}
