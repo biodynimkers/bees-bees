@@ -30,7 +30,7 @@ export default async function AccountApiariesPage() {
       <div className="container">
         <div className="page-header">
           <h1 className="title">Mijn bijenstanden</h1>
-          <Link href="/account/apiaries/new" className="button button--primary">
+          <Link href="/apiaries/new" className="button button--primary">
             + Nieuwe bijenstand
           </Link>
         </div>
@@ -40,7 +40,7 @@ export default async function AccountApiariesPage() {
             {user.apiaries.map(apiary => (
               <Link
                 key={apiary.id}
-                href={`/account/apiaries/${apiary.id}`}
+                href={`/apiaries/${apiary.id}`}
                 className="apiary-card apiary-card--link"
               >
                 <div className="apiary-card__header">

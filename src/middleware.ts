@@ -18,7 +18,19 @@ export default withAuth(
         return NextResponse.redirect(new URL('/unauthorized', req.url));
       }
     }
-    // 2. All admin pages
+
+    // 2. New account structure routes (always allow for authenticated users)
+    if (
+      pathname.startsWith('/account-new') ||
+      pathname.startsWith('/apiaries') ||
+      pathname.startsWith('/hives') ||
+      pathname.startsWith('/observations')
+    ) {
+      // Already authenticated by withAuth callback, just allow access
+      return NextResponse.next();
+    }
+
+    // 3. All admin pages
     if (pathname.startsWith('/admin')) {
       if (token?.role !== 'ADMIN') {
         return NextResponse.redirect(new URL('/unauthorized', req.url));
@@ -33,5 +45,12 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ['/account/:userId*', '/admin/:path*'],
+  matcher: [
+    '/account/:userId*',
+    '/admin/:path*',
+    '/account-new/:path*',
+    '/apiaries/:path*',
+    '/hives/:path*',
+    '/observations/:path*',
+  ],
 };

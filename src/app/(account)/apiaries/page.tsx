@@ -28,10 +28,7 @@ export default async function AccountApiariesPage() {
       <div className="container">
         <div className="page-header">
           <h1 className="title">Mijn bijenstanden</h1>
-          <Link
-            href={`/account/apiaries/new`}
-            className="button button--primary"
-          >
+          <Link href={`/apiaries/new`} className="button button--primary">
             + Nieuwe bijenstand
           </Link>
         </div>

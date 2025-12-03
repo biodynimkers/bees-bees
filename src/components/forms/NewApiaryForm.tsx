@@ -34,7 +34,7 @@ export default function NewApiaryForm({
       if (onSuccess) {
         onSuccess();
       } else {
-        router.push(`/account/${userId}/apiaries`);
+        router.push(`/apiaries`);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
