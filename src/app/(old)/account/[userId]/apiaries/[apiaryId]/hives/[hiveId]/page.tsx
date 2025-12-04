@@ -47,7 +47,7 @@ export default async function AccountApiaryHivePage({
             <h1 className="title">
               {hive.type} - {hive.colonyType}
             </h1>
-            <p className="text-secondary">{hive.apiary.location}</p>
+            <p className="text-secondary">{hive.apiary.longitude}</p>
           </div>
           <Link
             href={`/account/${userId}/apiaries/${apiaryId}/hives/${hive.id}/observations/new`}
@@ -61,7 +61,7 @@ export default async function AccountApiaryHivePage({
           <div className="map-container">
             <div className="map-placeholder">
               <p className="text-secondary">
-                Google Maps met 2km en 7km cirkel rond {hive.apiary.location}
+                Google Maps met 2km en 7km cirkel rond {hive.apiary.longitude}
               </p>
             </div>
             <p className="map-hint">

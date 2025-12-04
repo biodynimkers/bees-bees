@@ -10,11 +10,12 @@ export const dynamic = 'force-dynamic';
 export default async function AccountApiaryPage({
   params,
 }: {
-  params: { apiaryid: string };
+  params: Promise<{ apiaryid: string }>;
 }) {
   const session = await getServerSession(authOptions);
+  const { apiaryid } = await params;
   const apiaryOwner = await prisma.apiary.findUnique({
-    where: { id: parseInt(params.apiaryid) },
+    where: { id: parseInt(apiaryid) },
     select: { userId: true },
   });
 
@@ -30,7 +31,7 @@ export default async function AccountApiaryPage({
   }
 
   const apiary = await prisma.apiary.findUnique({
-    where: { id: parseInt(params.apiaryid) },
+    where: { id: parseInt(apiaryid) },
     include: {
       hives: {
         include: {
@@ -52,10 +53,7 @@ export default async function AccountApiaryPage({
             <p className="text-secondary">{apiary?.longitude}</p>
             <p className="text-secondary mb-md">{apiary?.latitude}</p>
           </div>
-          <Link
-            href={`/(account)/apiaries/${apiary?.id}/hives/new`}
-            className="button button--primary"
-          >
+          <Link href={`/hives/new`} className="button button--primary">
             + Nieuwe kast
           </Link>
         </div>
@@ -71,7 +69,7 @@ export default async function AccountApiaryPage({
                   {hive.observations.length} observaties
                 </p>
                 <Link
-                  href={`/(account)/apiaries/${apiary.id}/hives/${hive.id}`}
+                  href={`/hives/${hive.id}`}
                   className="button button--outline"
                 >
                   Bekijk details
@@ -86,7 +84,7 @@ export default async function AccountApiaryPage({
               Voeg uw eerste bijenkast toe aan deze stand
             </p>
             <Link
-              href={`/(account)/apiaries/${apiary?.id}/hives/new`}
+              href={`/hives/new`}
               className="button button--primary button--large"
             >
               + Eerste kast toevoegen
