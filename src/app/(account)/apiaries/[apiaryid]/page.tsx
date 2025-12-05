@@ -53,7 +53,10 @@ export default async function AccountApiaryPage({
             <p className="text-secondary">{apiary?.longitude}</p>
             <p className="text-secondary mb-md">{apiary?.latitude}</p>
           </div>
-          <Link href={`/hives/new`} className="button button--primary">
+          <Link
+            href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}
+            className="button button--primary"
+          >
             + Nieuwe kast
           </Link>
         </div>

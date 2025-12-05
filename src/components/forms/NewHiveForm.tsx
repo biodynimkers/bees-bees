@@ -3,17 +3,19 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-interface NewHiveFormProps {
-  userId: string;
-  apiaryId: string;
-  apiaryName: string;
-}
+// interface NewHiveFormProps {
+//   userId: string;
+//   apiaryId: string;
+//   apiaryName: string;
+// }
 
 export default function NewHiveForm({
-  userId,
   apiaryId,
   apiaryName,
-}: NewHiveFormProps) {
+}: {
+  apiaryId: string;
+  apiaryName?: string;
+}) {
   const [type, setType] = useState('');
   const [colonyType, setColonyType] = useState('');
   const [loading, setLoading] = useState(false);
@@ -38,7 +40,7 @@ export default function NewHiveForm({
 
       if (!response.ok) throw new Error('Kon kast niet aanmaken');
 
-      router.push(`/account/${userId}/apiaries/${apiaryId}`);
+      router.push(`/apiaries/${apiaryId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
       setLoading(false);
