@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/client';
 import NewHiveForm from '@/components/forms/NewHiveForm';
-import { useSearchParams } from 'next/navigation';
 
 export default async function AccountApiaryNewHivePage({
   searchParams,

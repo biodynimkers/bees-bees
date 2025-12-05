@@ -49,7 +49,7 @@ export default async function AccountApiaryHivePage({
             <p className="text-secondary">{hive.apiary.latitude}</p>
           </div>
           <Link
-            href={`/hives/${hive.id}/observations/new`}
+            href={`/observations/new?hiveId=${hive.id}`}
             className="button button--primary"
           >
             + Nieuwe observatie
