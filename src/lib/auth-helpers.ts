@@ -15,9 +15,9 @@ export function isOwner(
   return session.user?.id === resourceOwnerId;
 }
 
-// export function hasAccess(
-//   session: { user?: { id?: string; role?: Role } },
-//   resourceOwnerId: string
-// ) {
-//   return isAdmin(session) || isOwner(session, resourceOwnerId);
-// }
+export function hasAccess(
+  session: { user?: { id?: string; role?: Role } },
+  resourceOwnerId: string
+) {
+  return isAdmin(session) || isOwner(session, resourceOwnerId);
+}

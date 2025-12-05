@@ -118,7 +118,7 @@ export default async function AccountPage() {
                       Bekijk details
                     </Link>
                     <Link
-                      href={`apiaries/${apiary.id}/hives/new`}
+                      href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}
                       className="button button--primary"
                     >
                       + Nieuwe kast

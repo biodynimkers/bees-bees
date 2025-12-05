@@ -1,10 +1,10 @@
-"use client";
-import React from "react";
-import { loginSchema } from "@/lib/validators/schemas";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Link from "next/link";
+'use client';
+import React from 'react';
+import { loginSchema } from '@/lib/validators/schemas';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Login() {
   type Errors = string | undefined | null;
@@ -38,27 +38,27 @@ export default function Login() {
       return;
     }
     try {
-      const res = await signIn("credentials", {
+      const res = await signIn('credentials', {
         ...rawFormData,
         redirect: false,
-        callbackUrl: "/account",
+        callbackUrl: '/account',
       });
       if (!res?.ok) {
-        console.log("signIn errors:", res?.error);
-        if (res?.error === "CredentialsSignin") {
+        console.log('signIn errors:', res?.error);
+        if (res?.error === 'CredentialsSignin') {
           setErrors(
-            "Onjuiste inloggegevens. Controleer uw e-mail en wachtwoord."
+            'Onjuiste inloggegevens. Controleer uw e-mail en wachtwoord.'
           );
         } else if (res?.error) {
-          setErrors("Er is iets misgegaan. Probeer later opnieuw.");
+          setErrors('Er is iets misgegaan. Probeer later opnieuw.');
         }
         setLoading(false);
         return;
       }
-      router.push("/account");
+      router.push('/account');
     } catch (err) {
       console.error(err);
-      setErrors("Er is iets misgegaan. Probeer later opnieuw.");
+      setErrors('Er is iets misgegaan. Probeer later opnieuw.');
       setLoading(false);
     }
   }
@@ -91,9 +91,9 @@ export default function Login() {
                 name="email"
                 className="form-input"
                 placeholder="uw.naam@voorbeeld.be"
-                onChange={(e) => {
+                onChange={e => {
                   if (fieldErrors?.email) {
-                    setFieldErrors((prev) => ({ ...prev, email: [] }));
+                    setFieldErrors(prev => ({ ...prev, email: [] }));
                   }
                 }}
               />
@@ -114,9 +114,9 @@ export default function Login() {
                 name="password"
                 className="form-input"
                 placeholder="Uw wachtwoord"
-                onChange={(e) => {
+                onChange={e => {
                   if (fieldErrors?.password) {
-                    setFieldErrors((prev) => ({ ...prev, password: [] }));
+                    setFieldErrors(prev => ({ ...prev, password: [] }));
                   }
                 }}
               />
@@ -132,13 +132,13 @@ export default function Login() {
               disabled={loading}
               className="button button--primary button--large button--full-width"
             >
-              {loading ? "Inloggen..." : "Inloggen"}
+              {loading ? 'Inloggen...' : 'Inloggen'}
             </button>
           </form>
 
           <div className="auth-footer">
             <p className="text-secondary">
-              Nog geen account?{" "}
+              Nog geen account?{' '}
               <Link href="/auth/register" className="auth-link">
                 Registreer hier
               </Link>
