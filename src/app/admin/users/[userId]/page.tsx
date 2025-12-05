@@ -3,9 +3,9 @@ import Link from 'next/link';
 export default async function UserDetailPage({
   params,
 }: {
-  params: { userId: string };
+  params: Promise<{ userId: string }>;
 }) {
-  const { userId } = params;
+  const { userId } = await params;
   const user = await prisma.user.findUnique({
     where: { id: userId },
     include: {

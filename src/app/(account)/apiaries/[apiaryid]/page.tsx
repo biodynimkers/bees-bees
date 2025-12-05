@@ -9,12 +9,12 @@ export const dynamic = 'force-dynamic';
 export default async function AccountApiaryPage({
   params,
 }: {
-  params: Promise<{ apiaryid: string }>;
+  params: Promise<{ apiaryId: string }>;
 }) {
   const session = await getServerSession(authOptions);
-  const { apiaryid } = await params;
+  const { apiaryId } = await params;
   const apiaryOwner = await prisma.apiary.findUnique({
-    where: { id: parseInt(apiaryid) },
+    where: { id: parseInt(apiaryId) },
     select: { userId: true },
   });
 
@@ -30,7 +30,7 @@ export default async function AccountApiaryPage({
   }
 
   const apiary = await prisma.apiary.findUnique({
-    where: { id: parseInt(apiaryid) },
+    where: { id: parseInt(apiaryId) },
     include: {
       hives: {
         include: {
