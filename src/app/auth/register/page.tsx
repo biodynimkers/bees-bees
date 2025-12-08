@@ -18,15 +18,15 @@ export default function Register() {
       <Section variant="white" size="lg">
         <div style={{ maxWidth: "600px", margin: "0 auto" }}>
           <RegisterForm createItem={createItem} />
-          
+
           <div style={{ textAlign: "center", marginTop: "var(--space-8)" }}>
             <p style={{ color: "var(--color-text-light)" }}>
               Heeft u al een account?{" "}
-              <Link 
-                href="/auth/login" 
-                style={{ 
-                  color: "var(--color-accent)", 
-                  textDecoration: "underline" 
+              <Link
+                href="/auth/login"
+                style={{
+                  color: "var(--color-accent)",
+                  textDecoration: "underline",
                 }}
               >
                 Log hier in

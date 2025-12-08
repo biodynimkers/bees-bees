@@ -42,9 +42,9 @@ export default function Button({
   }
 
   return (
-    <button 
-      onClick={onClick} 
-      type={type} 
+    <button
+      onClick={onClick}
+      type={type}
       className={classes}
       disabled={disabled}
       style={style}
