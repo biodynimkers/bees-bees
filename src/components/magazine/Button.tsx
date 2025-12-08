@@ -10,6 +10,8 @@ interface ButtonProps {
   size?: "sm" | "default" | "lg";
   fullWidth?: boolean;
   className?: string;
+  disabled?: boolean;
+  style?: React.CSSProperties;
 }
 
 export default function Button({
@@ -21,6 +23,8 @@ export default function Button({
   size = "default",
   fullWidth = false,
   className = "",
+  disabled = false,
+  style,
 }: ButtonProps) {
   const baseClass = "btn";
   const variantClass = `btn--${variant}`;
@@ -38,7 +42,13 @@ export default function Button({
   }
 
   return (
-    <button onClick={onClick} type={type} className={classes}>
+    <button 
+      onClick={onClick} 
+      type={type} 
+      className={classes}
+      disabled={disabled}
+      style={style}
+    >
       {children}
     </button>
   );

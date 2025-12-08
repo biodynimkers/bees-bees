@@ -3,6 +3,7 @@ import type { RegisterResult } from "@/app/actions/register";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { registerSchema } from "@/lib/validators/schemas";
+import Button from "@/components/magazine/Button";
 
 type FormProps = {
   createItem: (formData: FormData) => Promise<RegisterResult>;
@@ -63,15 +64,15 @@ export function RegisterForm({ createItem }: FormProps) {
         </div>
       )}
 
-      <div className="form-group">
-        <label htmlFor="name" className="form-label">
+      <div className="form__group">
+        <label htmlFor="name" className="form__label">
           Naam
         </label>
         <input
           id="name"
           type="text"
           name="name"
-          className="form-input"
+          className="form__input"
           placeholder="Voornaam Achternaam"
           onChange={(e) => {
             if (errors?.name) {
@@ -92,15 +93,15 @@ export function RegisterForm({ createItem }: FormProps) {
         )}
       </div>
 
-      <div className="form-group">
-        <label htmlFor="email" className="form-label">
+      <div className="form__group">
+        <label htmlFor="email" className="form__label">
           E-mailadres
         </label>
         <input
           id="email"
           type="email"
           name="email"
-          className="form-input"
+          className="form__input"
           placeholder="uw.naam@voorbeeld.be"
           onChange={(e) => {
             if (errors?.email) {
@@ -121,15 +122,15 @@ export function RegisterForm({ createItem }: FormProps) {
         )}
       </div>
 
-      <div className="form-group">
-        <label htmlFor="password" className="form-label">
+      <div className="form__group">
+        <label htmlFor="password" className="form__label">
           Wachtwoord
         </label>
         <input
           id="password"
           type="password"
           name="password"
-          className="form-input"
+          className="form__input"
           placeholder="Minimaal 8 tekens"
           onChange={(e) => {
             if (errors?.password) {
@@ -150,13 +151,15 @@ export function RegisterForm({ createItem }: FormProps) {
         )}
       </div>
 
-      <button
+      <Button
         type="submit"
+        variant="primary"
+        size="lg"
         disabled={loading}
-        className="button button--primary button--large button--full-width"
+        style={{ width: "100%" }}
       >
         {loading ? "Account aanmaken..." : "Account aanmaken"}
-      </button>
+      </Button>
     </form>
   );
 }

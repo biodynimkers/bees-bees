@@ -1,29 +1,40 @@
 import { RegisterForm } from "@/components/forms/RegisterForm";
 import { createItem } from "@/app/actions/register";
 import Link from "next/link";
+import Hero from "@/components/magazine/Hero";
+import Section from "@/components/magazine/Section";
 
 export default function Register() {
   return (
-    <section className="section section--standard bg-alt">
-      <div className="container container--narrow">
-        <div className="auth-container">
-          <div className="auth-header">
-            <h1 className="title">Account aanmaken</h1>
-            <p className="subtitle subtitle--centered">
-              Start vandaag met digitale bijenwaarnemingen
-            </p>
-          </div>
+    <>
+      <Hero
+        title="Account aanmaken"
+        subtitle="Start vandaag met digitale bijenwaarnemingen"
+        image="/assets/hero-new.jpg"
+        imageAlt="BEES Platform Registratie"
+        showScroll={false}
+      />
+
+      <Section variant="white" size="lg">
+        <div style={{ maxWidth: "600px", margin: "0 auto" }}>
           <RegisterForm createItem={createItem} />
-          <div className="auth-footer">
-            <p className="text-secondary">
+          
+          <div style={{ textAlign: "center", marginTop: "var(--space-8)" }}>
+            <p style={{ color: "var(--color-text-light)" }}>
               Heeft u al een account?{" "}
-              <Link href="/auth/login" className="auth-link">
+              <Link 
+                href="/auth/login" 
+                style={{ 
+                  color: "var(--color-accent)", 
+                  textDecoration: "underline" 
+                }}
+              >
                 Log hier in
               </Link>
             </p>
           </div>
         </div>
-      </div>
-    </section>
+      </Section>
+    </>
   );
 }

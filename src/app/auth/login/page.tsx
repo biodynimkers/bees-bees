@@ -5,6 +5,9 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import Hero from "@/components/magazine/Hero";
+import Section from "@/components/magazine/Section";
+import Button from "@/components/magazine/Button";
 
 export default function Login() {
   type Errors = string | undefined | null;
@@ -64,16 +67,17 @@ export default function Login() {
   }
 
   return (
-    <section className="section section--standard bg-alt">
-      <div className="container container--narrow">
-        <div className="auth-container">
-          <div className="auth-header">
-            <h1 className="title">Inloggen</h1>
-            <p className="subtitle subtitle--centered">
-              Welkom terug bij uw bijenwaarnemingen
-            </p>
-          </div>
+    <>
+      <Hero
+        title="Inloggen"
+        subtitle="Welkom terug bij uw bijenwaarnemingen"
+        image="/assets/hero-new.jpg"
+        imageAlt="BEES Platform Login"
+        showScroll={false}
+      />
 
+      <Section variant="white" size="lg">
+        <div style={{ maxWidth: "600px", margin: "0 auto" }}>
           <form onSubmit={handleSubmit} className="form">
             {errors && (
               <div className="form-error form-error--general">
@@ -81,15 +85,15 @@ export default function Login() {
               </div>
             )}
 
-            <div className="form-group">
-              <label htmlFor="email" className="form-label">
+            <div className="form__group">
+              <label htmlFor="email" className="form__label">
                 E-mailadres
               </label>
               <input
                 id="email"
                 type="email"
                 name="email"
-                className="form-input"
+                className="form__input"
                 placeholder="uw.naam@voorbeeld.be"
                 onChange={e => {
                   if (fieldErrors?.email) {
@@ -104,15 +108,15 @@ export default function Login() {
               )}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="password" className="form-label">
+            <div className="form__group">
+              <label htmlFor="password" className="form__label">
                 Wachtwoord
               </label>
               <input
                 id="password"
                 type="password"
                 name="password"
-                className="form-input"
+                className="form__input"
                 placeholder="Uw wachtwoord"
                 onChange={e => {
                   if (fieldErrors?.password) {
@@ -127,25 +131,33 @@ export default function Login() {
               )}
             </div>
 
-            <button
+            <Button
               type="submit"
+              variant="primary"
+              size="lg"
               disabled={loading}
-              className="button button--primary button--large button--full-width"
+              style={{ width: "100%" }}
             >
               {loading ? 'Inloggen...' : 'Inloggen'}
-            </button>
+            </Button>
           </form>
 
-          <div className="auth-footer">
-            <p className="text-secondary">
+          <div style={{ textAlign: "center", marginTop: "var(--space-8)" }}>
+            <p style={{ color: "var(--color-text-light)" }}>
               Nog geen account?{' '}
-              <Link href="/auth/register" className="auth-link">
+              <Link 
+                href="/auth/register" 
+                style={{ 
+                  color: "var(--color-accent)", 
+                  textDecoration: "underline" 
+                }}
+              >
                 Registreer hier
               </Link>
             </p>
           </div>
         </div>
-      </div>
-    </section>
+      </Section>
+    </>
   );
 }
