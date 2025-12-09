@@ -110,7 +110,7 @@ export default function NewHiveForm({
                 {loading ? 'Toevoegen...' : 'Kast toevoegen'}
               </button>
               <Link
-                href={`/account/apiaries/${apiaryId}`}
+                href={`/apiaries/${apiaryId}`}
                 className="button button--outline button--large"
               >
                 Annuleren
