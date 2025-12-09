@@ -12,12 +12,10 @@ export default async function AccountApiaryNewHivePage({
   if (!apiaryId) {
     redirect('/account/apiaries');
   }
-  const apiary = await prisma.apiary.findUnique({
+  const apiaryExists = await prisma.apiary.count({
     where: { id: parseInt(apiaryId) },
-    select: { name: true },
   });
-
-  if (!apiary) redirect('/account/apiaries');
+  if (apiaryExists === 0) redirect('/account/apiaries');
 
   return <NewHiveForm apiaryId={apiaryId} apiaryName={apiaryName} />;
 }
