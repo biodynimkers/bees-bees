@@ -62,7 +62,7 @@ export default async function AccountApiaryPage({
           </Link>
         </div>
 
-        {apiary?.hives ?? [].length > 0 ? (
+        {apiary?.hives?.length ? (
           <div className="hives-grid">
             {apiary?.hives.map(hive => (
               <div key={hive.id} className="card">
