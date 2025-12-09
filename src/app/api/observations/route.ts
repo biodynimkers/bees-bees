@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import prisma from "@/lib/client";
+import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
+import prisma from '@/lib/client';
+import { authOptions } from '@/lib/auth-options';
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession();
-  if (!session?.user?.email) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
@@ -24,8 +25,8 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    if (!hive || hive.apiary.user.email !== session.user.email) {
-      return NextResponse.json({ error: "Hive not found" }, { status: 404 });
+    if (!hive || hive.apiary.user.id !== session.user.id) {
+      return NextResponse.json({ error: 'Hive not found' }, { status: 404 });
     }
 
     const observation = await prisma.observation.create({
@@ -39,9 +40,9 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(observation, { status: 201 });
   } catch (error) {
-    console.error("Error creating observation:", error);
+    console.error('Error creating observation:', error);
     return NextResponse.json(
-      { error: "Failed to create observation" },
+      { error: 'Failed to create observation' },
       { status: 500 }
     );
   }
