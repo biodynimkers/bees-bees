@@ -1,10 +1,10 @@
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import Link from 'next/link';
-import prisma from '@/lib/client';
-import { authOptions } from '@/lib/auth-options';
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import prisma from "@/lib/client";
+import { authOptions } from "@/lib/auth-options";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function AccountApiaryPage({
   params,
@@ -19,14 +19,14 @@ export default async function AccountApiaryPage({
   });
 
   if (!apiaryOwner) {
-    redirect('/not-found');
+    redirect("/not-found");
   }
 
   if (
     apiaryOwner.userId !== session?.user.id &&
-    session?.user.role !== 'ADMIN'
+    session?.user.role !== "ADMIN"
   ) {
-    redirect('/unauthorized');
+    redirect("/unauthorized");
   }
 
   const apiary = await prisma.apiary.findUnique({
@@ -35,7 +35,7 @@ export default async function AccountApiaryPage({
       hives: {
         include: {
           observations: {
-            orderBy: { createdAt: 'desc' },
+            orderBy: { createdAt: "desc" },
             take: 3,
           },
         },
@@ -49,8 +49,10 @@ export default async function AccountApiaryPage({
         <div className="apiary-detail-header">
           <div>
             <h1 className="title">{apiary?.name}</h1>
-            <p className="text-secondary">{apiary?.longitude}</p>
-            <p className="text-secondary mb-md">{apiary?.latitude}</p>
+            <p className="text-secondary">
+              Locatie: {apiary?.latitude.toFixed(6)},{" "}
+              {apiary?.longitude.toFixed(6)}
+            </p>
           </div>
           <Link
             href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}
@@ -62,7 +64,7 @@ export default async function AccountApiaryPage({
 
         {apiary?.hives ?? [].length > 0 ? (
           <div className="hives-grid">
-            {apiary?.hives.map(hive => (
+            {apiary?.hives.map((hive) => (
               <div key={hive.id} className="card">
                 <h3 className="card__title">
                   {hive.type} - {hive.colonyType}
