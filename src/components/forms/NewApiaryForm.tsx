@@ -2,17 +2,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-interface NewApiaryFormProps {
-  userId: string;
-  onSuccess?: () => void;
-}
-
-export default function NewApiaryForm({
-  userId,
-  onSuccess,
-}: NewApiaryFormProps) {
+export default function NewApiaryForm() {
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -21,21 +15,21 @@ export default function NewApiaryForm({
     e.preventDefault();
     setError('');
     setLoading(true);
+    const apiaryData = {
+      name,
+      latitude: parseFloat(latitude),
+      longitude: parseFloat(longitude),
+    };
 
     try {
       const response = await fetch('/api/apiaries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, location }),
+        body: JSON.stringify(apiaryData),
       });
 
       if (!response.ok) throw new Error('Kon bijenstand niet aanmaken');
-
-      if (onSuccess) {
-        onSuccess();
-      } else {
-        router.push(`/account/${userId}/apiaries`);
-      }
+      router.push(`/apiaries`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
       setLoading(false);
@@ -65,20 +59,26 @@ export default function NewApiaryForm({
         />
       </div>
 
-      <div className="form-group">
-        <label htmlFor="location" className="form-label">
-          Locatie *
-        </label>
+      <label>
+        Latitude:
         <input
-          type="text"
-          id="location"
-          value={location}
-          onChange={e => setLocation(e.target.value)}
-          className="form-input"
-          placeholder="bv. Gent, Brugge"
+          type="number"
+          value={latitude}
+          onChange={e => setLatitude(e.target.value)}
+          step="any"
           required
         />
-      </div>
+      </label>
+      <label>
+        Longitude:
+        <input
+          type="number"
+          value={longitude}
+          onChange={e => setLongitude(e.target.value)}
+          step="any"
+          required
+        />
+      </label>
 
       <button
         type="submit"

@@ -66,9 +66,6 @@ export const authOptions: AuthOptions = {
         session.user.id = token.id as string;
         session.user.role = token.role as Role;
       }
-      // Backwards compatibility
-      session.userId = token.id as string;
-      session.role = token.role as Role;
       return session;
     },
   },

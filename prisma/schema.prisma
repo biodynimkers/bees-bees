@@ -26,8 +26,8 @@ model User {
 model Apiary {
   id        Int           @id @default(autoincrement())
   name      String
-  latitude  Float? // Breedtegraad
-  longitude Float? // Lengtegraad
+  latitude  Float         @default(0)
+  longitude Float         @default(0)
   userId    String
   user      User          @relation(fields: [userId], references: [id])
   hives     Hive[]

@@ -3,9 +3,9 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 
-export async function GET(req: Request) {
-  return new Response('Apiaries endpoint');
-}
+// export async function GET(req: Request) {
+//   return new Response('Apiaries endpoint');
+// }
 
 export async function POST(req: Request) {
   try {
@@ -16,11 +16,11 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { name, location } = body;
+    const { name, latitude, longitude } = body;
 
-    if (!name || !location) {
+    if (!name || latitude === undefined || longitude === undefined) {
       return NextResponse.json(
-        { error: 'Naam en locatie zijn verplicht' },
+        { error: 'Naam, latitude en longitude zijn verplicht' },
         { status: 400 }
       );
     }
@@ -36,8 +36,9 @@ export async function POST(req: Request) {
     const apiary = await prisma.apiary.create({
       data: {
         name,
-        location,
-        userId: userId,
+        longitude,
+        latitude,
+        userId,
       },
     });
 

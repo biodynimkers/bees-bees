@@ -4,15 +4,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 interface NewObservationFormProps {
-  userId: string;
-  apiaryId: string;
   hiveId: string;
   hiveName: string;
 }
-
 export default function NewObservationForm({
-  userId,
-  apiaryId,
   hiveId,
   hiveName,
 }: NewObservationFormProps) {
@@ -42,7 +37,7 @@ export default function NewObservationForm({
 
       if (!response.ok) throw new Error('Kon observatie niet aanmaken');
 
-      router.push(`/account/${userId}/apiaries/${apiaryId}/hives/${hiveId}`);
+      router.push(`/hives/${hiveId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
       setLoading(false);
@@ -54,10 +49,7 @@ export default function NewObservationForm({
       <div className="container container--narrow">
         <div className="auth-container">
           <div className="auth-header">
-            <Link
-              href={`/account/${userId}/apiaries/${apiaryId}/hives/${hiveId}`}
-              className="breadcrumb"
-            >
+            <Link href={`/hives/${hiveId}`} className="breadcrumb">
               ← Terug naar kast
             </Link>
             <h1 className="title">Nieuwe observatie</h1>
