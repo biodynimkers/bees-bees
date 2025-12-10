@@ -45,3 +45,5 @@ Modern platform voor bijenhouden en observaties.
 
 - **Email:** admin@example.com
 - **Wachtwoord:** test@123
+
+by stefaan & joanna
