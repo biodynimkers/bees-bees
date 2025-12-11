@@ -1,11 +1,31 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-export default function NewApiaryForm() {
+export default function ApiaryForm({
+  initialApiary,
+}: {
+  initialApiary?: string;
+}) {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [name, setName] = useState('');
+
+  useEffect(() => {
+    async function fetchApiary() {
+      const res = await fetch(`/api/apiaries/${initialApiary}`);
+      if (res.ok) {
+        const data = await res.json();
+        setName(data.name);
+        setLatitude(data.latitude.toString());
+        setLongitude(data.longitude.toString());
+      } else {
+        console.error('Failed to fetch apiary data');
+      }
+    }
+    fetchApiary();
+  }, [initialApiary]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -22,8 +42,13 @@ export default function NewApiaryForm() {
     };
 
     try {
-      const response = await fetch('/api/apiaries', {
-        method: 'POST',
+      let response;
+      const url = initialApiary
+        ? `/api/apiaries/${initialApiary}`
+        : '/api/apiaries';
+      let method = initialApiary ? 'PUT' : 'POST';
+      response = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(apiaryData),
       });
@@ -63,6 +88,7 @@ export default function NewApiaryForm() {
         Latitude:
         <input
           type="number"
+          id="latitude"
           value={latitude}
           onChange={e => setLatitude(e.target.value)}
           step="any"
@@ -73,6 +99,7 @@ export default function NewApiaryForm() {
         Longitude:
         <input
           type="number"
+          id="longitude"
           value={longitude}
           onChange={e => setLongitude(e.target.value)}
           step="any"
@@ -85,7 +112,13 @@ export default function NewApiaryForm() {
         disabled={loading}
         className="button button--primary button--large"
       >
-        {loading ? 'Toevoegen...' : 'Bijenstand toevoegen'}
+        {loading
+          ? initialApiary
+            ? 'Bewerken '
+            : 'Toevoegen...'
+          : initialApiary
+          ? 'Bewerk bijenstand'
+          : 'Bijenstand toevoegen'}
       </button>
     </form>
   );

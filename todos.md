@@ -48,12 +48,18 @@
 - [ ] **GET** `/api/apiaries` → Overzicht eigen bijenstanden
 - [ ] **POST** `/api/apiaries` → Nieuwe bijenstand aanmaken
 - [ ] **GET** `/api/apiaries/:id` → Bijenstand details ophalen
+- [ ] **UPDATE** `/api/apiaries/:id` → Bijenstand aanpassen TODO
+- [ ] **DELETE** `/api/apiaries/:id` → Bijenstand verwijderenTODO
 
 ### 📦 Kast & Observatie Beheer
 
 - [ ] **POST** `/api/hives` → Nieuwe kast toevoegen
 - [ ] **GET** `/api/observations` → Observaties lijst (gepagineerd)
 - [ ] **POST** `/api/observations` → Nieuwe observatie registreren
+- [ ] **UPDATE** `/api/hives/:id` → Bijenkast aanpassen TODO
+- [ ] **DELETE** `/api/hives/:id` → Bijenkast verwijderenTODO
+- [ ] **UPDATE** `/api/observations/:id` → Observatie aanpassen TODO
+- [ ] **DELETE** `/api/observations/:id` → Observatie verwijderenTODO
 
 ### 👥 Gebruikersbeheer (Beheerder)
 

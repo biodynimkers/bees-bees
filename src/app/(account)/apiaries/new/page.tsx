@@ -1,4 +1,4 @@
-import NewApiaryForm from '@/components/forms/NewApiaryForm';
+import ApiaryForm from '@/components/forms/ApiaryForm';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
 import { redirect } from 'next/navigation';
@@ -17,7 +17,7 @@ export default async function AccountNewApiaryPage() {
             </p>
           </div>
 
-          <NewApiaryForm />
+          <ApiaryForm />
         </div>
       </div>
     </section>
