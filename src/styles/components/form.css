@@ -49,3 +49,14 @@
   color: var(--color-text-muted);
   margin-top: var(--space-2);
 }
+
+/* Form Container Layouts */
+.form-narrow {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-wide {
+  max-width: 900px;
+  margin: 0 auto;
+}

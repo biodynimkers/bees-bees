@@ -1,19 +1,17 @@
-/* Container - Layout Primitive */
-
+/* Container */
 .container {
   width: 100%;
-  max-width: var(--container-max);
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 var(--space-8);
 }
 
-.container--narrow {
-  max-width: var(--container-narrow);
+.container-narrow {
+  max-width: 900px;
 }
 
-.container--full {
-  max-width: 100%;
-  padding: 0;
+.container-wide {
+  max-width: 1600px;
 }
 
 @media (max-width: 768px) {

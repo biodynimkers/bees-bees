@@ -1,25 +1,29 @@
-/* Grid - Layout Primitive */
-
+/* Grid */
 .grid {
   display: grid;
-  gap: var(--space-12);
+  gap: var(--space-8);
+  padding: 0 var(--space-6);
 }
 
-.grid--2 {
+.grid-2 {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.grid--3 {
+.grid-3 {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.grid--auto {
+.grid-auto {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 @media (max-width: 768px) {
-  .grid--2,
-  .grid--3 {
+  .grid {
+    padding: 0 var(--space-4);
+  }
+
+  .grid-2,
+  .grid-3 {
     grid-template-columns: 1fr;
   }
 }

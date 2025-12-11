@@ -1,8 +1,7 @@
 import { RegisterForm } from "@/components/forms/RegisterForm";
 import { createItem } from "@/app/actions/register";
 import Link from "next/link";
-import Hero from "@/components/magazine/Hero";
-import Section from "@/components/magazine/Section";
+import { Hero, Section } from "@/components/layout";
 
 export default function Register() {
   return (
@@ -12,23 +11,16 @@ export default function Register() {
         subtitle="Start vandaag met digitale bijenwaarnemingen"
         image="/assets/hero-new.jpg"
         imageAlt="BEES Platform Registratie"
-        showScroll={false}
       />
 
-      <Section variant="white" size="lg">
-        <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <Section variant="default" spacing="large">
+        <div className="auth-form-wrapper">
           <RegisterForm createItem={createItem} />
 
-          <div style={{ textAlign: "center", marginTop: "var(--space-8)" }}>
-            <p style={{ color: "var(--color-text-light)" }}>
+          <div className="auth-footer">
+            <p className="auth-footer__text">
               Heeft u al een account?{" "}
-              <Link
-                href="/auth/login"
-                style={{
-                  color: "var(--color-accent)",
-                  textDecoration: "underline",
-                }}
-              >
+              <Link href="/auth/login" className="auth-footer__link">
                 Log hier in
               </Link>
             </p>

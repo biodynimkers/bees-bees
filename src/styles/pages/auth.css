@@ -1,0 +1,24 @@
+/* Auth pages specific styles */
+
+.auth-form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: var(--space-8);
+}
+
+.auth-footer__text {
+  color: var(--color-text-light);
+}
+
+.auth-footer__link {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.auth-footer__link:hover {
+  color: var(--color-accent-hover);
+}

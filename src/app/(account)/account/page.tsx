@@ -3,10 +3,8 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import prisma from "@/lib/client";
 import { authOptions } from "@/lib/auth-options";
-import Hero from "@/components/magazine/Hero";
-import Section from "@/components/magazine/Section";
-import Button from "@/components/magazine/Button";
-import Card from "@/components/magazine/Card";
+import { Hero, Section } from "@/components/layout";
+import { Button, Card } from "@/components/ui";
 import { MapPin, Box, Eye } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -70,33 +68,17 @@ export default async function AccountPage() {
         }
         image="/assets/hero-new.jpg"
         imageAlt="BEES Platform Account"
-        showScroll={false}
       />
 
       {isNewUser ? (
         // Voor nieuwe gebruikers: uitleg en stappenplan
         <>
-          <Section variant="white" size="lg">
-            <div
-              style={{
-                maxWidth: "800px",
-                margin: "0 auto",
-                textAlign: "center",
-              }}
-            >
-              <h2
-                className="text-display text-3xl mb-6"
-                style={{ fontWeight: "400", color: "var(--color-primary)" }}
-              >
+          <Section variant="default" spacing="large">
+            <div className="account-welcome">
+              <h2 className="text-display text-3xl mb-6 account-welcome__title">
                 Begin met uw digitale bijenlogboek
               </h2>
-              <p
-                className="text-base mb-8"
-                style={{
-                  color: "var(--color-text-light)",
-                  lineHeight: "1.8",
-                }}
-              >
+              <p className="text-base mb-8 account-welcome__text">
                 BEES helpt u om alle informatie over uw bijenstanden, kasten en
                 waarnemingen overzichtelijk bij te houden. In drie eenvoudige
                 stappen start u met digitaal bijenhouden.
@@ -104,117 +86,51 @@ export default async function AccountPage() {
             </div>
           </Section>
 
-          <Section variant="cream" size="lg">
+          <Section variant="alt" spacing="large">
             <div className="grid grid--3">
-              <div style={{ textAlign: "center" }}>
-                <div
-                  style={{
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "50%",
-                    backgroundColor: "var(--color-cream)",
-                    border: "2px solid var(--color-accent)",
-                    color: "var(--color-accent)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "0 auto var(--space-6)",
-                  }}
-                >
+              <div className="onboarding-step">
+                <div className="onboarding-step__icon">
                   <MapPin size={36} strokeWidth={1.5} />
                 </div>
-                <h3
-                  className="text-display text-xl mb-4"
-                  style={{ fontWeight: "600", color: "var(--color-primary)" }}
-                >
+                <h3 className="text-display text-xl mb-4 onboarding-step__title">
                   Voeg een bijenstand toe
                 </h3>
-                <p
-                  style={{
-                    color: "var(--color-text-light)",
-                    lineHeight: "1.6",
-                    marginBottom: "var(--space-6)",
-                  }}
-                >
+                <p className="onboarding-step__description">
                   Begin met het registreren van de locatie waar uw bijenkasten
                   staan. Geef deze een herkenbare naam zoals "Tuin" of
                   "Boerderij Janssens".
                 </p>
               </div>
 
-              <div style={{ textAlign: "center" }}>
-                <div
-                  style={{
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "50%",
-                    backgroundColor: "var(--color-cream)",
-                    border: "2px solid var(--color-accent)",
-                    color: "var(--color-accent)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "0 auto var(--space-6)",
-                  }}
-                >
+              <div className="onboarding-step">
+                <div className="onboarding-step__icon">
                   <Box size={36} strokeWidth={1.5} />
                 </div>
-                <h3
-                  className="text-display text-xl mb-4"
-                  style={{ fontWeight: "600", color: "var(--color-primary)" }}
-                >
+                <h3 className="text-display text-xl mb-4 onboarding-step__title">
                   Registreer uw kasten
                 </h3>
-                <p
-                  style={{
-                    color: "var(--color-text-light)",
-                    lineHeight: "1.6",
-                    marginBottom: "var(--space-6)",
-                  }}
-                >
+                <p className="onboarding-step__description">
                   Voeg de bijenkasten toe die op uw bijenstand staan. Noteer het
                   type kast en de sterkte van het volk.
                 </p>
               </div>
 
-              <div style={{ textAlign: "center" }}>
-                <div
-                  style={{
-                    width: "80px",
-                    height: "80px",
-                    borderRadius: "50%",
-                    backgroundColor: "var(--color-cream)",
-                    border: "2px solid var(--color-accent)",
-                    color: "var(--color-accent)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "0 auto var(--space-6)",
-                  }}
-                >
+              <div className="onboarding-step">
+                <div className="onboarding-step__icon">
                   <Eye size={36} strokeWidth={1.5} />
                 </div>
-                <h3
-                  className="text-display text-xl mb-4"
-                  style={{ fontWeight: "600", color: "var(--color-primary)" }}
-                >
+                <h3 className="text-display text-xl mb-4 onboarding-step__title">
                   Start met observaties
                 </h3>
-                <p
-                  style={{
-                    color: "var(--color-text-light)",
-                    lineHeight: "1.6",
-                    marginBottom: "var(--space-6)",
-                  }}
-                >
+                <p className="onboarding-step__description">
                   Registreer uw waarnemingen per kast. Houd de gezondheid,
                   activiteit en belangrijke momenten overzichtelijk bij.
                 </p>
               </div>
             </div>
 
-            <div style={{ textAlign: "center", marginTop: "var(--space-12)" }}>
-              <Button href="/apiaries/new" variant="primary" size="lg">
+            <div className="onboarding-actions">
+              <Button href="/apiaries/new" variant="primary" size="large">
                 Start nu - Voeg eerste bijenstand toe
               </Button>
             </div>
@@ -223,107 +139,50 @@ export default async function AccountPage() {
       ) : (
         // Voor bestaande gebruikers: statistieken en acties
         <>
-          <Section variant="white" size="lg">
-            <div className="text-center mb-12">
-              <h2
-                className="text-display text-3xl mb-4"
-                style={{ fontWeight: "400", color: "var(--color-primary)" }}
-              >
+          <Section variant="default" spacing="large">
+            <div className="account-section-header">
+              <h2 className="text-display text-3xl mb-4 account-section-header__title">
                 Uw overzicht
               </h2>
             </div>
 
             <div className="grid grid--3">
-              <Link href="/apiaries" style={{ textDecoration: "none" }}>
+              <Link href="/apiaries" className="stat-card">
                 <div className="card card--elevated">
-                  <div
-                    className="card__content"
-                    style={{ textAlign: "center" }}
-                  >
-                    <h3
-                      className="text-display"
-                      style={{
-                        fontSize: "3rem",
-                        fontWeight: "300",
-                        color: "var(--color-primary)",
-                        marginBottom: "var(--space-3)",
-                      }}
-                    >
+                  <div className="card__content stat-card__content">
+                    <h3 className="text-display stat-card__number">
                       {totalApiaries}
                     </h3>
-                    <p
-                      style={{
-                        color: "var(--color-text-light)",
-                        marginBottom: "var(--space-6)",
-                      }}
-                    >
-                      Bijenstanden
-                    </p>
-                    <Button variant="secondary" size="sm">
+                    <p className="stat-card__label">Bijenstanden</p>
+                    <Button variant="secondary" size="small">
                       Bekijk alle
                     </Button>
                   </div>
                 </div>
               </Link>
 
-              <Link href="/hives" style={{ textDecoration: "none" }}>
+              <Link href="/hives" className="stat-card">
                 <div className="card card--elevated">
-                  <div
-                    className="card__content"
-                    style={{ textAlign: "center" }}
-                  >
-                    <h3
-                      className="text-display"
-                      style={{
-                        fontSize: "3rem",
-                        fontWeight: "300",
-                        color: "var(--color-primary)",
-                        marginBottom: "var(--space-3)",
-                      }}
-                    >
+                  <div className="card__content stat-card__content">
+                    <h3 className="text-display stat-card__number">
                       {totalHives}
                     </h3>
-                    <p
-                      style={{
-                        color: "var(--color-text-light)",
-                        marginBottom: "var(--space-6)",
-                      }}
-                    >
-                      Kasten
-                    </p>
-                    <Button variant="secondary" size="sm">
+                    <p className="stat-card__label">Kasten</p>
+                    <Button variant="secondary" size="small">
                       Bekijk alle
                     </Button>
                   </div>
                 </div>
               </Link>
 
-              <Link href="/observations" style={{ textDecoration: "none" }}>
+              <Link href="/observations" className="stat-card">
                 <div className="card card--elevated">
-                  <div
-                    className="card__content"
-                    style={{ textAlign: "center" }}
-                  >
-                    <h3
-                      className="text-display"
-                      style={{
-                        fontSize: "3rem",
-                        fontWeight: "300",
-                        color: "var(--color-primary)",
-                        marginBottom: "var(--space-3)",
-                      }}
-                    >
+                  <div className="card__content stat-card__content">
+                    <h3 className="text-display stat-card__number">
                       {totalObservations}
                     </h3>
-                    <p
-                      style={{
-                        color: "var(--color-text-light)",
-                        marginBottom: "var(--space-6)",
-                      }}
-                    >
-                      Observaties
-                    </p>
-                    <Button variant="secondary" size="sm">
+                    <p className="stat-card__label">Observaties</p>
+                    <Button variant="secondary" size="small">
                       Bekijk alle
                     </Button>
                   </div>
@@ -332,37 +191,50 @@ export default async function AccountPage() {
             </div>
           </Section>
 
-          <Section variant="cream" size="lg">
-            <div className="text-center mb-12">
-              <h2
-                className="text-display text-3xl mb-4"
-                style={{ fontWeight: "400", color: "var(--color-primary)" }}
-              >
+          <Section variant="alt" spacing="large">
+            <div className="account-section-header">
+              <h2 className="text-display text-3xl mb-4 account-section-header__title">
                 Snelle acties
               </h2>
             </div>
 
             <div className="grid grid--3">
-              <Link href="/apiaries/new" style={{ textDecoration: "none" }}>
-                <Card
-                  category="TOEVOEGEN"
-                  title="+ Bijenstand"
-                  description="Voeg een nieuwe locatie toe voor uw bijenkasten"
-                />
+              <Link href="/apiaries/new" className="action-card-link">
+                <Card>
+                  <Card.Header>
+                    <Card.Title>+ Bijenstand</Card.Title>
+                  </Card.Header>
+                  <Card.Content>
+                    <Card.Description>
+                      Voeg een nieuwe locatie toe voor uw bijenkasten
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
               </Link>
-              <Link href="/apiaries" style={{ textDecoration: "none" }}>
-                <Card
-                  category="BEHEREN"
-                  title="Bijenstanden beheren"
-                  description="Bekijk en wijzig uw bestaande bijenstanden en voeg kasten toe"
-                />
+              <Link href="/apiaries" className="action-card-link">
+                <Card>
+                  <Card.Header>
+                    <Card.Title>Bijenstanden beheren</Card.Title>
+                  </Card.Header>
+                  <Card.Content>
+                    <Card.Description>
+                      Bekijk en wijzig uw bestaande bijenstanden en voeg kasten
+                      toe
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
               </Link>
-              <Link href="/observations/new" style={{ textDecoration: "none" }}>
-                <Card
-                  category="REGISTREREN"
-                  title="+ Observatie"
-                  description="Maak een nieuwe waarneming bij één van uw bijenkasten"
-                />
+              <Link href="/observations/new" className="action-card-link">
+                <Card>
+                  <Card.Header>
+                    <Card.Title>+ Observatie</Card.Title>
+                  </Card.Header>
+                  <Card.Content>
+                    <Card.Description>
+                      Maak een nieuwe waarneming bij één van uw bijenkasten
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
               </Link>
             </div>
           </Section>

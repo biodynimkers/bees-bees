@@ -5,9 +5,8 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
-import Hero from "@/components/magazine/Hero";
-import Section from "@/components/magazine/Section";
-import Button from "@/components/magazine/Button";
+import { Hero, Section } from "@/components/layout";
+import { Button } from "@/components/ui";
 
 export default function Login() {
   type Errors = string | undefined | null;
@@ -73,11 +72,10 @@ export default function Login() {
         subtitle="Welkom terug bij uw bijenwaarnemingen"
         image="/assets/hero-new.jpg"
         imageAlt="BEES Platform Login"
-        showScroll={false}
       />
 
-      <Section variant="white" size="lg">
-        <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <Section variant="default" spacing="large">
+        <div className="auth-form-wrapper">
           <form onSubmit={handleSubmit} className="form">
             {errors && (
               <div className="form-error form-error--general">
@@ -138,24 +136,18 @@ export default function Login() {
             <Button
               type="submit"
               variant="primary"
-              size="lg"
+              size="large"
               disabled={loading}
-              style={{ width: "100%" }}
+              className="btn--full-width"
             >
               {loading ? "Inloggen..." : "Inloggen"}
             </Button>
           </form>
 
-          <div style={{ textAlign: "center", marginTop: "var(--space-8)" }}>
-            <p style={{ color: "var(--color-text-light)" }}>
+          <div className="auth-footer">
+            <p className="auth-footer__text">
               Nog geen account?{" "}
-              <Link
-                href="/auth/register"
-                style={{
-                  color: "var(--color-accent)",
-                  textDecoration: "underline",
-                }}
-              >
+              <Link href="/auth/register" className="auth-footer__link">
                 Registreer hier
               </Link>
             </p>

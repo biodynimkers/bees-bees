@@ -10,7 +10,7 @@ interface ContentBlockProps {
   children?: ReactNode;
 }
 
-export default function ContentBlock({
+export function ContentBlock({
   title,
   description,
   image,

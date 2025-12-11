@@ -1,17 +1,19 @@
+import { Container } from "@/components/layout";
+
 interface StatsProps {
   totalObservations: number;
   totalUsers: number;
   totalHives: number;
 }
 
-export default function Stats({
+export function Stats({
   totalObservations,
   totalUsers,
   totalHives,
 }: StatsProps) {
   return (
     <section className="stats">
-      <div className="container">
+      <Container>
         <div className="stats__grid">
           <div className="stats__item">
             <span className="stats__number">
@@ -31,7 +33,7 @@ export default function Stats({
             <p className="stats__description">In beheer via ons systeem</p>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

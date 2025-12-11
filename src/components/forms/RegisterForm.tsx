@@ -3,7 +3,7 @@ import type { RegisterResult } from "@/app/actions/register";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { registerSchema } from "@/lib/validators/schemas";
-import Button from "@/components/magazine/Button";
+import { Button } from "@/components/ui";
 
 type FormProps = {
   createItem: (formData: FormData) => Promise<RegisterResult>;
@@ -154,9 +154,9 @@ export function RegisterForm({ createItem }: FormProps) {
       <Button
         type="submit"
         variant="primary"
-        size="lg"
+        size="large"
         disabled={loading}
-        style={{ width: "100%" }}
+        className="btn--full-width"
       >
         {loading ? "Account aanmaken..." : "Account aanmaken"}
       </Button>

@@ -20,7 +20,7 @@ export default function RootLayout({
         <SessionWrapper>
           <div className="app">
             <Navigation />
-            <main className="app__content">{children}</main>
+            <main className="main-content">{children}</main>
             <Footer />
           </div>
         </SessionWrapper>

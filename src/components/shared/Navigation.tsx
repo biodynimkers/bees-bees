@@ -38,89 +38,89 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="nav">
-      <div className="container">
-        <div className="nav__container">
-          <Link href="/" className="nav__logo">
-            Voor Imkers
-          </Link>
+    <header className="header">
+      <div className="header-content">
+        <Link href="/" className="logo">
+          Voor Imkers
+        </Link>
 
-          <div className="nav__menu">
+        <nav className="nav">
+          <div className="nav-links">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`nav__link ${
-                  pathname === item.href ? "nav__link--active" : ""
-                }`}
+                className={
+                  pathname === item.href ? "nav-link active" : "nav-link"
+                }
               >
                 {item.label}
               </Link>
             ))}
-
-            {session?.user ? (
-              <div className="nav__dropdown" ref={dropdownRef}>
-                <button
-                  className="nav__avatar"
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  aria-label="User menu"
-                >
-                  <span className="nav__avatar-circle"></span>
-                </button>
-
-                {isDropdownOpen && (
-                  <div className="nav__dropdown-menu">
-                    <Link
-                      href="/account"
-                      className="nav__dropdown-item"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      <User size={16} />
-                      <span>Overzicht</span>
-                    </Link>
-                    <Link
-                      href="/apiaries"
-                      className="nav__dropdown-item"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      <MapPin size={16} />
-                      <span>Bijenstanden</span>
-                    </Link>
-                    <Link
-                      href="/hives"
-                      className="nav__dropdown-item"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      <Box size={16} />
-                      <span>Kasten</span>
-                    </Link>
-                    <Link
-                      href="/observations"
-                      className="nav__dropdown-item"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      <Eye size={16} />
-                      <span>Observaties</span>
-                    </Link>
-                    <div className="nav__dropdown-divider"></div>
-                    <button
-                      onClick={handleLogout}
-                      className="nav__dropdown-item nav__dropdown-item--danger"
-                    >
-                      <LogOut size={16} />
-                      <span>Uitloggen</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <Link href="/auth/login" className="nav__link">
-                Login
-              </Link>
-            )}
           </div>
-        </div>
+
+          {session?.user ? (
+            <div className="user-menu" ref={dropdownRef}>
+              <button
+                className="avatar"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                aria-label="User menu"
+              >
+                <span className="avatar-circle"></span>
+              </button>
+
+              {isDropdownOpen && (
+                <div className="dropdown">
+                  <Link
+                    href="/account"
+                    className="dropdown-item"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    <User size={16} />
+                    <span>Overzicht</span>
+                  </Link>
+                  <Link
+                    href="/apiaries"
+                    className="dropdown-item"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    <MapPin size={16} />
+                    <span>Bijenstanden</span>
+                  </Link>
+                  <Link
+                    href="/hives"
+                    className="dropdown-item"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    <Box size={16} />
+                    <span>Kasten</span>
+                  </Link>
+                  <Link
+                    href="/observations"
+                    className="dropdown-item"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    <Eye size={16} />
+                    <span>Observaties</span>
+                  </Link>
+                  <div className="dropdown-divider"></div>
+                  <button
+                    onClick={handleLogout}
+                    className="dropdown-item danger"
+                  >
+                    <LogOut size={16} />
+                    <span>Uitloggen</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link href="/auth/login" className="nav-link">
+              Login
+            </Link>
+          )}
+        </nav>
       </div>
-    </nav>
+    </header>
   );
 }

@@ -1,25 +1,27 @@
-import NewApiaryForm from '@/components/forms/NewApiaryForm';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth-options';
-import { redirect } from 'next/navigation';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-options";
+import { redirect } from "next/navigation";
+import { Hero, Section } from "@/components/layout";
+import { ApiaryForm } from "@/components/features/apiary";
 
-export default async function AccountNewApiaryPage() {
+export default async function NewApiaryPage() {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) redirect('/auth/login');
-  return (
-    <section className="section section--standard bg-alt">
-      <div className="container container--narrow">
-        <div className="auth-container">
-          <div className="auth-header">
-            <h1 className="title">Nieuwe bijenstand toevoegen</h1>
-            <p className="subtitle subtitle--centered">
-              Registreer een nieuwe locatie voor uw bijenkasten
-            </p>
-          </div>
+  if (!session?.user?.id) redirect("/auth/login");
 
-          <NewApiaryForm />
+  return (
+    <>
+      <Hero
+        title="Nieuwe bijenstand"
+        subtitle="Registreer een nieuwe locatie voor uw bijenkasten"
+        image="/assets/hero-new.jpg"
+        imageAlt="Bijenstand"
+      />
+
+      <Section variant="default" spacing="large">
+        <div className="container container-narrow">
+          <ApiaryForm />
         </div>
-      </div>
-    </section>
+      </Section>
+    </>
   );
 }

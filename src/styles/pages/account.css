@@ -1,0 +1,89 @@
+/* Account page specific styles */
+
+/* Welcome section */
+.account-welcome {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.account-welcome__title {
+  font-weight: 400;
+  color: var(--color-primary);
+}
+
+.account-welcome__text {
+  color: var(--color-text-light);
+  line-height: 1.8;
+}
+
+/* Onboarding steps */
+.onboarding-step {
+  text-align: center;
+}
+
+.onboarding-step__icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--color-cream);
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+}
+
+.onboarding-step__title {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.onboarding-step__description {
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+
+.onboarding-actions {
+  text-align: center;
+  margin-top: var(--space-12);
+}
+
+/* Stats cards */
+.stat-card {
+  text-decoration: none;
+}
+
+.stat-card__content {
+  text-align: center;
+}
+
+.stat-card__number {
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3);
+}
+
+.stat-card__label {
+  color: var(--color-text-light);
+  margin-bottom: var(--space-6);
+}
+
+/* Section headers */
+.account-section-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.account-section-header__title {
+  font-weight: 400;
+  color: var(--color-primary);
+}
+
+/* Action cards */
+.action-card-link {
+  text-decoration: none;
+}

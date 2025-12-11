@@ -7,17 +7,15 @@ interface HeroProps {
   text?: string;
   image: string;
   imageAlt: string;
-  showScroll?: boolean;
   children?: ReactNode;
 }
 
-export default function Hero({
+export function Hero({
   title,
   subtitle,
   text,
   image,
   imageAlt,
-  showScroll = true,
   children,
 }: HeroProps) {
   return (

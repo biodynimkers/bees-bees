@@ -9,14 +9,7 @@ export default function Footer() {
         <div className="footer__content">
           <div>
             <h3 className="footer__section-title">Voor Imkers</h3>
-            <p
-              className="text-sm"
-              style={{
-                color: "rgba(255,255,255,0.7)",
-                maxWidth: "300px",
-                lineHeight: "1.8",
-              }}
-            >
+            <p className="footer__description">
               Digitaal imkeren voor de moderne bijhouder. Eenvoudig,
               overzichtelijk, effectief.
             </p>
