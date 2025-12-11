@@ -44,12 +44,39 @@ export default async function ApiariesPage() {
         imageAlt="Bijenstanden"
       />
 
-      <Section variant="alt" spacing="large">
+      <Section variant="default" spacing="large">
         <div className="container">
-          <ApiaryList
-            apiaries={apiariesData}
-            emptyMessage="Begin met het toevoegen van uw eerste bijenstand"
-          />
+          {apiariesData.length === 0 ? (
+            <div className="section-header">
+              <h2>Nog geen bijenstanden</h2>
+              <p>Begin met het toevoegen van uw eerste bijenstand</p>
+              <div
+                className="section-actions"
+                style={{ marginTop: "var(--space-8)" }}
+              >
+                <Button href="/apiaries/new" variant="primary" size="large">
+                  + Nieuwe bijenstand
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "var(--space-8)",
+                }}
+              >
+                <h2 style={{ margin: 0 }}>Al uw bijenstanden</h2>
+                <Button href="/apiaries/new" variant="primary" size="medium">
+                  + Nieuwe bijenstand
+                </Button>
+              </div>
+              <ApiaryList apiaries={apiariesData} />
+            </>
+          )}
         </div>
       </Section>
     </>

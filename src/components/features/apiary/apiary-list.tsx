@@ -26,7 +26,7 @@ export function ApiaryList({
   }
 
   return (
-    <div className="apiary-list">
+    <div className="grid grid-3">
       {apiaries.map((apiary) => (
         <ApiaryCard key={apiary.id} apiary={apiary} />
       ))}
