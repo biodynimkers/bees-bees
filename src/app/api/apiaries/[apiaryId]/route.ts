@@ -5,23 +5,23 @@ import { authOptions } from '@/lib/auth-options';
 import { NextRequest } from 'next/server';
 export async function GET(
   _req: NextRequest,
-  { params }: { params: Promise<{ observationId: string }> }
+  { params }: { params: Promise<{ apiaryId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
     }
-    const { observationId } = await params;
-    const id = parseInt(observationId);
-    const observation = await prisma.observation.findUnique({
+    const { apiaryId } = await params;
+    const id = parseInt(apiaryId);
+    const apiary = await prisma.apiary.findUnique({
       where: { id },
     });
-    if (!observation) {
+    if (!apiary) {
       return NextResponse.json({ error: 'Niet gevonden' }, { status: 404 });
     }
-    console.log('NextResponse:', observation);
-    return NextResponse.json(observation);
+    console.log('NextResponse:', apiary);
+    return NextResponse.json(apiary);
   } catch (error) {
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
@@ -29,7 +29,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ observationId: string }> }
+  { params }: { params: Promise<{ apiaryId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -44,8 +44,8 @@ export async function PUT(
         { status: 400 }
       );
     }
-    const { observationId } = await params;
-    const id = parseInt(observationId);
+    const { apiaryId } = await params;
+    const id = parseInt(apiaryId);
     const apiary = await prisma.apiary.findUnique({
       where: { id },
     });
