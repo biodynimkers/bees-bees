@@ -20,10 +20,7 @@ export default async function AccountApiariesPage({
   const totalApiaries = await prisma.apiary.count({
     where: { userId: session?.user?.id },
   });
-  const totalPages = Math.ceil(totalApiaries / apiariesPerPage);
-  // if (currentPage < 1 || currentPage > totalPages) {
-  //   redirect('/account/apiaries?page=1');
-  // }
+  const totalPages = Math.ceil(totalApiaries / apiariesPerPage); 
 
   const apiaries = await prisma.apiary.findMany({
     where: { userId: session?.user?.id },
