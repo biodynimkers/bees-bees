@@ -6,7 +6,11 @@ import { authOptions } from '@/lib/auth-options';
 
 export const dynamic = 'force-dynamic';
 
-export default async function AccountHivesPage() {
+export default async function AccountHivesPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ page?: string }>;
+}) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect('/auth/login');
 
@@ -23,13 +27,25 @@ export default async function AccountHivesPage() {
 
   if (!user) redirect('/auth/login');
 
-  const allHives = user.apiaries.flatMap(apiary =>
-    apiary.hives.map(hive => ({
-      ...hive,
-      apiaryName: apiary.name,
-      apiaryId: apiary.id,
-    }))
-  );
+  const searchParamsResult = await searchParams;
+  const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
+  const hivesPerPage = 5;
+  const totalHives = await prisma.hive.count({
+    where: {
+      apiary: { userId: session?.user?.id },
+    },
+  });
+  const totalPages = Math.ceil(totalHives / hivesPerPage);
+  const hives = await prisma.hive.findMany({
+    where: {
+      apiary: { userId: session?.user?.id },
+    },
+    skip: (currentPage - 1) * hivesPerPage,
+    take: hivesPerPage,
+    include: {
+      apiary: true,
+    },
+  });
 
   return (
     <section className="section section--standard bg-alt">
@@ -37,26 +53,52 @@ export default async function AccountHivesPage() {
         <div className="page-header">
           <h1 className="title">Mijn kasten</h1>
         </div>
-        {allHives.length > 0 ? (
-          <div className="hives-list">
-            {allHives.map(hive => (
+        {hives.length > 0 ? (
+          <>
+            <div className="hives-list">
+              {hives.map(hive => (
+                <Link
+                  key={hive.id}
+                  href={`/hives/${hive.id}`}
+                  className="hive-card hive-card--link"
+                >
+                  <div className="hive-card__header">
+                    <h3 className="card__title">{hive.type}</h3>
+                    <span className="badge badge--secondary">
+                      {hive.colonyType}
+                    </span>
+                  </div>
+                  <p className="card__text text-secondary">
+                    Bijenstand: {hive.apiary.name}
+                  </p>
+                </Link>
+              ))}
+            </div>
+            <div>
               <Link
-                key={hive.id}
-                href={`/hives/${hive.id}`}
-                className="hive-card hive-card--link"
+                style={{ backgroundColor: 'red', marginRight: '10px' }}
+                href={`/hives?page=${ currentPage > 1 ? currentPage - 1 : currentPage }`}
               >
-                <div className="hive-card__header">
-                  <h3 className="card__title">{hive.type}</h3>
-                  <span className="badge badge--secondary">
-                    {hive.colonyType}
-                  </span>
-                </div>
-                <p className="card__text text-secondary">
-                  Bijenstand: {hive.apiaryName}
-                </p>
+                Vorige pagina   
               </Link>
-            ))}
-          </div>
+              <Link
+                style={{ backgroundColor: 'red' }}  
+                href={`/hives?page=${
+                  currentPage < totalPages ? currentPage + 1 : currentPage
+                }`}
+              > 
+
+                Volgende pagina
+              </Link>
+              <Link
+                style={{ backgroundColor: 'lightBlue', marginLeft: '10px' }}
+                href={`/hives?page=${currentPage}`}   
+              >                
+                {`pagina ${currentPage} van ${totalPages} `}
+              </Link>
+            </div>  
+                
+          </>
         ) : (
           <div className="empty-state">
             <h2 className="section__title">Nog geen kasten</h2>
