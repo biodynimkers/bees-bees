@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
+import DeleteEntityButton from '@/components/shared/DeleteEntityButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -148,6 +149,14 @@ export default async function AccountApiaryPage({
           </div>
         )}
       </div>
+      {/* TODO component RemoveButton invoegen */}
+      {apiary && (
+        <DeleteEntityButton
+          id={apiary.id}
+          type="apiary"
+          label="Verwijder bijenstand"
+        />
+      )}
     </section>
   );
 }

@@ -75,3 +75,47 @@ export async function PUT(
     );
   }
 }
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { apiaryId: string } }
+) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
+    }
+
+    const apiaryId = parseInt(params.apiaryId);
+
+    // Haal de apiary op inclusief userId
+    const apiary = await prisma.apiary.findUnique({
+      where: { id: apiaryId },
+      select: { userId: true },
+    });
+
+    if (!apiary) {
+      return NextResponse.json(
+        { error: 'Bijenstand niet gevonden' },
+        { status: 404 }
+      );
+    }
+
+    // Check of de gebruiker eigenaar is (of admin)
+    if (apiary.userId !== session.user.id && session.user.role !== 'ADMIN') {
+      return NextResponse.json({ error: 'Geen toestemming' }, { status: 403 });
+    }
+
+    // Verwijder de apiary
+    await prisma.apiary.delete({
+      where: { id: apiaryId },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting apiary:', error);
+    return NextResponse.json(
+      { error: 'Er ging iets mis bij het verwijderen van de bijenstand' },
+      { status: 500 }
+    );
+  }
+}

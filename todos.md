@@ -60,7 +60,7 @@
 - [x] **POST** `/api/hives/new` → Nieuwe kast toevoegen
 - [x] **GET** `/api/observations` → Observaties lijst
 - [x] **GET** `/api/observations` → paginering van het overzicht
-- [x] **GET** `/api/observations/:id` → Observatie detail TODO
+- [x] **GET** `/api/observations/:id` → Observatie detail
 - [x] **POST** `/api/observations/new` → Nieuwe observatie registreren
 - [x] **UPDATE** `/api/hives/:id` → Bijenkast aanpassen
 - [ ] **DELETE** `/api/hives/:id` → Bijenkast verwijderenTODO
