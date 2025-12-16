@@ -85,9 +85,7 @@ export default async function AccountApiaryPage({
               <div className="hives-grid">
                 {hives.map(hive => (
                   <div key={hive.id} className="card">
-                    <h3 className="card__title">
-                      {hive.type} - {hive.colonyType}
-                    </h3>
+                    <h3 className="card__title">{hive.name}</h3>
                     <p className="text-secondary mb-md">
                       {hive.observations.length} observaties
                     </p>
@@ -149,7 +147,7 @@ export default async function AccountApiaryPage({
           </div>
         )}
       </div>
-      {/* TODO component RemoveButton invoegen */}
+
       {apiary && (
         <DeleteEntityButton
           id={apiary.id}

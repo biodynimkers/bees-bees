@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Hive" ALTER COLUMN "name" DROP DEFAULT;

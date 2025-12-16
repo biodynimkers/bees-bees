@@ -75,6 +75,7 @@ export default async function AccountObservationsPage(searchParams: {
       hive: {
         select: {
           type: true,
+          name: true,
           apiary: {
             select: {
               name: true,
@@ -107,8 +108,16 @@ export default async function AccountObservationsPage(searchParams: {
                     <h3 className="card__title">
                       {new Date(observation.createdAt).toLocaleDateString(
                         'nl-BE'
+                      )}{' '}
+                      {new Date(observation.createdAt).toLocaleTimeString(
+                        'nl-BE',
+                        {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        }
                       )}
                     </h3>
+                    <h2>{observation.hive.name}</h2>
                     <span className="badge">{observation.beeCount} bijen</span>
                   </div>
                   <p className="card__text text-secondary">

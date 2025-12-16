@@ -50,7 +50,7 @@
 - [x] **POST** `/api/apiaries/new` → Nieuwe bijenstand aanmaken
 - [x] **GET** `/api/apiaries/:id` → Bijenstand details ophalen
 - [x] **UPDATE** `/api/apiaries/:id` → Bijenstand aanpassen
-- [ ] **DELETE** `/api/apiaries/:id` → Bijenstand verwijderenTODO
+- [x] **DELETE** `/api/apiaries/:id` → Bijenstand verwijderen
 
 ### 📦 Kast & Observatie Beheer
 
@@ -63,9 +63,9 @@
 - [x] **GET** `/api/observations/:id` → Observatie detail
 - [x] **POST** `/api/observations/new` → Nieuwe observatie registreren
 - [x] **UPDATE** `/api/hives/:id` → Bijenkast aanpassen
-- [ ] **DELETE** `/api/hives/:id` → Bijenkast verwijderenTODO
+- [x] **DELETE** `/api/hives/:id` → Bijenkast verwijderen
 - [x] **UPDATE** `/api/observations/:id` → Observatie aanpassen
-- [ ] **DELETE** `/api/observations/:id` → Observatie verwijderenTODO
+- [x] **DELETE** `/api/observations/:id` → Observatie verwijderen
 
 ### 👥 Gebruikersbeheer (Beheerder)
 

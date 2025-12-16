@@ -13,6 +13,7 @@ export default function HiveForm({
   apiaryName?: string;
   initialHive?: string;
 }) {
+  const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [colonyType, setColonyType] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,6 +27,7 @@ export default function HiveForm({
       if (res.ok) {
         const data = await res.json();
         console.log('Fetched hive data:', data);
+        setName(data.name);
         setType(data.type);
         setColonyType(data.colonyType);
       } else {
@@ -40,6 +42,7 @@ export default function HiveForm({
     setError('');
     setLoading(true);
     const hiveData = {
+      name,
       type,
       colonyType,
       ...(!initialHive && apiaryId && { apiaryId: parseInt(apiaryId) }),
@@ -90,6 +93,17 @@ export default function HiveForm({
             )}
 
             <div className="form-group">
+              <div className="form-group">
+                <label htmlFor="name">Kastnaam *</label>
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  required
+                  placeholder="Bvb: Kast 1, Blauwe kast..."
+                />
+              </div>
               <label htmlFor="type" className="form-label">
                 Type kast *
               </label>
@@ -109,7 +123,6 @@ export default function HiveForm({
                 <option value="Anders">Anders</option>
               </select>
             </div>
-
             <div className="form-group">
               <label htmlFor="colonyType" className="form-label">
                 Type volk *

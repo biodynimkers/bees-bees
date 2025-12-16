@@ -48,7 +48,7 @@ export default async function AccountApiaryHivePage({
               ← {hive.apiary.name}
             </Link>
             <h1 className="title">
-              {hive.type} - {hive.colonyType}
+              {hive.name}:{hive.type} - {hive.colonyType}
             </h1>
             <p className="text-secondary">{hive.apiary.longitude}</p>
             <p className="text-secondary">{hive.apiary.latitude}</p>
@@ -93,8 +93,13 @@ export default async function AccountApiaryHivePage({
                     <div key={obs.id} className="observation-card">
                       <div className="observation-card__header">
                         <span className="observation-card__date">
-                          {new Date(obs.createdAt).toLocaleDateString('nl-BE')}
-                        </span>
+                          {new Date(obs.createdAt).toLocaleDateString('nl-BE')}{' '}
+                          {new Date(obs.createdAt).toLocaleTimeString('nl-BE', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </span>{' '}
+                        <br />
                         <span className="badge">{obs.beeCount} bijen</span>
                       </div>
                       <p className="text-secondary">
