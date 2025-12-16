@@ -77,7 +77,7 @@ export async function PUT(
 }
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { apiaryId: string } }
+  { params }: { params: Promise<{ apiaryId: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -85,11 +85,12 @@ export async function DELETE(
       return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
     }
 
-    const apiaryId = parseInt(params.apiaryId);
+    const { apiaryId } = await params;
+    const id = parseInt(apiaryId);
 
     // Haal de apiary op inclusief userId
     const apiary = await prisma.apiary.findUnique({
-      where: { id: apiaryId },
+      where: { id },
       select: { userId: true },
     });
 
@@ -107,7 +108,7 @@ export async function DELETE(
 
     // Verwijder de apiary
     await prisma.apiary.delete({
-      where: { id: apiaryId },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });
