@@ -23,7 +23,7 @@ export default async function UserDetailPage({
   if (!user) return <div>Gebruiker niet gevonden</div>;
   return (
     <>
-      <div>
+      <div style={{ marginTop: '6rem' }}>
         <h1>{user.name}</h1>
         <div>
           {user.apiaries.map(apiary => (

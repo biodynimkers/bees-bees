@@ -54,7 +54,7 @@
 
 ### 📦 Kast & Observatie Beheer
 
-- [ ] → Elke kast een unieke naam of nummer geven per bijenstand TODO
+- [x] → Elke kast een unieke naam of nummer geven per bijenstand
 - [x] **GET** `/api/hives` → Overzicht eigen kasten
 - [x] **GET** `/api/hives` → paginering van het overzicht
 - [x] **POST** `/api/hives/new` → Nieuwe kast toevoegen
@@ -63,14 +63,14 @@
 - [x] **GET** `/api/observations/:id` → Observatie detail
 - [x] **POST** `/api/observations/new` → Nieuwe observatie registreren
 - [x] **UPDATE** `/api/hives/:id` → Bijenkast aanpassen
-- [x] **DELETE** `/api/hives/:id` → Bijenkast verwijderen
+- [] **DELETE** `/api/hives/:id` → Bijenkast verwijderen TODO
 - [x] **UPDATE** `/api/observations/:id` → Observatie aanpassen
-- [x] **DELETE** `/api/observations/:id` → Observatie verwijderen
+- [] **DELETE** `/api/observations/:id` → Observatie verwijderen TODO
 
 ### 👥 Gebruikersbeheer (Beheerder)
 
 - [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
-- [ ] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders)TODO
+- [ ] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan UserTODO
 - [ ] → filter gebruikers (alleen beheerders) TODO
 
 ---

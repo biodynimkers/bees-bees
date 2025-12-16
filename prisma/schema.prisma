@@ -29,7 +29,7 @@ model Apiary {
   latitude  Float         @default(0)
   longitude Float         @default(0)
   userId    String
-  user      User          @relation(fields: [userId], references: [id])
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   hives     Hive[]
   plants    ApiaryPlant[]
 }
@@ -69,9 +69,9 @@ model ApiaryPlant {
   id String @id @default(cuid())
 
   apiaryId    Int
-  apiary      Apiary           @relation(fields: [apiaryId], references: [id])
+  apiary      Apiary           @relation(fields: [apiaryId], references: [id], onDelete: Cascade)
   plantId     Int
-  plant       Plant            @relation(fields: [plantId], references: [id])
+  plant       Plant            @relation(fields: [plantId], references: [id], onDelete: Cascade)
   observedAt  DateTime         @default(now())
   notes       String? //bvb veel gele pollen gezien
   intensity   ForageIntensity? // hoe sterk de plant dracht levert 
