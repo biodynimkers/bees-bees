@@ -23,17 +23,19 @@ model Apiary {
   userId    String
   latitude  Float         @default(0)
   longitude Float         @default(0)
+  userId    String
   user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hives     Hive[]
   plants    ApiaryPlant[]
   hives     Hive[]
 }
 
 model Hive {
   id           Int           @id @default(autoincrement())
+  name         String
   type         String
   colonyType   String
   apiaryId     Int
-  name         String
   apiary       Apiary        @relation(fields: [apiaryId], references: [id], onDelete: Cascade)
   observations Observation[]
 }

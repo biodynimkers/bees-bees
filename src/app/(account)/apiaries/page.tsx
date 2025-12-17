@@ -8,12 +8,26 @@ import { ApiaryList } from "@/components/features/apiary";
 
 export const dynamic = "force-dynamic";
 
-export default async function ApiariesPage() {
+export default async function AccountApiariesPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ page?: string }>;
+}) {
+  const searchParamsResult = await searchParams;
+  const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
+  const apiariesPerPage = 5;
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect("/auth/login");
 
-  const user = await prisma.user.findUnique({
-    where: { id: session?.user?.id },
+  const totalApiaries = await prisma.apiary.count({
+    where: { userId: session?.user?.id },
+  });
+  const totalPages = Math.ceil(totalApiaries / apiariesPerPage);
+
+  const apiaries = await prisma.apiary.findMany({
+    where: { userId: session?.user?.id },
+    skip: (currentPage - 1) * apiariesPerPage,
+    take: apiariesPerPage,
     include: {
       apiaries: {
         include: {
@@ -22,6 +36,7 @@ export default async function ApiariesPage() {
           },
         },
       },
+      hives: true,
     },
   });
 
@@ -34,6 +49,8 @@ export default async function ApiariesPage() {
     longitude: apiary.longitude,
     hiveCount: apiary._count.hives,
   }));
+
+
 
   return (
     <>
@@ -75,6 +92,52 @@ export default async function ApiariesPage() {
                 </Button>
               </div>
               <ApiaryList apiaries={apiariesData} />
+               <>
+            <div className="apiaries-list">
+              {apiaries.map(apiary => (
+                <Link
+                  key={apiary.id}
+                  href={`/apiaries/${apiary.id}`}
+                  className="apiary-card apiary-card--link"
+                >
+                  <div className="apiary-card__header">
+                    <h3 className="card__title">{apiary.name}</h3>
+                    <span className="badge">{apiary.hives.length} kasten</span>
+                  </div>
+                  <p className="card__text">
+                    Locatie: {apiary.latitude?.toFixed(5)},{' '}
+                    {apiary.longitude?.toFixed(5)}
+                  </p>
+                </Link>
+              ))}
+            </div>
+            <div>
+              <Link
+                style={{ backgroundColor: 'red', marginRight: '10px' }}
+                href={`/apiaries?page=${
+                  currentPage > 1 ? currentPage - 1 : currentPage
+                }`}
+              >
+                Vorige pagina
+              </Link>
+              <Link
+                style={{ backgroundColor: 'red', marginRight: '10px' }}
+                href={`/apiaries?page=${
+                  currentPage < totalPages ? currentPage + 1 : currentPage
+                }`}
+              >
+                Volgende pagina
+              </Link>
+              <div
+                style={{
+                  backgroundColor: 'lightBlue',
+                  display: 'inline-block',
+                }}
+              >
+                {`pagina ${currentPage} van ${totalPages} `}
+              </div>
+            </div>
+          </>
             </>
           )}
         </div>

@@ -4,8 +4,20 @@ import { authOptions } from "@/lib/auth-options";
 import prisma from "@/lib/client";
 import { Hero, Section } from "@/components/layout";
 import { ObservationForm } from "@/components/features/observation";
+import Link from 'next/link';
 
 export const dynamic = "force-dynamic";
+
+export default async function AccountApiaryHiveObservationPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ hiveId?: string }>;
+}) {
+  const { hiveId } = await searchParams;
+
+  if (!hiveId) {
+    throw new Error('hiveId is required');
+  }
 
 export default async function NewObservationPage() {
   const session = await getServerSession(authOptions);
@@ -57,6 +69,10 @@ export default async function NewObservationPage() {
       <Section variant="default" spacing="large">
         <div className="container container-narrow">
           <ObservationForm hives={allHives} />
+           <ObservationForm
+        hiveId={hiveId}
+        hiveName={`${hive.type} - ${hive.colonyType}`}
+      />
         </div>
       </Section>
     </>

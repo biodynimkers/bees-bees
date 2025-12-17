@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
-      return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
+      return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
     }
 
     const body = await req.json();
@@ -26,6 +26,7 @@ export async function POST(req: Request) {
       data: {
         name,
         type,
+        name,
         colonyType,
         apiaryId: parseInt(apiaryId),
       },
@@ -33,9 +34,9 @@ export async function POST(req: Request) {
 
     return NextResponse.json(hive, { status: 201 });
   } catch (error) {
-    console.error("Error creating hive:", error);
+    console.error('Error creating hive:', error);
     return NextResponse.json(
-      { error: "Er ging iets mis bij het aanmaken van de kast" },
+      { error: 'Er ging iets mis bij het aanmaken van de kast' },
       { status: 500 }
     );
   }

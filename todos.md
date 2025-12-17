@@ -45,20 +45,33 @@
 
 ### 🏠 Bijenstand Beheer
 
-- [ ] **GET** `/api/apiaries` → Overzicht eigen bijenstanden
-- [ ] **POST** `/api/apiaries` → Nieuwe bijenstand aanmaken
-- [ ] **GET** `/api/apiaries/:id` → Bijenstand details ophalen
+- [x] **GET** `/api/apiaries` → Overzicht eigen bijenstanden
+- [x] **GET** `/api/apiaries` → paginering van het overzicht
+- [x] **POST** `/api/apiaries/new` → Nieuwe bijenstand aanmaken
+- [x] **GET** `/api/apiaries/:id` → Bijenstand details ophalen
+- [x] **UPDATE** `/api/apiaries/:id` → Bijenstand aanpassen
+- [x] **DELETE** `/api/apiaries/:id` → Bijenstand verwijderen
 
 ### 📦 Kast & Observatie Beheer
 
-- [ ] **POST** `/api/hives` → Nieuwe kast toevoegen
-- [ ] **GET** `/api/observations` → Observaties lijst (gepagineerd)
-- [ ] **POST** `/api/observations` → Nieuwe observatie registreren
+- [x] → Elke kast een unieke naam of nummer geven per bijenstand
+- [x] **GET** `/api/hives` → Overzicht eigen kasten
+- [x] **GET** `/api/hives` → paginering van het overzicht
+- [x] **POST** `/api/hives/new` → Nieuwe kast toevoegen
+- [x] **GET** `/api/observations` → Observaties lijst
+- [x] **GET** `/api/observations` → paginering van het overzicht
+- [x] **GET** `/api/observations/:id` → Observatie detail
+- [x] **POST** `/api/observations/new` → Nieuwe observatie registreren
+- [x] **UPDATE** `/api/hives/:id` → Bijenkast aanpassen
+- [x] **DELETE** `/api/hives/:id` → Bijenkast verwijderen
+- [x] **UPDATE** `/api/observations/:id` → Observatie aanpassen
+- [x] **DELETE** `/api/observations/:id` → Observatie verwijderen
 
 ### 👥 Gebruikersbeheer (Beheerder)
 
-- [ ] **GET** `/api/users` → Alle gebruikers tonen (alleen beheerders) TODO
-- [ ] **DELETE** `/api/users/:id` → Gebruiker verwijderen (alleen beheerders)TODO
+- [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
+- [ ] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary TODO
+- [ ] → filter gebruikers (alleen beheerders) TODO
 
 ---
 
@@ -178,5 +191,5 @@
 
 ### 🎯 Eindresultaat
 
-Een volledig functionele bijenstandbeheer applicatie met robuuste backend, gebruikersvriendelijke interface en professionele codebase, klaar voor styling door een frontend specialist.
+Een volledig functionele bijenstandbeheer applicatie met robuuste backend, gebruikersvriendelijke interface en professionele codebase, klaar voor styling door een frontend specialist!
 TODO

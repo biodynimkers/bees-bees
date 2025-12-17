@@ -36,6 +36,7 @@ export default async function NewHivePage() {
       <Section variant="default" spacing="large">
         <div className="container container-narrow">
           <HiveForm apiaries={apiaries} />
+          <HiveForm apiaryId={apiaryId} apiaryName={apiaryName} />
         </div>
       </Section>
     </>

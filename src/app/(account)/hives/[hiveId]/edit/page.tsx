@@ -1,8 +1,15 @@
-export default function EditHivePage() {
+import Link from 'next/link';
+import HiveForm from '@/components/forms/HiveForm';
+export default async function EditHivePage({
+  params,
+}: {
+  params: Promise<{ hiveId: string }>;
+}) {
+  const { hiveId } = await params;
   return (
     <div>
-      <h1>Hive Bewerken</h1>
-      {/* EditHiveForm component would go here */}
+      <Link href="/hives">Terug naar kasten</Link>
+      <HiveForm initialHive={hiveId} />
     </div>
   );
 }
