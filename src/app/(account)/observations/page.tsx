@@ -4,6 +4,9 @@ import Link from "next/link";
 import prisma from "@/lib/client";
 import { authOptions } from "@/lib/auth-options";
 import { Hero, Section } from "@/components/layout";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Eye } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -56,52 +59,73 @@ export default async function AccountObservationsPage() {
         imageAlt="Bijenwaarnemingen"
       />
 
-      <Section variant="alt" spacing="large">
+      <Section variant="default" spacing="large">
         <div className="container">
-          <div className="page-header">
-            <h1 className="title">Mijn observaties</h1>
-          </div>
-
-          {allObservations.length > 0 ? (
-            <div className="observations-list">
-              {allObservations.map((observation) => (
-                <Link
-                  key={observation.id}
-                  href={`/account/${userId}/apiaries/${observation.apiaryId}/hives/${observation.hiveId}/observations/${observation.id}`}
-                  className="observation-card observation-card--link"
-                >
-                  <div className="observation-card__header">
-                    <h3 className="card__title">
-                      {new Date(observation.createdAt).toLocaleDateString(
-                        "nl-BE"
-                      )}
-                    </h3>
-                    <span className="badge">{observation.beeCount} bijen</span>
-                  </div>
-                  <p className="card__text text-secondary">
-                    {observation.hiveName} - {observation.apiaryName}
-                  </p>
-                  {observation.pollenColor && (
-                    <p className="card__text">
-                      Stuifmeelkleur: {observation.pollenColor}
-                    </p>
-                  )}
-                </Link>
-              ))}
+          {allObservations.length === 0 ? (
+            <div className="section-header">
+              <h2>Nog geen observaties</h2>
+              <p>Begin met het toevoegen van observaties aan uw kasten</p>
+              <div
+                className="section-actions"
+                style={{ marginTop: "var(--space-8)" }}
+              >
+                <Button href="/hives" variant="primary" size="large">
+                  Bekijk mijn kasten
+                </Button>
+              </div>
             </div>
           ) : (
-            <div className="empty-state">
-              <h2 className="section__title">Nog geen observaties</h2>
-              <p className="text-secondary mb-lg">
-                Begin met het toevoegen van observaties aan uw kasten
-              </p>
-              <Link
-                href="/account/apiaries"
-                className="button button--primary button--large"
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "var(--space-8)",
+                }}
               >
-                Bekijk mijn standen
-              </Link>
-            </div>
+                <h2 style={{ margin: 0 }}>Al uw observaties</h2>
+                <Button href="/hives" variant="primary" size="medium">
+                  + Nieuwe observatie
+                </Button>
+              </div>
+              <div className="grid grid-3">
+                {allObservations.map((observation) => (
+                  <Link
+                    key={observation.id}
+                    href={`/account/${userId}/apiaries/${observation.apiaryId}/hives/${observation.hiveId}/observations/${observation.id}`}
+                  >
+                    <Card>
+                      <Card.Header>
+                        <div className="card-icon">
+                          <Eye size={20} strokeWidth={1.5} />
+                        </div>
+                        <Card.Title>
+                          {new Date(observation.createdAt).toLocaleDateString(
+                            "nl-BE",
+                            {
+                              day: "numeric",
+                              month: "long",
+                              year: "numeric",
+                            }
+                          )}
+                        </Card.Title>
+                      </Card.Header>
+                      <Card.Content>
+                        <Card.Description>
+                          {observation.hiveName} - {observation.apiaryName}
+                        </Card.Description>
+                        <Card.Description>
+                          {observation.beeCount} bijen
+                          {observation.pollenColor &&
+                            ` • Stuifmeel: ${observation.pollenColor}`}
+                        </Card.Description>
+                      </Card.Content>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </>
           )}
         </div>
       </Section>

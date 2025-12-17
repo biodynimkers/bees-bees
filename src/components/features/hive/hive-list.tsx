@@ -4,6 +4,8 @@ interface HiveListData {
   id: number;
   type: string;
   colonyType: string;
+  apiaryName?: string;
+  observationCount?: number;
 }
 
 interface HiveListProps {
@@ -26,7 +28,7 @@ export function HiveList({
   }
 
   return (
-    <div className="hive-list">
+    <div className="grid grid-3">
       {hives.map((hive) => (
         <HiveCard key={hive.id} hive={hive} apiaryId={apiaryId} />
       ))}

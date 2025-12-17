@@ -6,14 +6,23 @@ import Link from "next/link";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
 
 interface HiveFormData {
+  apiaryId: string;
+  name: string;
   type: string;
   colonyType: string;
 }
 
+interface Apiary {
+  id: number;
+  name: string;
+}
+
 interface HiveFormProps {
-  apiaryId: string;
+  apiaries: Apiary[];
+  apiaryId?: string;
   apiaryName?: string;
   onSuccess?: () => void;
 }
@@ -36,18 +45,25 @@ const COLONY_TYPE_OPTIONS = [
   { value: "Onbekend", label: "Onbekend" },
 ];
 
-export function HiveForm({ apiaryId, apiaryName, onSuccess }: HiveFormProps) {
+export function HiveForm({
+  apiaries,
+  apiaryId,
+  apiaryName,
+  onSuccess,
+}: HiveFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [formData, setFormData] = useState<HiveFormData>({
+    apiaryId: apiaryId || "",
+    name: "",
     type: "",
     colonyType: "",
   });
 
   const handleChange =
     (field: keyof HiveFormData) =>
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
+    (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
       setFormData((prev) => ({
         ...prev,
         [field]: e.target.value,
@@ -64,9 +80,10 @@ export function HiveForm({ apiaryId, apiaryName, onSuccess }: HiveFormProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name: formData.name,
           type: formData.type,
           colonyType: formData.colonyType,
-          apiaryId: parseInt(apiaryId),
+          apiaryId: parseInt(formData.apiaryId),
         }),
       });
 
@@ -77,7 +94,7 @@ export function HiveForm({ apiaryId, apiaryName, onSuccess }: HiveFormProps) {
       if (onSuccess) {
         onSuccess();
       } else {
-        router.push(`/apiaries/${apiaryId}`);
+        router.push(`/apiaries/${formData.apiaryId}`);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Er ging iets mis");
@@ -86,16 +103,33 @@ export function HiveForm({ apiaryId, apiaryName, onSuccess }: HiveFormProps) {
     }
   };
 
+  const apiaryOptions = apiaries.map((apiary) => ({
+    value: apiary.id.toString(),
+    label: apiary.name,
+  }));
+
   return (
     <div className="hive-form-container">
-      {apiaryName && (
-        <div className="form-subtitle">
-          <p>Voor bijenstand: {apiaryName}</p>
-        </div>
-      )}
-
       <form onSubmit={handleSubmit} className="form">
         {error && <Alert variant="error">{error}</Alert>}
+
+        <Select
+          label="Bijenstand"
+          value={formData.apiaryId}
+          onChange={handleChange("apiaryId")}
+          options={apiaryOptions}
+          placeholder="Selecteer een bijenstand"
+          required
+        />
+
+        <Input
+          label="Naam kast"
+          type="text"
+          value={formData.name}
+          onChange={handleChange("name")}
+          placeholder="Bijv. Kast 1"
+          required
+        />
 
         <Select
           label="Type kast"
@@ -120,7 +154,7 @@ export function HiveForm({ apiaryId, apiaryName, onSuccess }: HiveFormProps) {
             {isLoading ? "Toevoegen..." : "Kast toevoegen"}
           </Button>
 
-          <Button href={`/apiaries/${apiaryId}`} variant="outline" fullWidth>
+          <Button href="/hives" variant="outline" fullWidth>
             Annuleren
           </Button>
         </div>

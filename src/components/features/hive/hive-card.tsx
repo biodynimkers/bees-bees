@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Box } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -6,6 +7,8 @@ interface HiveCardData {
   id: number;
   type: string;
   colonyType: string;
+  apiaryName?: string;
+  observationCount?: number;
 }
 
 interface HiveCardProps {
@@ -13,28 +16,27 @@ interface HiveCardProps {
   apiaryId?: number;
 }
 
-export function HiveCard({ hive, apiaryId }: HiveCardProps) {
-  const href = apiaryId ? `/hives/${hive.id}` : `/hives/${hive.id}`;
-
+export function HiveCard({ hive }: HiveCardProps) {
   return (
-    <Link href={href} className="hive-card-link">
-      <Card variant="elevated">
+    <Link href={`/hives/${hive.id}`}>
+      <Card>
         <Card.Header>
-          <Card.Title as="h4">Kast #{hive.id}</Card.Title>
-        </Card.Header>
-
-        <Card.Content>
-          <div className="hive-card-details">
-            <div className="hive-card-detail">
-              <span className="hive-card-label">Type kast:</span>
-              <Badge variant="default">{hive.type}</Badge>
-            </div>
-
-            <div className="hive-card-detail">
-              <span className="hive-card-label">Type volk:</span>
-              <Badge variant="info">{hive.colonyType}</Badge>
-            </div>
+          <div className="card-icon">
+            <Box size={20} strokeWidth={1.5} />
           </div>
+          <Card.Title>
+            {hive.type} - {hive.colonyType}
+          </Card.Title>
+        </Card.Header>
+        <Card.Content>
+          {hive.apiaryName && (
+            <Card.Description>Bijenstand: {hive.apiaryName}</Card.Description>
+          )}
+          {hive.observationCount !== undefined && (
+            <Card.Description>
+              ({hive.observationCount}) Observaties
+            </Card.Description>
+          )}
         </Card.Content>
       </Card>
     </Link>

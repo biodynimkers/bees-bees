@@ -5,42 +5,37 @@ import prisma from "@/lib/client";
 import { Hero, Section } from "@/components/layout";
 import { HiveForm } from "@/components/features/hive";
 
-export default async function NewHivePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ apiaryId?: string; apiaryName?: string }>;
-}) {
+export default async function NewHivePage() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect("/auth/login");
 
-  const { apiaryId, apiaryName } = await searchParams;
-
-  if (!apiaryId) {
-    redirect("/apiaries");
-  }
-
-  const apiaryExists = await prisma.apiary.count({
-    where: { id: parseInt(apiaryId) },
+  // Haal alle bijenstandplaatsen op voor de dropdown
+  const apiaries = await prisma.apiary.findMany({
+    where: { userId: session.user.id },
+    select: {
+      id: true,
+      name: true,
+    },
+    orderBy: { name: "asc" },
   });
 
-  if (apiaryExists === 0) redirect("/apiaries");
+  // Als er geen bijenstandplaatsen zijn, redirect naar apiaries page
+  if (apiaries.length === 0) {
+    redirect("/apiaries");
+  }
 
   return (
     <>
       <Hero
         title="Nieuwe kast"
-        subtitle={
-          apiaryName
-            ? `Voor bijenstand: ${apiaryName}`
-            : "Registreer een nieuwe bijenkast"
-        }
+        subtitle="Registreer een nieuwe bijenkast"
         image="/assets/hero-new.jpg"
         imageAlt="Bijenkast"
       />
 
       <Section variant="default" spacing="large">
         <div className="container container-narrow">
-          <HiveForm apiaryId={apiaryId} apiaryName={apiaryName} />
+          <HiveForm apiaries={apiaries} />
         </div>
       </Section>
     </>

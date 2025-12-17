@@ -77,11 +77,7 @@ export default async function AccountApiaryPage({
                 }}
               >
                 <h2 style={{ margin: 0 }}>Kasten op deze stand</h2>
-                <Button
-                  href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}
-                  variant="primary"
-                  size="medium"
-                >
+                <Button href="/hives/new" variant="primary" size="medium">
                   + Nieuwe kast
                 </Button>
               </div>
@@ -116,11 +112,7 @@ export default async function AccountApiaryPage({
                 className="section-actions"
                 style={{ marginTop: "var(--space-8)" }}
               >
-                <Button
-                  href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}
-                  variant="primary"
-                  size="large"
-                >
+                <Button href="/hives/new" variant="primary" size="large">
                   + Eerste kast toevoegen
                 </Button>
               </div>
