@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 interface ObservationFormData {
   hiveId: string;
@@ -20,11 +21,13 @@ interface Hive {
 }
 
 interface ObservationFormProps {
-  hives: Hive[];
+  hives?: Hive[];
   hiveId?: string;
+  hiveName?: string;
+  initialObservation?: string;
 }
 
-export function ObservationForm({ hives, hiveId }: ObservationFormProps) {
+export function ObservationForm({ hives, hiveId, hiveName, initialObservation }: ObservationFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>("");
@@ -34,6 +37,32 @@ export function ObservationForm({ hives, hiveId }: ObservationFormProps) {
     pollenColor: "",
     notes: "",
   });
+
+  // Effect voor het laden van bestaande observatie data (edit mode)
+  useEffect(() => {
+    if (!initialObservation) return;
+    
+    async function fetchObservation() {
+      try {
+        const res = await fetch(`/api/observations/${initialObservation}`);
+        if (res.ok) {
+          const data = await res.json();
+          setFormData({
+            hiveId: data.hiveId?.toString() || hiveId || "",
+            beeCount: data.beeCount?.toString() || "",
+            pollenColor: data.pollenColor || "",
+            notes: data.notes || "",
+          });
+        } else {
+          console.error('Failed to fetch observation data');
+        }
+      } catch (error) {
+        console.error('Error fetching observation:', error);
+      }
+    }
+    
+    fetchObservation();
+  }, [initialObservation, hiveId]);
 
   const handleChange =
     (field: keyof ObservationFormData) =>
@@ -53,16 +82,23 @@ export function ObservationForm({ hives, hiveId }: ObservationFormProps) {
     setError("");
     setIsLoading(true);
 
+    const observationData = {
+      beeCount: parseInt(formData.beeCount),
+      pollenColor: formData.pollenColor,
+      notes: formData.notes || null,
+      ...(!initialObservation && formData.hiveId && { hiveId: parseInt(formData.hiveId) }),
+    };
+
     try {
-      const response = await fetch("/api/observations", {
-        method: "POST",
+      const url = initialObservation
+        ? `/api/observations/${initialObservation}`
+        : '/api/observations';
+      const method = initialObservation ? 'PUT' : 'POST';
+      
+      const response = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          hiveId: parseInt(formData.hiveId),
-          beeCount: parseInt(formData.beeCount),
-          pollenColor: formData.pollenColor,
-          notes: formData.notes || null,
-        }),
+        body: JSON.stringify(observationData),
       });
 
       if (!response.ok) {
@@ -77,69 +113,100 @@ export function ObservationForm({ hives, hiveId }: ObservationFormProps) {
     }
   };
 
-  const hiveOptions = hives.map((hive) => ({
+  const hiveOptions = hives?.map((hive) => ({
     value: hive.id.toString(),
     label: hive.displayName,
-  }));
+  })) || [];
 
   return (
-    <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-      <form onSubmit={handleSubmit} className="form">
-        {error && <Alert variant="error">{error}</Alert>}
+    <section className="section section--standard bg-alt">
+      <div className="container container--narrow">
+        <div className="auth-container">
+          <div className="auth-header">
+            <Link href={`/hives/${formData.hiveId}`} className="breadcrumb">
+              ← Terug naar kast
+            </Link>
+            {hiveName && (
+              <p className="subtitle subtitle--centered">{hiveName}</p>
+            )}
+          </div>
 
-        <Select
-          label="Bijenkast"
-          value={formData.hiveId}
-          onChange={handleChange("hiveId")}
-          options={hiveOptions}
-          placeholder="Selecteer een kast"
-          required
-        />
+          <form onSubmit={handleSubmit} className="auth-form">
+            {error && <div className="error-message">{error}</div>}
 
-        <Input
-          label="Aantal bijen"
-          type="number"
-          value={formData.beeCount}
-          onChange={handleChange("beeCount")}
-          placeholder="Geschat aantal bijen"
-          min="0"
-          required
-        />
+            {/* Alleen hive selector tonen als geen hiveId vooraf ingesteld */}
+            {!hiveId && hives && hives.length > 0 && (
+              <Select
+                label="Bijenkast"
+                value={formData.hiveId}
+                onChange={handleChange("hiveId")}
+                options={hiveOptions}
+                placeholder="Selecteer een kast"
+                required
+              />
+            )}
 
-        <Input
-          label="Stuifmeelkleur"
-          type="text"
-          value={formData.pollenColor}
-          onChange={handleChange("pollenColor")}
-          placeholder="Bijv. Geel, Oranje, Wit"
-          required
-        />
+            <div className="form-group">
+              <label htmlFor="beeCount" className="form-label">
+                Aantal bijen
+              </label>
+              <input
+                type="number"
+                id="beeCount"
+                value={formData.beeCount}
+                onChange={handleChange("beeCount")}
+                className="form-input"
+                placeholder="Geschat aantal bijen"
+                required
+                min="0"
+              />
+            </div>
 
-        <div className="input-group">
-          <label htmlFor="notes" className="input-label">
-            Notities
-          </label>
-          <textarea
-            id="notes"
-            className="input"
-            value={formData.notes}
-            onChange={handleChange("notes")}
-            placeholder="Extra opmerkingen over deze observatie (optioneel)"
-            rows={4}
-            style={{ resize: "vertical" }}
-          />
+            <div className="form-group">
+              <label htmlFor="pollenColor" className="form-label">
+                Stuifmeelkleur
+              </label>
+              <input
+                type="text"
+                id="pollenColor"
+                value={formData.pollenColor}
+                onChange={handleChange("pollenColor")}
+                className="form-input"
+                placeholder="bv. Geel, Oranje, Wit"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="notes" className="form-label">
+                Notities (optioneel)
+              </label>
+              <textarea
+                id="notes"
+                value={formData.notes}
+                onChange={handleChange("notes")}
+                className="form-input"
+                placeholder="Extra opmerkingen over de kast..."
+                rows={4}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="button button--primary button--large"
+              disabled={isLoading}
+            >
+              {isLoading
+                ? initialObservation
+                  ? 'Bezig met opslaan...'
+                  : 'Bezig met opslaan...'
+                : initialObservation
+                ? 'Observatie wijzigen'
+                : 'Observatie toevoegen'}
+            </button>
+          </form>
         </div>
-
-        <div className="form-actions">
-          <Button type="submit" disabled={isLoading} fullWidth>
-            {isLoading ? "Toevoegen..." : "Observatie toevoegen"}
-          </Button>
-
-          <Button href="/observations" variant="outline" fullWidth>
-            Annuleren
-          </Button>
-        </div>
-      </form>
-    </div>
+      </div>
+    </section>
   );
 }

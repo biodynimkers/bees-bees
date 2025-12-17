@@ -1,14 +1,14 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import Link from "next/link";
-import prisma from "@/lib/client";
-import { authOptions } from "@/lib/auth-options";
-import { Hero, Section } from "@/components/layout";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Eye } from "lucide-react";
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
+import prisma from '@/lib/client';
+import { authOptions } from '@/lib/auth-options';
+import { Hero, Section } from '@/components/layout';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Eye } from 'lucide-react';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function AccountObservationsPage(searchParams: {
   searchParams?: Promise<{ page?: string }>;
@@ -16,7 +16,7 @@ export default async function AccountObservationsPage(searchParams: {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
-    redirect("/auth/login");
+    redirect('/auth/login');
   }
 
   const userId = session.user.id;
@@ -29,7 +29,7 @@ export default async function AccountObservationsPage(searchParams: {
             include: {
               observations: {
                 orderBy: {
-                  createdAt: "desc",
+                  createdAt: 'desc',
                 },
               },
             },
@@ -39,11 +39,11 @@ export default async function AccountObservationsPage(searchParams: {
     },
   });
 
-  if (!user) redirect("/auth/login");
+  if (!user) redirect('/auth/login');
 
-  const allObservations = user.apiaries.flatMap((apiary) =>
-    apiary.hives.flatMap((hive) =>
-      hive.observations.map((observation) => ({
+  const allObservations = user.apiaries.flatMap(apiary =>
+    apiary.hives.flatMap(hive =>
+      hive.observations.map(observation => ({
         ...observation,
         hiveName: hive.type,
         hiveId: hive.id,
@@ -120,7 +120,7 @@ export default async function AccountObservationsPage(searchParams: {
               <p>Begin met het toevoegen van observaties aan uw kasten</p>
               <div
                 className="section-actions"
-                style={{ marginTop: "var(--space-8)" }}
+                style={{ marginTop: 'var(--space-8)' }}
               >
                 <Button href="/observations/new" variant="primary" size="large">
                   + Nieuwe observatie
@@ -131,10 +131,10 @@ export default async function AccountObservationsPage(searchParams: {
             <>
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "var(--space-8)",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: 'var(--space-8)',
                 }}
               >
                 <h2 style={{ margin: 0 }}>Al uw observaties</h2>
@@ -147,10 +147,10 @@ export default async function AccountObservationsPage(searchParams: {
                 </Button>
               </div>
               <div className="grid grid-3">
-                {allObservations.map((observation) => (
+                {allObservations.map(observation => (
                   <Link
                     key={observation.id}
-                    href={`/account/${userId}/apiaries/${observation.apiaryId}/hives/${observation.hiveId}/observations/${observation.id}`}
+                    href={`/observations/${observation.id}`}
                   >
                     <Card>
                       <Card.Header>
@@ -159,11 +159,19 @@ export default async function AccountObservationsPage(searchParams: {
                         </div>
                         <Card.Title>
                           {new Date(observation.createdAt).toLocaleDateString(
-                            "nl-BE",
+                            'nl-BE',
                             {
-                              day: "numeric",
-                              month: "long",
-                              year: "numeric",
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric',
+                            }
+                          )}{' '}
+                          om{' '}
+                          {new Date(observation.createdAt).toLocaleTimeString(
+                            'nl-BE',
+                            {
+                              hour: '2-digit',
+                              minute: '2-digit',
                             }
                           )}
                         </Card.Title>
@@ -201,6 +209,12 @@ export default async function AccountObservationsPage(searchParams: {
                     <h3 className="card__title">
                       {new Date(observation.createdAt).toLocaleDateString(
                         'nl-BE'
+                      )} om {new Date(observation.createdAt).toLocaleTimeString(
+                        'nl-BE',
+                        {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        }
                       )}{' '}
                       {new Date(observation.createdAt).toLocaleTimeString(
                         'nl-BE',

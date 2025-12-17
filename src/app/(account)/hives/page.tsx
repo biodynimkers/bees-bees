@@ -1,12 +1,12 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import prisma from "@/lib/client";
-import { authOptions } from "@/lib/auth-options";
-import { Hero, Section } from "@/components/layout";
-import { Button } from "@/components/ui/button";
-import { HiveList } from "@/components/features/hive";
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import prisma from '@/lib/client';
+import { authOptions } from '@/lib/auth-options';
+import { Hero, Section } from '@/components/layout';
+import { Button } from '@/components/ui/button';
+import { HiveList } from '@/components/features/hive';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function AccountHivesPage({
   searchParams,
@@ -14,7 +14,7 @@ export default async function AccountHivesPage({
   searchParams?: Promise<{ page?: string }>;
 }) {
   const session = await getServerSession(authOptions);
-  if (!session?.user?.id) redirect("/auth/login");
+  if (!session?.user?.id) redirect('/auth/login');
 
   const user = await prisma.user.findUnique({
     where: { id: session?.user?.id },
@@ -33,10 +33,10 @@ export default async function AccountHivesPage({
     },
   });
 
-  if (!user) redirect("/auth/login");
+  if (!user) redirect('/auth/login');
 
-  const hivesData = user.apiaries.flatMap((apiary) =>
-    apiary.hives.map((hive) => ({
+  const hivesData = user.apiaries.flatMap(apiary =>
+    apiary.hives.map(hive => ({
       id: hive.id,
       type: hive.type,
       colonyType: hive.colonyType,
@@ -62,7 +62,7 @@ export default async function AccountHivesPage({
               <p>Begin met het toevoegen van uw eerste bijenkast</p>
               <div
                 className="section-actions"
-                style={{ marginTop: "var(--space-8)" }}
+                style={{ marginTop: 'var(--space-8)' }}
               >
                 <Button href="/hives/new" variant="primary" size="large">
                   + Nieuwe kast
@@ -73,10 +73,10 @@ export default async function AccountHivesPage({
             <>
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "var(--space-8)",
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: 'var(--space-8)',
                 }}
               >
                 <h2 style={{ margin: 0 }}>Al uw kasten</h2>
@@ -90,7 +90,8 @@ export default async function AccountHivesPage({
         </div>
       </Section>
     </>
-    /*
+  );
+  /*
     //TODO
   const searchParamsResult = await searchParams;
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
