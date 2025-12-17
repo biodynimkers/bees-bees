@@ -63,7 +63,8 @@ export default async function AccountHivesPage({
                   className="hive-card hive-card--link"
                 >
                   <div className="hive-card__header">
-                    <h3 className="card__title">{hive.type}</h3>
+                    <h3 className="card__title">Kast: {hive.name}</h3>
+                    <h2 className="card__title">Type: {hive.type}</h2>
                     <span className="badge badge--secondary">
                       {hive.colonyType}
                     </span>

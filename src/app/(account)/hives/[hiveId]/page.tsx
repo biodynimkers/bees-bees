@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
+import DeleteEntityButton from '@/components/shared/DeleteEntityButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -148,6 +149,9 @@ export default async function AccountApiaryHivePage({
           </div>
         </div>
       </div>
+      {hive && (
+        <DeleteEntityButton id={hive.id} type="hive" label="Verwijder kast" />
+      )}
     </section>
   );
 }
