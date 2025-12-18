@@ -34,6 +34,8 @@ export default function HiveForm({
         setName(data.name);
         setType(data.type);
         setColonyType(data.colonyType);
+        // Set current apiary as default when editing
+        setSelectedApiaryId(data.apiaryId?.toString() || '');
       } else {
         console.error('Failed to fetch hive data');
       }
@@ -41,23 +43,21 @@ export default function HiveForm({
     fetchHive();
   }, [initialHive]);
 
-  // Fetch apiaries when no apiaryId is provided
+  // Fetch all apiaries (always, for both creating and editing)
   useEffect(() => {
-    if (!apiaryId) {
-      async function fetchApiaries() {
-        try {
-          const res = await fetch('/api/apiaries');
-          if (res.ok) {
-            const data = await res.json();
-            setApiaries(data);
-          }
-        } catch (error) {
-          console.error('Failed to fetch apiaries:', error);
+    async function fetchApiaries() {
+      try {
+        const res = await fetch('/api/apiaries');
+        if (res.ok) {
+          const data = await res.json();
+          setApiaries(data);
         }
+      } catch (error) {
+        console.error('Failed to fetch apiaries:', error);
       }
-      fetchApiaries();
     }
-  }, [apiaryId]);
+    fetchApiaries();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
