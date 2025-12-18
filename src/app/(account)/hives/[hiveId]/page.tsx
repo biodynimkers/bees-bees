@@ -79,13 +79,6 @@ export default async function AccountApiaryHivePage({
             }}>
               Observaties bij deze kast
             </h2>
-            {observations.length > 0 && (
-              <Link href={`/observations/new?hiveId=${hive.id}`}>
-                <button className="btn btn--primary">
-                  + Nieuwe observatie
-                </button>
-              </Link>
-            )}
           </div>
 
           {observations.length > 0 ? (

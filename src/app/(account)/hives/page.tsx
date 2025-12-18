@@ -62,6 +62,21 @@ export default async function AccountHivesPage({
         <div className="container">
           {hives.length > 0 ? (
             <>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-8)" }}>
+                <h2 style={{ 
+                  fontFamily: "var(--font-display)",
+                  fontSize: "2rem",
+                  fontWeight: "400"
+                }}>
+                  Mijn kasten
+                </h2>
+                <Link href="/hives/new">
+                  <button className="btn btn--primary">
+                    + Nieuwe kast
+                  </button>
+                </Link>
+              </div>
+
               <div className="grid grid--3">
                 {hives.map(hive => (
                   <Link

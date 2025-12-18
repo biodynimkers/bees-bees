@@ -103,6 +103,21 @@ export default async function AccountObservationsPage(searchParams: {
         <div className="container">
           {observations.length > 0 ? (
             <>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-8)" }}>
+                <h2 style={{ 
+                  fontFamily: "var(--font-display)",
+                  fontSize: "2rem",
+                  fontWeight: "400"
+                }}>
+                  Mijn observaties
+                </h2>
+                <Link href="/hives">
+                  <button className="btn btn--primary">
+                    + Nieuwe observatie
+                  </button>
+                </Link>
+              </div>
+
               <div className="grid grid--2">
                 {observations.map(observation => (
                   <Link

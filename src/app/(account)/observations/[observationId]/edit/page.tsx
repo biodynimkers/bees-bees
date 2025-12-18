@@ -1,12 +1,17 @@
 import ObservationForm from '@/components/forms/ObservationForm';
 import prisma from '@/lib/client';
 import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth-options';
 
 export default async function EditObservationPage({
   params,
 }: {
   params: Promise<{ observationId: string }>;
 }) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) redirect('/auth/login');
+
   const { observationId } = await params;
 
   const observation = await prisma.observation.findUnique({
@@ -19,15 +24,21 @@ export default async function EditObservationPage({
   }
 
   return (
-    <div>
-      <h1 className="title" style={{ marginTop: '6rem' }}>
-        Observatie Bewerken
-      </h1>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">Observatie bewerken</h1>
+        </div>
+      </section>
 
-      <ObservationForm 
-        initialObservation={observationId} 
-        hiveId={observation.hiveId.toString()} 
-      />
-    </div>
+      <section className="section section--default">
+        <div className="container container--narrow">
+          <ObservationForm 
+            initialObservation={observationId} 
+            hiveId={observation.hiveId.toString()} 
+          />
+        </div>
+      </section>
+    </>
   );
 }

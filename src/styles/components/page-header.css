@@ -51,21 +51,7 @@
 }
 
 /* Decoratief nummer element */
-.page-header::after {
-  content: attr(data-page);
-  position: absolute;
-  right: var(--space-12);
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--font-display);
-  font-size: clamp(8rem, 15vw, 12rem);
-  font-weight: 300;
-  color: rgba(0, 0, 0, 0.08);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-}
+
 
 @media (max-width: 768px) {
   .page-header {
@@ -73,8 +59,5 @@
     padding: var(--space-16) 0;
   }
   
-  .page-header::after {
-    font-size: 6rem;
-    right: var(--space-6);
-  }
+
 }

@@ -71,8 +71,8 @@ export default function ApiaryForm({
         </div>
       )}
 
-      <div className="form-group">
-        <label htmlFor="name" className="form-label">
+      <div className="form__group">
+        <label htmlFor="name" className="form__label">
           Naam bijenstand *
         </label>
         <input
@@ -80,48 +80,62 @@ export default function ApiaryForm({
           id="name"
           value={name}
           onChange={e => setName(e.target.value)}
-          className="form-input"
+          className="form__input"
           placeholder="bv. Tuin achteraan, Bij de beek"
           required
         />
       </div>
 
-      <label>
-        Latitude:
+      <div className="form__group">
+        <label htmlFor="latitude" className="form__label">
+          Breedtegraad (Latitude) *
+        </label>
         <input
           type="number"
           id="latitude"
           value={latitude}
           onChange={e => setLatitude(e.target.value)}
+          className="form__input"
+          placeholder="51.0543"
           step="any"
           required
         />
-      </label>
-      <label>
-        Longitude:
+      </div>
+
+      <div className="form__group">
+        <label htmlFor="longitude" className="form__label">
+          Lengtegraad (Longitude) *
+        </label>
         <input
           type="number"
           id="longitude"
           value={longitude}
           onChange={e => setLongitude(e.target.value)}
+          className="form__input"
+          placeholder="3.7174"
           step="any"
           required
         />
-      </label>
+        <p className="form__help">
+          Gebruik Google Maps om de coördinaten van uw locatie te vinden
+        </p>
+      </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="button button--primary button--large"
-      >
-        {loading
-          ? initialApiary
-            ? 'Bewerken '
-            : 'Toevoegen...'
-          : initialApiary
-          ? 'Bewerk bijenstand'
-          : 'Bijenstand toevoegen'}
-      </button>
+      <div className="form__actions">
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn btn--primary btn--large"
+        >
+          {loading
+            ? initialApiary
+              ? 'Bewerken...'
+              : 'Toevoegen...'
+            : initialApiary
+            ? 'Bewerk bijenstand'
+            : 'Bijenstand toevoegen'}
+        </button>
+      </div>
     </form>
   );
 }

@@ -34,6 +34,8 @@ export default function HiveForm({
         setName(data.name);
         setType(data.type);
         setColonyType(data.colonyType);
+        // Set current apiary as default when editing
+        setSelectedApiaryId(data.apiaryId?.toString() || '');
       } else {
         console.error('Failed to fetch hive data');
       }
@@ -41,23 +43,21 @@ export default function HiveForm({
     fetchHive();
   }, [initialHive]);
 
-  // Fetch apiaries when no apiaryId is provided
+  // Fetch all apiaries (always, for both creating and editing)
   useEffect(() => {
-    if (!apiaryId) {
-      async function fetchApiaries() {
-        try {
-          const res = await fetch('/api/apiaries');
-          if (res.ok) {
-            const data = await res.json();
-            setApiaries(data);
-          }
-        } catch (error) {
-          console.error('Failed to fetch apiaries:', error);
+    async function fetchApiaries() {
+      try {
+        const res = await fetch('/api/apiaries');
+        if (res.ok) {
+          const data = await res.json();
+          setApiaries(data);
         }
+      } catch (error) {
+        console.error('Failed to fetch apiaries:', error);
       }
-      fetchApiaries();
     }
-  }, [apiaryId]);
+    fetchApiaries();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -75,7 +75,7 @@ export default function HiveForm({
       name,
       type,
       colonyType,
-      ...(!initialHive && { apiaryId: parseInt(finalApiaryId) }),
+      apiaryId: parseInt(finalApiaryId),
     };
 
     try {
@@ -122,27 +122,25 @@ export default function HiveForm({
               </div>
             )}
 
-            {!apiaryId && (
-              <div className="form-group">
-                <label htmlFor="apiarySelect" className="form-label">
-                  Bijenstand *
-                </label>
-                <select
-                  id="apiarySelect"
-                  className="form-input"
-                  value={selectedApiaryId}
-                  onChange={e => setSelectedApiaryId(e.target.value)}
-                  required
-                >
-                  <option value="">-- Selecteer bijenstand --</option>
-                  {apiaries.map(apiary => (
-                    <option key={apiary.id} value={apiary.id}>
-                      {apiary.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
+            <div className="form-group">
+              <label htmlFor="apiarySelect" className="form-label">
+                Bijenstand *
+              </label>
+              <select
+                id="apiarySelect"
+                className="form-input"
+                value={selectedApiaryId}
+                onChange={e => setSelectedApiaryId(e.target.value)}
+                required
+              >
+                <option value="">-- Selecteer bijenstand --</option>
+                {apiaries.map(apiary => (
+                  <option key={apiary.id} value={apiary.id}>
+                    {apiary.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div className="form-group">
               <div className="form-group">

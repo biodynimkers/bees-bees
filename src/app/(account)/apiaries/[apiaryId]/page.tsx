@@ -163,7 +163,7 @@ export default async function AccountApiaryPage({
               fontSize: "2rem",
               fontWeight: "400"
             }}>
-              Bijenkasten in deze stand
+              Kasten in deze stand
             </h2>
             {hives.length > 0 && (
               <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}>
