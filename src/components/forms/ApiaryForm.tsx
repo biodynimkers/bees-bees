@@ -66,83 +66,62 @@ export default function ApiaryForm({
   return (
     <form onSubmit={handleSubmit} className="form">
       {error && (
-        <div style={{ 
-          padding: "var(--space-4)", 
-          marginBottom: "var(--space-6)",
-          background: "rgba(220, 38, 38, 0.1)",
-          border: "1px solid rgba(220, 38, 38, 0.3)",
-          borderRadius: "4px",
-          color: "#dc2626"
-        }}>
+        <div className="form-error form-error--general">
           <p>{error}</p>
         </div>
       )}
 
-      <div className="form__group">
-        <label htmlFor="name" className="form__label">
-          Naam bijenstand
+      <div className="form-group">
+        <label htmlFor="name" className="form-label">
+          Naam bijenstand *
         </label>
         <input
           type="text"
           id="name"
           value={name}
           onChange={e => setName(e.target.value)}
-          className="form__input"
+          className="form-input"
           placeholder="bv. Tuin achteraan, Bij de beek"
           required
         />
       </div>
 
-      <div className="form__group">
-        <label htmlFor="latitude" className="form__label">
-          Latitude
-        </label>
+      <label>
+        Latitude:
         <input
           type="number"
           id="latitude"
           value={latitude}
           onChange={e => setLatitude(e.target.value)}
           step="any"
-          className="form__input"
-          placeholder="51.2194"
           required
         />
-      </div>
-
-      <div className="form__group">
-        <label htmlFor="longitude" className="form__label">
-          Longitude
-        </label>
+      </label>
+      <label>
+        Longitude:
         <input
           type="number"
           id="longitude"
           value={longitude}
           onChange={e => setLongitude(e.target.value)}
           step="any"
-          className="form__input"
-          placeholder="4.4025"
           required
         />
-        <p className="form__help">
-          Tip: Gebruik Google Maps om de exacte coördinaten van je bijenstand te vinden
-        </p>
-      </div>
+      </label>
 
-      <div className="form__actions">
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn btn--primary btn--large"
-        >
-          {loading
-            ? initialApiary
-              ? 'Bewerken...'
-              : 'Toevoegen...'
-            : initialApiary
-            ? 'Bewerk bijenstand'
-            : 'Bijenstand toevoegen'}
-        </button>
-      </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className="button button--primary button--large"
+      >
+        {loading
+          ? initialApiary
+            ? 'Bewerken '
+            : 'Toevoegen...'
+          : initialApiary
+          ? 'Bewerk bijenstand'
+          : 'Bijenstand toevoegen'}
+      </button>
     </form>
   );
 }
