@@ -160,12 +160,8 @@ export default async function AccountApiaryPage({
 
       <section className="section section--default">
         <div className="container">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-8)" }}>
-            <h2 style={{ 
-              fontFamily: "var(--font-display)",
-              fontSize: "2rem",
-              fontWeight: "400"
-            }}>
+          <div className="section-header">
+            <h2 className="section-header__title">
               Kasten in deze stand
             </h2>
             {hives.length > 0 && (
@@ -187,24 +183,21 @@ export default async function AccountApiaryPage({
                     style={{ textDecoration: 'none' }}
                   >
                     <div className="card">
-                      <p className="card__category">{hive.type}</p>
-                      <h3 className="card__title">{hive.name}</h3>
-                      <div style={{ 
-                        display: "flex", 
-                        gap: "var(--space-4)",
-                        marginTop: "var(--space-4)",
-                        fontSize: "0.875rem"
-                      }}>
-                        <span style={{ 
-                          padding: "var(--space-2) var(--space-3)",
-                          background: "rgba(0, 0, 0, 0.05)",
-                          borderRadius: "4px"
-                        }}>
-                          {hive.colonyType}
-                        </span>
-                        <span style={{ color: "var(--color-text-light)" }}>
-                          {hive.observations.length} {hive.observations.length === 1 ? 'observatie' : 'observaties'}
-                        </span>
+                      <p style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-light)', marginBottom: 'var(--space-3)', fontWeight: '600' }}>
+                        Kast
+                      </p>
+                      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: '400', marginBottom: 'var(--space-4)' }}>
+                        {hive.name}
+                      </h3>
+                      <div style={{ paddingTop: 'var(--space-4)', borderTop: '1px solid rgba(0, 0, 0, 0.06)' }}>
+                        <p style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)', fontWeight: '600' }}>Bijenstand</p>
+                        <p style={{ fontSize: '0.9375rem', marginBottom: 'var(--space-3)' }}>{apiary?.name}</p>
+                        <p style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)', fontWeight: '600' }}>Type kast</p>
+                        <p style={{ fontSize: '0.9375rem', marginBottom: 'var(--space-3)' }}>{hive.type}</p>
+                        <p style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)', fontWeight: '600' }}>Type volk</p>
+                        <p style={{ fontSize: '0.9375rem', marginBottom: 'var(--space-3)' }}>{hive.colonyType}</p>
+                        <p style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)', fontWeight: '600' }}>Observaties</p>
+                        <p style={{ fontSize: '0.9375rem' }}>{hive.observations.length}</p>
                       </div>
                     </div>
                   </Link>

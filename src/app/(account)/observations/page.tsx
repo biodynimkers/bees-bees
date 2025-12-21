@@ -133,12 +133,18 @@ export default async function AccountObservationsPage(searchParams: {
                           year: 'numeric'
                         })}
                       </h3>
-                      <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)' }}>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', marginBottom: 'var(--space-4)' }}>
                         {new Date(observation.createdAt).toLocaleTimeString('nl-BE', {
                           hour: '2-digit',
                           minute: '2-digit',
                         })}
                       </p>
+                      <div style={{ paddingTop: 'var(--space-4)', borderTop: '1px solid rgba(0, 0, 0, 0.06)' }}>
+                        <p style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)', fontWeight: '600' }}>Bijenstand</p>
+                        <p style={{ fontSize: '0.9375rem', marginBottom: 'var(--space-3)' }}>{observation.hive.apiary.name}</p>
+                        <p style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)', fontWeight: '600' }}>Kast</p>
+                        <p style={{ fontSize: '0.9375rem' }}>{observation.hive.name}</p>
+                      </div>
                     </div>
                   </Link>
                 ))}
