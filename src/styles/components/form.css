@@ -49,3 +49,43 @@
   color: var(--color-text-muted);
   margin-top: var(--space-2);
 }
+
+.form__actions {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.form__actions--center {
+  justify-content: center;
+}
+
+.form-error {
+  padding: var(--space-3) var(--space-4);
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  color: #c33;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+
+.form-error--general {
+  margin-bottom: var(--space-6);
+}
+
+.form__coordinates {
+  display: flex;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background-color: var(--color-cream);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  font-size: var(--text-sm);
+  font-family: monospace;
+  color: var(--color-text);
+}
+
+.form__coordinates span {
+  color: var(--color-secondary);
+}
