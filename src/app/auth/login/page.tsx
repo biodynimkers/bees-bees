@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { loginSchema } from "@/lib/validators/schemas";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
@@ -42,6 +42,7 @@ export default function Login() {
         ...rawFormData,
         redirect: false,
       });
+
       if (!res?.ok) {
         console.log('signIn errors:', res?.error);
         if (res?.error === 'CredentialsSignin') {
@@ -54,11 +55,10 @@ export default function Login() {
         setLoading(false);
         return;
       }
- 
+
       // Check user role and redirect accordingly
-      const sessionRes = await fetch('/api/auth/session');
-      const session = await sessionRes.json();
- 
+      const session = await getSession();
+
       if (session?.user?.role === 'ADMIN') {
         router.push('/admin');
       } else {

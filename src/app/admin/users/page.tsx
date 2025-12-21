@@ -1,29 +1,52 @@
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 import prisma from '@/lib/client';
-import Link from 'next/link';
+import { authOptions } from '@/lib/auth-options';
+import UsersFilter from '@/components/admin/UsersFilter';
+
+export const dynamic = 'force-dynamic';
 
 export default async function UsersPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id || session.user.role !== 'ADMIN') {
+    redirect('/unauthorized');
+  }
+
   const users = await prisma.user.findMany({
     select: {
       id: true,
       name: true,
       email: true,
       role: true,
-      apiaries: true,
+      _count: {
+        select: {
+          apiaries: true,
+        },
+      },
+    },
+    orderBy: {
+      name: 'asc',
     },
   });
 
   return (
-    <div>
-      <h1>Alle gebruikers</h1>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {' '}
-            <Link href={`/admin/users/${user.id}`}>{user.name}</Link>(
-            {user.email}) - {user.role}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">Alle gebruikers</h1>
+          <p className="page-header__subtitle">
+            Beheer gebruikersaccounts en bekijk activiteit
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <UsersFilter users={users} />
+        </div>
+      </section>
+    </>
   );
 }
+
