@@ -1,5 +1,3 @@
-//layout admin page
-
 export default function AdminLayout({
   children,
 }: {
