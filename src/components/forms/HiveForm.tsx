@@ -79,21 +79,25 @@ export default function HiveForm({
     };
 
     try {
-      let response;
       const url = initialHive ? `/api/hives/${initialHive}` : '/api/hives';
       const method = initialHive ? 'PUT' : 'POST';
-      response = await fetch(url, {
+      const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(hiveData),
       });
 
-      if (!response.ok) throw new Error('Kon kast niet aanmaken');
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Kon kast niet opslaan');
+      }
+
       initialHive
         ? router.push(`/hives/${initialHive}`)
         : router.push(`/apiaries/${finalApiaryId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
+    } finally {
       setLoading(false);
     }
   }
