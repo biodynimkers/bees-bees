@@ -104,22 +104,9 @@ export default async function AccountObservationsPage(searchParams: {
         <div className="container">
           {observations.length > 0 ? (
             <>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: 'var(--space-8)',
-                }}
-              >
-                <h2
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '2rem',
-                    fontWeight: '400',
-                  }}
-                >
-                  Mijn observaties
+              <div className="section-header">
+                <h2 className="section-header__title">
+                  Overzicht
                 </h2>
                 <Link href="/observations/new">
                   <button className="btn btn--primary">
@@ -128,7 +115,7 @@ export default async function AccountObservationsPage(searchParams: {
                 </Link>
               </div>
 
-              <div className="grid grid--2">
+              <div className="grid grid--3">
                 {observations.map(observation => (
                   <Link
                     key={observation.id}
@@ -136,57 +123,22 @@ export default async function AccountObservationsPage(searchParams: {
                     style={{ textDecoration: 'none' }}
                   >
                     <div className="card">
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'flex-start',
-                          marginBottom: 'var(--space-4)',
-                        }}
-                      >
-                        <div>
-                          <p className="card__category">
-                            {new Date(observation.createdAt).toLocaleDateString(
-                              'nl-BE'
-                            )}
-                          </p>
-                          <h3 className="card__title">
-                            {observation.hive.name}
-                          </h3>
-                        </div>
-                        <span
-                          style={{
-                            fontSize: '0.875rem',
-                            padding: 'var(--space-2) var(--space-3)',
-                            background: 'rgba(0, 0, 0, 0.05)',
-                            borderRadius: '4px',
-                          }}
-                        >
-                          {new Date(observation.createdAt).toLocaleTimeString(
-                            'nl-BE',
-                            { hour: '2-digit', minute: '2-digit' }
-                          )}
-                        </span>
-                      </div>
-                      <p
-                        className="card__text"
-                        style={{ marginBottom: 'var(--space-2)' }}
-                      >
-                        {observation.hive.type} - {observation.hive.apiary.name}
+                      <p style={{ fontSize: '0.6875rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-text-light)', marginBottom: 'var(--space-3)', fontWeight: '600' }}>
+                        Observatie
                       </p>
-                      <div
-                        style={{
-                          display: 'flex',
-                          gap: 'var(--space-4)',
-                          fontSize: '0.875rem',
-                          color: 'var(--color-text-light)',
-                        }}
-                      >
-                        <span>{observation.beeCount} bijen</span>
-                        {observation.pollenColor && (
-                          <span>Stuifmeel: {observation.pollenColor}</span>
-                        )}
-                      </div>
+                      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: '400', marginBottom: 'var(--space-2)' }}>
+                        {new Date(observation.createdAt).toLocaleDateString('nl-BE', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric'
+                        })}
+                      </h3>
+                      <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)' }}>
+                        {new Date(observation.createdAt).toLocaleTimeString('nl-BE', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </p>
                     </div>
                   </Link>
                 ))}

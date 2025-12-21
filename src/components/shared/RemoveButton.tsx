@@ -30,7 +30,6 @@ export default function RemoveButton({
         className="btn btn--secondary"
         onClick={() => setShowConfirm(true)}
         style={{ 
-          width: "100%",
           border: "1px solid #dc2626",
           color: "#dc2626"
         }}

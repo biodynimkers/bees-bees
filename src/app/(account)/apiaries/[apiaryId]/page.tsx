@@ -62,14 +62,17 @@ export default async function AccountApiaryPage({
     <>
       <section className="page-header" data-page="01">
         <div className="container">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
             <div>
               <h1 className="page-header__title">{apiary?.name}</h1>
-              <p className="page-header__subtitle">
-                {totalHives} {totalHives === 1 ? 'kast' : 'kasten'}
-              </p>
+              <div className="page-header__meta">
+                <div className="page-header__meta-item">
+                  <span className="page-header__meta-label">Kasten</span>
+                  <span className="page-header__meta-value">{totalHives}</span>
+                </div>
+              </div>
             </div>
-            <div style={{ display: "flex", gap: "var(--space-3)" }}>
+            <div className="page-header__actions">
               <Link href={`/apiaries/${apiary?.id}/edit`}>
                 <button className="btn btn--secondary">
                   Wijzig bijenstand
