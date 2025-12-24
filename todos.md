@@ -69,9 +69,37 @@
 
 ### 👥 Gebruikersbeheer (Beheerder)
 
+-[] de volgende admin structuur stap per stap uitwerken:
+
+app/admin/
+├── page.tsx # Dashboard met overall stats
+├── users/
+│ ├── page.tsx # Lijst alle users (tabel)
+│ └── [userId]/
+│ ├── page.tsx # User overview met stats
+│ ├── apiaries/
+│ │ └── page.tsx # Read-only lijst
+│ ├── hives/
+│ │ └── page.tsx # Read-only lijst
+│ └── observations/
+│ └── page.tsx # Read-only lijst + delete button
+├── apiaries/
+│ └── page.tsx # ALLE apiaries (flat lijst)
+├── hives/
+│ └── page.tsx # ALLE hives (flat lijst)
+└── observations/
+└── page.tsx # ALLE observations (flat lijst)
+
 - [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
-- [x] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
-- [ ] → filter gebruikers (alleen beheerders)
+- [] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
+- [x] → filter gebruikers (alleen beheerders)
+- [] **GET** `/admin/users/:id` → User overview met stats
+- [] **GET** `/admin/users/:id/apiaries` → Read-only lijst
+- [] **GET** `/admin/users/:id/hives` → Read-only lijst
+- [] **GET** `/admin/users/:id/observations` → Read-only lijst
+- [x] **GET** `/admin/apiaries` → Read-only lijst
+- [] **GET** `/admin/hives` → Read-only lijst
+- [] **GET** `/admin/observations` → Read-only lijst
 
 ---
 

@@ -10,7 +10,7 @@ export default function ApiariesTable({
   showUser = true,
 }: ApiariesTableProps) {
   return (
-    <table className="table">
+    <table className="table" style={{ marginTop: '6rem' }}>
       <thead>
         <tr>
           <th>Naam</th>
