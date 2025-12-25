@@ -1,4 +1,5 @@
 import { Apiary, User } from '@prisma/client';
+import Link from 'next/link';
 // components/admin/ApiariesTable.tsx
 interface ApiariesTableProps {
   apiaries: Array<Apiary & { user: User; _count: { hives: number } }>;
@@ -23,7 +24,9 @@ export default function ApiariesTable({
       <tbody>
         {apiaries.map(apiary => (
           <tr key={apiary.id}>
-            <td>{apiary.name}</td>
+            <td>
+              <Link href={`/admin/apiaries/${apiary.id}`}>{apiary.name}</Link>
+            </td>
             <td>
               {apiary.latitude}, {apiary.longitude}
             </td>
