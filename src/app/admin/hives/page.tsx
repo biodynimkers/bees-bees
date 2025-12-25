@@ -9,9 +9,7 @@ export default async function AdminHivesPage() {
     include: {
       apiary: {
         include: {
-          user: {
-            select: { name: true },
-          },
+          user: true,
         },
       },
       _count: {
