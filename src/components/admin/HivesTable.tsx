@@ -34,7 +34,6 @@ export default function HivesTable({
         {hives.map(hive => (
           <tr key={hive.id}>
             <td>
-              {/*  TODO: Link naar detailpagina van kast */}
               <Link href={`/admin/hives/${hive.id}`}>{hive.name}</Link>
             </td>
             <td>{hive.type}</td>
