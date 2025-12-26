@@ -56,7 +56,12 @@ export default async function UserHivesPage({
       <h1>Kasten van {user.name}</h1>
       <p className="subtitle">Totaal: {hives.length} kasten</p>
 
-      <HivesTable hives={hives} showApiary={true} showUser={false} />
+      <HivesTable
+        hives={hives}
+        showApiary={true}
+        showUser={false}
+        currentPath={`/admin/users/${userId}/hives`}
+      />
     </div>
   );
 }
