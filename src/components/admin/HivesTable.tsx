@@ -4,7 +4,7 @@ import Link from 'next/link';
 interface HivesTableProps {
   hives: Array<
     Hive & {
-      apiary: Apiary & { user: User };
+      apiary?: Apiary & { user: User };
       _count: { observations: number };
     }
   >;
@@ -40,15 +40,15 @@ export default function HivesTable({
             <td>{hive.colonyType}</td>
             {showApiary && (
               <td>
-                <Link href={`/admin/apiaries/${hive.apiary.id}`}>
-                  {hive.apiary.name}
+                <Link href={`/admin/apiaries/${hive.apiary?.id}`}>
+                  {hive.apiary?.name}
                 </Link>
               </td>
             )}
             {showUser && (
               <td>
-                <Link href={`/admin/users/${hive.apiary.userId}`}>
-                  {hive.apiary.user.name}
+                <Link href={`/admin/users/${hive.apiary?.userId}`}>
+                  {hive.apiary?.user.name}
                 </Link>
               </td>
             )}
