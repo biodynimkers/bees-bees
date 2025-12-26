@@ -24,7 +24,12 @@ export default async function AdminHivesPage() {
       <h1>Alle Kasten</h1>
       <p className="subtitle">Totaal: {hives.length} kasten</p>
 
-      <HivesTable hives={hives} showApiary={true} showUser={true} />
+      <HivesTable
+        hives={hives}
+        showApiary={true}
+        showUser={true}
+        currentPath={'/admin/hives'}
+      />
     </div>
   );
 }

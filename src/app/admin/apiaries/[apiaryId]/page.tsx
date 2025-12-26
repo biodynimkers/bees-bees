@@ -41,7 +41,11 @@ export default async function ApiaryDetailPage({
       </p>
 
       <h2 style={{ marginTop: '2rem' }}>Kasten in deze bijenstand</h2>
-      <HivesTable hives={apiary.hives} showApiary={false} />
+      <HivesTable
+        hives={apiary.hives}
+        showApiary={false}
+        currentPath={`/admin/apiaries/${apiaryId}`}
+      />
     </div>
   );
 }

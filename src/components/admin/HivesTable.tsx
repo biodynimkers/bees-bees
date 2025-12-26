@@ -8,6 +8,7 @@ interface HivesTableProps {
       _count: { observations: number };
     }
   >;
+  currentPath: string;
   showApiary?: boolean; // Toon bijenstand kolom
   showUser?: boolean; // Toon eigenaar kolom
 }
@@ -16,6 +17,7 @@ export default function HivesTable({
   hives,
   showApiary = true,
   showUser = true,
+  currentPath,
 }: HivesTableProps) {
   return (
     <table className="table" style={{ marginTop: '2rem' }}>
@@ -34,7 +36,13 @@ export default function HivesTable({
         {hives.map(hive => (
           <tr key={hive.id}>
             <td>
-              <Link href={`/admin/hives/${hive.id}`}>{hive.name}</Link>
+              <Link
+                href={`/admin/hives/${hive.id}?returnUrl=${encodeURIComponent(
+                  currentPath
+                )}`}
+              >
+                {hive.name}
+              </Link>
             </td>
             <td>{hive.type}</td>
             <td>{hive.colonyType}</td>

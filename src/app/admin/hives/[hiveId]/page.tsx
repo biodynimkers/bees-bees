@@ -5,11 +5,13 @@ import Link from 'next/link';
 
 export default async function AdminHiveDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ hiveId: string }>;
+  searchParams: { returnUrl?: string };
 }) {
   await requireAdmin();
-
+  const returnUrl = searchParams.returnUrl || '/admin/hives';
   const { hiveId } = await params;
   const hive = await prisma.hive.findUnique({
     where: { id: parseInt(hiveId) },
@@ -29,8 +31,8 @@ export default async function AdminHiveDetailPage({
 
   return (
     <div className="container" style={{ marginTop: '6rem' }}>
-      <Link href="/admin/hives" className="button button--outline">
-        ← Terug naar kasten
+      <Link href={returnUrl} className="button button--outline">
+        ← Terug
       </Link>
       <h1>{hive.name}</h1>
       <p>Type: {hive.type}</p>
