@@ -31,7 +31,10 @@ export default async function AdminHiveDetailPage({
 
   return (
     <div className="container" style={{ marginTop: '6rem' }}>
-      <Link href={returnUrl} className="button button--outline">
+      <Link
+        href={returnUrl ?? '/admin/hives'}
+        className="button button--outline"
+      >
         ← Terug
       </Link>
       <h1>{hive.name}</h1>
