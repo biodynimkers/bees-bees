@@ -14,7 +14,7 @@ export default async function UserDetailPage({
 }) {
   const { userId } = await params;
 
-  const session = await requireAdmin();
+  await requireAdmin();
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
@@ -30,6 +30,15 @@ export default async function UserDetailPage({
     where: {
       apiary: {
         userId,
+      },
+    },
+  });
+  const totalObservations = await prisma.observation.count({
+    where: {
+      hive: {
+        apiary: {
+          userId,
+        },
       },
     },
   });
@@ -68,7 +77,6 @@ export default async function UserDetailPage({
             ? `${totalHives} kasten`
             : `${totalHives} kast`}
         </p>
-        <br />
         {totalHives ? (
           <Link href={`/admin/users/${userId}/hives`}>
             Bekijk de {totalHives > 1 ? 'kasten' : 'kast'}
@@ -76,6 +84,23 @@ export default async function UserDetailPage({
         ) : (
           ''
         )}
+        <br />
+        {/* TODO add the observations */}
+        <p>
+          {totalObservations === 0
+            ? 'nog geen observaties'
+            : totalObservations > 1
+            ? `${totalObservations} observaties`
+            : `${totalObservations} observatie`}
+        </p>
+        {totalObservations ? (
+          <Link href={`/admin/users/${userId}/observations`}>
+            Bekijk de {totalObservations > 1 ? 'observaties' : 'observatie'}
+          </Link>
+        ) : (
+          ''
+        )}
+        <br />
         <Link href="/admin/users">Terug naar alle imkers</Link>
       </div>
     </section>

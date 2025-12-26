@@ -100,6 +100,7 @@ app/admin/
 - [x] **GET** `/admin/apiaries` → Read-only lijst
 - [x] **GET** `/admin/hives` → Read-only lijst
 - [] **GET** `/admin/observations` → Read-only lijst
+- [] dynamische terugkeerUrls voor [apiaryId], [hiveId] en [observationId] TODO
 
 ---
 

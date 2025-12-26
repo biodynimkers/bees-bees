@@ -40,8 +40,8 @@ export default async function AdminUserObservationsPage({
   });
   return (
     <div style={{ marginTop: '6rem' }}>
-      <h1>Observations of User</h1>
-      <ObservationsTable observations={observations} />
+      <h1>Observaties van {user.name}</h1>
+      <ObservationsTable observations={observations} showUser={false} />
     </div>
   );
 }
