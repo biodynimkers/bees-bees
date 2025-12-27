@@ -100,7 +100,12 @@ app/admin/
 - [x] **GET** `/admin/apiaries` → Read-only lijst
 - [x] **GET** `/admin/hives` → Read-only lijst
 - [] **GET** `/admin/observations` → Read-only lijst
-- [] dynamische terugkeerUrls voor [apiaryId], [hiveId] en [observationId] TODO
+- [x] dynamische terugkeerUrls in [hiveId]
+- [] dynamische terugkeerUrls in [apiaryId] TODO
+- [] dynamische terugkeerUrls in [observationsId] TODO
+- [] dynamische terugkeerUrls in hives TODO
+- [] dynamische terugkeerUrls in observations TODO
+- [] dynamische terugkeerUrls in apiaries TODO
 
 ---
 
@@ -109,7 +114,7 @@ app/admin/
 ### 5. Applicatie Layout
 
 - [ ] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
-- [ ] **Home Page** (`page.tsx`): Direct server action for the data expected TODO
+- [ ] **Home Page** (`page.tsx`): Direct server action for the data expected
 - [ ] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
 - [ ] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
 - [ ] **Configuratie** (`next.config.ts`): Lettertype optimalisatie

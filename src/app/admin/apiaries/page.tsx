@@ -9,5 +9,11 @@ export default async function AdminApiariesPage() {
       },
     },
   });
-  return <ApiariesTable apiaries={apiaries} showUser={true} />;
+  return (
+    <ApiariesTable
+      apiaries={apiaries}
+      showUser={true}
+      currentPath={'/admin/apiaries'}
+    />
+  );
 }

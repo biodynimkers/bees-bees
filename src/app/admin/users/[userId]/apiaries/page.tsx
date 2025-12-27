@@ -13,5 +13,11 @@ export default async function AdminUserApiariesPage({
     include: { user: true, _count: true },
   });
 
-  return <ApiariesTable apiaries={apiaries} showUser={false} />;
+  return (
+    <ApiariesTable
+      apiaries={apiaries}
+      showUser={false}
+      currentPath={`/admin/users/${userId}/apiaries`}
+    />
+  );
 }

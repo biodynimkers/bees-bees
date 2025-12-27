@@ -4,11 +4,13 @@ import Link from 'next/link';
 interface ApiariesTableProps {
   apiaries: Array<Apiary & { user: User; _count: { hives: number } }>;
   showUser?: boolean; // Toon user kolom (voor globale lijst)
+  currentPath: string;
 }
 
 export default function ApiariesTable({
   apiaries,
   showUser = true,
+  currentPath,
 }: ApiariesTableProps) {
   return (
     <table className="table" style={{ marginTop: '6rem' }}>
@@ -25,7 +27,13 @@ export default function ApiariesTable({
         {apiaries.map(apiary => (
           <tr key={apiary.id}>
             <td>
-              <Link href={`/admin/apiaries/${apiary.id}`}>{apiary.name}</Link>
+              <Link
+                href={`/admin/apiaries/${
+                  apiary.id
+                }?returnUrl=${encodeURIComponent(currentPath)}`}
+              >
+                {apiary.name}
+              </Link>
             </td>
             <td>
               {apiary.latitude}, {apiary.longitude}

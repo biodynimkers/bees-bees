@@ -5,11 +5,14 @@ import { requireAdmin } from '@/lib/auth-helpers';
 import HivesTable from '@/components/admin/HivesTable';
 export default async function ApiaryDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ apiaryId: string }>;
+  searchParams: Promise<{ returnUrl?: string }>;
 }) {
   const { apiaryId } = await params;
   await requireAdmin();
+  const { returnUrl } = (await searchParams) || '/admin/apiaries';
 
   const apiary = await prisma.apiary.findUnique({
     where: { id: parseInt(apiaryId) },
@@ -27,8 +30,11 @@ export default async function ApiaryDetailPage({
 
   return (
     <div className="container" style={{ marginTop: '6rem' }}>
-      <Link href="/admin/apiaries" className="button button--outline">
-        ← Terug naar bijenstanden
+      <Link
+        href={returnUrl ?? '/admin/apiaries'}
+        className="button button--outline"
+      >
+        ← Terug
       </Link>
 
       <h1>{apiary.name}</h1>
