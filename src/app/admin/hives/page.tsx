@@ -3,8 +3,17 @@ import HivesTable from '@/components/admin/HivesTable';
 import { requireAdmin } from '@/lib/auth-helpers';
 import Link from 'next/link';
 
-export default async function AdminHivesPage() {
+export default async function AdminHivesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
   await requireAdmin();
+  const searchParamsResult = await searchParams;
+  const currentPage = Number(searchParamsResult?.page ?? '1');
+  const hivesPerPage = 5;
+  const totalHives = await prisma.hive.count();
+  const totalPages = Math.ceil(totalHives / hivesPerPage);
 
   const hives = await prisma.hive.findMany({
     include: {
@@ -31,6 +40,8 @@ export default async function AdminHivesPage() {
         showApiary={true}
         showUser={true}
         currentPath={'/admin/hives'}
+        totalPages={totalPages}
+        currentPage={currentPage}
       />
     </div>
   );

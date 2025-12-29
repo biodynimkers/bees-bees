@@ -6,12 +6,23 @@ import HivesTable from '@/components/admin/HivesTable';
 
 export default async function UserHivesPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ userId: string }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
   await requireAdmin();
 
   const { userId } = await params;
+  const searchParamsResult = await searchParams;
+  const hivesPerPage = 5;
+  const currentPage = Number(searchParamsResult?.page ?? '1');
+  const totalHives = await prisma.hive.count({
+    where: {
+      apiary: { userId },
+    },
+  });
+  const totalPages = Math.ceil(totalHives / hivesPerPage);
 
   // Get user info
   const user = await prisma.user.findUnique({
@@ -27,6 +38,8 @@ export default async function UserHivesPage({
     where: {
       apiary: { userId },
     },
+    skip: (currentPage - 1) * hivesPerPage,
+    take: hivesPerPage,
     include: {
       apiary: {
         include: {
@@ -61,6 +74,8 @@ export default async function UserHivesPage({
         showApiary={true}
         showUser={false}
         currentPath={`/admin/users/${userId}/hives`}
+        totalPages={totalPages}
+        currentPage={currentPage}
       />
     </div>
   );
