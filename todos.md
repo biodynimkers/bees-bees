@@ -106,7 +106,7 @@ app/admin/
 - [x] dynamische terugkeerUrls in admin/hives en admin/users/[userId]/hives
 - [x] dynamische terugkeerUrls in admin/observations en admin/users/[userId]/observations
 - [x] dynamische terugkeerUrls in admin/apiaries en admin/users/[userId]/apiaries
-- [] paginering voorzien voor admin/users TODO
+- [] paginering voorzien voor admin/users en admin/users/userId/apiaries TODO
 - [] paginering voorzien voor admin/apiaries TODO
 - [] paginering voorzien voor admin/hives TODO
 - [] paginering voorzien voor admin/observations TODO
