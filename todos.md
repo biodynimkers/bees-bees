@@ -69,9 +69,43 @@
 
 ### 👥 Gebruikersbeheer (Beheerder)
 
+-[] de volgende admin structuur stap per stap uitwerken:
+
+app/admin/
+├── page.tsx # Dashboard met overall stats
+├── users/
+│ ├── page.tsx # Lijst alle users (tabel)
+│ └── [userId]/
+│ ├── page.tsx # User overview met stats
+│ ├── apiaries/
+│ │ └── page.tsx # Read-only lijst
+│ ├── hives/
+│ │ └── page.tsx # Read-only lijst
+│ └── observations/
+│ └── page.tsx # Read-only lijst + delete button
+├── apiaries/
+│ └── page.tsx # ALLE apiaries (flat lijst)
+├── hives/
+│ └── page.tsx # ALLE hives (flat lijst)
+└── observations/
+└── page.tsx # ALLE observations (flat lijst)
+
 - [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
-- [x] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
-- [ ] → filter gebruikers (alleen beheerders)
+- [] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
+- [x] → filter gebruikers (alleen beheerders)
+- [] **GET** `/admin/users/:id` → User overview met stats
+- [x] **GET** `/admin/users/:id/apiaries` → Read-only lijst
+- [x] **GET** `/admin/users/:id/hives` → Read-only lijst
+- [] **GET** `/admin/users/:id/observations` → Read-only lijst
+- [x] **GET** `/admin/apiaries` → Read-only lijst
+- [x] **GET** `/admin/hives` → Read-only lijst
+- [x] **GET** `/admin/observations` → Read-only lijst
+- [x] dynamische terugkeerUrls in [hiveId]
+- [x] dynamische terugkeerUrls in [apiaryId]
+<!-- - [] dynamische terugkeerUrls in [observationsId]--> niet nodig, staan al uitgeschreven onder kasten
+- [] dynamische terugkeerUrls in admin/hives en admin/users/[userId]/hives TODO
+- [] dynamische terugkeerUrls in admin/observations en admin/users/[userId]/observations TODO
+- [x] dynamische terugkeerUrls in admin/apiaries en admin/users/[userId]/apiaries TODO
 
 ---
 
@@ -80,7 +114,7 @@
 ### 5. Applicatie Layout
 
 - [ ] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
-- [ ] **Home Page** (`page.tsx`): Direct server action for the data expected TODO
+- [ ] **Home Page** (`page.tsx`): Direct server action for the data expected
 - [ ] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
 - [ ] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
 - [ ] **Configuratie** (`next.config.ts`): Lettertype optimalisatie

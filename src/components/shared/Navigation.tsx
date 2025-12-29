@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
-import { useState, useRef, useEffect } from "react";
-import { User, MapPin, Box, Eye, LogOut } from "lucide-react";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
+import { useState, useRef, useEffect } from 'react';
+import { User, MapPin, Box, Eye, LogOut } from 'lucide-react';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -23,8 +23,8 @@ export default function Navigation() {
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   useEffect(() => {
@@ -39,14 +39,14 @@ export default function Navigation() {
   }, [isMobileMenuOpen]);
 
   const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/vision", label: "Visie" },
-    { href: "/platform", label: "Platform" },
-    { href: "/contact", label: "Contact" },
+    { href: '/', label: 'Home' },
+    { href: '/vision', label: 'Visie' },
+    { href: '/platform', label: 'Platform' },
+    { href: '/contact', label: 'Contact' },
   ];
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: "/" });
+    await signOut({ callbackUrl: '/' });
   };
 
   const closeMobileMenu = () => {
@@ -58,12 +58,18 @@ export default function Navigation() {
       <div className="container">
         <div className="nav__container">
           <Link href="/" className="nav__logo">
-            <img src="/assets/logo.png" alt="Logo" className="nav__logo-image" />
+            <img
+              src="/assets/logo.png"
+              alt="Logo"
+              className="nav__logo-image"
+            />
             <span className="nav__logo-text">Biodynamische Imkers</span>
           </Link>
 
           <button
-            className={`nav__hamburger ${isMobileMenuOpen ? 'nav__hamburger--open' : ''}`}
+            className={`nav__hamburger ${
+              isMobileMenuOpen ? 'nav__hamburger--open' : ''
+            }`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -73,12 +79,12 @@ export default function Navigation() {
           </button>
 
           <div className="nav__menu">
-            {navItems.map((item) => (
+            {navItems.map(item => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={`nav__link ${
-                  pathname === item.href ? "nav__link--active" : ""
+                  pathname === item.href ? 'nav__link--active' : ''
                 }`}
               >
                 {item.label}
@@ -93,13 +99,19 @@ export default function Navigation() {
                   aria-label="User menu"
                 >
                   <span className="nav__user-greeting">Hello</span>
-                  <span className="nav__user-name">{session.user.name?.split(' ')[0] || session.user.email?.split('@')[0] || 'User'}</span>
+                  <span className="nav__user-name">
+                    {session.user.name?.split(' ')[0] ||
+                      session.user.email?.split('@')[0] ||
+                      'User'}
+                  </span>
                   <svg
                     width="12"
                     height="12"
                     viewBox="0 0 12 12"
                     fill="none"
-                    className={`nav__user-chevron ${isDropdownOpen ? 'nav__user-chevron--open' : ''}`}
+                    className={`nav__user-chevron ${
+                      isDropdownOpen ? 'nav__user-chevron--open' : ''
+                    }`}
                   >
                     <path
                       d="M2 4L6 8L10 4"
@@ -148,7 +160,9 @@ export default function Navigation() {
                     {session.user.role === 'ADMIN' && (
                       <>
                         <div className="nav__dropdown-divider"></div>
-                        <div className="nav__dropdown-section-title">Admin functies</div>
+                        <div className="nav__dropdown-section-title">
+                          Admin functies
+                        </div>
                         <Link
                           href="/admin/stats"
                           className="nav__dropdown-item"
@@ -164,7 +178,14 @@ export default function Navigation() {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                           >
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <rect
+                              x="3"
+                              y="3"
+                              width="18"
+                              height="18"
+                              rx="2"
+                              ry="2"
+                            />
                             <line x1="3" y1="9" x2="21" y2="9" />
                             <line x1="9" y1="21" x2="9" y2="9" />
                           </svg>
@@ -192,6 +213,27 @@ export default function Navigation() {
                           </svg>
                           <span>Alle gebruikers</span>
                         </Link>
+                        <Link
+                          href="/admin/apiaries"
+                          className="nav__dropdown-item"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          <span>Alle bijenstanden</span>
+                        </Link>
+                        <Link
+                          href="/admin/hives"
+                          className="nav__dropdown-item"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          <span>Alle kasten</span>
+                        </Link>
+                        <Link
+                          href="/admin/observations"
+                          className="nav__dropdown-item"
+                          onClick={closeMobileMenu}
+                        >
+                          Alle observaties
+                        </Link>
                       </>
                     )}
                     <div className="nav__dropdown-divider"></div>
@@ -214,26 +256,32 @@ export default function Navigation() {
         </div>
       </div>
 
-      <div 
-        className={`nav__mobile-overlay ${isMobileMenuOpen ? 'nav__mobile-overlay--open' : ''}`}
+      <div
+        className={`nav__mobile-overlay ${
+          isMobileMenuOpen ? 'nav__mobile-overlay--open' : ''
+        }`}
         onClick={closeMobileMenu}
       ></div>
 
-      <div className={`nav__mobile-menu ${isMobileMenuOpen ? 'nav__mobile-menu--open' : ''}`}>
+      <div
+        className={`nav__mobile-menu ${
+          isMobileMenuOpen ? 'nav__mobile-menu--open' : ''
+        }`}
+      >
         <div className="nav__mobile-links">
-          {navItems.map((item) => (
+          {navItems.map(item => (
             <Link
               key={item.href}
               href={item.href}
               className={`nav__mobile-link ${
-                pathname === item.href ? "nav__mobile-link--active" : ""
+                pathname === item.href ? 'nav__mobile-link--active' : ''
               }`}
               onClick={closeMobileMenu}
             >
               {item.label}
             </Link>
           ))}
-          
+
           {session?.user ? (
             <>
               <div className="nav__mobile-divider"></div>
@@ -268,7 +316,9 @@ export default function Navigation() {
               {session.user.role === 'ADMIN' && (
                 <>
                   <div className="nav__mobile-divider"></div>
-                  <div className="nav__mobile-section-title">Admin functies</div>
+                  <div className="nav__mobile-section-title">
+                    Admin functies
+                  </div>
                   <Link
                     href="/admin/stats"
                     className="nav__mobile-link"
@@ -282,6 +332,27 @@ export default function Navigation() {
                     onClick={closeMobileMenu}
                   >
                     Alle gebruikers
+                  </Link>
+                  <Link
+                    href="/admin/apiaries"
+                    className="nav__mobile-link"
+                    onClick={closeMobileMenu}
+                  >
+                    Alle bijenstanden
+                  </Link>
+                  <Link
+                    href="/admin/hives"
+                    className="nav__mobile-link"
+                    onClick={closeMobileMenu}
+                  >
+                    Alle kasten
+                  </Link>
+                  <Link
+                    href="/admin/observations"
+                    className="nav__mobile-link"
+                    onClick={closeMobileMenu}
+                  >
+                    Alle observaties
                   </Link>
                 </>
               )}
