@@ -85,7 +85,6 @@ export default async function UserDetailPage({
           ''
         )}
         <br />
-        {/* TODO add the observations */}
         <p>
           {totalObservations === 0
             ? 'nog geen observaties'

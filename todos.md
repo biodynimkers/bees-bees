@@ -91,7 +91,7 @@ app/admin/
 └── page.tsx # ALLE observations (flat lijst)
 
 - [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
-- [] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
+- [] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary TODO
 - [x] → filter gebruikers (alleen beheerders)
 - [] **GET** `/admin/users/:id` → User overview met stats
 - [x] **GET** `/admin/users/:id/apiaries` → Read-only lijst
@@ -103,9 +103,13 @@ app/admin/
 - [x] dynamische terugkeerUrls in [hiveId]
 - [x] dynamische terugkeerUrls in [apiaryId]
 <!-- - [] dynamische terugkeerUrls in [observationsId]--> niet nodig, staan al uitgeschreven onder kasten
-- [] dynamische terugkeerUrls in admin/hives en admin/users/[userId]/hives TODO
-- [] dynamische terugkeerUrls in admin/observations en admin/users/[userId]/observations TODO
-- [x] dynamische terugkeerUrls in admin/apiaries en admin/users/[userId]/apiaries TODO
+- [x] dynamische terugkeerUrls in admin/hives en admin/users/[userId]/hives
+- [x] dynamische terugkeerUrls in admin/observations en admin/users/[userId]/observations
+- [x] dynamische terugkeerUrls in admin/apiaries en admin/users/[userId]/apiaries
+- [] paginering voorzien voor admin/users TODO
+- [] paginering voorzien voor admin/apiaries TODO
+- [] paginering voorzien voor admin/hives TODO
+- [] paginering voorzien voor admin/observations TODO
 
 ---
 

@@ -5,10 +5,17 @@ import Link from 'next/link';
 export default async function AdminApiariesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ returnUrl?: string }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const { returnUrl } = (await searchParams) || '/admin';
+  const searchParamsResult = await searchParams;
+  const apiariesPerPage = 5;
+  const currentPage = Number(searchParamsResult?.page ?? '1');
+  const totalApiaries = await prisma.apiary.count();
+  const totalPages = Math.ceil(totalApiaries / apiariesPerPage);
+
   const apiaries = await prisma.apiary.findMany({
+    skip: (currentPage - 1) * apiariesPerPage,
+    take: apiariesPerPage,
     include: {
       user: true,
       _count: {
@@ -16,6 +23,7 @@ export default async function AdminApiariesPage({
       },
     },
   });
+
   return (
     <div style={{ marginTop: '6rem' }}>
       <Link href="/admin/">Naar startpagina beheerder</Link>
@@ -23,6 +31,8 @@ export default async function AdminApiariesPage({
         apiaries={apiaries}
         showUser={true}
         currentPath={'/admin/apiaries'}
+        totalPages={totalPages}
+        currentPage={currentPage}
       />
     </div>
   );
