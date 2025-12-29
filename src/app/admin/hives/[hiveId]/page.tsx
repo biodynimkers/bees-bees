@@ -2,6 +2,7 @@ import prisma from '@/lib/client';
 import { requireAdmin } from '@/lib/auth-helpers';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import ObservationsTable from '@/components/admin/ObservationsTable';
 
 export default async function AdminHiveDetailPage({
   params,
@@ -44,39 +45,12 @@ export default async function AdminHiveDetailPage({
         Bijenstand: {hive.apiary.name}
       </Link>
       <h2 style={{ marginTop: '2rem' }}>Observaties</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Datum</th>
-            <th>Tijd</th>
-            <th>Aantal bijen</th>
-            <th>Stuifmeelkleur</th>
-            <th>nota's</th>
-          </tr>
-        </thead>
-        <tbody>
-          {hive.observations.map(observation => (
-            <tr key={observation.id}>
-              <td>
-                {new Date(observation.createdAt).toLocaleDateString('nl-BE', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                })}
-              </td>
-              <td>
-                {new Date(observation.createdAt).toLocaleTimeString('nl-BE', {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
-              </td>
-              <td>{observation.beeCount}</td>
-              <td>{observation.pollenColor}</td>
-              <td>{observation.notes}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <ObservationsTable
+        observations={hive.observations}
+        showUser={false}
+        showHive={false}
+        showApiary={false}
+      />
     </div>
   );
 }

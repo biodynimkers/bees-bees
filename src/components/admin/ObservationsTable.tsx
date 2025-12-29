@@ -4,14 +4,17 @@ import Link from 'next/link';
 interface ObservationsTableProps {
   observations: Array<
     Observation & {
-      hive: Hive & {
-        apiary: Apiary & { user: User };
+      hive?: Hive & {
+        apiary?: Apiary & { user?: User };
       };
     }
   >;
   showHive?: boolean;
   showApiary?: boolean;
   showUser?: boolean;
+  currentPath?: string;
+  currentPage?: number;
+  totalPages?: number;
 }
 
 export default function ObservationsTable({
@@ -19,6 +22,9 @@ export default function ObservationsTable({
   showHive = true,
   showApiary = true,
   showUser = true,
+  currentPath,
+  currentPage,
+  totalPages,
 }: ObservationsTableProps) {
   return (
     <table className="table" style={{ marginTop: '6rem' }}>
@@ -39,21 +45,21 @@ export default function ObservationsTable({
             <td>{observation.beeCount}</td>
             <td>{observation.pollenColor}</td>
             <td>{observation.notes || '-'}</td>
-            {showHive && (
+            {showHive && observation.hive && (
               <td>
                 <Link href={`/admin/hives/${observation.hive.id}`}>
                   {observation.hive.name}
                 </Link>
               </td>
             )}
-            {showApiary && (
+            {showApiary && observation.hive?.apiary && (
               <td>
                 <Link href={`/admin/apiaries/${observation.hive.apiary.id}`}>
                   {observation.hive.apiary.name}
                 </Link>
               </td>
             )}
-            {showUser && (
+            {showUser && observation.hive?.apiary?.user && (
               <td>
                 <Link href={`/admin/users/${observation.hive.apiary.userId}`}>
                   {observation.hive.apiary.user.name}
