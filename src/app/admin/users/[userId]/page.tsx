@@ -4,6 +4,7 @@ import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import { requireAdmin } from '@/lib/auth-helpers';
 import Link from 'next/link';
+import DeleteUserButton from '@/components/admin/DeleteUserButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -103,6 +104,7 @@ export default async function UserDetailPage({
         <br />
         <Link href="/admin/users">Terug naar alle imkers</Link>
       </div>
+      <DeleteUserButton userId={userId} userName={user.name} />
     </section>
   );
 }

@@ -47,7 +47,7 @@ export default function DeleteUserButton({
           onClick={() => setShowConfirm(true)}
           style={{ background: 'red', color: 'white', marginLeft: '1rem' }}
         >
-          Verwijder
+          Verwijder {userName}
         </button>
       ) : (
         <>
