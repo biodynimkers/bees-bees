@@ -91,12 +91,12 @@ app/admin/
 └── page.tsx # ALLE observations (flat lijst)
 
 - [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
-- [] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary TODO
+- [x] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
 - [x] → filter gebruikers (alleen beheerders)
-- [] **GET** `/admin/users/:id` → User overview met stats
+- [x] **GET** `/admin/users/:id` → User overview met stats
 - [x] **GET** `/admin/users/:id/apiaries` → Read-only lijst
 - [x] **GET** `/admin/users/:id/hives` → Read-only lijst
-- [] **GET** `/admin/users/:id/observations` → Read-only lijst
+- [x] **GET** `/admin/users/:id/observations` → Read-only lijst
 - [x] **GET** `/admin/apiaries` → Read-only lijst
 - [x] **GET** `/admin/hives` → Read-only lijst
 - [x] **GET** `/admin/observations` → Read-only lijst
