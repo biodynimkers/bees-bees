@@ -9,9 +9,6 @@ interface User {
   email: string;
   role: string;
   _count: { apiaries: number };
-  currentPage?: number;
-  totalPages?: number;
-  currentPath?: string;
 }
 
 export default function UsersFilter({
