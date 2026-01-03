@@ -9,12 +9,9 @@ export type RegisterResult =
   | { ok: false; errors: Record<string, string[]> }; // is a utility type in TypeScript dat describes an object type.
 
 // Server action to create a user. Returns structured fieldErrors when validation fails.
-export async function createItem(formData: FormData): Promise<RegisterResult> {
-  // Convert FormData to plain object. Values should be strings for our fields.
-  const rawFormData = Object.fromEntries(formData.entries()) as Record<
-    string,
-    unknown
-  >;
+export async function createItem(
+  rawFormData: Record<string, unknown>
+): Promise<RegisterResult> {
   // Validate and parse input data with Zod's safeParse method
   const validationResult = registerSchema.safeParse(rawFormData);
   if (!validationResult.success) {

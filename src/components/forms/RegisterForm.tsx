@@ -6,7 +6,7 @@ import { registerSchema } from "@/lib/validators/schemas";
 import Button from "@/components/magazine/Button";
 
 type FormProps = {
-  createItem: (formData: FormData) => Promise<RegisterResult>;
+  createItem: (formData: Record<string, unknown>) => Promise<RegisterResult>;
 };
 export function RegisterForm({ createItem }: FormProps) {
   // In React+TypeScript kun je een type meegeven aan useState zodat de compiler weet welke shape de state later heeft: useState<Type>(initialValue)
@@ -38,7 +38,7 @@ export function RegisterForm({ createItem }: FormProps) {
     }
 
     try {
-      const res = await createItem(fd);
+      const res = await createItem(rawFormData);
       if (!res.ok) {
         console.log("Registration errors:", res.errors);
         setErrors(res.errors);

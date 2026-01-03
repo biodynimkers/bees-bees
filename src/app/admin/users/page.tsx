@@ -58,7 +58,6 @@ export default async function UsersPage({
             users={users}
             currentPage={currentPage}
             totalPages={totalPages}
-            currentPath={'/admin/users'}
           />
         </div>
       </section>
