@@ -49,6 +49,17 @@
   color: var(--color-text);
 }
 
+.btn--danger {
+  background-color: #ef4444;
+  color: white;
+  border-color: #dc2626;
+}
+
+.btn--danger:hover {
+  background-color: #dc2626;
+  border-color: #b91c1c;
+}
+
 .btn--large {
   padding: var(--space-5) var(--space-12);
   font-size: 1rem;

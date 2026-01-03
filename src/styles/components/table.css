@@ -1,48 +1,64 @@
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(63, 66, 46, 0.15);
   background: white;
+  border-radius: 4px;
+  margin-top: var(--space-8);
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9375rem;
+  background: white;
 }
 
-.table__head {
-  background-color: rgba(0, 0, 0, 0.02);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+.table thead {
+  background-color: rgba(63, 66, 46, 0.04);
+  border-bottom: 2px solid rgba(63, 66, 46, 0.15);
 }
 
-.table__head-cell {
-  padding: var(--space-4) var(--space-6);
+.table th {
+  padding: var(--space-5) var(--space-6);
   text-align: left;
   font-size: 0.6875rem;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-light);
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
 }
 
-.table__body-row {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-  transition: background-color 0.2s ease;
+.table tbody tr {
+  border-bottom: 1px solid rgba(63, 66, 46, 0.08);
+  transition: background-color 0.15s ease;
 }
 
-.table__body-row:hover {
-  background-color: rgba(0, 0, 0, 0.01);
+.table tbody tr:hover {
+  background-color: rgba(63, 66, 46, 0.02);
 }
 
-.table__body-row:last-child {
+.table tbody tr:last-child {
   border-bottom: none;
 }
 
-.table__cell {
+.table td {
   padding: var(--space-5) var(--space-6);
   vertical-align: middle;
   color: var(--color-text);
+  font-size: 0.9375rem;
+}
+
+.table td a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.table td a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
 }
 
 .table__cell--name {
@@ -77,12 +93,61 @@
 }
 
 @media (max-width: 768px) {
+  .table-wrapper {
+    border: none;
+    background: transparent;
+  }
+
   .table {
     font-size: 0.875rem;
   }
 
-  .table__head-cell,
-  .table__cell {
-    padding: var(--space-4);
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: block;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: var(--space-6);
+    border: 1px solid rgba(63, 66, 46, 0.15);
+    border-radius: 4px;
+    background: white;
+    padding: var(--space-6);
+  }
+
+  .table tbody tr:hover {
+    background: white;
+    box-shadow: 0 2px 8px rgba(63, 66, 46, 0.12);
+  }
+
+  .table td {
+    display: block;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid rgba(63, 66, 46, 0.08);
+    text-align: left;
+  }
+
+  .table td:last-child {
+    border-bottom: none;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .table td a {
+    display: inline-block;
+    font-size: 0.9375rem;
   }
 }

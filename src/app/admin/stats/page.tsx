@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -46,6 +47,9 @@ export default async function AdminStatsPage() {
         <div className="container">
           <div className="section-header">
             <h2 className="section-header__title">Gebruikers</h2>
+            <Link href="/admin">
+              <button className="btn btn--secondary">← Terug naar dashboard</button>
+            </Link>
           </div>
           <div className="grid grid--3">
             <StatCard value={totalUsers} label="Totaal gebruikers" />

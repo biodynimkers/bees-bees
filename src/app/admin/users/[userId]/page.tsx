@@ -49,62 +49,82 @@ export default async function UserDetailPage({
   }
 
   return (
-    <section className="page-header">
-      <div className="container">
-        <Link href={'/admin/users'}>Terug naar lijst</Link>
-        <h1 className="page-header__title">{user.name}</h1>
-        <p className="page-header__subtitle">{user.email}</p>
-        <p>
-          {' '}
-          {user.name} heeft <br />
-          {user._count.apiaries === 0
-            ? ' nog geen bijenstanden'
-            : user._count.apiaries > 1
-            ? ` ${user._count.apiaries} bijenstanden`
-            : ` ${user._count.apiaries} bijenstand`}
-        </p>
-        {user._count.apiaries ? (
-          <Link href={`/admin/users/${userId}/apiaries`}>
-            Bekijk de
-            {user._count.apiaries > 1 ? ' bijenstanden' : ' bijenstand'}
-          </Link>
-        ) : (
-          ''
-        )}{' '}
-        <br />
-        <p>
-          {totalHives === 0
-            ? 'nog geen kasten'
-            : totalHives > 1
-            ? `${totalHives} kasten`
-            : `${totalHives} kast`}
-        </p>
-        {totalHives ? (
-          <Link href={`/admin/users/${userId}/hives`}>
-            Bekijk de {totalHives > 1 ? 'kasten' : 'kast'}
-          </Link>
-        ) : (
-          ''
-        )}
-        <br />
-        <p>
-          {totalObservations === 0
-            ? 'nog geen observaties'
-            : totalObservations > 1
-            ? `${totalObservations} observaties`
-            : `${totalObservations} observatie`}
-        </p>
-        {totalObservations ? (
-          <Link href={`/admin/users/${userId}/observations`}>
-            Bekijk de {totalObservations > 1 ? 'observaties' : 'observatie'}
-          </Link>
-        ) : (
-          ''
-        )}
-        <br />
-        <Link href="/admin/users">Terug naar alle imkers</Link>
-      </div>
-      <DeleteUserButton userId={userId} userName={user.name} />
-    </section>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">{user.name}</h1>
+          <p className="page-header__subtitle">{user.email}</p>
+          <p className="page-header__subtitle">Rol: {user.role}</p>
+        </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-header__title">Overzicht</h2>
+            <Link href="/admin/users">
+              <button className="btn btn--secondary">← Terug naar alle imkers</button>
+            </Link>
+          </div>
+
+          <div className="grid grid--3">
+            <div className="card">
+              <h3 className="card__title">
+                {user._count.apiaries === 0
+                  ? 'Geen bijenstanden'
+                  : user._count.apiaries > 1
+                  ? `${user._count.apiaries} bijenstanden`
+                  : `${user._count.apiaries} bijenstand`}
+              </h3>
+              {user._count.apiaries > 0 && (
+                <Link href={`/admin/users/${userId}/apiaries`}>
+                  <button className="btn btn--primary mt-4">
+                    Bekijk {user._count.apiaries > 1 ? 'bijenstanden' : 'bijenstand'}
+                  </button>
+                </Link>
+              )}
+            </div>
+
+            <div className="card">
+              <h3 className="card__title">
+                {totalHives === 0
+                  ? 'Geen kasten'
+                  : totalHives > 1
+                  ? `${totalHives} kasten`
+                  : `${totalHives} kast`}
+              </h3>
+              {totalHives > 0 && (
+                <Link href={`/admin/users/${userId}/hives`}>
+                  <button className="btn btn--primary mt-4">
+                    Bekijk {totalHives > 1 ? 'kasten' : 'kast'}
+                  </button>
+                </Link>
+              )}
+            </div>
+
+            <div className="card">
+              <h3 className="card__title">
+                {totalObservations === 0
+                  ? 'Geen observaties'
+                  : totalObservations > 1
+                  ? `${totalObservations} observaties`
+                  : `${totalObservations} observatie`}
+              </h3>
+              {totalObservations > 0 && (
+                <Link href={`/admin/users/${userId}/observations`}>
+                  <button className="btn btn--primary mt-4">
+                    Bekijk {totalObservations > 1 ? 'observaties' : 'observatie'}
+                  </button>
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <DeleteUserButton userId={userId} userName={user.name} />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

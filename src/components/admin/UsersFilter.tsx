@@ -39,21 +39,21 @@ export default function UsersFilter({
 
       <div className="table-wrapper">
         <table className="table">
-          <thead className="table__head">
+          <thead>
             <tr>
-              <th className="table__head-cell">Naam</th>
-              <th className="table__head-cell">E-mail</th>
-              <th className="table__head-cell">Bijenstanden</th>
-              <th className="table__head-cell">Acties</th>
+              <th>Naam</th>
+              <th>E-mail</th>
+              <th>Bijenstanden</th>
+              <th>Acties</th>
             </tr>
           </thead>
           <tbody>
             {filteredUsers.map(user => (
-              <tr key={user.id} className="table__body-row">
-                <td className="table__cell table__cell--name">{user.name}</td>
-                <td className="table__cell table__cell--email">{user.email}</td>
-                <td className="table__cell">{user._count.apiaries}</td>
-                <td className="table__cell">
+              <tr key={user.id}>
+                <td data-label="Naam">{user.name}</td>
+                <td data-label="E-mail">{user.email}</td>
+                <td data-label="Bijenstanden">{user._count.apiaries}</td>
+                <td data-label="Acties">
                   <Link href={`/admin/users/${user.id}`}>
                     <button className="btn btn--secondary btn--sm">
                       Details
@@ -66,15 +66,7 @@ export default function UsersFilter({
         </table>
       </div>
       {totalPages > 1 && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 'var(--space-4)',
-            marginTop: 'var(--space-12)',
-          }}
-        >
+        <div className="pagination">
           <Link
             href={`/admin/users?page=${currentPage > 1 ? currentPage - 1 : 1}`}
           >
@@ -82,7 +74,7 @@ export default function UsersFilter({
               Vorige
             </button>
           </Link>
-          <span style={{ color: 'var(--color-text-light)' }}>
+          <span className="pagination__text">
             Pagina {currentPage} van {totalPages}
           </span>
           <Link

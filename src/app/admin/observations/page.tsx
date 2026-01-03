@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/client';
-import ObservationsTable from '@/components/admin/ObservationsTable';
+import ObservationsFilter from '@/components/admin/ObservationsFilter';
 import Link from 'next/link';
 
 export default async function AdminObservationsPage({
@@ -9,34 +9,62 @@ export default async function AdminObservationsPage({
 }) {
   const searchParamsResult = await searchParams;
   const currentPage = Number(searchParamsResult?.page ?? '1');
-  const observationsPerPage = 5;
-  const totalPages = Math.ceil(
-    (await prisma.observation.count()) / observationsPerPage
-  );
+  const observationsPerPage = 50;
+  const totalObservations = await prisma.observation.count();
+  const totalPages = Math.ceil(totalObservations / observationsPerPage);
+  
   const observations = await prisma.observation.findMany({
     skip: (currentPage - 1) * observationsPerPage,
     take: observationsPerPage,
     include: {
       hive: {
         include: {
-          apiary: { include: { user: true } },
+          apiary: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
         },
       },
     },
+    orderBy: { createdAt: 'desc' },
   });
 
   return (
-    <div style={{ marginTop: '6rem' }}>
-      <Link href="/admin/">Naar startpagina beheerder</Link>
-      <ObservationsTable
-        observations={observations}
-        showHive={true}
-        showApiary={true}
-        showUser={true}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        currentPath={'/admin/observations'}
-      />
-    </div>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">Alle observaties</h1>
+          <p className="page-header__subtitle">
+            Totaal: {totalObservations} {totalObservations === 1 ? 'observatie' : 'observaties'}
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <Link href="/admin">
+              <button className="btn btn--secondary">← Terug naar dashboard</button>
+            </Link>
+          </div>
+
+          <ObservationsFilter
+            observations={observations}
+            showHive={true}
+            showApiary={true}
+            showUser={true}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            currentPath={'/admin/observations'}
+          />
+        </div>
+      </section>
+    </>
   );
 }

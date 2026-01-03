@@ -18,48 +18,42 @@ export default function ApiariesTable({
 }: ApiariesTableProps) {
   return (
     <>
-      <table className="table" style={{ marginTop: '6rem' }}>
-        <thead>
-          <tr>
-            <th>Naam</th>
-            <th>Locatie</th>
-            {showUser && <th>Eigenaar</th>}
-            <th>Aantal kasten</th>
-            <th>Aangemaakt</th>
-          </tr>
-        </thead>
-        <tbody>
-          {apiaries.map(apiary => (
-            <tr key={apiary.id}>
-              <td>
-                <Link
-                  href={`/admin/apiaries/${
-                    apiary.id
-                  }?returnUrl=${encodeURIComponent(currentPath)}`}
-                >
-                  {apiary.name}
-                </Link>
-              </td>
-              <td>
-                {apiary.latitude}, {apiary.longitude}
-              </td>
-              {showUser && <td>{apiary.user.name}</td>}
-              <td>{apiary._count.hives}</td>
-              <td>{new Date(apiary.createdAt).toLocaleDateString('nl-BE')}</td>
+      <div className="table-wrapper">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Naam</th>
+              <th>Locatie</th>
+              {showUser && <th>Eigenaar</th>}
+              <th>Aantal kasten</th>
+              <th>Aangemaakt</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {apiaries.map(apiary => (
+              <tr key={apiary.id}>
+                <td data-label="Naam">
+                  <Link
+                    href={`/admin/apiaries/${
+                      apiary.id
+                    }?returnUrl=${encodeURIComponent(currentPath)}`}
+                  >
+                    {apiary.name}
+                  </Link>
+                </td>
+                <td data-label="Locatie">
+                  {apiary.latitude}, {apiary.longitude}
+                </td>
+                {showUser && <td data-label="Eigenaar">{apiary.user.name}</td>}
+                <td data-label="Aantal kasten">{apiary._count.hives}</td>
+                <td data-label="Aangemaakt">{new Date(apiary.createdAt).toLocaleDateString('nl-BE')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {totalPages > 1 && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 'var(--space-4)',
-            marginTop: 'var(--space-12)',
-          }}
-        >
+        <div className="pagination">
           <Link
             href={`${currentPath}?page=${
               currentPage > 1 ? currentPage - 1 : 1
@@ -69,7 +63,7 @@ export default function ApiariesTable({
               Vorige
             </button>
           </Link>
-          <span style={{ color: 'var(--color-text-light)' }}>
+          <span className="pagination__text">
             Pagina {currentPage} van {totalPages}
           </span>
           <Link

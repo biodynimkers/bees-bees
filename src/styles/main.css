@@ -35,6 +35,8 @@
 @import "./components/stats.css";
 @import "./components/footer.css";
 @import "./components/table.css";
+@import "./components/pagination.css";
+@import "./components/filters.css";
 
 /* ============================================
    Utilities

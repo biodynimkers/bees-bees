@@ -39,31 +39,37 @@ export default async function ApiaryDetailPage({
   if (!apiary) notFound();
 
   return (
-    <div className="container" style={{ marginTop: '6rem' }}>
-      <Link
-        href={returnUrl ?? '/admin/apiaries'}
-        className="button button--outline"
-      >
-        ← Terug
-      </Link>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">{apiary.name}</h1>
+          <p className="page-header__subtitle">
+            Eigenaar: <Link href={`/admin/users/${apiary.user.id}`}>{apiary.user.name}</Link>
+          </p>
+          <p className="page-header__subtitle">
+            Locatie: {apiary.latitude}, {apiary.longitude}
+          </p>
+        </div>
+      </section>
 
-      <h1>{apiary.name}</h1>
-      <p>
-        Eigenaar:{' '}
-        <Link href={`/admin/users/${apiary.user.id}`}>{apiary.user.name}</Link>
-      </p>
-      <p>
-        Locatie: {apiary.latitude}, {apiary.longitude}
-      </p>
-
-      <h2 style={{ marginTop: '2rem' }}>Kasten in deze bijenstand</h2>
-      <HivesTable
-        hives={apiary.hives}
-        showApiary={false}
-        currentPath={`/admin/apiaries/${apiaryId}`}
-        totalPages={totalPages}
-        currentPage={currentPage}
-      />
-    </div>
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-header__title">Kasten in deze bijenstand</h2>
+            <Link href={returnUrl ?? '/admin/apiaries'}>
+              <button className="btn btn--secondary">← Terug</button>
+            </Link>
+          </div>
+          
+          <HivesTable
+            hives={apiary.hives}
+            showApiary={false}
+            currentPath={`/admin/apiaries/${apiaryId}`}
+            totalPages={totalPages}
+            currentPage={currentPage}
+          />
+        </div>
+      </section>
+    </>
   );
 }

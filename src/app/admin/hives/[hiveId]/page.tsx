@@ -41,29 +41,39 @@ export default async function AdminHiveDetailPage({
   if (!hive) notFound();
 
   return (
-    <div className="container" style={{ marginTop: '6rem' }}>
-      <Link
-        href={returnUrl ?? '/admin/hives'}
-        className="button button--outline"
-      >
-        ← Terug
-      </Link>
-      <h1>{hive.name}</h1>
-      <p>Type: {hive.type}</p>
-      <p>Volk: {hive.colonyType}</p>
-      <Link href={`/admin/apiaries/${hive.apiary.id}`}>
-        Bijenstand: {hive.apiary.name}
-      </Link>
-      <h2 style={{ marginTop: '2rem' }}>Observaties</h2>
-      <ObservationsTable
-        observations={hive.observations}
-        showUser={false}
-        showHive={false}
-        showApiary={false}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        currentPath={`/admin/hives/${hiveId}`}
-      />
-    </div>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">{hive.name}</h1>
+          <p className="page-header__subtitle">
+            Type: {hive.type} | Volk: {hive.colonyType}
+          </p>
+          <p className="page-header__subtitle">
+            Bijenstand: <Link href={`/admin/apiaries/${hive.apiary.id}`}>{hive.apiary.name}</Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-header__title">Observaties</h2>
+            <Link href={returnUrl ?? '/admin/hives'}>
+              <button className="btn btn--secondary">← Terug</button>
+            </Link>
+          </div>
+          
+          <ObservationsTable
+            observations={hive.observations}
+            showUser={false}
+            showHive={false}
+            showApiary={false}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            currentPath={`/admin/hives/${hiveId}`}
+          />
+        </div>
+      </section>
+    </>
   );
 }

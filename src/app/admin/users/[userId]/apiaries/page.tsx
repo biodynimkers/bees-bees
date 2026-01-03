@@ -24,16 +24,39 @@ export default async function AdminUserApiariesPage({
     include: { user: true, _count: true },
   });
 
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { name: true },
+  });
+
   return (
-    <div style={{ marginTop: '6rem' }}>
-      <Link href={`/admin/users/${userId}`}>Terug naar de Imker</Link>
-      <ApiariesTable
-        apiaries={apiaries}
-        showUser={false}
-        currentPath={`/admin/users/${userId}/apiaries`}
-        totalPages={totalPages}
-        currentPage={currentPage}
-      />
-    </div>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">Bijenstanden van {user?.name}</h1>
+          <p className="page-header__subtitle">
+            Totaal: {apiaries.length} {apiaries.length === 1 ? 'bijenstand' : 'bijenstanden'}
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <Link href={`/admin/users/${userId}`}>
+              <button className="btn btn--secondary">← Terug naar imker</button>
+            </Link>
+          </div>
+          
+          <ApiariesTable
+            apiaries={apiaries}
+            showUser={false}
+            currentPath={`/admin/users/${userId}/apiaries`}
+            totalPages={totalPages}
+            currentPage={currentPage}
+          />
+        </div>
+      </section>
+    </>
   );
 }

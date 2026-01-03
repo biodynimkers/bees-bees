@@ -1,5 +1,5 @@
 import prisma from '@/lib/client';
-import HivesTable from '@/components/admin/HivesTable';
+import HivesFilter from '@/components/admin/HivesFilter';
 import { requireAdmin } from '@/lib/auth-helpers';
 import Link from 'next/link';
 
@@ -11,7 +11,7 @@ export default async function AdminHivesPage({
   await requireAdmin();
   const searchParamsResult = await searchParams;
   const currentPage = Number(searchParamsResult?.page ?? '1');
-  const hivesPerPage = 5;
+  const hivesPerPage = 50;
   const totalHives = await prisma.hive.count();
   const totalPages = Math.ceil(totalHives / hivesPerPage);
 
@@ -21,7 +21,12 @@ export default async function AdminHivesPage({
     include: {
       apiary: {
         include: {
-          user: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
         },
       },
       _count: {
@@ -32,19 +37,34 @@ export default async function AdminHivesPage({
   });
 
   return (
-    <div className="container" style={{ marginTop: '6rem' }}>
-      <Link href="/admin/">Naar startpagina beheerder</Link>
-      <h1>Alle Kasten</h1>
-      <p className="subtitle">Totaal: {hives.length} kasten</p>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">Alle kasten</h1>
+          <p className="page-header__subtitle">
+            Totaal: {totalHives} {totalHives === 1 ? 'kast' : 'kasten'}
+          </p>
+        </div>
+      </section>
 
-      <HivesTable
-        hives={hives}
-        showApiary={true}
-        showUser={true}
-        currentPath={'/admin/hives'}
-        totalPages={totalPages}
-        currentPage={currentPage}
-      />
-    </div>
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <Link href="/admin">
+              <button className="btn btn--secondary">← Terug naar dashboard</button>
+            </Link>
+          </div>
+
+          <HivesFilter
+            hives={hives}
+            showApiary={true}
+            showUser={true}
+            currentPath={'/admin/hives'}
+            totalPages={totalPages}
+            currentPage={currentPage}
+          />
+        </div>
+      </section>
+    </>
   );
 }

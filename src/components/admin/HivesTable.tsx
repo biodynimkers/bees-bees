@@ -25,62 +25,56 @@ export default function HivesTable({
 }: HivesTableProps) {
   return (
     <>
-      <table className="table" style={{ marginTop: '2rem' }}>
-        <thead>
-          <tr>
-            <th>Naam</th>
-            <th>Type</th>
-            <th>Volk</th>
-            {showApiary && <th>Bijenstand</th>}
-            {showUser && <th>Eigenaar</th>}
-            <th>Waarnemingen</th>
-            <th>Aangemaakt</th>
-          </tr>
-        </thead>
-        <tbody>
-          {hives.map(hive => (
-            <tr key={hive.id}>
-              <td>
-                <Link
-                  href={`/admin/hives/${hive.id}?returnUrl=${encodeURIComponent(
-                    currentPath
-                  )}`}
-                >
-                  {hive.name}
-                </Link>
-              </td>
-              <td>{hive.type}</td>
-              <td>{hive.colonyType}</td>
-              {showApiary && (
-                <td>
-                  <Link href={`/admin/apiaries/${hive.apiary?.id}`}>
-                    {hive.apiary?.name}
-                  </Link>
-                </td>
-              )}
-              {showUser && (
-                <td>
-                  <Link href={`/admin/users/${hive.apiary?.userId}`}>
-                    {hive.apiary?.user.name}
-                  </Link>
-                </td>
-              )}
-              <td>{hive._count.observations}</td>
-              <td>{new Date(hive.createdAt).toLocaleDateString('nl-BE')}</td>
+      <div className="table-wrapper">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Naam</th>
+              <th>Type</th>
+              <th>Volk</th>
+              {showApiary && <th>Bijenstand</th>}
+              {showUser && <th>Eigenaar</th>}
+              <th>Waarnemingen</th>
+              <th>Aangemaakt</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {hives.map(hive => (
+              <tr key={hive.id}>
+                <td data-label="Naam">
+                  <Link
+                    href={`/admin/hives/${hive.id}?returnUrl=${encodeURIComponent(
+                      currentPath
+                    )}`}
+                  >
+                    {hive.name}
+                  </Link>
+                </td>
+                <td data-label="Type">{hive.type}</td>
+                <td data-label="Volk">{hive.colonyType}</td>
+                {showApiary && (
+                  <td data-label="Bijenstand">
+                    <Link href={`/admin/apiaries/${hive.apiary?.id}`}>
+                      {hive.apiary?.name}
+                    </Link>
+                  </td>
+                )}
+                {showUser && (
+                  <td data-label="Eigenaar">
+                    <Link href={`/admin/users/${hive.apiary?.userId}`}>
+                      {hive.apiary?.user.name}
+                    </Link>
+                  </td>
+                )}
+                <td data-label="Waarnemingen">{hive._count.observations}</td>
+                <td data-label="Aangemaakt">{new Date(hive.createdAt).toLocaleDateString('nl-BE')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {totalPages > 1 && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 'var(--space-4)',
-            marginTop: 'var(--space-12)',
-          }}
-        >
+        <div className="pagination">
           <Link
             href={`${currentPath}?page=${
               currentPage > 1 ? currentPage - 1 : 1
@@ -90,7 +84,7 @@ export default function HivesTable({
               Vorige
             </button>
           </Link>
-          <span style={{ color: 'var(--color-text-light)' }}>
+          <span className="pagination__text">
             Pagina {currentPage} van {totalPages}
           </span>
           <Link

@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import UsersFilter from '@/components/admin/UsersFilter';
+import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -47,13 +48,18 @@ export default async function UsersPage({
         <div className="container">
           <h1 className="page-header__title">Alle gebruikers</h1>
           <p className="page-header__subtitle">
-            Beheer gebruikersaccounts en bekijk activiteit
+            Totaal: {totalUsers} {totalUsers === 1 ? 'gebruiker' : 'gebruikers'}
           </p>
         </div>
       </section>
 
       <section className="section section--default">
         <div className="container">
+          <div className="section-header">
+            <Link href="/admin">
+              <button className="btn btn--secondary">← Terug naar dashboard</button>
+            </Link>
+          </div>
           <UsersFilter
             users={users}
             currentPage={currentPage}

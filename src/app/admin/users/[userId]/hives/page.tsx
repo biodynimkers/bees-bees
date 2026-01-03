@@ -56,27 +56,34 @@ export default async function UserHivesPage({
   });
 
   return (
-    <div className="container" style={{ marginTop: '6rem' }}>
-      <div style={{ marginBottom: '2rem' }}>
-        <Link
-          href={`/admin/users/${userId}`}
-          className="button button--outline"
-        >
-          ← Terug naar de imker
-        </Link>
-      </div>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">Kasten van {user.name}</h1>
+          <p className="page-header__subtitle">
+            Totaal: {totalHives} {totalHives === 1 ? 'kast' : 'kasten'}
+          </p>
+        </div>
+      </section>
 
-      <h1>Kasten van {user.name}</h1>
-      <p className="subtitle">Totaal: {hives.length} kasten</p>
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <Link href={`/admin/users/${userId}`}>
+              <button className="btn btn--secondary">← Terug naar imker</button>
+            </Link>
+          </div>
 
-      <HivesTable
-        hives={hives}
-        showApiary={true}
-        showUser={false}
-        currentPath={`/admin/users/${userId}/hives`}
-        totalPages={totalPages}
-        currentPage={currentPage}
-      />
-    </div>
+          <HivesTable
+            hives={hives}
+            showApiary={true}
+            showUser={false}
+            currentPath={`/admin/users/${userId}/hives`}
+            totalPages={totalPages}
+            currentPage={currentPage}
+          />
+        </div>
+      </section>
+    </>
   );
 }

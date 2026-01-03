@@ -52,20 +52,37 @@ export default async function AdminUserObservationsPage({
         },
       },
     },
+    orderBy: { createdAt: 'desc' },
   });
+  
   return (
-    <div style={{ marginTop: '6rem' }}>
-      <Link href={`/admin/users/${userId}`} className="button button--outline">
-        ← Terug naar de imker
-      </Link>
-      <h1>Observaties van {user.name}</h1>
-      <ObservationsTable
-        observations={observations}
-        showUser={false}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        currentPath={`/admin/users/${userId}/observations`}
-      />
-    </div>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">Observaties van {user.name}</h1>
+          <p className="page-header__subtitle">
+            Totaal: {totalObservations} {totalObservations === 1 ? 'observatie' : 'observaties'}
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <Link href={`/admin/users/${userId}`}>
+              <button className="btn btn--secondary">← Terug naar imker</button>
+            </Link>
+          </div>
+          
+          <ObservationsTable
+            observations={observations}
+            showUser={false}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            currentPath={`/admin/users/${userId}/observations`}
+          />
+        </div>
+      </section>
+    </>
   );
 }
