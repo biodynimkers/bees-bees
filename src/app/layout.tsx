@@ -2,6 +2,21 @@ import SessionWrapper from "@/components/auth/SessionWrapper";
 import Navigation from "@/components/shared/Navigation";
 import Footer from "@/components/shared/Footer";
 import "@/styles/main.css";
+import { Inter, Cormorant_Garamond } from 'next/font/google';
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+});
+
+const cormorant = Cormorant_Garamond({ 
+  subsets: ['latin'],
+  variable: '--font-cormorant',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700'],
+});
 
 export const metadata = {
   title: "BEES - Bijen Observatie Platform",
@@ -15,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl">
+    <html lang="nl" className={`${inter.variable} ${cormorant.variable}`}>
       <body>
         <SessionWrapper>
           <div className="app">

@@ -12,36 +12,25 @@ export default function VisionPage() {
 
       <section className="section section--alt">
         <div className="container">
-          <div className="grid grid--2" style={{ alignItems: "center", gap: "var(--space-16)" }}>
+          <div className="grid grid--2 items-center gap-xl">
             <div>
-              <div style={{ 
-                fontSize: "6rem", 
-                fontFamily: "var(--font-display)", 
-                fontWeight: "300",
-                lineHeight: "1",
-                marginBottom: "var(--space-8)"
-              }}>
+              <div className="display-number--lg">
                 2009
               </div>
-              <div className="quote" style={{ border: "none", padding: 0 }}>
+              <div className="quote quote--borderless">
                 "Het bijenvolk was spiegel voor de werking"
               </div>
             </div>
             
             <div>
-              <h2 style={{ 
-                fontFamily: "var(--font-display)", 
-                fontSize: "2.5rem",
-                fontWeight: "400",
-                marginBottom: "var(--space-6)"
-              }}>
+              <h2 className="text-xlarge mb-md">
                 Waar het begon
               </h2>
-              <p style={{ fontSize: "1.125rem", lineHeight: "1.8", marginBottom: "var(--space-4)" }}>
+              <p className="text-large mb-sm">
                 Een kleine groep imkers vindt elkaar rond het werk van Rudolf Steiner. 
                 Zijn voordrachtcyclus "De Bijen" wordt hun kompas.
               </p>
-              <p style={{ fontSize: "1.125rem", lineHeight: "1.8" }}>
+              <p className="text-large">
                 Maandelijkse bijeenkomsten bij elkaar thuis. Elke sessie start met 
                 dezelfde tekst van Steiner – een ritueel dat vandaag nog bestaat.
               </p>
@@ -52,22 +41,16 @@ export default function VisionPage() {
 
       <section className="section section--default">
         <div className="container">
-          <div className="section__header" style={{ textAlign: "center" }}>
+          <div className="section__header text-center">
             <h2 className="section__title">Van pioniers naar professionals</h2>
           </div>
 
           <div className="grid grid--3">
-            <div className="card" style={{ textAlign: "center" }}>
-              <div style={{ 
-                fontSize: "4rem", 
-                fontFamily: "var(--font-display)",
-                fontWeight: "300",
-                color: "var(--color-text)",
-                marginBottom: "var(--space-4)"
-              }}>
+            <div className="card text-center">
+              <div className="display-number--md color-primary">
                 2010
               </div>
-              <h3 className="card__title" style={{ fontSize: "1.25rem", marginBottom: "var(--space-3)" }}>
+              <h3 className="card__title text-xlarge mb-xs">
                 Eerste cursus
               </h3>
               <p className="card__text">
@@ -76,17 +59,11 @@ export default function VisionPage() {
               </p>
             </div>
 
-            <div className="card" style={{ textAlign: "center" }}>
-              <div style={{ 
-                fontSize: "4rem", 
-                fontFamily: "var(--font-display)",
-                fontWeight: "300",
-                color: "var(--color-text)",
-                marginBottom: "var(--space-4)"
-              }}>
+            <div className="card text-center">
+              <div className="display-number--md color-primary">
                 2022
               </div>
-              <h3 className="card__title" style={{ fontSize: "1.25rem", marginBottom: "var(--space-3)" }}>
+              <h3 className="card__title text-xlarge mb-xs">
                 Eigen lesgevers
               </h3>
               <p className="card__text">
@@ -95,17 +72,11 @@ export default function VisionPage() {
               </p>
             </div>
 
-            <div className="card" style={{ textAlign: "center" }}>
-              <div style={{ 
-                fontSize: "4rem", 
-                fontFamily: "var(--font-display)",
-                fontWeight: "300",
-                color: "var(--color-text)",
-                marginBottom: "var(--space-4)"
-              }}>
+            <div className="card text-center">
+              <div className="display-number--md color-primary">
                 2025
               </div>
-              <h3 className="card__title" style={{ fontSize: "1.25rem", marginBottom: "var(--space-3)" }}>
+              <h3 className="card__title text-xlarge mb-xs">
                 Officiële VZW
               </h3>
               <p className="card__text">
@@ -172,51 +143,30 @@ export default function VisionPage() {
 
       <section className="section section--default">
         <div className="container">
-          <div className="grid grid--2" style={{ alignItems: "center", gap: "var(--space-16)" }}>
+          <div className="grid grid--2 items-center gap-xl">
             <div>
-              <h2 style={{ 
-                fontFamily: "var(--font-display)", 
-                fontSize: "3rem",
-                fontWeight: "400",
-                lineHeight: "1.2",
-                marginBottom: "var(--space-6)"
-              }}>
+              <h2 className="display-number--sm mb-md">
                 Imkeren naar de aard en het wezen van de bij
               </h2>
-              <p style={{ fontSize: "1.25rem", lineHeight: "1.7", marginBottom: "var(--space-6)" }}>
+              <p className="text-xlarge mb-md">
                 Respect voor de honingbij als levend organisme. Zo min mogelijk 
                 ingrijpen op haar natuurlijke levenswijze.
               </p>
-              <div style={{
-                borderLeft: "4px solid var(--color-text)",
-                paddingLeft: "var(--space-6)",
-                fontStyle: "italic",
-                fontSize: "1.125rem",
-                color: "var(--color-text-light)"
-              }}>
+              <div className="quote">
                 Holistische bijenteelt die gezondheid, welzijn en biodiversiteit 
                 centraal stelt.
               </div>
             </div>
 
-            <div style={{
-              background: "rgba(0, 0, 0, 0.03)",
-              padding: "var(--space-12)",
-              border: "1px solid rgba(0, 0, 0, 0.06)"
-            }}>
-              <h3 style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "1.5rem",
-                fontWeight: "500",
-                marginBottom: "var(--space-6)"
-              }}>
+            <div className="info-box">
+              <h3 className="info-box__title">
                 BD-Bee Buddies
               </h3>
-              <p style={{ lineHeight: "1.7", marginBottom: "var(--space-4)" }}>
+              <p className="info-box__text">
                 De praktijk blijft verrassen. Vragen en onzekerheden blijven 
                 komen, hoe goed opgeleid je ook bent.
               </p>
-              <p style={{ lineHeight: "1.7", fontWeight: "500" }}>
+              <p className="info-box__text info-box__text--emphasis">
                 Daarom begeleiden ervaren imkers nieuwkomers via het 
                 BD-Bee Buddies programma.
               </p>

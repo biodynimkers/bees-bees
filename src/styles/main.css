@@ -37,6 +37,9 @@
 @import "./components/table.css";
 @import "./components/pagination.css";
 @import "./components/filters.css";
+@import "./components/modal.css";
+@import "./components/display.css";
+@import "./components/info-box.css";
 
 /* ============================================
    Utilities
@@ -46,3 +49,5 @@
 @import "./utilities/spacing.css";
 @import "./utilities/flexbox.css";
 @import "./utilities/display.css";
+@import "./utilities/layout.css";
+@import "./utilities/colors.css";

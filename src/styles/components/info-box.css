@@ -1,0 +1,26 @@
+/* Info Box Component */
+.info-box {
+  background: rgba(0, 0, 0, 0.03);
+  padding: var(--space-12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.info-box__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: var(--space-6);
+}
+
+.info-box__text {
+  line-height: 1.7;
+  margin-bottom: var(--space-4);
+}
+
+.info-box__text:last-child {
+  margin-bottom: 0;
+}
+
+.info-box__text--emphasis {
+  font-weight: 500;
+}
