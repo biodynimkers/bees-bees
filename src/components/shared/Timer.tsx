@@ -1,4 +1,4 @@
-import { use, useState } from 'react';
+import { use, useState, useRef } from 'react';
 import { useEffect } from 'react';
 import { set } from 'zod';
 
@@ -6,41 +6,46 @@ export default function Timer() {
   let seconds = 30;
   const [time, setTime] = useState(seconds);
   const [isRunning, setIsRunning] = useState(false);
+  const audioContextRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
     if (!isRunning) return;
 
     const intervalId = setInterval(() => {
-      setTime(prev => {
-        if (prev <= 1) {
-          setIsRunning(false);
-        }
-
-        return prev - 1;
-      });
+      setTime(prev => prev - 1);
     }, 1000);
 
-    return () => clearInterval(intervalId); //isRunning verandert van true naar false,dat is een dependency change. React ruimt op vóór het effect opnieuw draait
-  }, [isRunning, seconds]); //Alle variabelen die je gebruikt IN het effect, moeten in de dependency array, dus ook seconds.Dit zorgt ervoor dat je effect altijd met de meest recente waarden werkt!
+    return () => clearInterval(intervalId);
+  }, [isRunning, seconds]);
+
   useEffect(() => {
     if (time === 0 && isRunning) {
+      console.log('Piep - timer afgelopen!');
+
       // Pieptoon afspelen
-      console.log('Piep');
-      const ctx = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
-      const oscillator = ctx.createOscillator();
-      oscillator.type = 'sine';
-      oscillator.frequency.value = 880; // Frequentie in Hz
-      oscillator.connect(ctx.destination);
-      oscillator.start();
-      setTimeout(() => {
-        oscillator.stop();
-        ctx.close();
-      }, 300); // 300 ms piep
+      if (audioContextRef.current) {
+        const ctx = audioContextRef.current;
+        const oscillator = ctx.createOscillator();
+        oscillator.type = 'sine';
+        oscillator.frequency.value = 880;
+        oscillator.connect(ctx.destination);
+        oscillator.start();
+        setTimeout(() => {
+          oscillator.stop();
+        }, 300);
+      }
+
+      // Stop de timer
+      setIsRunning(false);
     }
   }, [time, isRunning]);
 
   const handleClick = () => {
+    // Initialiseer AudioContext bij eerste klik
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext ||
+        (window as any).webkitAudioContext)();
+    }
     setTime(seconds);
     setIsRunning(true);
   };
