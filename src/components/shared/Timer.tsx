@@ -1,9 +1,8 @@
-import { use, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useEffect } from 'react';
-import { set } from 'zod';
 
+const seconds = 30;
 export default function Timer() {
-  let seconds = 30;
   const [time, setTime] = useState(seconds);
   const [isRunning, setIsRunning] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -12,33 +11,29 @@ export default function Timer() {
     if (!isRunning) return;
 
     const intervalId = setInterval(() => {
-      setTime(prev => prev - 1);
+      setTime(prev => {
+        // Check hier of tijd op is
+        if (prev <= 1) {
+          // Speel pieptoon
+          if (audioContextRef.current) {
+            const ctx = audioContextRef.current;
+            const oscillator = ctx.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.value = 880;
+            oscillator.connect(ctx.destination);
+            oscillator.start();
+            setTimeout(() => oscillator.stop(), 300);
+          }
+
+          setIsRunning(false); // Stop de timer
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [isRunning, seconds]);
-
-  useEffect(() => {
-    if (time === 0 && isRunning) {
-      console.log('Piep - timer afgelopen!');
-
-      // Pieptoon afspelen
-      if (audioContextRef.current) {
-        const ctx = audioContextRef.current;
-        const oscillator = ctx.createOscillator();
-        oscillator.type = 'sine';
-        oscillator.frequency.value = 880;
-        oscillator.connect(ctx.destination);
-        oscillator.start();
-        setTimeout(() => {
-          oscillator.stop();
-        }, 300);
-      }
-
-      // Stop de timer
-      setIsRunning(false);
-    }
-  }, [time, isRunning]);
+  }, [isRunning]);
 
   const handleClick = () => {
     // Initialiseer AudioContext bij eerste klik
