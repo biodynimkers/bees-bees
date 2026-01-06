@@ -48,7 +48,7 @@
 - [x] **GET** `/api/apiaries` → Overzicht eigen bijenstanden
 - [x] **GET** `/api/apiaries` → paginering van het overzicht
 - [x] **POST** `/api/apiaries/new` → Nieuwe bijenstand aanmaken
-- [x] **GET** `/api/apiaries/:id` → Bijenstand details ophalen
+- [x] **GET** `/api/apiaries/:id` → Bijenstand details ophalen TODO foutafhandeling met try-catch voorzien voor als de fetch mislukt!
 - [x] **UPDATE** `/api/apiaries/:id` → Bijenstand aanpassen
 - [x] **DELETE** `/api/apiaries/:id` → Bijenstand verwijderen
 
@@ -157,7 +157,7 @@ app/admin/
 
 ## ✨ FASE 5: Gebruikerservaring & Optimalisatie
 
-### 10. Formulier Validatie & Feedback
+### 10. Formulier Validatie & Feedback TODO
 
 - [ ] **Server-side Validatie**: Zod bibliotheek of custom validatie
 - [ ] **Real-time Feedback**: Client-side validatie met Radix formulieren

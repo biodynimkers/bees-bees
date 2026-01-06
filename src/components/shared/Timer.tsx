@@ -16,10 +16,10 @@ export default function Timer() {
       // Speel korte beep bij elke tel
       if (audioContextRef.current) {
         const ctx = audioContextRef.current;
-        const oscillator = ctx.createOscillator();
+        const oscillator = ctx.createOscillator(); //een oscillator is een object dat een herhalend signaal genereert, hier een geluidsgolf
         oscillator.type = 'sine';
         oscillator.frequency.value = countdown === 1 ? 1100 : 700; // Hogere toon bij laatste tel
-        oscillator.connect(ctx.destination);
+        oscillator.connect(ctx.destination); // Connect to output
         oscillator.start();
         setTimeout(() => oscillator.stop(), 150);
       }
