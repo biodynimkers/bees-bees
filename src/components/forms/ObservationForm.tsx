@@ -152,18 +152,50 @@ export default function ObservationForm({
           <label htmlFor="beeCount" className="form__label">
             Aantal bijen *
           </label>
-          <input
-            type="number"
-            id="beeCount"
-            value={beeCount}
-            onChange={e => setBeeCount(e.target.value)}
-            className="form__input"
-            placeholder="Geschat aantal bijen"
-            required
-            min="0"
-          />
+          <div className="bee-counter">
+            <input
+              type="number"
+              id="beeCount"
+              value={beeCount}
+              onChange={e => setBeeCount(e.target.value)}
+              className="form__input bee-counter__input"
+              placeholder="0"
+              required
+              min="0"
+            />
+            <div className="bee-counter__buttons">
+              <button
+                type="button"
+                className="bee-counter__btn"
+                onClick={() => setBeeCount(prev => String(Number(prev || 0) + 1))}
+              >
+                +1
+              </button>
+              <button
+                type="button"
+                className="bee-counter__btn"
+                onClick={() => setBeeCount(prev => String(Number(prev || 0) + 5))}
+              >
+                +5
+              </button>
+              <button
+                type="button"
+                className="bee-counter__btn"
+                onClick={() => setBeeCount(prev => String(Number(prev || 0) + 10))}
+              >
+                +10
+              </button>
+              <button
+                type="button"
+                className="bee-counter__btn bee-counter__btn--reset"
+                onClick={() => setBeeCount('0')}
+              >
+                Reset
+              </button>
+            </div>
+          </div>
           <p className="form__help">
-            Geef een schatting van het aantal bijen dat je hebt gezien
+            Tel de bijen tijdens de 30 seconden observatie
           </p>
         </div>
 

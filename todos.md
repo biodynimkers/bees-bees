@@ -118,18 +118,26 @@ app/admin/
 
 ### 5. Applicatie Layout
 
-- [ ] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
-- [ ] **Home Page** (`page.tsx`): Direct server action for the data expected
-- [ ] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
-- [ ] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
-- [ ] **Configuratie** (`next.config.ts`): Lettertype optimalisatie
+- [x] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
+- [X] **Home Page** (`page.tsx`): Direct server action for the data expected
+- [X] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
+- [X] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
+- [X] **Configuratie** (`next.config.ts`): Lettertype optimalisatie
+- [ ] scrollbare nav
+- [ ] fotos comprimeren
+- [ ] alt teksten
+- [ ] responsief design
+- [ ] website consistent
+- [ ] leaflet kaart 
+- [ ] API aanvragen via waarnemingen
+- [ ] mobiele breakpoints
 
 ### 6. Openbare Pagina's
 
-- [ ] **Startpagina** (`/`): Hero sectie + projectoverzicht
-- [ ] **Over Ons** (`/about`): Informatiepagina over het project
-- [ ] **Registratie** (`/register`): Aanmeldformulier met Radix UI
-- [ ] **Inlogpagina** (`/api/auth/signin`): Login interface (Radix UI)
+- [x] **Startpagina** (`/`): Hero sectie + projectoverzicht
+- [X] **Over Ons** (`/about`): Informatiepagina over het project
+- [X] **Registratie** (`/register`): Aanmeldformulier met Radix UI
+- [X] **Inlogpagina** (`/api/auth/signin`): Login interface (Radix UI)
 
 ---
 
@@ -137,21 +145,21 @@ app/admin/
 
 ### 7. Imker Functionaliteiten
 
-- [ ] **Profiel** (`/imkers/:id`): Persoonlijke bijenstanden, kasten en observaties
-- [ ] **Observatie Toevoegen** (`/observaties/new`): Formulier voor nieuwe waarnemingen
-- [ ] **Eigen Data Beheer**: Volledige CRUD voor eigen content
+- [x] **Profiel** (`/imkers/:id`): Persoonlijke bijenstanden, kasten en observaties
+- [x] **Observatie Toevoegen** (`/observaties/new`): Formulier voor nieuwe waarnemingen
+- [x] **Eigen Data Beheer**: Volledige CRUD voor eigen content
 
 ### 8. Beheerder Dashboard
 
-- [ ] **Gebruikersoverzicht** (`/imkers`): Lijst alle imkers met verwijder-opties
-- [ ] **Volledige Toegang**: Inzage in alle bijenstanden en observaties
-- [ ] **Moderatie Tools**: Content beheer en gebruikerscontrole
+- [x] **Gebruikersoverzicht** (`/imkers`): Lijst alle imkers met verwijder-opties
+- [x] **Volledige Toegang**: Inzage in alle bijenstanden en observaties
+- [x] **Moderatie Tools**: Content beheer en gebruikerscontrole
 
 ### 9. Publiek Toegankelijke Content
 
-- [ ] **Observaties Overzicht** (`/observaties`): Gepagineerde, doorzoekbare lijst
-- [ ] **Weergave Gegevens**: Datum, imkernaam, kast, notities, locatie (regio)
-- [ ] **Filter & Zoek Functionaliteit**: Gebruiksvriendelijke navigatie
+- [x] **Observaties Overzicht** (`/observaties`): Gepagineerde, doorzoekbare lijst
+- [x] **Weergave Gegevens**: Datum, imkernaam, kast, notities, locatie (regio)
+- [x] **Filter & Zoek Functionaliteit**: Gebruiksvriendelijke navigatie
 
 ---
 

@@ -76,52 +76,50 @@ export default function Timer() {
   };
 
   return (
-    <>
-      <div
-        style={{
-          color:
-            countdown !== null || isRunning
-              ? 'var(--color-accent)'
-              : 'var(--color-text-light)',
-          fontFamily: 'var(--font-mono)',
-          marginBottom: 'var(--space-8)',
-        }}
-      >
+    <div className="timer">
+      <div className="timer__display">
         {countdown !== null ? (
-          <div
-            style={{ fontSize: '3rem', fontWeight: '700', textAlign: 'center' }}
-          >
-            {countdown}
-          </div>
+          <div className="timer__countdown">{countdown}</div>
         ) : time === 0 ? (
-          <p>
-            30 seconden voorbij – controleer je waarden en tik op 'Observatie
-            toevoegen'
-          </p>
+          <>
+            <p className="timer__text timer__text--complete">
+              Observatie voltooid
+            </p>
+            <p className="timer__text">
+              Controleer je waarden en bewaar de observatie
+            </p>
+          </>
         ) : (
           <>
-            <p>
-              {' '}
-              Observeer 30 seconden en vul ondertussen de velden in <br />
+            <p className="timer__text timer__text--active">
+              {time <= 10 
+                ? `Nog ${time} seconden - Maak je telling compleet!`
+                : 'Tel de bijen en vul de velden in'
+              }
             </p>
-            <p style={{ fontSize: '2rem', fontWeight: '600' }}>
-              {' '}
+            <div className={`timer__time ${time <= 10 ? 'timer__time--warning' : ''}`}>
               00:{time < 10 ? '0' : ''}
               {time}
-            </p>
+            </div>
           </>
         )}
       </div>
 
-      <button onClick={handleClick} disabled={isRunning || countdown !== null}>
+      <button
+        className={`timer__button ${
+          isRunning || countdown !== null ? 'timer__button--running' : ''
+        }`}
+        onClick={handleClick}
+        disabled={isRunning || countdown !== null}
+      >
         {countdown !== null
-          ? 'Aftelling loopt...'
+          ? 'Klaar maken'
           : isRunning
-          ? 'Observatie loopt...'
+          ? 'Bezig met tellen'
           : time === 0
-          ? 'Nieuwe poging'
-          : 'Start observatie'}
+          ? 'Opnieuw tellen'
+          : 'Start telling'}
       </button>
-    </>
+    </div>
   );
 }

@@ -7,8 +7,10 @@
   gap: var(--space-12);
   padding: var(--space-12) var(--space-12);
   max-width: 1600px;
+  width: 100%;
   margin: 0 auto;
   margin-top: 100px;
+  overflow-x: hidden;
 }
 
 .hero-home .hero__content {

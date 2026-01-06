@@ -9,6 +9,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -17,6 +18,8 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-white);
+  overflow-x: hidden;
+  width: 100%;
 }
 
 a {
