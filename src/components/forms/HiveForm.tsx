@@ -79,145 +79,135 @@ export default function HiveForm({
     };
 
     try {
-      let response;
       const url = initialHive ? `/api/hives/${initialHive}` : '/api/hives';
       const method = initialHive ? 'PUT' : 'POST';
-      response = await fetch(url, {
+      const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(hiveData),
       });
 
-      if (!response.ok) throw new Error('Kon kast niet aanmaken');
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Kon kast niet opslaan');
+      }
+
       initialHive
         ? router.push(`/hives/${initialHive}`)
         : router.push(`/apiaries/${finalApiaryId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
+    } finally {
       setLoading(false);
     }
   }
 
   return (
-    <section className="section section--standard bg-alt">
-      <div className="container container--narrow">
-        <div className="auth-container">
-          <div className="auth-header">
-            {initialHive ? (
-              <h1 className="title">Wijzig kastsoort of volk</h1>
-            ) : (
-              <h1 className="title">Nieuwe kast toevoegen</h1>
-            )}
-            {apiaryName && (
-              <p className="subtitle subtitle--centered">
-                Voor bijenstand: {apiaryName}
-              </p>
-            )}
-          </div>
-
-          <form onSubmit={handleSubmit} className="form">
-            {error && (
-              <div className="form-error form-error--general">
-                <p>{error}</p>
-              </div>
-            )}
-
-            <div className="form-group">
-              <label htmlFor="apiarySelect" className="form-label">
-                Bijenstand *
-              </label>
-              <select
-                id="apiarySelect"
-                className="form-input"
-                value={selectedApiaryId}
-                onChange={e => setSelectedApiaryId(e.target.value)}
-                required
-              >
-                <option value="">-- Selecteer bijenstand --</option>
-                {apiaries.map(apiary => (
-                  <option key={apiary.id} value={apiary.id}>
-                    {apiary.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="form-group">
-              <div className="form-group">
-                <label htmlFor="name">Kastnaam *</label>
-                <input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  required
-                  placeholder="Bvb: Kast 1, Blauwe kast..."
-                />
-              </div>
-              <label htmlFor="type" className="form-label">
-                Type kast *
-              </label>
-              <select
-                id="type"
-                className="form-input"
-                value={type}
-                onChange={e => setType(e.target.value)}
-                required
-              >
-                <option value="">-- Selecteer type --</option>
-                <option value="Dadant">Dadant</option>
-                <option value="Langstroth">Langstroth</option>
-                <option value="Warré">Warré</option>
-                <option value="Top Bar Hive">Top Bar Hive</option>
-                <option value="Klokkast">Klokkast</option>
-                <option value="Anders">Anders</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="colonyType" className="form-label">
-                Type volk *
-              </label>
-              <select
-                id="colonyType"
-                className="form-input"
-                value={colonyType}
-                onChange={e => setColonyType(e.target.value)}
-                required
-              >
-                <option value="">-- Selecteer volk --</option>
-                <option value="Buckfast">Buckfast</option>
-                <option value="Carnica">Carnica</option>
-                <option value="Italiaanse bij">Italiaanse bij</option>
-                <option value="Zwarte bij">Zwarte bij (Belgische)</option>
-                <option value="Hybride">Hybride</option>
-                <option value="Onbekend">Onbekend</option>
-              </select>
-            </div>
-
-            <div className="button-group">
-              <button
-                type="submit"
-                disabled={loading}
-                className="button button--primary button--large"
-              >
-                {loading
-                  ? initialHive
-                    ? 'Bewerken...'
-                    : 'Toevoegen...'
-                  : initialHive
-                  ? 'Kast Bewerken'
-                  : 'Kast toevoegen'}
-              </button>
-              <Link
-                href={apiaryId ? `/apiaries/${apiaryId}` : '/apiaries'}
-                className="button button--outline button--large"
-              >
-                Annuleren
-              </Link>
-            </div>
-          </form>
+    <form onSubmit={handleSubmit} className="form">
+      {error && (
+        <div className="form-error form-error--general">
+          <p>{error}</p>
         </div>
+      )}
+
+      <div className="form__group">
+        <label htmlFor="apiarySelect" className="form__label">
+          Bijenstand *
+        </label>
+        <select
+          id="apiarySelect"
+          className="form__select"
+          value={selectedApiaryId}
+          onChange={e => setSelectedApiaryId(e.target.value)}
+          required
+        >
+          <option value="">-- Selecteer bijenstand --</option>
+          {apiaries.map(apiary => (
+            <option key={apiary.id} value={apiary.id}>
+              {apiary.name}
+            </option>
+          ))}
+        </select>
       </div>
-    </section>
+
+      <div className="form__group">
+        <label htmlFor="name" className="form__label">
+          Kastnaam *
+        </label>
+        <input
+          id="name"
+          type="text"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          className="form__input"
+          placeholder="Bvb: Kast 1, Blauwe kast..."
+          required
+        />
+      </div>
+
+      <div className="form__group">
+        <label htmlFor="type" className="form__label">
+          Type kast *
+        </label>
+        <select
+          id="type"
+          className="form__select"
+          value={type}
+          onChange={e => setType(e.target.value)}
+          required
+        >
+          <option value="">-- Selecteer type --</option>
+          <option value="Dadant">Dadant</option>
+          <option value="Langstroth">Langstroth</option>
+          <option value="Warré">Warré</option>
+          <option value="Top Bar Hive">Top Bar Hive</option>
+          <option value="Klokkast">Klokkast</option>
+          <option value="Anders">Anders</option>
+        </select>
+      </div>
+
+      <div className="form__group">
+        <label htmlFor="colonyType" className="form__label">
+          Type volk *
+        </label>
+        <select
+          id="colonyType"
+          className="form__select"
+          value={colonyType}
+          onChange={e => setColonyType(e.target.value)}
+          required
+        >
+          <option value="">-- Selecteer volk --</option>
+          <option value="Buckfast">Buckfast</option>
+          <option value="Carnica">Carnica</option>
+          <option value="Italiaanse bij">Italiaanse bij</option>
+          <option value="Zwarte bij">Zwarte bij (Belgische)</option>
+          <option value="Hybride">Hybride</option>
+          <option value="Onbekend">Onbekend</option>
+        </select>
+      </div>
+
+      <div className="form__actions">
+        <button
+          type="submit"
+          className="btn btn--primary btn--large"
+          disabled={loading}
+        >
+          {loading
+            ? initialHive
+              ? 'Bezig met bewerken...'
+              : 'Bezig met toevoegen...'
+            : initialHive
+            ? 'Kast Bewerken'
+            : 'Kast toevoegen'}
+        </button>
+        <Link
+          href={apiaryId ? `/apiaries/${apiaryId}` : '/apiaries'}
+          className="btn btn--secondary btn--large"
+        >
+          Annuleren
+        </Link>
+      </div>
+    </form>
   );
 }

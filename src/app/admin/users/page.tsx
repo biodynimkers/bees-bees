@@ -1,29 +1,72 @@
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 import prisma from '@/lib/client';
+import { authOptions } from '@/lib/auth-options';
+import UsersFilter from '@/components/admin/UsersFilter';
 import Link from 'next/link';
 
-export default async function UsersPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function UsersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id || session.user.role !== 'ADMIN') {
+    redirect('/unauthorized');
+  }
+  const page = await searchParams;
+  const currentPage = Number(page?.page ?? '1');
+  const usersPerPage = 5;
+  const totalUsers = await prisma.user.count();
+  const totalPages = Math.ceil(totalUsers / usersPerPage);
+
   const users = await prisma.user.findMany({
+    skip: (currentPage - 1) * usersPerPage,
+    take: usersPerPage,
     select: {
       id: true,
       name: true,
       email: true,
       role: true,
-      apiaries: true,
+      _count: {
+        select: {
+          apiaries: true,
+        },
+      },
+    },
+    orderBy: {
+      name: 'asc',
     },
   });
 
   return (
-    <div>
-      <h1>Alle gebruikers</h1>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {' '}
-            <Link href={`/admin/users/${user.id}`}>{user.name}</Link>(
-            {user.email}) - {user.role}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">Alle gebruikers</h1>
+          <p className="page-header__subtitle">
+            Totaal: {totalUsers} {totalUsers === 1 ? 'gebruiker' : 'gebruikers'}
+          </p>
+        </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <Link href="/admin">
+              <button className="btn btn--secondary">← Terug naar dashboard</button>
+            </Link>
+          </div>
+          <UsersFilter
+            users={users}
+            currentPage={currentPage}
+            totalPages={totalPages}
+          />
+        </div>
+      </section>
+    </>
   );
 }

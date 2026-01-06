@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { loginSchema } from "@/lib/validators/schemas";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
@@ -38,27 +38,35 @@ export default function Login() {
       return;
     }
     try {
-      const res = await signIn("credentials", {
+      const res = await signIn('credentials', {
         ...rawFormData,
         redirect: false,
-        callbackUrl: "/account",
       });
+
       if (!res?.ok) {
-        console.log("signIn errors:", res?.error);
-        if (res?.error === "CredentialsSignin") {
+        console.log('signIn errors:', res?.error);
+        if (res?.error === 'CredentialsSignin') {
           setErrors(
-            "Onjuiste inloggegevens. Controleer uw e-mail en wachtwoord."
+            'Onjuiste inloggegevens. Controleer uw e-mail en wachtwoord.'
           );
         } else if (res?.error) {
-          setErrors("Er is iets misgegaan. Probeer later opnieuw.");
+          setErrors('Er is iets misgegaan. Probeer later opnieuw.');
         }
         setLoading(false);
         return;
       }
-      router.push("/account");
+
+      // Check user role and redirect accordingly
+      const session = await getSession();
+
+      if (session?.user?.role === 'ADMIN') {
+        router.push('/admin');
+      } else {
+        router.push('/account');
+      }
     } catch (err) {
       console.error(err);
-      setErrors("Er is iets misgegaan. Probeer later opnieuw.");
+      setErrors('Er is iets misgegaan. Probeer later opnieuw.');
       setLoading(false);
     }
   }

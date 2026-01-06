@@ -334,7 +334,7 @@ export default async function AccountPage() {
                 <Link href="/apiaries/new" style={{ textDecoration: "none" }}>
                   <div className="card">
                     <p className="card__category">TOEVOEGEN</p>
-                    <h3 className="card__title">+ Bijenstand en locatie</h3>
+                    <h3 className="card__title">Bijenstand en locatie</h3>
                     <p className="card__text">
                       Voeg een nieuwe bijenstand toe met locatie
                     </p>
@@ -343,7 +343,7 @@ export default async function AccountPage() {
                 <Link href="/hives/new" style={{ textDecoration: "none" }}>
                   <div className="card">
                     <p className="card__category">TOEVOEGEN</p>
-                    <h3 className="card__title">+ Voeg kast toe</h3>
+                    <h3 className="card__title">Kast</h3>
                     <p className="card__text">
                       Registreer een nieuwe bijenkast op uw stand
                     </p>
@@ -352,7 +352,7 @@ export default async function AccountPage() {
                 <Link href="/observations/new" style={{ textDecoration: "none" }}>
                   <div className="card">
                     <p className="card__category">TOEVOEGEN</p>
-                    <h3 className="card__title">+ Voeg observatie toe</h3>
+                    <h3 className="card__title">Observatie</h3>
                     <p className="card__text">
                       Maak een nieuwe waarneming bij uw kast
                     </p>

@@ -3,7 +3,6 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
 import prisma from '@/lib/client';
-import { revalidatePath } from 'next/cache';
 
 export default async function deleteUser(
   userId: string
@@ -18,8 +17,6 @@ export default async function deleteUser(
     await prisma.user.delete({
       where: { id: userId },
     });
-
-    revalidatePath('/admin/users');
     return { success: true };
   } catch {
     return { success: false, error: 'Kon gebruiker niet verwijderen' };

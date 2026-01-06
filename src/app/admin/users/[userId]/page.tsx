@@ -1,57 +1,130 @@
+import { getServerSession } from 'next-auth';
+import { redirect, notFound } from 'next/navigation';
 import prisma from '@/lib/client';
+import { authOptions } from '@/lib/auth-options';
+import { requireAdmin } from '@/lib/auth-helpers';
+import Link from 'next/link';
 import DeleteUserButton from '@/components/admin/DeleteUserButton';
+
+export const dynamic = 'force-dynamic';
+
 export default async function UserDetailPage({
   params,
 }: {
   params: Promise<{ userId: string }>;
 }) {
   const { userId } = await params;
+
+  await requireAdmin();
+
   const user = await prisma.user.findUnique({
     where: { id: userId },
     include: {
-      apiaries: {
-        include: {
-          hives: {
-            include: {
-              observations: true,
-            },
-          },
+      _count: {
+        select: {
+          apiaries: true,
         },
       },
     },
   });
-  if (!user) return <div>Gebruiker niet gevonden</div>;
+  const totalHives = await prisma.hive.count({
+    where: {
+      apiary: {
+        userId,
+      },
+    },
+  });
+  const totalObservations = await prisma.observation.count({
+    where: {
+      hive: {
+        apiary: {
+          userId,
+        },
+      },
+    },
+  });
+
+  if (!user) {
+    notFound();
+  }
+
   return (
     <>
-      <div style={{ marginTop: '6rem' }}>
-        <h1>{user.name}</h1>
-        <div>
-          {user.apiaries.map(apiary => (
-            <div key={apiary.id}>
-              <div>{apiary.name}</div>
-              <div>
-                {apiary.hives.map(hive => (
-                  <div key={hive.id}>
-                    <div>{hive.type}</div>
-                    <div>
-                      {hive.observations.map(observation => (
-                        <div key={observation.id}>
-                          <h2>nummer: {observation.id} </h2>
-                          <p>aantal bijen: {observation.beeCount}</p>
-                          <p>kleur: {observation.pollenColor}</p>
-                          <p>opmerkingen: {observation.notes}</p>
-                          <p>datum: {observation.createdAt.toDateString()}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+      <section className="page-header">
+        <div className="container">
+          <h1 className="page-header__title">{user.name}</h1>
+          <p className="page-header__subtitle">{user.email}</p>
+          <p className="page-header__subtitle">Rol: {user.role}</p>
         </div>
-        <DeleteUserButton userId={user.id} userName={user.name} />
-      </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-header__title">Overzicht</h2>
+            <Link href="/admin/users">
+              <button className="btn btn--secondary">← Terug naar alle imkers</button>
+            </Link>
+          </div>
+
+          <div className="grid grid--3">
+            <div className="card">
+              <h3 className="card__title">
+                {user._count.apiaries === 0
+                  ? 'Geen bijenstanden'
+                  : user._count.apiaries > 1
+                  ? `${user._count.apiaries} bijenstanden`
+                  : `${user._count.apiaries} bijenstand`}
+              </h3>
+              {user._count.apiaries > 0 && (
+                <Link href={`/admin/users/${userId}/apiaries`}>
+                  <button className="btn btn--primary mt-4">
+                    Bekijk {user._count.apiaries > 1 ? 'bijenstanden' : 'bijenstand'}
+                  </button>
+                </Link>
+              )}
+            </div>
+
+            <div className="card">
+              <h3 className="card__title">
+                {totalHives === 0
+                  ? 'Geen kasten'
+                  : totalHives > 1
+                  ? `${totalHives} kasten`
+                  : `${totalHives} kast`}
+              </h3>
+              {totalHives > 0 && (
+                <Link href={`/admin/users/${userId}/hives`}>
+                  <button className="btn btn--primary mt-4">
+                    Bekijk {totalHives > 1 ? 'kasten' : 'kast'}
+                  </button>
+                </Link>
+              )}
+            </div>
+
+            <div className="card">
+              <h3 className="card__title">
+                {totalObservations === 0
+                  ? 'Geen observaties'
+                  : totalObservations > 1
+                  ? `${totalObservations} observaties`
+                  : `${totalObservations} observatie`}
+              </h3>
+              {totalObservations > 0 && (
+                <Link href={`/admin/users/${userId}/observations`}>
+                  <button className="btn btn--primary mt-4">
+                    Bekijk {totalObservations > 1 ? 'observaties' : 'observatie'}
+                  </button>
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <DeleteUserButton userId={userId} userName={user.name} />
+          </div>
+        </div>
+      </section>
     </>
   );
 }

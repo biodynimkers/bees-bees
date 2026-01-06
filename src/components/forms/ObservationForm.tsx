@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import Timer from '@/components/shared/Timer';
 
 interface ObservationFormProps {
   hiveId?: string | undefined;
@@ -18,7 +19,9 @@ export default function ObservationForm({
   const [pollenColor, setPollenColor] = useState('');
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
-  const [hives, setHives] = useState<Array<{id: number, name: string, apiary: {name: string}}>>([]);
+  const [hives, setHives] = useState<
+    Array<{ id: number; name: string; apiary: { name: string } }>
+  >([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -62,7 +65,7 @@ export default function ObservationForm({
     setLoading(true);
 
     const finalHiveId = hiveId || selectedHiveId;
-    
+
     if (!finalHiveId) {
       setError('Selecteer eerst een kast');
       setLoading(false);
@@ -98,113 +101,121 @@ export default function ObservationForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form">
-      {error && (
-        <div className="form-error form-error--general">
-          <p>{error}</p>
-        </div>
-      )}
+    <>
+      <Timer />
+      <form onSubmit={handleSubmit} className="form">
+        {error && (
+          <div className="form-error form-error--general">
+            <p>{error}</p>
+          </div>
+        )}
 
-      {!hiveId && (
+        {!hiveId && (
+          <div className="form__group">
+            <label htmlFor="hiveSelect" className="form__label">
+              Kast *
+            </label>
+            <select
+              id="hiveSelect"
+              className="form__select"
+              value={selectedHiveId}
+              onChange={e => setSelectedHiveId(e.target.value)}
+              required
+            >
+              <option value="">-- Selecteer kast --</option>
+              {hives.map(hive => (
+                <option key={hive.id} value={hive.id}>
+                  {hive.apiary.name} - {hive.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
+        {hiveId && hiveName && (
+          <div className="form__group">
+            <label className="form__label">Kast</label>
+            <input
+              type="text"
+              value={hiveName}
+              className="form__input"
+              disabled
+              style={{
+                backgroundColor: 'var(--color-gray-100)',
+                cursor: 'not-allowed',
+              }}
+            />
+          </div>
+        )}
+
         <div className="form__group">
-          <label htmlFor="hiveSelect" className="form__label">
-            Kast *
+          <label htmlFor="beeCount" className="form__label">
+            Aantal bijen *
           </label>
-          <select
-            id="hiveSelect"
-            className="form__select"
-            value={selectedHiveId}
-            onChange={e => setSelectedHiveId(e.target.value)}
+          <input
+            type="number"
+            id="beeCount"
+            value={beeCount}
+            onChange={e => setBeeCount(e.target.value)}
+            className="form__input"
+            placeholder="Geschat aantal bijen"
             required
-          >
-            <option value="">-- Selecteer kast --</option>
-            {hives.map(hive => (
-              <option key={hive.id} value={hive.id}>
-                {hive.apiary.name} - {hive.name}
-              </option>
-            ))}
-          </select>
+            min="0"
+          />
+          <p className="form__help">
+            Geef een schatting van het aantal bijen dat je hebt gezien
+          </p>
         </div>
-      )}
 
-      {hiveId && hiveName && (
         <div className="form__group">
-          <label className="form__label">Kast</label>
+          <label htmlFor="pollenColor" className="form__label">
+            Stuifmeelkleur *
+          </label>
           <input
             type="text"
-            value={hiveName}
+            id="pollenColor"
+            value={pollenColor}
+            onChange={e => setPollenColor(e.target.value)}
             className="form__input"
-            disabled
-            style={{ backgroundColor: "var(--color-gray-100)", cursor: "not-allowed" }}
+            placeholder="bv. Geel, Oranje, Wit"
+            required
           />
         </div>
-      )}
 
-      <div className="form__group">
-        <label htmlFor="beeCount" className="form__label">
-          Aantal bijen *
-        </label>
-        <input
-          type="number"
-          id="beeCount"
-          value={beeCount}
-          onChange={e => setBeeCount(e.target.value)}
-          className="form__input"
-          placeholder="Geschat aantal bijen"
-          required
-          min="0"
-        />
-        <p className="form__help">
-          Geef een schatting van het aantal bijen dat je hebt gezien
-        </p>
-      </div>
+        <div className="form__group">
+          <label htmlFor="notes" className="form__label">
+            Notities (optioneel)
+          </label>
+          <textarea
+            id="notes"
+            value={notes}
+            onChange={e => setNotes(e.target.value)}
+            className="form__textarea"
+            placeholder="Extra opmerkingen over de kast..."
+            rows={4}
+          />
+        </div>
 
-      <div className="form__group">
-        <label htmlFor="pollenColor" className="form__label">
-          Stuifmeelkleur *
-        </label>
-        <input
-          type="text"
-          id="pollenColor"
-          value={pollenColor}
-          onChange={e => setPollenColor(e.target.value)}
-          className="form__input"
-          placeholder="bv. Geel, Oranje, Wit"
-          required
-        />
-      </div>
-
-      <div className="form__group">
-        <label htmlFor="notes" className="form__label">
-          Notities (optioneel)
-        </label>
-        <textarea
-          id="notes"
-          value={notes}
-          onChange={e => setNotes(e.target.value)}
-          className="form__textarea"
-          placeholder="Extra opmerkingen over de kast..."
-          rows={4}
-        />
-      </div>
-
-      <div className="form__actions">
-        <button
-          type="submit"
-          className="btn btn--primary btn--large"
-          disabled={loading}
-        >
-          {loading
-            ? 'Bezig met opslaan...'
-            : (initialObservation ? 'Observatie wijzigen' : 'Observatie toevoegen')}
-        </button>
-        <Link
-          href={hiveId ? `/hives/${hiveId}` : '/observations'}
-          className="btn btn--secondary btn--large"
-        >
-          Annuleren
-        </Link>
-      </div>
-    </form>
+        <div className="form__actions">
+          <button
+            type="submit"
+            className="btn btn--primary btn--large"
+            disabled={loading}
+          >
+            {loading
+              ? 'Bezig met opslaan...'
+              : initialObservation
+              ? 'Observatie wijzigen'
+              : 'Observatie toevoegen'}
+          </button>
+          <Link
+            href={hiveId ? `/hives/${hiveId}` : '/observations'}
+            className="btn btn--secondary btn--large"
+          >
+            Annuleren
+          </Link>
+        </div>
+      </form>
+    </>
   );
 }

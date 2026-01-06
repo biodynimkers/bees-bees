@@ -42,110 +42,86 @@ export default async function AccountApiaryHivePage({
 
   return (
     <>
-      <section className="page-header" data-page="02">
+      <section className="page-header">
         <div className="container">
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-end',
-            }}
-          >
-            <div>
-              <h1 className="page-header__title">{hive.name}</h1>
-              <p className="page-header__subtitle">
-                {hive.apiary.name} • {totalObservations}{' '}
-                {totalObservations === 1 ? 'observatie' : 'observaties'} •{' '}
-                {hive.type} • {hive.colonyType}
-              </p>
+          <h1 className="page-header__title">{hive.name}</h1>
+          <p className="page-header__subtitle">
+            Bijenstand: {hive.apiary.name}
+          </p>
+          
+          <div className="page-header__meta">
+            <div className="page-header__meta-item">
+              <span className="page-header__meta-label">Type kast</span>
+              <span className="page-header__meta-value">{hive.type}</span>
             </div>
-            <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
-              <Link href={`/hives/${hive.id}/edit`}>
-                <button className="btn btn--secondary">Wijzig kast</button>
-              </Link>
-              <Link
-                href={`/observations/new?hiveId=${hiveId}&hiveName=${hive.apiary.name}`}
-              >
-                Observatie toevoegen
-              </Link>
+            <div className="page-header__meta-item">
+              <span className="page-header__meta-label">Type volk</span>
+              <span className="page-header__meta-value">{hive.colonyType}</span>
+            </div>
+            <div className="page-header__meta-item">
+              <span className="page-header__meta-label">Observaties</span>
+              <span className="page-header__meta-value">{totalObservations}</span>
+            </div>
+          </div>
 
-              {hive && (
-                <DeleteEntityButton
-                  id={hive.id}
-                  type="hive"
-                  label="Verwijder"
-                />
-              )}
-            </div>
+          <div className="page-header__actions">
+            <Link href={`/observations/new?hiveId=${hiveId}&hiveName=${hive.name}`}>
+              <button className="btn btn--primary">+ Observatie toevoegen</button>
+            </Link>
+            <Link href={`/hives/${hive.id}/edit`}>
+              <button className="btn btn--secondary">Wijzig kast</button>
+            </Link>
+            {hive && (
+              <DeleteEntityButton
+                id={hive.id}
+                type="hive"
+                label="Verwijder"
+              />
+            )}
           </div>
         </div>
       </section>
 
       <section className="section section--default">
         <div className="container">
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: 'var(--space-8)',
-            }}
-          >
-            <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '2rem',
-                fontWeight: '400',
-              }}
-            >
-              Observaties bij deze kast
+          <div className="section-header">
+            <h2 className="section-header__title">
+              Observaties
             </h2>
           </div>
 
           {observations.length > 0 ? (
             <>
-              <div className="grid grid--2">
+              <div className="grid grid--3">
                 {observations.map(obs => (
                   <Link
                     key={obs.id}
                     href={`/observations/${obs.id}`}
                     style={{ textDecoration: 'none' }}
                   >
-                    <div
-                      className="card"
-                      style={{ cursor: 'pointer', height: '100%' }}
-                    >
+                    <div className="card">
                       <p className="card__category">
-                        {new Date(obs.createdAt).toLocaleDateString('nl-BE')}
+                        Observatie
                       </p>
                       <h3 className="card__title">
+                        {new Date(obs.createdAt).toLocaleDateString('nl-BE', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric'
+                        })}
+                      </h3>
+                      <p className="card__date">
                         {new Date(obs.createdAt).toLocaleTimeString('nl-BE', {
                           hour: '2-digit',
                           minute: '2-digit',
                         })}
-                      </h3>
-                      <div
-                        style={{
-                          display: 'flex',
-                          gap: 'var(--space-3)',
-                          marginTop: 'var(--space-4)',
-                        }}
-                      >
-                        <span className="badge">{obs.beeCount} bijen</span>
-                        <span className="badge">{obs.pollenColor}</span>
+                      </p>
+                      <div className="card__divider">
+                        <p className="card__label">Bijenstand</p>
+                        <p className="card__value">{hive.apiary.name}</p>
+                        <p className="card__label">Kast</p>
+                        <p className="card__value">{hive.name}</p>
                       </div>
-                      {obs.notes && (
-                        <p
-                          style={{
-                            marginTop: 'var(--space-4)',
-                            fontSize: '0.875rem',
-                            color: 'var(--color-text-light)',
-                            lineHeight: '1.5',
-                          }}
-                        >
-                          {obs.notes}
-                        </p>
-                      )}
                     </div>
                   </Link>
                 ))}

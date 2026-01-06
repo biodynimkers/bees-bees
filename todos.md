@@ -48,7 +48,7 @@
 - [x] **GET** `/api/apiaries` → Overzicht eigen bijenstanden
 - [x] **GET** `/api/apiaries` → paginering van het overzicht
 - [x] **POST** `/api/apiaries/new` → Nieuwe bijenstand aanmaken
-- [x] **GET** `/api/apiaries/:id` → Bijenstand details ophalen
+- [x] **GET** `/api/apiaries/:id` → Bijenstand details ophalen TODO foutafhandeling met try-catch voorzien voor als de fetch mislukt!
 - [x] **UPDATE** `/api/apiaries/:id` → Bijenstand aanpassen
 - [x] **DELETE** `/api/apiaries/:id` → Bijenstand verwijderen
 
@@ -69,9 +69,48 @@
 
 ### 👥 Gebruikersbeheer (Beheerder)
 
+-[] de volgende admin structuur stap per stap uitwerken:
+
+app/admin/
+├── page.tsx # Dashboard met overall stats
+├── users/
+│ ├── page.tsx # Lijst alle users (tabel)
+│ └── [userId]/
+│ ├── page.tsx # User overview met stats
+│ ├── apiaries/
+│ │ └── page.tsx # Read-only lijst
+│ ├── hives/
+│ │ └── page.tsx # Read-only lijst
+│ └── observations/
+│ └── page.tsx # Read-only lijst + delete button
+├── apiaries/
+│ └── page.tsx # ALLE apiaries (flat lijst)
+├── hives/
+│ └── page.tsx # ALLE hives (flat lijst)
+└── observations/
+└── page.tsx # ALLE observations (flat lijst)
+
 - [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
 - [x] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
-- [ ] → filter gebruikers (alleen beheerders)
+- [x] → filter gebruikers (alleen beheerders)
+- [x] **GET** `/admin/users/:id` → User overview met stats
+- [x] **GET** `/admin/users/:id/apiaries` → Read-only lijst
+- [x] **GET** `/admin/users/:id/hives` → Read-only lijst
+- [x] **GET** `/admin/users/:id/observations` → Read-only lijst
+- [x] **GET** `/admin/apiaries` → Read-only lijst
+- [x] **GET** `/admin/hives` → Read-only lijst
+- [x] **GET** `/admin/observations` → Read-only lijst
+- [x] dynamische terugkeerUrls in [hiveId]
+- [x] dynamische terugkeerUrls in [apiaryId]
+<!-- - [] dynamische terugkeerUrls in [observationsId]--> niet nodig, staan al uitgeschreven onder kasten
+- [x] dynamische terugkeerUrls in admin/hives en admin/users/[userId]/hives
+- [x] dynamische terugkeerUrls in admin/observations en admin/users/[userId]/observations
+- [x] dynamische terugkeerUrls in admin/apiaries en admin/users/[userId]/apiaries
+- [x] paginering voorzien voor admin/users en admin/users/userId/apiaries
+- [x] paginering voorzien voor admin/apiaries etc.
+- [x] paginering voorzien voor admin/hives etc.
+- [x] paginering voorzien voor admin/observations etc.
+- [x]admin/users/[userId] voorzien van een terugbutton
 
 ---
 
@@ -79,18 +118,25 @@
 
 ### 5. Applicatie Layout
 
-- [ ] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
-- [ ] **Home Page** (`page.tsx`): Direct server action for the data expected TODO
-- [ ] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
-- [ ] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
-- [ ] **Configuratie** (`next.config.ts`): Lettertype optimalisatie
+- [x] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
+- [X] **Home Page** (`page.tsx`): Direct server action for the data expected
+- [X] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
+- [X] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
+- [X] **Configuratie** (`next.config.ts`): Lettertype optimalisatie
+- [ ] scrollbare nav
+- [ ] fotos comprimeren
+- [ ] alt teksten
+- [ ] responsief design
+- [ ] website consistent
+- [ ] leaflet kaart 
+- [ ] API aanvragen via waarnemingen
 
 ### 6. Openbare Pagina's
 
-- [ ] **Startpagina** (`/`): Hero sectie + projectoverzicht
-- [ ] **Over Ons** (`/about`): Informatiepagina over het project
-- [ ] **Registratie** (`/register`): Aanmeldformulier met Radix UI
-- [ ] **Inlogpagina** (`/api/auth/signin`): Login interface (Radix UI)
+- [x] **Startpagina** (`/`): Hero sectie + projectoverzicht
+- [X] **Over Ons** (`/about`): Informatiepagina over het project
+- [X] **Registratie** (`/register`): Aanmeldformulier met Radix UI
+- [X] **Inlogpagina** (`/api/auth/signin`): Login interface (Radix UI)
 
 ---
 
@@ -98,27 +144,27 @@
 
 ### 7. Imker Functionaliteiten
 
-- [ ] **Profiel** (`/imkers/:id`): Persoonlijke bijenstanden, kasten en observaties
-- [ ] **Observatie Toevoegen** (`/observaties/new`): Formulier voor nieuwe waarnemingen
-- [ ] **Eigen Data Beheer**: Volledige CRUD voor eigen content
+- [x] **Profiel** (`/imkers/:id`): Persoonlijke bijenstanden, kasten en observaties
+- [x] **Observatie Toevoegen** (`/observaties/new`): Formulier voor nieuwe waarnemingen
+- [x] **Eigen Data Beheer**: Volledige CRUD voor eigen content
 
 ### 8. Beheerder Dashboard
 
-- [ ] **Gebruikersoverzicht** (`/imkers`): Lijst alle imkers met verwijder-opties
-- [ ] **Volledige Toegang**: Inzage in alle bijenstanden en observaties
-- [ ] **Moderatie Tools**: Content beheer en gebruikerscontrole
+- [x] **Gebruikersoverzicht** (`/imkers`): Lijst alle imkers met verwijder-opties
+- [x] **Volledige Toegang**: Inzage in alle bijenstanden en observaties
+- [x] **Moderatie Tools**: Content beheer en gebruikerscontrole
 
 ### 9. Publiek Toegankelijke Content
 
-- [ ] **Observaties Overzicht** (`/observaties`): Gepagineerde, doorzoekbare lijst
-- [ ] **Weergave Gegevens**: Datum, imkernaam, kast, notities, locatie (regio)
-- [ ] **Filter & Zoek Functionaliteit**: Gebruiksvriendelijke navigatie
+- [x] **Observaties Overzicht** (`/observaties`): Gepagineerde, doorzoekbare lijst
+- [x] **Weergave Gegevens**: Datum, imkernaam, kast, notities, locatie (regio)
+- [x] **Filter & Zoek Functionaliteit**: Gebruiksvriendelijke navigatie
 
 ---
 
 ## ✨ FASE 5: Gebruikerservaring & Optimalisatie
 
-### 10. Formulier Validatie & Feedback
+### 10. Formulier Validatie & Feedback TODO
 
 - [ ] **Server-side Validatie**: Zod bibliotheek of custom validatie
 - [ ] **Real-time Feedback**: Client-side validatie met Radix formulieren

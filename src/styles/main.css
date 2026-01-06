@@ -27,12 +27,21 @@
 @import "./components/dropdown.css";
 @import "./components/hero.css";
 @import "./components/page-header.css";
+@import "./components/section-header.css";
 @import "./components/button.css";
 @import "./components/card.css";
 @import "./components/feature-card.css";
 @import "./components/form.css";
 @import "./components/stats.css";
 @import "./components/footer.css";
+@import "./components/table.css";
+@import "./components/pagination.css";
+@import "./components/filters.css";
+@import "./components/modal.css";
+@import "./components/display.css";
+@import "./components/info-box.css";
+@import "./components/map.css";
+@import "./components/toggle.css";
 
 /* ============================================
    Utilities
@@ -42,3 +51,5 @@
 @import "./utilities/spacing.css";
 @import "./utilities/flexbox.css";
 @import "./utilities/display.css";
+@import "./utilities/layout.css";
+@import "./utilities/colors.css";

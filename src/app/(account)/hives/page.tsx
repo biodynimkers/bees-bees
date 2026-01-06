@@ -62,13 +62,9 @@ export default async function AccountHivesPage({
         <div className="container">
           {hives.length > 0 ? (
             <>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-8)" }}>
-                <h2 style={{ 
-                  fontFamily: "var(--font-display)",
-                  fontSize: "2rem",
-                  fontWeight: "400"
-                }}>
-                  Mijn kasten
+              <div className="section-header">
+                <h2 className="section-header__title">
+                  Overzicht
                 </h2>
                 <Link href="/hives/new">
                   <button className="btn btn--primary">
@@ -85,20 +81,20 @@ export default async function AccountHivesPage({
                     style={{ textDecoration: 'none' }}
                   >
                     <div className="card">
-                      <p className="card__category">{hive.type}</p>
-                      <h3 className="card__title">{hive.name}</h3>
-                      <p className="card__text" style={{ marginBottom: "var(--space-3)" }}>
-                        {hive.apiary.name}
+                      <p className="card__category">
+                        Kast
                       </p>
-                      <span style={{ 
-                        fontSize: "0.875rem",
-                        padding: "var(--space-2) var(--space-3)",
-                        background: "rgba(0, 0, 0, 0.05)",
-                        borderRadius: "4px",
-                        display: "inline-block"
-                      }}>
-                        {hive.colonyType}
-                      </span>
+                      <h3 className="card__title">
+                        {hive.name}
+                      </h3>
+                      <div className="card__divider">
+                        <p className="card__label">Bijenstand</p>
+                        <p className="card__value">{hive.apiary.name}</p>
+                        <p className="card__label">Type kast</p>
+                        <p className="card__value">{hive.type}</p>
+                        <p className="card__label">Type volk</p>
+                        <p className="card__value">{hive.colonyType}</p>
+                      </div>
                     </div>
                   </Link>
                 ))}

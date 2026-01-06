@@ -1,5 +1,3 @@
-/* Text Utilities */
-
 /* Font Families */
 .text-display {
   font-family: var(--font-display);
@@ -61,4 +59,15 @@
 }
 .leading-relaxed {
   line-height: 1.75;
+}
+
+/* Text Colors */
+.text-light {
+  color: var(--color-text-light);
+}
+.text-success {
+  color: #10b981;
+}
+.text-danger {
+  color: #e56b6b;
 }

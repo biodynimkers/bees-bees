@@ -38,7 +38,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
     }
     const body = await req.json();
-    const { type, colonyType } = body;
+    const { name, type, colonyType, apiaryId } = body;
     if (type === undefined || colonyType === undefined) {
       return NextResponse.json(
         { error: 'Type en Kolonietype zijn verplicht' },
@@ -70,8 +70,10 @@ export async function PUT(
     const updatedHive = await prisma.hive.update({
       where: { id },
       data: {
+        name,
         type,
         colonyType,
+        apiaryId,
       },
     });
     return NextResponse.json(updatedHive, { status: 200 });

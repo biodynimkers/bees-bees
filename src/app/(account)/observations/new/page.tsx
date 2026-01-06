@@ -28,7 +28,7 @@ export default async function AccountObservationNewPage({
         <div className="container">
           <h1 className="page-header__title">Nieuwe observatie</h1>
           <p className="page-header__subtitle">
-            Registreer een nieuwe observatie bij een kast
+            Registreer een nieuwe observatie bij een kast.
           </p>
         </div>
       </section>

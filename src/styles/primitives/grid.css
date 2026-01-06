@@ -1,12 +1,25 @@
-/* ============================================
-   GRID - Ruime spacing
-   ============================================ */
-
 .grid {
   display: grid;
   gap: var(--space-16);
 }
 
+.grid--cols-two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--cols-three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid--cols-four {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid--auto {
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* Legacy support - will be removed */
 .grid--2 {
   grid-template-columns: repeat(2, 1fr);
 }
@@ -15,8 +28,8 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-.grid--auto {
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
 }
 
 @media (max-width: 768px) {
@@ -24,8 +37,12 @@
     gap: var(--space-8);
   }
 
+  .grid--cols-two,
+  .grid--cols-three,
+  .grid--cols-four,
   .grid--2,
-  .grid--3 {
+  .grid--3,
+  .grid--4 {
     grid-template-columns: 1fr;
   }
 }

@@ -1,7 +1,9 @@
 :root {
-  /* Font Families - Modern Serif & Sans */
-  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Font Families - Modern Luxurious Organic */
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: var(--font-cormorant), Georgia, serif;
+  --font-numbers: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Font Sizes - Grote moderne typografie */
   --text-xs: 0.75rem;
@@ -14,4 +16,16 @@
   --text-4xl: 3rem;
   --text-5xl: 4rem;
   --text-6xl: 5rem;
+
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Line Heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+  --leading-loose: 1.8;
 }

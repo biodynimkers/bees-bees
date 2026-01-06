@@ -40,22 +40,22 @@ export default function DeleteUserButton({
   return (
     <>
       {message && (
-        <span style={{ color: 'green', marginLeft: '1rem' }}>{message}</span>
+        <span className="text-success ml-4">{message}</span>
       )}
       {!showConfirm ? (
         <button
           onClick={() => setShowConfirm(true)}
-          style={{ background: 'red', color: 'white', marginLeft: '1rem' }}
+          className="btn btn--danger ml-4"
         >
-          Verwijder
+          Verwijder {userName}
         </button>
       ) : (
         <>
           <span>Weet je het zeker?</span>
-          <button onClick={handleDelete} disabled={loading}>
+          <button onClick={handleDelete} disabled={loading} className="btn btn--danger ml-4">
             {loading ? 'Bezig...' : 'Ja, verwijderen'}
           </button>
-          <button onClick={() => setShowConfirm(false)}>Annuleren</button>
+          <button onClick={() => setShowConfirm(false)} className="btn btn--secondary ml-4">Annuleren</button>
         </>
       )}
     </>

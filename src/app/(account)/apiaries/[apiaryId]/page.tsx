@@ -4,6 +4,7 @@ import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import DeleteEntityButton from '@/components/shared/DeleteEntityButton';
+import ApiaryMapWrapper from '@/components/shared/ApiaryMapWrapper';
 
 export const dynamic = 'force-dynamic';
 
@@ -62,14 +63,17 @@ export default async function AccountApiaryPage({
     <>
       <section className="page-header" data-page="01">
         <div className="container">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
             <div>
               <h1 className="page-header__title">{apiary?.name}</h1>
-              <p className="page-header__subtitle">
-                {totalHives} {totalHives === 1 ? 'kast' : 'kasten'}
-              </p>
+              <div className="page-header__meta">
+                <div className="page-header__meta-item">
+                  <span className="page-header__meta-label">Kasten</span>
+                  <span className="page-header__meta-value">{totalHives}</span>
+                </div>
+              </div>
             </div>
-            <div style={{ display: "flex", gap: "var(--space-3)" }}>
+            <div className="page-header__actions">
               <Link href={`/apiaries/${apiary?.id}/edit`}>
                 <button className="btn btn--secondary">
                   Wijzig bijenstand
@@ -89,66 +93,143 @@ export default async function AccountApiaryPage({
 
       <section className="section section--alt">
         <div className="container">
-          <div className="grid grid--2" style={{ alignItems: "flex-start", gap: "var(--space-16)" }}>
-            <div>
-              <h2 style={{ 
-                fontFamily: "var(--font-display)",
-                fontSize: "1.5rem",
-                fontWeight: "500",
-                marginBottom: "var(--space-6)"
+          <h2 style={{ 
+            fontFamily: "var(--font-display)",
+            fontSize: "1.5rem",
+            fontWeight: "500",
+            marginBottom: "var(--space-6)"
+          }}>
+            Locatie & Foerageergebied
+          </h2>
+          
+          <div className="grid grid--cols-two gap-lg">
+            <div className="card">
+              <h3 style={{ 
+                fontSize: "1rem",
+                fontWeight: "600",
+                marginBottom: "var(--space-4)",
+                color: "var(--color-text)"
               }}>
-                Locatie details
-              </h2>
-              <div className="card" style={{ marginBottom: "var(--space-8)" }}>
-                <div style={{ marginBottom: "var(--space-4)" }}>
-                  <p style={{ 
-                    fontSize: "0.875rem",
-                    color: "var(--color-text-light)",
-                    marginBottom: "var(--space-2)"
-                  }}>
-                    Coördinaten
-                  </p>
-                  <p style={{ 
-                    fontFamily: "var(--font-display)",
-                    fontSize: "1.125rem"
-                  }}>
-                    {apiary?.latitude.toFixed(6)}, {apiary?.longitude.toFixed(6)}
-                  </p>
-                </div>
-                <a 
-                  href={`https://www.google.com/maps?q=${apiary?.latitude},${apiary?.longitude}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
-                >
-                  <button className="btn btn--secondary btn--sm" style={{ width: "100%" }}>
-                    Open in Google Maps
-                  </button>
-                </a>
+                Coördinaten
+              </h3>
+              <div style={{ marginBottom: "var(--space-4)" }}>
+                <p style={{ 
+                  fontSize: "0.875rem",
+                  color: "var(--color-text-light)",
+                  marginBottom: "var(--space-2)"
+                }}>
+                  GPS Locatie
+                </p>
+                <p style={{ 
+                  fontFamily: "var(--font-display)",
+                  fontSize: "1.125rem"
+                }}>
+                  {apiary?.latitude.toFixed(6)}, {apiary?.longitude.toFixed(6)}
+                </p>
               </div>
+              <a 
+                href={`https://www.google.com/maps?q=${apiary?.latitude},${apiary?.longitude}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none" }}
+              >
+                <button className="btn btn--secondary btn--sm" style={{ width: "100%" }}>
+                  Open in Google Maps
+                </button>
+              </a>
             </div>
 
-            <div>
-              <div 
-                style={{
-                  width: "100%",
-                  height: "400px",
-                  background: "rgba(0, 0, 0, 0.05)",
-                  border: "1px solid rgba(0, 0, 0, 0.08)",
-                  borderRadius: "8px",
-                  overflow: "hidden",
-                  position: "relative"
-                }}
-              >
-                <iframe
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  allowFullScreen
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${apiary?.latitude},${apiary?.longitude}&zoom=15&maptype=satellite`}
-                />
+            <div className="card">
+              <h3 style={{ 
+                fontFamily: "var(--font-body)",
+                fontSize: "1.125rem",
+                fontWeight: 600,
+                marginBottom: "var(--space-2)"
+              }}>
+                Kaartlagen
+              </h3>
+              <p style={{ 
+                fontSize: "0.875rem",
+                color: "var(--color-text-light)",
+                lineHeight: 1.6,
+                marginBottom: "var(--space-4)"
+              }}>
+                Activeer nuttige informatie op de kaart voor tijdens je wandelingen in het foerageergebied.
+              </p>
+
+              <div className="map-controls">
+                <div className="map-control-item">
+                  <div className="map-control-item__label">
+                    <p className="map-control-item__title">Plantwaarnemingen</p>
+                    <p className="map-control-item__desc">Bijvriendelijke planten via waarnemingen.be</p>
+                  </div>
+                  <label className="toggle-switch">
+                    <input type="checkbox" id="plantToggle" />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div className="map-control-item">
+                  <div className="map-control-item__label">
+                    <p className="map-control-item__title">Afstandsindicatie</p>
+                    <p className="map-control-item__desc">Toon afstand tot planten in popups</p>
+                  </div>
+                  <label className="toggle-switch">
+                    <input type="checkbox" id="distanceToggle" />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div className="map-control-item">
+                  <div className="map-control-item__label">
+                    <p className="map-control-item__title">Alleen binnen 2 km</p>
+                    <p className="map-control-item__desc">Filter planten op primair foerageergebied</p>
+                  </div>
+                  <label className="toggle-switch">
+                    <input type="checkbox" id="rangeToggle" />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div className="map-control-item">
+                  <div className="map-control-item__label">
+                    <p className="map-control-item__title">Bloeitijd huidige maand</p>
+                    <p className="map-control-item__desc">Toon alleen wat nu bloeit</p>
+                  </div>
+                  <label className="toggle-switch">
+                    <input type="checkbox" id="seasonToggle" />
+                    <span className="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="map-legend">
+                <div className="map-legend-item">
+                  <div className="map-legend-circle" style={{ color: "#3b82f6" }}></div>
+                  <span>2 km (80% foerageergebied)</span>
+                </div>
+                <div className="map-legend-item">
+                  <div className="map-legend-circle" style={{ color: "#9333ea" }}></div>
+                  <span>7 km (maximaal bereik)</span>
+                </div>
+                <div className="map-legend-item">
+                  <div style={{ 
+                    width: "12px", 
+                    height: "12px", 
+                    borderRadius: "50%", 
+                    background: "#f97316" 
+                  }}></div>
+                  <span>Nectarplanten</span>
+                </div>
+                <div className="map-legend-item">
+                  <div style={{ 
+                    width: "12px", 
+                    height: "12px", 
+                    borderRadius: "50%", 
+                    background: "#dc2626" 
+                  }}></div>
+                  <span>Stuifmeelbronnen</span>
+                </div>
               </div>
             </div>
           </div>
@@ -157,12 +238,20 @@ export default async function AccountApiaryPage({
 
       <section className="section section--default">
         <div className="container">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-8)" }}>
-            <h2 style={{ 
-              fontFamily: "var(--font-display)",
-              fontSize: "2rem",
-              fontWeight: "400"
-            }}>
+          <div className="map-container" style={{ height: "600px" }}>
+            <ApiaryMapWrapper
+              latitude={apiary?.latitude!}
+              longitude={apiary?.longitude!}
+              apiaryName={apiary?.name || ''}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--default">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-header__title">
               Kasten in deze stand
             </h2>
             {hives.length > 0 && (
@@ -184,24 +273,21 @@ export default async function AccountApiaryPage({
                     style={{ textDecoration: 'none' }}
                   >
                     <div className="card">
-                      <p className="card__category">{hive.type}</p>
-                      <h3 className="card__title">{hive.name}</h3>
-                      <div style={{ 
-                        display: "flex", 
-                        gap: "var(--space-4)",
-                        marginTop: "var(--space-4)",
-                        fontSize: "0.875rem"
-                      }}>
-                        <span style={{ 
-                          padding: "var(--space-2) var(--space-3)",
-                          background: "rgba(0, 0, 0, 0.05)",
-                          borderRadius: "4px"
-                        }}>
-                          {hive.colonyType}
-                        </span>
-                        <span style={{ color: "var(--color-text-light)" }}>
-                          {hive.observations.length} {hive.observations.length === 1 ? 'observatie' : 'observaties'}
-                        </span>
+                      <p className="card__category">
+                        Kast
+                      </p>
+                      <h3 className="card__title">
+                        {hive.name}
+                      </h3>
+                      <div className="card__divider">
+                        <p className="card__label">Bijenstand</p>
+                        <p className="card__value">{apiary?.name}</p>
+                        <p className="card__label">Type kast</p>
+                        <p className="card__value">{hive.type}</p>
+                        <p className="card__label">Type volk</p>
+                        <p className="card__value">{hive.colonyType}</p>
+                        <p className="card__label">Observaties</p>
+                        <p className="card__value">{hive.observations.length}</p>
                       </div>
                     </div>
                   </Link>
