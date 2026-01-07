@@ -236,7 +236,7 @@ export default async function AccountApiaryPage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="map-container" style={{ height: "600px" }}>
             <ApiaryMapWrapper
@@ -248,7 +248,7 @@ export default async function AccountApiaryPage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section-header">
             <h2 className="section-header__title">

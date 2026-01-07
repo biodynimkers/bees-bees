@@ -44,7 +44,7 @@ export default async function AccountApiariesPage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           {apiaries.length > 0 ? (
             <>

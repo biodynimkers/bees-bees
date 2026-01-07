@@ -100,7 +100,7 @@ export default async function AccountObservationsPage(searchParams: {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           {observations.length > 0 ? (
             <>

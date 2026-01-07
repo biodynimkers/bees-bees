@@ -66,7 +66,7 @@ export default async function AdminUserObservationsPage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section-header">
             <Link href={`/admin/users/${userId}`}>

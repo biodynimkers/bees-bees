@@ -75,7 +75,7 @@ export default async function AccountPage() {
       {isNewUser ? (
         // Voor nieuwe gebruikers: uitleg en stappenplan
         <>
-          <section className="section section--default">
+          <section className="section ">
             <div className="container container--narrow">
               <div className="section__header" style={{ textAlign: "center" }}>
                 <h2 className="section__title">
@@ -141,7 +141,7 @@ export default async function AccountPage() {
       ) : (
         // Voor bestaande gebruikers: statistieken en acties
         <>
-          <section className="section section--default">
+          <section className="section ">
             <div className="container">
               <div className="grid grid--2" style={{ alignItems: "center", gap: "var(--space-16)" }}>
                 <div>

@@ -52,7 +52,7 @@ export default async function ApiaryDetailPage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section-header">
             <h2 className="section-header__title">Kasten in deze bijenstand</h2>

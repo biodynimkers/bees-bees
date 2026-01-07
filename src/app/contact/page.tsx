@@ -8,7 +8,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container container--narrow">
           <div className="section__header section__header--center">
             <h2 className="section__title">Neem contact op</h2>

@@ -10,7 +10,7 @@ export default function PlatformPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="grid grid--cols-two items-center gap-xl">
             <div>
@@ -109,7 +109,7 @@ export default function PlatformPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section__header text-center">
             <h2 className="section__title">Veelgestelde vragen</h2>

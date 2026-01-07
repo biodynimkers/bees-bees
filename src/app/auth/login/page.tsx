@@ -80,7 +80,7 @@ export default function Login() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container container--narrow">
           <form onSubmit={handleSubmit} className="form">
             {errors && (

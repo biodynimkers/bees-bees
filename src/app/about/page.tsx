@@ -13,7 +13,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section__header">
             <h2 className="section__title">Onze Missie</h2>
@@ -97,7 +97,7 @@ export default function AboutPage() {
       </section>
 
       {/* Platform features met foto */}
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section__header section__header--center">
             <h2 className="section__title">Wat kunt u doen?</h2>

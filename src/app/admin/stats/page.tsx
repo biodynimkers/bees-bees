@@ -43,7 +43,7 @@ export default async function AdminStatsPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section-header">
             <h2 className="section-header__title">Gebruikers</h2>
@@ -72,7 +72,7 @@ export default async function AdminStatsPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section-header">
             <h2 className="section-header__title">Gemiddelden</h2>

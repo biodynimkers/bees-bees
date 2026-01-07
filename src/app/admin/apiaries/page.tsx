@@ -37,14 +37,16 @@ export default async function AdminApiariesPage({
     <>
       <section className="page-header">
         <div className="container">
-          <h1 className="page-header__title">Alle bijenstanden</h1>
-          <p className="page-header__subtitle">
-            Totaal: {totalApiaries} {totalApiaries === 1 ? 'bijenstand' : 'bijenstanden'}
-          </p>
+          <div className="page-header__top">
+            <h1 className="page-header__title">Alle bijenstanden</h1>
+            <p className="page-header__subtitle">
+              Totaal: {totalApiaries} {totalApiaries === 1 ? "bijenstand" : "bijenstanden"}
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section-header">
             <Link href="/admin">

@@ -12,7 +12,7 @@ export default function AdminPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="grid grid--3">
             <Link href="/admin/users">

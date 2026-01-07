@@ -31,7 +31,7 @@ export default async function EditObservationPage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container container--narrow">
           <ObservationForm 
             initialObservation={observationId} 

@@ -39,7 +39,7 @@ export default function VisionPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section__header text-center">
             <h2 className="section__title">Van pioniers naar professionals</h2>
@@ -141,7 +141,7 @@ export default function VisionPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="grid grid--2 items-center gap-xl">
             <div>

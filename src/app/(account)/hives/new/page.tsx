@@ -28,7 +28,7 @@ export default async function AccountApiaryNewHivePage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container container--narrow">
           <HiveForm apiaryId={apiaryId} apiaryName={apiaryName} />
         </div>

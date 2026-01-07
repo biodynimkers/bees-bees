@@ -33,7 +33,7 @@ export default async function AccountObservationNewPage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container container--narrow">
           <ObservationForm hiveId={hiveId} hiveName={hiveName} />
         </div>

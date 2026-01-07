@@ -42,7 +42,7 @@ export default async function Home() {
         totalHives={totalHives}
       />
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section__header">
             <h2 className="section__title">Belangrijkste functies</h2>

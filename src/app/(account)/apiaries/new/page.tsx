@@ -14,7 +14,7 @@ export default async function AccountNewApiaryPage() {
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container container--narrow">
           <ApiaryForm />
         </div>

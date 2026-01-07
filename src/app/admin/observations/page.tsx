@@ -39,14 +39,16 @@ export default async function AdminObservationsPage({
     <>
       <section className="page-header">
         <div className="container">
-          <h1 className="page-header__title">Alle observaties</h1>
-          <p className="page-header__subtitle">
-            Totaal: {totalObservations} {totalObservations === 1 ? 'observatie' : 'observaties'}
-          </p>
+          <div className="page-header__top">
+            <h1 className="page-header__title">Alle observaties</h1>
+            <p className="page-header__subtitle">
+              Totaal: {totalObservations} {totalObservations === 1 ? 'observatie' : 'observaties'}
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           <div className="section-header">
             <Link href="/admin">

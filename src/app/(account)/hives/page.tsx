@@ -58,7 +58,7 @@ export default async function AccountHivesPage({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container">
           {hives.length > 0 ? (
             <>

@@ -61,7 +61,7 @@ export default async function Observation({
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="section ">
         <div className="container container--narrow">
           <div className="grid grid--2" style={{ gap: 'var(--space-12)' }}>
             {/* Observatie Details Card */}

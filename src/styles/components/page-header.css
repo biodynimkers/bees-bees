@@ -20,6 +20,13 @@
   margin: 0 0 var(--space-4) 0;
 }
 
+.page-header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-8);
+}
+
 .page-header__subtitle {
   font-family: var(--font-body);
   font-size: 1rem;
@@ -27,6 +34,14 @@
   color: var(--color-text-light);
   max-width: 600px;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .page-header__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
 }
 
 /* Page header actions (buttons rechts) */
