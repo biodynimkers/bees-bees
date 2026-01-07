@@ -36,14 +36,19 @@ export default function ApiariesFilter({
 
   return (
     <>
-      <div className="search-wrapper">
-        <input
-          type="text"
-          placeholder="Zoek op naam of eigenaar..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="form__input search-input"
-        />
+      <div className="section-header">
+        <Link href="/admin" className="back-link">
+          ←
+        </Link>
+        <div className="search-wrapper">
+          <input
+            type="text"
+            placeholder="Zoek op naam of eigenaar..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="form__input search-input"
+          />
+        </div>
       </div>
 
       <ApiariesTable

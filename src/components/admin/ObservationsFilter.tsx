@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import ObservationsTable from './ObservationsTable';
 
 interface Observation {
@@ -56,25 +57,30 @@ export default function ObservationsFilter({
 
   return (
     <>
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Zoek op notities of kast..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="form__input"
-        />
-        
-        <select
-          value={colorFilter}
-          onChange={e => setColorFilter(e.target.value)}
-          className="form__select"
-        >
-          <option value="">Alle kleuren</option>
-          {colors.map(color => (
-            <option key={color} value={color}>{color}</option>
-          ))}
-        </select>
+      <div className="section-header">
+        <Link href="/admin" className="back-link">
+          ←
+        </Link>
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Zoek op notities of kast..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="form__input"
+          />
+          
+          <select
+            value={colorFilter}
+            onChange={e => setColorFilter(e.target.value)}
+            className="form__select"
+          >
+            <option value="">Alle kleuren</option>
+            {colors.map(color => (
+              <option key={color} value={color}>{color}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <ObservationsTable

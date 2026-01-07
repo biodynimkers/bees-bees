@@ -27,16 +27,6 @@ export default function UsersFilter({
 
   return (
     <>
-      <div className="search-wrapper">
-        <input
-          type="text"
-          placeholder="Zoek op naam..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="form__input search-input"
-        />
-      </div>
-
       <div className="table-wrapper">
         <table className="table">
           <thead>

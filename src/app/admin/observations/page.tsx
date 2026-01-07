@@ -50,12 +50,6 @@ export default async function AdminObservationsPage({
 
       <section className="section ">
         <div className="container">
-          <div className="section-header">
-            <Link href="/admin">
-              <button className="btn btn--secondary">← Terug naar dashboard</button>
-            </Link>
-          </div>
-
           <ObservationsFilter
             observations={observations}
             showHive={true}

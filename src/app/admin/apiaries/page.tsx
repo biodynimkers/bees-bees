@@ -48,12 +48,6 @@ export default async function AdminApiariesPage({
 
       <section className="section ">
         <div className="container">
-          <div className="section-header">
-            <Link href="/admin">
-              <button className="btn btn--secondary">← Terug naar dashboard</button>
-            </Link>
-          </div>
-          
           <ApiariesFilter
             apiaries={apiaries}
             currentPath={'/admin/apiaries'}

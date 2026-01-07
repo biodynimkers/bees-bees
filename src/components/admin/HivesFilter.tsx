@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import HivesTable from './HivesTable';
 
 interface Hive {
@@ -53,36 +54,41 @@ export default function HivesFilter({
 
   return (
     <>
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Zoek op naam..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          className="form__input"
-        />
-        
-        <select
-          value={typeFilter}
-          onChange={e => setTypeFilter(e.target.value)}
-          className="form__select"
-        >
-          <option value="">Alle types</option>
-          {types.map(type => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
+      <div className="section-header">
+        <Link href="/admin" className="back-link">
+          ←
+        </Link>
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Zoek op naam..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="form__input"
+          />
+          
+          <select
+            value={typeFilter}
+            onChange={e => setTypeFilter(e.target.value)}
+            className="form__select"
+          >
+            <option value="">Alle types</option>
+            {types.map(type => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
 
-        <select
-          value={colonyFilter}
-          onChange={e => setColonyFilter(e.target.value)}
-          className="form__select"
-        >
-          <option value="">Alle volken</option>
-          {colonies.map(colony => (
-            <option key={colony} value={colony}>{colony}</option>
-          ))}
-        </select>
+          <select
+            value={colonyFilter}
+            onChange={e => setColonyFilter(e.target.value)}
+            className="form__select"
+          >
+            <option value="">Alle volken</option>
+            {colonies.map(colony => (
+              <option key={colony} value={colony}>{colony}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <HivesTable

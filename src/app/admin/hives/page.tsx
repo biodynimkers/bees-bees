@@ -51,12 +51,6 @@ export default async function AdminHivesPage({
 
       <section className="section section--default">
         <div className="container">
-          <div className="section-header">
-            <Link href="/admin">
-              <button className="btn btn--secondary">← Terug naar dashboard</button>
-            </Link>
-          </div>
-
           <HivesFilter
             hives={hives}
             showApiary={true}
