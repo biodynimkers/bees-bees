@@ -1,16 +1,10 @@
 export default function ContactPage() {
   return (
     <>
-      <section className="page-header" data-page="03">
-        <div className="container">
-          <h1 className="page-header__title">Contact</h1>
-          <p className="page-header__subtitle">Vragen of feedback? We horen graag van je</p>
-        </div>
-      </section>
-
-      <section className="section ">
+      <section className="section section--first">
         <div className="container container--narrow">
           <div className="section__header section__header--center">
+            <h1 className="section__title">Contact – Vragen of feedback? We horen graag van je</h1>
             <h2 className="section__title">Neem contact op</h2>
             <p className="section__description">
               Heb je vragen over het platform, suggesties voor verbeteringen of

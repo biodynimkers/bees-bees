@@ -1,19 +1,13 @@
 export default function PlatformPage() {
   return (
     <>
-      <section className="page-header" data-page="02">
-        <div className="container">
-          <h1 className="page-header__title">Het Platform</h1>
-          <p className="page-header__subtitle">
-            Digitaal imkeren, overzichtelijk en eenvoudig
-          </p>
-        </div>
-      </section>
-
-      <section className="section ">
+      <section className="section section--first">
         <div className="container">
           <div className="grid grid--cols-two items-center gap-xl">
             <div>
+              <h1 className="text-xlarge mb-md">
+                Het Platform – Digitaal imkeren, overzichtelijk en eenvoudig
+              </h1>
               <h2 className="text-xlarge mb-md">
                 Voor imkers die structuur willen
               </h2>
@@ -56,7 +50,7 @@ export default function PlatformPage() {
 
           <div className="grid grid--cols-two">
             <div className="card">
-              <div className="display-number--md">01</div>
+              <span className="stat__number">01</span>
               <h3 className="card__title mb-sm">Maak een account aan</h3>
               <p className="card__text mb-sm">
                 Registreer gratis in minder dan een minuut. Geen betaalgegevens 
@@ -69,7 +63,7 @@ export default function PlatformPage() {
             </div>
 
             <div className="card">
-              <div className="display-number--md">02</div>
+              <span className="stat__number">02</span>
               <h3 className="card__title mb-sm">Voeg je bijenstanden toe</h3>
               <p className="card__text mb-sm">
                 Registreer de locaties van je bijenstanden met naam en GPS-coördinaten. 
@@ -81,7 +75,7 @@ export default function PlatformPage() {
             </div>
 
             <div className="card">
-              <div className="display-number--md">03</div>
+              <span className="stat__number">03</span>
               <h3 className="card__title mb-sm">Registreer je kasten</h3>
               <p className="card__text mb-sm">
                 Koppel kasten aan je standen. Geef elke kast een unieke naam en 
@@ -94,7 +88,7 @@ export default function PlatformPage() {
             </div>
 
             <div className="card">
-              <div className="display-number--md">04</div>
+              <span className="stat__number">04</span>
               <h3 className="card__title mb-sm">Log je waarnemingen</h3>
               <p className="card__text mb-sm">
                 Noteer observaties direct bij je kastcontroles. Bijensterkte, 

@@ -1,28 +1,22 @@
 export default function VisionPage() {
   return (
     <>
-      <section className="page-header" data-page="01">
-        <div className="container">
-          <h1 className="page-header__title">Wie we zijn</h1>
-          <p className="page-header__subtitle">
-            Van organische beweging in 2009 tot officiële VZW in 2025
-          </p>
-        </div>
-      </section>
-
-      <section className="section section--alt">
+      <section className="section section--alt section--first">
         <div className="container">
           <div className="grid grid--2 items-center gap-xl">
             <div>
-              <div className="display-number--lg">
+              <span className="stats__number">
                 2009
-              </div>
+              </span>
               <div className="quote quote--borderless">
                 "Het bijenvolk was spiegel voor de werking"
               </div>
             </div>
             
             <div>
+              <h1 className="text-xlarge mb-md">
+                Wie we zijn – Van organische beweging in 2009 tot officiële VZW in 2025
+              </h1>
               <h2 className="text-xlarge mb-md">
                 Waar het begon
               </h2>
@@ -47,9 +41,9 @@ export default function VisionPage() {
 
           <div className="grid grid--3">
             <div className="card text-center">
-              <div className="display-number--md color-primary">
-                2010
-              </div>
+              <span className="stats__number">
+                2009
+              </span>
               <h3 className="card__title text-xlarge mb-xs">
                 Eerste cursus
               </h3>
@@ -60,9 +54,9 @@ export default function VisionPage() {
             </div>
 
             <div className="card text-center">
-              <div className="display-number--md color-primary">
-                2022
-              </div>
+              <span className="stats__number">
+                2013
+              </span>
               <h3 className="card__title text-xlarge mb-xs">
                 Eigen lesgevers
               </h3>
@@ -73,9 +67,9 @@ export default function VisionPage() {
             </div>
 
             <div className="card text-center">
-              <div className="display-number--md color-primary">
+              <span className="stats__number">
                 2025
-              </div>
+              </span>
               <h3 className="card__title text-xlarge mb-xs">
                 Officiële VZW
               </h3>
@@ -145,7 +139,10 @@ export default function VisionPage() {
         <div className="container">
           <div className="grid grid--2 items-center gap-xl">
             <div>
-              <h2 className="display-number--sm mb-md">
+              <span className="stat__number mb-md">
+                30+
+              </span>
+              <h2 className="text-xlarge mb-md">
                 Imkeren naar de aard en het wezen van de bij
               </h2>
               <p className="text-xlarge mb-md">
