@@ -52,7 +52,7 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="grid grid--3">
+          <div className="grid grid-three-columns">
             <div className="card">
               <div className="card__header">
                 <h3 className="card__title">Bijenstanden beheren</h3>

@@ -102,7 +102,7 @@ export default async function AccountApiaryPage({
             Locatie & Foerageergebied
           </h2>
           
-          <div className="grid grid--cols-two gap-lg">
+          <div className="grid grid-two-columns gap-large">
             <div className="card">
               <h3 style={{ 
                 fontSize: "1rem",
@@ -265,7 +265,7 @@ export default async function AccountApiaryPage({
 
           {hives?.length ? (
             <>
-              <div className="grid grid--3">
+              <div className="grid grid-three-columns">
                 {hives.map(hive => (
                   <Link
                     key={hive.id}

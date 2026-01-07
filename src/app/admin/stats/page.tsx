@@ -51,7 +51,7 @@ export default async function AdminStatsPage() {
               <button className="btn btn--secondary">← Terug naar dashboard</button>
             </Link>
           </div>
-          <div className="grid grid--3">
+          <div className="grid grid-three-columns">
             <StatCard value={totalUsers} label="Totaal gebruikers" />
             <StatCard value={activeUsers} label="Actieve gebruikers" />
             <StatCard value={adminCount} label="Admins" />
@@ -64,7 +64,7 @@ export default async function AdminStatsPage() {
           <div className="section-header">
             <h2 className="section-header__title">Data overzicht</h2>
           </div>
-          <div className="grid grid--3">
+          <div className="grid grid-three-columns">
             <StatCard value={totalApiaries} label="Bijenstanden" />
             <StatCard value={totalHives} label="Kasten" />
             <StatCard value={totalObservations} label="Observaties" />
@@ -77,7 +77,7 @@ export default async function AdminStatsPage() {
           <div className="section-header">
             <h2 className="section-header__title">Gemiddelden</h2>
           </div>
-          <div className="grid grid--3">
+          <div className="grid grid-three-columns">
             <StatCard value={avgHivesPerApiary} label="Kasten per bijenstand" />
             <StatCard value={avgObsPerHive} label="Observaties per kast" />
             <StatCard value={avgBeeStrength} label="Gem. bijensterkte (1-10)" />

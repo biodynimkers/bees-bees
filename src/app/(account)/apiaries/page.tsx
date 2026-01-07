@@ -63,7 +63,7 @@ export default async function AccountApiariesPage({
                 </Link>
               </div>
 
-              <div className="grid grid--2">
+              <div className="grid grid-two-columns">
                 {apiaries.map(apiary => (
                   <Link
                     key={apiary.id}

@@ -92,7 +92,7 @@ export default async function AccountPage() {
 
           <section className="section section--alt">
             <div className="container">
-              <div className="grid grid--3">
+              <div className="grid grid-three-columns">
                 <div className="card">
                   <div className="card__icon">
                     <MapPin size={36} strokeWidth={1.5} />
@@ -143,7 +143,7 @@ export default async function AccountPage() {
         <>
           <section className="section ">
             <div className="container">
-              <div className="grid grid--2" style={{ alignItems: "center", gap: "var(--space-16)" }}>
+              <div className="grid grid-two-columns" style={{ alignItems: "center", gap: "var(--space-16)" }}>
                 <div>
                   <div style={{ marginBottom: "var(--space-6)" }}>
                     <img 
@@ -239,7 +239,7 @@ export default async function AccountPage() {
                 <h2 className="section__title">Uw overzicht</h2>
               </div>
 
-              <div className="grid grid--3">
+              <div className="grid grid-three-columns">
                 <Link href="/apiaries" style={{ textDecoration: "none" }}>
                   <div className="card" style={{ textAlign: "center" }}>
                     <h3
@@ -330,7 +330,7 @@ export default async function AccountPage() {
                 <h2 className="section__title">Snelle acties</h2>
               </div>
 
-              <div className="grid grid--3">
+              <div className="grid grid-three-columns">
                 <Link href="/apiaries/new" style={{ textDecoration: "none" }}>
                   <div className="card">
                     <p className="card__category">TOEVOEGEN</p>

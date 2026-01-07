@@ -115,7 +115,7 @@ export default async function AccountObservationsPage(searchParams: {
                 </Link>
               </div>
 
-              <div className="grid grid--3">
+              <div className="grid grid-three-columns">
                 {observations.map(observation => (
                   <Link
                     key={observation.id}

@@ -3,9 +3,9 @@ export default function VisionPage() {
     <>
       <section className="section section--alt section--first">
         <div className="container">
-          <div className="grid grid--2 items-center gap-xl">
+          <div className="grid grid-two-columns items-center gap-extra-large">
             <div>
-              <span className="stats__number">
+              <span className="number-large">
                 2009
               </span>
               <div className="quote quote--borderless">
@@ -14,13 +14,13 @@ export default function VisionPage() {
             </div>
             
             <div>
-              <h1 className="text-xlarge mb-md">
+              <h1 className="text-xlarge margin-bottom-medium">
                 Wie we zijn – Van organische beweging in 2009 tot officiële VZW in 2025
               </h1>
-              <h2 className="text-xlarge mb-md">
+              <h2 className="text-xlarge margin-bottom-medium">
                 Waar het begon
               </h2>
-              <p className="text-large mb-sm">
+              <p className="text-large margin-bottom-small">
                 Een kleine groep imkers vindt elkaar rond het werk van Rudolf Steiner. 
                 Zijn voordrachtcyclus "De Bijen" wordt hun kompas.
               </p>
@@ -39,12 +39,12 @@ export default function VisionPage() {
             <h2 className="section__title">Van pioniers naar professionals</h2>
           </div>
 
-          <div className="grid grid--3">
+          <div className="grid grid-three-columns">
             <div className="card text-center">
-              <span className="stats__number">
+              <span className="number-large">
                 2009
               </span>
-              <h3 className="card__title text-xlarge mb-xs">
+              <h3 className="card__title text-xlarge margin-bottom-extra-small">
                 Eerste cursus
               </h3>
               <p className="card__text">
@@ -54,10 +54,10 @@ export default function VisionPage() {
             </div>
 
             <div className="card text-center">
-              <span className="stats__number">
+              <span className="number-large">
                 2013
               </span>
-              <h3 className="card__title text-xlarge mb-xs">
+              <h3 className="card__title text-xlarge margin-bottom-extra-small">
                 Eigen lesgevers
               </h3>
               <p className="card__text">
@@ -67,10 +67,10 @@ export default function VisionPage() {
             </div>
 
             <div className="card text-center">
-              <span className="stats__number">
+              <span className="number-large">
                 2025
               </span>
-              <h3 className="card__title text-xlarge mb-xs">
+              <h3 className="card__title text-xlarge margin-bottom-extra-small">
                 Officiële VZW
               </h3>
               <p className="card__text">
@@ -93,7 +93,7 @@ export default function VisionPage() {
             </p>
           </div>
 
-          <div className="grid grid--2">
+          <div className="grid grid-two-columns">
             <div className="feature-card feature-card--01">
               <div className="feature-card__number">01</div>
               <h3 className="feature-card__title">Opleidingen & Workshops</h3>
@@ -137,15 +137,15 @@ export default function VisionPage() {
 
       <section className="section ">
         <div className="container">
-          <div className="grid grid--2 items-center gap-xl">
+          <div className="grid grid-two-columns items-center gap-extra-large">
             <div>
-              <span className="stat__number mb-md">
+              <span className="stat__number margin-bottom-medium">
                 30+
               </span>
-              <h2 className="text-xlarge mb-md">
+              <h2 className="text-xlarge margin-bottom-medium">
                 Imkeren naar de aard en het wezen van de bij
               </h2>
-              <p className="text-xlarge mb-md">
+              <p className="text-xlarge margin-bottom-medium">
                 Respect voor de honingbij als levend organisme. Zo min mogelijk 
                 ingrijpen op haar natuurlijke levenswijze.
               </p>

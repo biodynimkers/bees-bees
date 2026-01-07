@@ -73,7 +73,7 @@ export default async function AccountHivesPage({
                 </Link>
               </div>
 
-              <div className="grid grid--3">
+              <div className="grid grid-three-columns">
                 {hives.map(hive => (
                   <Link
                     key={hive.id}

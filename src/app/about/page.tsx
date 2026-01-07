@@ -43,7 +43,7 @@ export default function AboutPage() {
           <div className="section__header section__header--center">
             <h2 className="section__title">Voor de moderne imker</h2>
           </div>
-          <div className="grid grid--2">
+          <div className="grid grid-two-columns">
             <article className="card">
               <h3 className="card__title">Van papier naar digitaal</h3>
               <p className="card__description">
@@ -102,7 +102,7 @@ export default function AboutPage() {
           <div className="section__header section__header--center">
             <h2 className="section__title">Wat kunt u doen?</h2>
           </div>
-          <div className="grid grid--2">
+          <div className="grid grid-two-columns">
             <div className="card">
               <h3 className="card__title">Bijenstanden beheren</h3>
               <p className="card__description">

@@ -14,19 +14,19 @@ export default function Stats({
       <div className="container">
         <div className="stats__grid">
           <div className="stats__item">
-            <span className="stats__number">
+            <span className="number-large">
               {totalObservations.toLocaleString()}
             </span>
             <div className="stats__label">Observaties</div>
             <p className="stats__description">Geregistreerd door onze imkers</p>
           </div>
           <div className="stats__item">
-            <span className="stats__number">{totalUsers.toLocaleString()}</span>
+            <span className="number-large">{totalUsers.toLocaleString()}</span>
             <div className="stats__label">Imkers</div>
             <p className="stats__description">Actief op het platform</p>
           </div>
           <div className="stats__item">
-            <span className="stats__number">{totalHives.toLocaleString()}</span>
+            <span className="number-large">{totalHives.toLocaleString()}</span>
             <div className="stats__label">Bijenkasten</div>
             <p className="stats__description">In beheer via ons systeem</p>
           </div>

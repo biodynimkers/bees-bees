@@ -67,7 +67,7 @@ export default async function UserDetailPage({
             </Link>
           </div>
 
-          <div className="grid grid--3">
+          <div className="grid grid-three-columns">
             <div className="card">
               <h3 className="card__title">
                 {user._count.apiaries === 0

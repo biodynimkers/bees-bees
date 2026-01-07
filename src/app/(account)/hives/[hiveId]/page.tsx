@@ -92,7 +92,7 @@ export default async function AccountApiaryHivePage({
 
           {observations.length > 0 ? (
             <>
-              <div className="grid grid--3">
+              <div className="grid grid-three-columns">
                 {observations.map(obs => (
                   <Link
                     key={obs.id}

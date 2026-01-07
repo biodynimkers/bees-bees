@@ -78,7 +78,7 @@ export default function ContactPage() {
 
       <section className="section section--alt">
         <div className="container">
-          <div className="grid grid--3">
+          <div className="grid grid-three-columns">
             <div className="text-center">
               <h3 className="card__title">E-mail</h3>
               <p className="card__description">

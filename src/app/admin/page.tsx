@@ -14,7 +14,7 @@ export default function AdminPage() {
 
       <section className="section ">
         <div className="container">
-          <div className="grid grid--3">
+          <div className="grid grid-three-columns">
             <Link href="/admin/users">
               <div className="card">
                 <h3 className="card__title">Gebruikers</h3>
