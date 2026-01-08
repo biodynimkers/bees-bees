@@ -14,7 +14,7 @@ export default function ApiaryForm({
   const [address, setAddress] = useState('');
   const [locationMethod, setLocationMethod] = useState<'address' | 'gps'>(
     /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'gps' : 'address'
-  );
+  ); // preselectie op basis van apparaat
   const [geocodingLoading, setGeocodingLoading] = useState(false);
 
   useEffect(() => {

@@ -61,7 +61,7 @@
 - [x] **GET** `/api/observations` → Observaties lijst
 - [x] **GET** `/api/observations` → paginering van het overzicht
 - [x] **GET** `/api/observations/:id` → Observatie detail
-- [x] **POST** `/api/observations/new` → Nieuwe observatie registreren
+- [x] **POST** `/api/observations/new` → Nieuwe observatie registreren TODO: het uurverschil eruithalen
 - [x] **UPDATE** `/api/hives/:id` → Bijenkast aanpassen
 - [x] **DELETE** `/api/hives/:id` → Bijenkast verwijderen
 - [x] **UPDATE** `/api/observations/:id` → Observatie aanpassen
@@ -89,6 +89,10 @@ app/admin/
 │ └── page.tsx # ALLE hives (flat lijst)
 └── observations/
 └── page.tsx # ALLE observations (flat lijst)
+
+- [] een rol toevoegen in schema.prisma 'SUPERADMIN' TODO
+- [] superadmin kan users admin maken: TODO
+- [] enkel superadmin kan user deleten TODO
 
 - [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
 - [x] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
@@ -119,25 +123,25 @@ app/admin/
 ### 5. Applicatie Layout
 
 - [x] **Hoofdlayout** (`layout.tsx`): Twee Google Fonts importeren + navigatiebalk
-- [X] **Home Page** (`page.tsx`): Direct server action for the data expected
-- [X] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
-- [X] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
-- [X] **Configuratie** (`next.config.ts`): Lettertype optimalisatie
+- [x] **Home Page** (`page.tsx`): Direct server action for the data expected
+- [x] **Navigatiecomponent** (`src/components/Navbar.tsx`): Rolgebaseerde links
+- [x] **Globale stijlen** (`src/app/globals.css`): Alleen écht globale CSS
+- [x] **Configuratie** (`next.config.ts`): Lettertype optimalisatie
 - [ ] scrollbare nav
 - [ ] fotos comprimeren
 - [ ] alt teksten
 - [ ] responsief design
 - [ ] website consistent
-- [ ] leaflet kaart 
+- [ ] leaflet kaart
 - [ ] API aanvragen via waarnemingen
 - [ ] mobiele breakpoints
 
 ### 6. Openbare Pagina's
 
 - [x] **Startpagina** (`/`): Hero sectie + projectoverzicht
-- [X] **Over Ons** (`/about`): Informatiepagina over het project
-- [X] **Registratie** (`/register`): Aanmeldformulier met Radix UI
-- [X] **Inlogpagina** (`/api/auth/signin`): Login interface (Radix UI)
+- [x] **Over Ons** (`/about`): Informatiepagina over het project
+- [x] **Registratie** (`/register`): Aanmeldformulier met Radix UI
+- [x] **Inlogpagina** (`/api/auth/signin`): Login interface (Radix UI)
 
 ---
 
