@@ -140,8 +140,11 @@ app/admin/
 
 - [x] **Startpagina** (`/`): Hero sectie + projectoverzicht
 - [x] **Over Ons** (`/about`): Informatiepagina over het project
-- [x] **Registratie** (`/register`): Aanmeldformulier met Radix UI
-- [x] **Inlogpagina** (`/api/auth/signin`): Login interface (Radix UI)
+- [x] **Registratie** (`/register`): Aanmeldformulier
+- [x] **Inlogpagina** (`/api/auth/signin`): Login interface
+- [] **Registratie** (`/register`): Aanmeldformulier: paswoord dubbel typen
+- [] **Inlogpagina** (`/api/auth/signin`): Login interface: paswoord zichtbaar maken
+- [] **Inlogpagina** (`/api/auth/signin`): Login interface: "paswoord vergeten?"
 
 ---
 
@@ -243,4 +246,7 @@ app/admin/
 ### 🎯 Eindresultaat
 
 Een volledig functionele bijenstandbeheer applicatie met robuuste backend, gebruikersvriendelijke interface en professionele codebase, klaar voor styling door een frontend specialist!
+
 TODO
+
+- [] bespreken met docent, deployment voor klant met eigen account enz.
