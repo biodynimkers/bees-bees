@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import toggleUserRole from '@/app/actions/toggleUserRole';
 import { useRouter } from 'next/navigation';
+import { set } from 'zod';
 
 type EditUserButtonProps = {
   userId: string;
@@ -25,7 +26,8 @@ export default function EditUserButton({
         setMessage(`Rol gewijzigd naar ${result.newRole}`);
         setTimeout(() => {
           router.refresh();
-        }, 1000);
+          setMessage('');
+        }, 3000);
       } else {
         setMessage(result.error || 'Er ging iets mis.');
       }
