@@ -179,7 +179,7 @@ export default function ObservationForm({
             </button>
           </div>
           <p className="form__help">
-            Geef een schatting van het aantal bijen dat je hebt gezien
+            Tel de bijen tijdens de 30 seconden observatie
           </p>
         </div>
 

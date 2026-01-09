@@ -102,12 +102,12 @@ export default function Timer() {
         disabled={isRunning || countdown !== null}
       >
         {countdown !== null
-          ? 'Aftelling loopt...'
+          ? 'Klaar maken'
           : isRunning
-          ? 'Observatie loopt...'
+          ? 'Bezig met tellen'
           : time === 0
-          ? 'Nieuwe poging'
-          : 'Start observatie'}
+          ? 'Opnieuw tellen'
+          : 'Start telling'}
       </button>
     </div>
   );

@@ -4,7 +4,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 import { useState, useRef, useEffect } from 'react';
-import { User, MapPin, Box, Eye, LogOut, LayoutDashboard, BarChart3, Users } from 'lucide-react';
+import {
+  User,
+  MapPin,
+  Box,
+  Eye,
+  LogOut,
+  LayoutDashboard,
+  BarChart3,
+  Users,
+} from 'lucide-react';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -103,6 +112,11 @@ export default function Navigation() {
                     {session.user.name?.split(' ')[0] ||
                       session.user.email?.split('@')[0] ||
                       'User'}
+                    {session.user.role === 'SUPERADMIN'
+                      ? ' (superadmin)'
+                      : session.user.role === 'ADMIN'
+                      ? ' (admin)'
+                      : ''}
                   </span>
                   <svg
                     width="12"
@@ -157,7 +171,8 @@ export default function Navigation() {
                       <Eye size={16} />
                       <span>Observaties</span>
                     </Link>
-                    {session.user.role === 'ADMIN' && (
+                    {(session.user.role === 'ADMIN' ||
+                      session.user.role === 'SUPERADMIN') && (
                       <>
                         <div className="nav__dropdown-divider"></div>
                         <div className="nav__dropdown-section-title">
@@ -294,7 +309,8 @@ export default function Navigation() {
                 <Eye size={16} />
                 <span>Observaties</span>
               </Link>
-              {session.user.role === 'ADMIN' && (
+              {(session.user.role === 'ADMIN' ||
+                session.user.role === 'SUPERADMIN') && (
                 <>
                   <div className="nav__mobile-divider"></div>
                   <div className="nav__mobile-section-title">

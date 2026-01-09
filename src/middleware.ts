@@ -19,7 +19,7 @@ export default withAuth(
 
     // 3. All admin pages
     if (pathname.startsWith('/admin')) {
-      if (token?.role !== 'ADMIN') {
+      if (token?.role !== 'ADMIN' && token?.role !== 'SUPERADMIN') {
         return NextResponse.redirect(new URL('/unauthorized', req.url));
       }
     }

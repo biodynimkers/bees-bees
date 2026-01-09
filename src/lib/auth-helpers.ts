@@ -28,10 +28,8 @@ export function hasAccess(
 // Extra helper to require admin access in server components/pages
 export async function requireAdmin() {
   const session = await getServerSession(authOptions);
-
-  if (session?.user?.role !== 'ADMIN') {
+  if (session?.user?.role !== 'ADMIN' && session?.user?.role !== 'SUPERADMIN') {
     redirect('/unauthorized');
   }
-
   return session;
 }

@@ -62,14 +62,22 @@ export default async function AccountPage() {
     <>
       <Section first>
         <div className="container">
-          <SectionHeader>
-            <h1 className="heading-primary">Hallo {user.name}</h1>
-            <p className="section-description">
-              {isNewUser
-                ? "Begin met uw digitale bijenlogboek"
-                : "Uw bijenstanden en observaties"}
-            </p>
-          </SectionHeader>
+          <h1 className="page-header__title">
+            Hallo {user.name}{' '}
+            <span>
+              {' '}
+              {session.user.role === 'SUPERADMIN'
+                ? ' (superadmin)'
+                : session.user.role === 'ADMIN'
+                ? ' (admin)'
+                : ''}{' '}
+            </span>
+          </h1>
+          <p className="page-header__subtitle">
+            {isNewUser
+              ? 'Welkom bij BEES - Uw digitale platform voor bijenbeheer'
+              : 'Beheer uw bijenstanden, kasten en observaties'}
+          </p>
         </div>
       </Section>
 
@@ -97,8 +105,8 @@ export default async function AccountPage() {
                   </div>
                   <h3 className="heading-tertiary">Registreer uw kasten</h3>
                   <p className="card__text">
-                    Voeg de bijenkasten toe die op uw bijenstand staan. Noteer het
-                    type kast en de sterkte van het volk.
+                    Voeg de bijenkasten toe die op uw bijenstand staan. Noteer
+                    het type kast en de sterkte van het volk.
                   </p>
                 </div>
 

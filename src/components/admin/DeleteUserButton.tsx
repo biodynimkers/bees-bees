@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import deleteUser from '../../app/actions/deleteUser';
+import deleteUser from '@/app/actions/deleteUser';
 import { redirect, useRouter } from 'next/navigation';
 
 type DeleteUserButtonProps = {
@@ -39,9 +39,7 @@ export default function DeleteUserButton({
 
   return (
     <>
-      {message && (
-        <span className="text-success ml-4">{message}</span>
-      )}
+      {message && <span className="text-success ml-4">{message}</span>}
       {!showConfirm ? (
         <button
           onClick={() => setShowConfirm(true)}
@@ -52,10 +50,19 @@ export default function DeleteUserButton({
       ) : (
         <>
           <span>Weet je het zeker?</span>
-          <button onClick={handleDelete} disabled={loading} className="btn btn--danger ml-4">
+          <button
+            onClick={handleDelete}
+            disabled={loading}
+            className="btn btn--danger ml-4"
+          >
             {loading ? 'Bezig...' : 'Ja, verwijderen'}
           </button>
-          <button onClick={() => setShowConfirm(false)} className="btn btn--secondary ml-4">Annuleren</button>
+          <button
+            onClick={() => setShowConfirm(false)}
+            className="btn btn--secondary ml-4"
+          >
+            Annuleren
+          </button>
         </>
       )}
     </>

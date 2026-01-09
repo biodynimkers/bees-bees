@@ -43,6 +43,8 @@
 @import "./components/info-box.css";
 @import "./components/map.css";
 @import "./components/toggle.css";
+@import "./components/timer.css";
+@import "./components/bee-counter.css";
 
 /* ============================================
    Utilities

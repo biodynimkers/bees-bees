@@ -3,11 +3,14 @@
   margin-top: 100px;
   padding: var(--space-20) 0 var(--space-16);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .page-header .container {
   position: relative;
   max-width: 1400px;
+  width: 100%;
 }
 
 .page-header__title {

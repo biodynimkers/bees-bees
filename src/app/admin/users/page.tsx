@@ -13,7 +13,10 @@ export default async function UsersPage({
 }) {
   const session = await getServerSession(authOptions);
 
-  if (!session?.user?.id || session.user.role !== 'ADMIN') {
+  if (
+    !session?.user?.id ||
+    (session.user.role !== 'ADMIN' && session.user.role !== 'SUPERADMIN')
+  ) {
     redirect('/unauthorized');
   }
   const page = await searchParams;

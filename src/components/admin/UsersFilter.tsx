@@ -40,7 +40,16 @@ export default function UsersFilter({
           <tbody>
             {filteredUsers.map(user => (
               <tr key={user.id}>
-                <td data-label="Naam">{user.name}</td>
+                <td data-label="Naam">
+                  {user.name}{' '}
+                  <span style={{ color: 'green' }}>
+                    {user.role === 'SUPERADMIN'
+                      ? '(superadmin)'
+                      : user.role === 'ADMIN'
+                      ? '(admin)'
+                      : ''}
+                  </span>
+                </td>
                 <td data-label="E-mail">{user.email}</td>
                 <td data-label="Bijenstanden">{user._count.apiaries}</td>
                 <td data-label="Acties">

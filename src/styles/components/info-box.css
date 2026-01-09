@@ -3,6 +3,9 @@
   background: rgba(0, 0, 0, 0.03);
   padding: var(--space-12);
   border: 1px solid rgba(0, 0, 0, 0.06);
+  max-width: 100%;
+  overflow-x: hidden;
+  word-wrap: break-word;
 }
 
 .info-box__title {
