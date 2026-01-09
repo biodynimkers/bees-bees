@@ -21,7 +21,7 @@ export default function UsersPageClient({
   totalPages: number;
 }) {
   const [search, setSearch] = useState('');
-  
+
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -57,7 +57,16 @@ export default function UsersPageClient({
             <tbody>
               {filteredUsers.map(user => (
                 <tr key={user.id}>
-                  <td>{user.name}</td>
+                  <td>
+                    {user.name}{' '}
+                    <span style={{ color: 'green' }}>
+                      {user.role === 'SUPERADMIN'
+                        ? '(superadmin)'
+                        : user.role === 'ADMIN'
+                        ? '(admin)'
+                        : ''}
+                    </span>
+                  </td>
                   <td>{user.email}</td>
                   <td>{user._count.apiaries}</td>
                   <td>
