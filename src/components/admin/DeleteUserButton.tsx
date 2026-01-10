@@ -7,11 +7,13 @@ import { redirect, useRouter } from 'next/navigation';
 type DeleteUserButtonProps = {
   userId: string;
   userName: string;
+  currentRole: 'USER' | 'ADMIN' | 'SUPERADMIN';
 };
 
 export default function DeleteUserButton({
   userId,
   userName,
+  currentRole,
 }: DeleteUserButtonProps) {
   const [loading, setLoading] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -35,6 +37,10 @@ export default function DeleteUserButton({
     }
     setLoading(false);
     setShowConfirm(false);
+  }
+  // Don't show button for SUPERADMIN users
+  if (currentRole === 'SUPERADMIN') {
+    return null;
   }
 
   return (

@@ -114,7 +114,8 @@ app/admin/
 - [x] paginering voorzien voor admin/apiaries etc.
 - [x] paginering voorzien voor admin/hives etc.
 - [x] paginering voorzien voor admin/observations etc.
-- [x]admin/users/[userId] voorzien van een terugbutton
+- [x] admin/users/[userId] voorzien van een terugbutton
+- [x] usersfilter eruithalen
 
 ---
 

@@ -128,7 +128,11 @@ export default async function UserDetailPage({
           <div className="mt-8">
             {session?.user?.role === 'SUPERADMIN' && (
               <>
-                <DeleteUserButton userId={userId} userName={user.name} />
+                <DeleteUserButton
+                  userId={userId}
+                  userName={user.name}
+                  currentRole={user.role}
+                />
                 <EditUserButton userId={userId} currentRole={user.role} />
               </>
             )}
