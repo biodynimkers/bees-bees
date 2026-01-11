@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
+import { hiveSchema } from '@/lib/validators/schemas';
 
 export async function GET() {
   try {
@@ -49,10 +50,17 @@ export async function POST(req: Request) {
 
     const body = await req.json();
     const { type, name, colonyType, apiaryId } = body;
-
-    if (!type || !colonyType || !apiaryId) {
+    const validationResult = hiveSchema.safeParse({
+      type,
+      name,
+      colonyType,
+      apiaryId: parseInt(apiaryId),
+    });
+    if (!validationResult.success) {
+      const { fieldErrors } = validationResult.error.flatten();
+      // after flatten: fieldErrors has type Record<string, string[]>
       return NextResponse.json(
-        { error: 'Type, colonyType en apiaryId zijn verplicht' },
+        { ok: false, errors: fieldErrors },
         { status: 400 }
       );
     }

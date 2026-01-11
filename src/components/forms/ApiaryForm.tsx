@@ -236,7 +236,7 @@ export default function ApiaryForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form" noValidate>
+    <form onSubmit={handleSubmit} className="form">
       {error && (
         <div className="form-error form-error--general">
           <p>{error}</p>

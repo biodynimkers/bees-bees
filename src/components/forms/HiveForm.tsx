@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { hiveSchema } from '@/lib/validators/schemas';
 
 export default function HiveForm({
   apiaryId,
@@ -22,6 +23,10 @@ export default function HiveForm({
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<
+    string,
+    string[]
+  > | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -66,11 +71,20 @@ export default function HiveForm({
     const finalApiaryId = apiaryId || selectedApiaryId;
 
     if (!finalApiaryId) {
-      setError('Selecteer eerst een bijenstand');
+      setFieldErrors({ apiaryId: ['Selecteer eerst een bijenstand'] });
       setLoading(false);
       return;
     }
-
+    const validationResult = hiveSchema.safeParse({
+      type,
+      name,
+      colonyType,
+      apiaryId: parseInt(finalApiaryId),
+    });
+    if (!validationResult.success) {
+      const { fieldErrors } = validationResult.error.flatten();
+      setFieldErrors(fieldErrors);
+    }
     const hiveData = {
       name,
       type,
@@ -118,7 +132,16 @@ export default function HiveForm({
           id="apiarySelect"
           className="form__select"
           value={selectedApiaryId}
-          onChange={e => setSelectedApiaryId(e.target.value)}
+          onChange={e => {
+            setSelectedApiaryId(e.target.value);
+            if (fieldErrors?.apiaryId) {
+              setFieldErrors(prev => {
+                if (!prev) return null;
+                const { apiaryId, ...rest } = prev;
+                return Object.keys(rest).length ? rest : null;
+              });
+            }
+          }}
           required
         >
           <option value="">-- Selecteer bijenstand --</option>
@@ -128,6 +151,9 @@ export default function HiveForm({
             </option>
           ))}
         </select>
+        {fieldErrors?.apiaryId && (
+          <span className="form-error">{fieldErrors.apiaryId[0]}</span>
+        )}
       </div>
 
       <div className="form__group">
@@ -138,11 +164,23 @@ export default function HiveForm({
           id="name"
           type="text"
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={e => {
+            setName(e.target.value);
+            if (fieldErrors?.name) {
+              setFieldErrors(prev => {
+                if (!prev) return null;
+                const { name, ...rest } = prev;
+                return Object.keys(rest).length ? rest : null;
+              });
+            }
+          }}
           className="form__input"
           placeholder="Bvb: Kast 1, Blauwe kast..."
           required
         />
+        {fieldErrors?.name && (
+          <span className="form-error">{fieldErrors.name[0]}</span>
+        )}
       </div>
 
       <div className="form__group">
@@ -153,7 +191,16 @@ export default function HiveForm({
           id="type"
           className="form__select"
           value={type}
-          onChange={e => setType(e.target.value)}
+          onChange={e => {
+            setType(e.target.value);
+            if (fieldErrors?.type) {
+              setFieldErrors(prev => {
+                if (!prev) return null;
+                const { type, ...rest } = prev;
+                return Object.keys(rest).length ? rest : null;
+              });
+            }
+          }}
           required
         >
           <option value="">-- Selecteer type --</option>
@@ -164,6 +211,9 @@ export default function HiveForm({
           <option value="Klokkast">Klokkast</option>
           <option value="Anders">Anders</option>
         </select>
+        {fieldErrors?.type && (
+          <span className="form-error">{fieldErrors.type[0]}</span>
+        )}
       </div>
 
       <div className="form__group">
@@ -174,7 +224,16 @@ export default function HiveForm({
           id="colonyType"
           className="form__select"
           value={colonyType}
-          onChange={e => setColonyType(e.target.value)}
+          onChange={e => {
+            setName(e.target.value);
+            if (fieldErrors?.colonyType) {
+              setFieldErrors(prev => {
+                if (!prev) return null;
+                const { name, ...rest } = prev;
+                return Object.keys(rest).length ? rest : null;
+              });
+            }
+          }}
           required
         >
           <option value="">-- Selecteer volk --</option>
@@ -185,6 +244,9 @@ export default function HiveForm({
           <option value="Hybride">Hybride</option>
           <option value="Onbekend">Onbekend</option>
         </select>
+        {fieldErrors?.colonyType && (
+          <span className="form-error">{fieldErrors.colonyType[0]}</span>
+        )}
       </div>
 
       <div className="form__actions">

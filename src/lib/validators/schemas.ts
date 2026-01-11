@@ -28,3 +28,14 @@ export const apiarySchema = z.object({
     .optional()
     .refine(val => val !== undefined, { message: 'Longitude is vereist.' }),
 });
+export const hiveSchema = z.object({
+  type: z.string().min(1, 'Type is vereist.'),
+  name: z.string().optional(),
+  colonyType: z.string().min(1, 'Colony type is vereist.'),
+  apiaryId: z
+    .number()
+    .optional()
+    .refine(val => val !== undefined, {
+      message: 'Apiary ID moet een nummer zijn.',
+    }),
+});
