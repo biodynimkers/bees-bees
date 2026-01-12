@@ -180,7 +180,7 @@ app/admin/
 
 ### 10. Formulier Validatie & Feedback TODO
 
-- [ ] **Server-side Validatie**: Zod bibliotheek of custom validatie
+- [ ] **Server-side Validatie**: Zod bibliotheek of custom validatie TODO ook de edits nog valideren!
 - [ ] **Real-time Feedback**: Client-side validatie
 - [ ] **Gebruiksvriendelijke Meldingen**: Duidelijke foutboodschappen per veld
 

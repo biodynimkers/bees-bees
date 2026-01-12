@@ -64,6 +64,15 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    const apiary = await prisma.apiary.findUnique({
+      where: { id: parseInt(apiaryId) },
+    });
+    if (!apiary || apiary.userId !== session.user.id) {
+      return NextResponse.json(
+        { error: 'Ongeldige bijenstand of geen toegang.' },
+        { status: 403 }
+      );
+    }
 
     // Maak kast aan
     const hive = await prisma.hive.create({

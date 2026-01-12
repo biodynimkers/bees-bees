@@ -1,4 +1,6 @@
+import { HardDriveDownloadIcon } from 'lucide-react';
 import { z } from 'zod';
+import { be } from 'zod/locales';
 export const registerSchema = z.object({
   name: z.string().min(1, 'Naam is vereist.'),
   email: z
@@ -38,4 +40,25 @@ export const hiveSchema = z.object({
     .refine(val => val !== undefined, {
       message: 'Apiary ID moet een nummer zijn.',
     }),
+});
+
+export const newObservationSchema = z.object({
+  hiveId: z
+    .number()
+    .optional() // needed to allow refine to work properly
+    .refine(val => val !== undefined, { message: 'Hive ID is vereist.' }),
+  beeCount: z
+    .number()
+    .optional()
+    .refine(val => val !== undefined, { message: 'Bee count is vereist.' }),
+  pollenColor: z.string().min(1, 'Pollen color is vereist.'),
+  notes: z.string().optional(),
+});
+export const updateObservationSchema = z.object({
+  beeCount: z
+    .number()
+    .optional()
+    .refine(val => val !== undefined, { message: 'Bee count is vereist.' }),
+  pollenColor: z.string().min(1, 'Pollen color is vereist.'),
+  notes: z.string().optional(),
 });

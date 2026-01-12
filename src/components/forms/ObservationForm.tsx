@@ -4,6 +4,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import Timer from '@/components/shared/Timer';
+import {
+  newObservationSchema,
+  updateObservationSchema,
+} from '@/lib/validators/schemas';
 
 interface ObservationFormProps {
   hiveId?: string | undefined;
@@ -24,6 +28,10 @@ export default function ObservationForm({
   >([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<
+    string,
+    string[]
+  > | null>(null);
   const router = useRouter();
   useEffect(() => {
     if (!initialObservation) return;
@@ -79,6 +87,18 @@ export default function ObservationForm({
       ...(!initialObservation && { hiveId: parseInt(finalHiveId) }),
     };
 
+    // Frontend validatie met Zod
+    const schema = initialObservation
+      ? updateObservationSchema
+      : newObservationSchema;
+    const validationResult = schema.safeParse(observationData);
+    if (!validationResult.success) {
+      const { fieldErrors } = validationResult.error.flatten();
+      setFieldErrors(fieldErrors);
+      setLoading(false);
+      return;
+    }
+
     try {
       let response;
       const url = initialObservation
@@ -109,7 +129,6 @@ export default function ObservationForm({
             <p>{error}</p>
           </div>
         )}
-
         {!hiveId && (
           <div className="form__group">
             <label htmlFor="hiveSelect" className="form__label">
@@ -119,7 +138,16 @@ export default function ObservationForm({
               id="hiveSelect"
               className="form__select"
               value={selectedHiveId}
-              onChange={e => setSelectedHiveId(e.target.value)}
+              onChange={e => {
+                setSelectedHiveId(e.target.value);
+                if (fieldErrors?.hiveId) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { hiveId, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
               required
             >
               <option value="">-- Selecteer kast --</option>
@@ -131,7 +159,6 @@ export default function ObservationForm({
             </select>
           </div>
         )}
-
         {hiveId && hiveName && (
           <div className="form__group">
             <label className="form__label">Kast</label>
@@ -147,7 +174,6 @@ export default function ObservationForm({
             />
           </div>
         )}
-
         <div className="form__group">
           <label htmlFor="beeCount" className="form__label">
             Aantal bijen *
@@ -156,7 +182,11 @@ export default function ObservationForm({
             <button
               type="button"
               className="bee-counter__button"
-              onClick={() => setBeeCount(prev => Math.max(0, parseInt(prev || '0') - 1).toString())}
+              onClick={() =>
+                setBeeCount(prev =>
+                  Math.max(0, parseInt(prev || '0') - 1).toString()
+                )
+              }
             >
               −1
             </button>
@@ -164,7 +194,16 @@ export default function ObservationForm({
               type="number"
               id="beeCount"
               value={beeCount}
-              onChange={e => setBeeCount(e.target.value)}
+              onChange={e => {
+                setBeeCount(e.target.value);
+                if (fieldErrors?.beeCount) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { beeCount, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
               className="form__input bee-counter__input"
               placeholder="Geschat aantal bijen"
               required
@@ -173,7 +212,9 @@ export default function ObservationForm({
             <button
               type="button"
               className="bee-counter__button"
-              onClick={() => setBeeCount(prev => (parseInt(prev || '0') + 1).toString())}
+              onClick={() =>
+                setBeeCount(prev => (parseInt(prev || '0') + 1).toString())
+              }
             >
               +1
             </button>
@@ -182,7 +223,6 @@ export default function ObservationForm({
             Tel de bijen tijdens de 30 seconden observatie
           </p>
         </div>
-
         <div className="form__group">
           <label htmlFor="pollenColor" className="form__label">
             Stuifmeelkleur *
@@ -191,13 +231,21 @@ export default function ObservationForm({
             type="text"
             id="pollenColor"
             value={pollenColor}
-            onChange={e => setPollenColor(e.target.value)}
+            onChange={e => {
+              setPollenColor(e.target.value);
+              if (fieldErrors?.pollenColor) {
+                setFieldErrors(prev => {
+                  if (!prev) return null;
+                  const { pollenColor, ...rest } = prev;
+                  return Object.keys(rest).length ? rest : null;
+                });
+              }
+            }}
             className="form__input"
             placeholder="bv. Geel, Oranje, Wit"
             required
           />
         </div>
-
         <div className="form__group">
           <label htmlFor="notes" className="form__label">
             Notities (optioneel)
@@ -211,7 +259,6 @@ export default function ObservationForm({
             rows={4}
           />
         </div>
-
         <div className="form__actions">
           <button
             type="submit"
