@@ -259,7 +259,7 @@ app/admin/
     - [ ] voor laptop (klik) en mobiel (touchscreen) (HTML <input type="color">)
     - [ ] Grid van klikbare kleurvlakken
     - [ ] Geselecteerde kleuren worden gemarkeerd (checkmark of border)
-  - [ ] inputveld limiteren tot drie
+  - [ ] inputveld limiteren tot drie kleuren
   - [ ] pollenColor in DB aanpassen naar array van strings (max 3)
   - [ ] De geselecteerde kleuren tonen in het observatiekaartje, bijvoorbeeld als gekleurde bolletjes of blokjes.
   - [ ] Hover-functionaliteit voor desktop

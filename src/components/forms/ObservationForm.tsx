@@ -1,14 +1,13 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useEffect } from 'react';
 import Timer from '@/components/shared/Timer';
+import ColorPicker from './ColorPicker';
 import {
   newObservationSchema,
   updateObservationSchema,
 } from '@/lib/validators/schemas';
-import { hex } from 'zod';
 
 interface ObservationFormProps {
   hiveId?: string | undefined;
@@ -22,6 +21,7 @@ export default function ObservationForm({
 }: ObservationFormProps) {
   const [beeCount, setBeeCount] = useState('');
   const [pollenColor, setPollenColor] = useState('');
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
   const [hives, setHives] = useState<
@@ -77,7 +77,7 @@ export default function ObservationForm({
     { species: ['paardenkastanje'], hex: '#a72744' },
     { species: ['framboos'], hex: '#d6c49c' },
     { species: ['klaproos'], hex: '#37255d' },
-    { species: ['klaver', 'witte steenklaver', 'akelei'], hex: '#37255d' },
+    { species: ['klaver', 'witte steenklaver', 'akelei'], hex: '#bb832b' },
     { species: ['bernagie', 'braam'], hex: '#e7dfbd' },
     { species: ['facelia', 'kogeldistel'], hex: '#3e65ee' },
   ];
@@ -115,6 +115,33 @@ export default function ObservationForm({
       fetchHives();
     }
   }, [hiveId]);
+
+  // Sync selectedColors with pollenColor
+  useEffect(() => {
+    setPollenColor(selectedColors.join(', '));
+  }, [selectedColors]);
+
+  const handleColorToggle = (hex: string) => {
+    setSelectedColors(prev => {
+      if (prev.includes(hex)) {
+        // Remove color
+        return prev.filter(color => color !== hex);
+      } else if (prev.length < 3) {
+        // Add color
+        return [...prev, hex];
+      }
+      return prev;
+    });
+
+    // Clear field errors if any
+    if (fieldErrors?.pollenColor) {
+      setFieldErrors(prev => {
+        if (!prev) return null;
+        const { pollenColor, ...rest } = prev;
+        return Object.keys(rest).length ? rest : null;
+      });
+    }
+  };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -273,27 +300,21 @@ export default function ObservationForm({
           </p>
         </div>
         <div className="form__group">
-          <label htmlFor="pollenColor" className="form__label">
-            Stuifmeelkleur *
-          </label>
-          <input
-            type="text"
-            id="pollenColor"
-            value={pollenColor}
-            onChange={e => {
-              setPollenColor(e.target.value);
-              if (fieldErrors?.pollenColor) {
-                setFieldErrors(prev => {
-                  if (!prev) return null;
-                  const { pollenColor, ...rest } = prev;
-                  return Object.keys(rest).length ? rest : null;
-                });
-              }
-            }}
-            className="form__input"
-            placeholder="bv. Geel, Oranje, Wit"
-            required
+          <label className="form__label">Stuifmeelkleur *</label>
+          <ColorPicker
+            pollenColors={pollenColors}
+            selectedColors={selectedColors}
+            onColorToggle={handleColorToggle}
+            maxColors={3}
           />
+          {fieldErrors?.pollenColor && (
+            <div className="form-error">
+              {fieldErrors.pollenColor.map((error, idx) => (
+                <p key={idx}>{error}</p>
+              ))}
+            </div>
+          )}
+          <input type="hidden" name="pollenColor" value={pollenColor} />
         </div>
         <div className="form__group">
           <label htmlFor="notes" className="form__label">
