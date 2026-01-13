@@ -37,18 +37,6 @@ export default async function AccountObservationsPage(searchParams: {
 
   if (!user) redirect('/auth/login');
 
-  // const allObservations = user.apiaries.flatMap(apiary =>
-  //   apiary.hives.flatMap(hive =>
-  //     hive.observations.map(observation => ({
-  //       ...observation,
-  //       hiveName: hive.type,
-  //       hiveId: hive.id,
-  //       apiaryName: apiary.name,
-  //       apiaryId: apiary.id,
-  //     }))
-  //   )
-  // );
-
   const searchParamsResult = await searchParams.searchParams;
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
   const observationsPerPage = 5;
@@ -105,9 +93,7 @@ export default async function AccountObservationsPage(searchParams: {
           {observations.length > 0 ? (
             <>
               <div className="section-header">
-                <h2 className="heading-secondary">
-                  Overzicht
-                </h2>
+                <h2 className="heading-secondary">Overzicht</h2>
                 <Link href="/observations/new">
                   <button className="btn btn--primary">
                     + Nieuwe observatie
@@ -123,25 +109,31 @@ export default async function AccountObservationsPage(searchParams: {
                     style={{ textDecoration: 'none' }}
                   >
                     <div className="card">
-                      <p className="card__category">
-                        Observatie
-                      </p>
+                      <p className="card__category">Observatie</p>
                       <h3 className="heading-tertiary">
-                        {new Date(observation.createdAt).toLocaleDateString('nl-BE', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric'
-                        })}
+                        {new Date(observation.createdAt).toLocaleDateString(
+                          'nl-BE',
+                          {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                          }
+                        )}
                       </h3>
                       <p className="card__date">
-                        {new Date(observation.createdAt).toLocaleTimeString('nl-BE', {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
+                        {new Date(observation.createdAt).toLocaleTimeString(
+                          'nl-BE',
+                          {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          }
+                        )}
                       </p>
                       <div className="card__divider">
                         <p className="card__label">Bijenstand</p>
-                        <p className="card__value">{observation.hive.apiary.name}</p>
+                        <p className="card__value">
+                          {observation.hive.apiary.name}
+                        </p>
                         <p className="card__label">Kast</p>
                         <p className="card__value">{observation.hive.name}</p>
                       </div>

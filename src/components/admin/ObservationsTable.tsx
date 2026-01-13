@@ -45,7 +45,30 @@ export default function ObservationsTable({
             {observations.map(observation => (
               <tr key={observation.id}>
                 <td data-label="Aantal bijen">{observation.beeCount}</td>
-                <td data-label="Stuifmeel kleur">{observation.pollenColor}</td>
+                <td data-label="Stuifmeel kleur">
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '4px',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {observation.pollenColor.split(', ').map((color, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          width: '16px',
+                          height: '16px',
+                          borderRadius: '50%',
+                          backgroundColor: color,
+                          border: '1px solid rgba(0, 0, 0, 0.2)',
+                          flexShrink: 0,
+                        }}
+                        title={color}
+                      />
+                    ))}
+                  </div>
+                </td>
                 <td data-label="Notities">{observation.notes || '-'}</td>
                 {showHive && observation.hive && (
                   <td data-label="Kast">
@@ -56,14 +79,18 @@ export default function ObservationsTable({
                 )}
                 {showApiary && observation.hive?.apiary && (
                   <td data-label="Bijenstand">
-                    <Link href={`/admin/apiaries/${observation.hive.apiary.id}`}>
+                    <Link
+                      href={`/admin/apiaries/${observation.hive.apiary.id}`}
+                    >
                       {observation.hive.apiary.name}
                     </Link>
                   </td>
                 )}
                 {showUser && observation.hive?.apiary?.user && (
                   <td data-label="Eigenaar">
-                    <Link href={`/admin/users/${observation.hive.apiary.userId}`}>
+                    <Link
+                      href={`/admin/users/${observation.hive.apiary.userId}`}
+                    >
                       {observation.hive.apiary.user.name}
                     </Link>
                   </td>
