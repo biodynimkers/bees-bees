@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation';
 import DeleteEntityButton from '@/components/shared/DeleteEntityButton';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import PollenColorLegend from '@/components/shared/PollenColorLegend';
+import { pollenColors } from '@/lib/pollenColors';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,6 +17,7 @@ export default async function Observation({
 }) {
   const session = await getServerSession(authOptions);
   const { observationId } = await params;
+
   const observation = await prisma.observation.findUnique({
     where: { id: parseInt(observationId) },
     include: {
@@ -56,6 +59,7 @@ export default async function Observation({
 
       <section className="section ">
         <div className="container container--narrow">
+          <PollenColorLegend style={{ marginBottom: 'var(--space-8)' }} />
           <div
             className="grid grid-two-columns"
             style={{ gap: 'var(--space-12)' }}
@@ -297,20 +301,27 @@ export default async function Observation({
                     >
                       {observation.pollenColor
                         .split(', ')
-                        .map((color, index) => (
-                          <div
-                            key={index}
-                            style={{
-                              width: '24px',
-                              height: '24px',
-                              borderRadius: '50%',
-                              backgroundColor: color,
-                              border: '2px solid rgba(0, 0, 0, 0.1)',
-                              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                            }}
-                            title={color}
-                          />
-                        ))}
+                        .map((color, index) => {
+                          const colorData = pollenColors.find(
+                            c => c.hex === color
+                          );
+                          const plantNames =
+                            colorData?.species.join(', ') || 'Onbekend';
+                          return (
+                            <div
+                              key={index}
+                              style={{
+                                width: '24px',
+                                height: '24px',
+                                borderRadius: '50%',
+                                backgroundColor: color,
+                                border: '2px solid rgba(0, 0, 0, 0.1)',
+                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                              }}
+                              title={`Kleur: ${color}\nMogelijke planten: ${plantNames}`}
+                            />
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
