@@ -8,6 +8,7 @@ import {
   newObservationSchema,
   updateObservationSchema,
 } from '@/lib/validators/schemas';
+import { pollenColors } from '@/lib/pollenColors';
 
 interface ObservationFormProps {
   hiveId?: string | undefined;
@@ -34,53 +35,6 @@ export default function ObservationForm({
     string[]
   > | null>(null);
   const router = useRouter();
-
-  const pollenColors = [
-    {
-      species: ['hazelaar', 'els', 'peer', 'meidoorn', 'winderlinde', 'heide'],
-      hex: '#d8b769',
-    },
-    {
-      species: [
-        'sneeuwklokje',
-        'paardenbloem',
-        'kers',
-        'brem',
-        'koningskaars',
-        'aster',
-      ],
-      hex: '#e56e59',
-    },
-    {
-      species: [
-        'esdoorn',
-        'aalbes',
-        'stekelbes',
-        'sneeuwbes',
-        'mais',
-        'zomerlinde',
-      ],
-      hex: '#fdfe97',
-    },
-    {
-      species: [
-        'wilgensoorten',
-        'koolzaad',
-        'raapzaad',
-        'zonnebloem',
-        'helenium',
-        'guldenroede',
-      ],
-      hex: '#ffff32',
-    },
-    { species: ['appel', 'tulp', 'meidoorn', 'aardbei'], hex: '#cfbf62' },
-    { species: ['paardenkastanje'], hex: '#a72744' },
-    { species: ['framboos'], hex: '#d6c49c' },
-    { species: ['klaproos'], hex: '#37255d' },
-    { species: ['klaver', 'witte steenklaver', 'akelei'], hex: '#bb832b' },
-    { species: ['bernagie', 'braam'], hex: '#e7dfbd' },
-    { species: ['facelia', 'kogeldistel'], hex: '#3e65ee' },
-  ];
 
   useEffect(() => {
     if (!initialObservation) return;
@@ -271,39 +225,65 @@ export default function ObservationForm({
             <button
               type="button"
               className="bee-counter__button"
-              onClick={() =>
-                setBeeCount(prev =>
-                  Math.max(0, parseInt(prev || '0') - 1).toString()
-                )
-              }
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                setBeeCount(prev => {
+                  const newValue = Math.max(
+                    0,
+                    parseInt(prev || '0') - 1
+                  ).toString();
+                  return newValue;
+                });
+              }}
             >
               −1
             </button>
             <input
-              type="number"
+              type="text"
               id="beeCount"
               value={beeCount}
               onChange={e => {
-                setBeeCount(e.target.value);
-                if (fieldErrors?.beeCount) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { beeCount, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
+                const value = e.target.value;
+                // Only allow numbers (and empty string for clearing)
+                if (value === '' || /^\d+$/.test(value)) {
+                  setBeeCount(value);
+                  if (fieldErrors?.beeCount) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { beeCount, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
                 }
+              }}
+              onKeyDown={e => {
+                // Allow navigation, editing keys and keyboard shortcuts
+                if (
+                  ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key) ||
+                  e.ctrlKey || e.metaKey ||
+                  /[0-9]/.test(e.key)
+                ) {
+                  return; // Allow these keys
+                }
+                e.preventDefault(); // Block everything else
               }}
               className="form__input bee-counter__input"
               placeholder="Geschat aantal bijen"
               required
-              min="0"
+              inputMode="numeric"
             />
             <button
               type="button"
               className="bee-counter__button"
-              onClick={() =>
-                setBeeCount(prev => (parseInt(prev || '0') + 1).toString())
-              }
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                setBeeCount(prev => {
+                  const newValue = (parseInt(prev || '0') + 1).toString();
+                  return newValue;
+                });
+              }}
             >
               +1
             </button>

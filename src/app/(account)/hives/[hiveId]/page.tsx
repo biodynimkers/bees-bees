@@ -35,7 +35,7 @@ export default async function AccountApiaryHivePage({
   const totalObservations = await prisma.observation.count({
     where: { hiveId: parseInt(hiveId) },
   });
-  const observationsPerPage = 3;
+  const observationsPerPage = 20;
   const totalPages = Math.ceil(totalObservations / observationsPerPage);
   const observations = await prisma.observation.findMany({
     where: { hiveId: parseInt(hiveId) },
