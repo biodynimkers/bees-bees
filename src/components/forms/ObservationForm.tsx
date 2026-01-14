@@ -217,34 +217,51 @@ export default function ObservationForm({
           </div>
         )}
         <div className="form__group">
-          <h3 className="form__section-title">Observatie</h3>
+          <h3 className="form__section-title">Observatie - Aantal bijen</h3>
           <p className="form__instructions">
-            Neem 30 seconden de tijd om de bijen te observeren en tel het aantal bijen dat je ziet.
+            Druk op 'Start timer' en tel 30 seconden lang hoeveel bijen er
+            binnenkomen in de kast.
           </p>
           <Timer />
           <label htmlFor="beeCount" className="form__label">
             Aantal bijen *
           </label>
           <div className="bee-counter">
-            <button
-              type="button"
-              className="bee-counter__button bee-counter__button--mobile-only"
-              onClick={e => {
-                e.preventDefault();
-                e.stopPropagation();
-                setBeeCount(prev => {
-                  const newValue = Math.max(
-                    0,
-                    parseInt(prev || '0') - 1
-                  ).toString();
-                  return newValue;
-                });
-              }}
-            >
-              −1
-            </button>
+            <div className="bee-counter__controls">
+              <button
+                type="button"
+                className="bee-counter__button bee-counter__button--mobile-only"
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setBeeCount(prev => {
+                    const newValue = Math.max(
+                      0,
+                      parseInt(prev || '0') - 1
+                    ).toString();
+                    return newValue;
+                  });
+                }}
+              >
+                −1
+              </button>
+              <button
+                type="button"
+                className="bee-counter__button bee-counter__button--mobile-only"
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setBeeCount(prev => {
+                    const newValue = (parseInt(prev || '0') + 1).toString();
+                    return newValue;
+                  });
+                }}
+              >
+                +1
+              </button>
+            </div>
             <input
-              type="text"
+              type="number"
               id="beeCount"
               value={beeCount}
               onChange={e => {
@@ -264,8 +281,19 @@ export default function ObservationForm({
               onKeyDown={e => {
                 // Allow navigation, editing keys and keyboard shortcuts
                 if (
-                  ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key) ||
-                  e.ctrlKey || e.metaKey ||
+                  [
+                    'Backspace',
+                    'Delete',
+                    'Tab',
+                    'Escape',
+                    'Enter',
+                    'ArrowLeft',
+                    'ArrowRight',
+                    'Home',
+                    'End',
+                  ].includes(e.key) ||
+                  e.ctrlKey ||
+                  e.metaKey ||
                   /[0-9]/.test(e.key)
                 ) {
                   return; // Allow these keys
@@ -277,29 +305,18 @@ export default function ObservationForm({
               required
               inputMode="numeric"
             />
-            <button
-              type="button"
-              className="bee-counter__button bee-counter__button--mobile-only"
-              onClick={e => {
-                e.preventDefault();
-                e.stopPropagation();
-                setBeeCount(prev => {
-                  const newValue = (parseInt(prev || '0') + 1).toString();
-                  return newValue;
-                });
-              }}
-            >
-              +1
-            </button>
           </div>
           <p className="form__help">
             Tel de bijen tijdens de 30 seconden observatie
           </p>
         </div>
         <div className="form__group">
+          <h3 className="form__section-title">Observatie - Stuifmeelkleur</h3>
           <p className="form__instructions">
-            Selecteer de kleuren van het stuifmeel dat je op de bijen ziet (maximaal 3 kleuren).
+            Start opnieuw de timer en observeer 30 seconden de stuifmeelkleuren
+            op de bijen. Selecteer maximaal 3 verschillende kleuren.
           </p>
+          <Timer />
           <label className="form__label">Stuifmeelkleur *</label>
           <ColorPicker
             pollenColors={pollenColors}
@@ -317,6 +334,11 @@ export default function ObservationForm({
           <input type="hidden" name="pollenColor" value={pollenColor} />
         </div>
         <div className="form__group">
+          <h3 className="form__section-title">Aanvullende observaties</h3>
+          <p className="form__instructions">
+            Noteer eventuele bijzonderheden die je tijdens de observatie hebt
+            opgemerkt.
+          </p>
           <label htmlFor="notes" className="form__label">
             Notities (optioneel)
           </label>
