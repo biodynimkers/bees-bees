@@ -143,7 +143,7 @@ app/admin/
 - [ ] de app/not-found.tsx pagina stylen
 - [ ] links in de tabellen gebruiksvriendelijk maken (kleur?, vet?)
 - [ ] de inline styles nog vervangen
-
+- [ ] de usersfilter nog aanpassen
 
 ### 6. Openbare Pagina's
 
