@@ -20,23 +20,12 @@
 }
 
 .bee-counter__btn {
+  /* Using standard .btn classes - only specific overrides here */
   padding: var(--space-4) var(--space-3);
-  background: white;
-  border: 1px solid var(--color-text);
-  color: var(--color-text);
   font-family: var(--font-display);
-  font-size: 0.875rem;
-  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s ease;
   border-radius: 2px;
-}
-
-.bee-counter__btn:hover {
-  background: var(--color-text);
-  color: white;
 }
 
 .bee-counter__btn:active {
@@ -46,6 +35,7 @@
 .bee-counter__btn--reset {
   border-color: #dc2626;
   color: #dc2626;
+  background: white;
 }
 
 .bee-counter__btn--reset:hover {

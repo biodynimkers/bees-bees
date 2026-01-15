@@ -1,5 +1,6 @@
 .section {
   padding: var(--space-24) 0;
+  background-color: white;
 }
 
 .section-first {
@@ -11,7 +12,7 @@
 }
 
 .section-alternate {
-  background-color: #fafafa;
+  background-color: white;
 }
 
 /* Eerste section na header heeft minder top padding */

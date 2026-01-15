@@ -97,7 +97,7 @@ export default function Timer() {
       </div>
 
       <button 
-        className="timer__button"
+        className="btn btn--primary btn--lg btn--full"
         onClick={handleClick} 
         disabled={isRunning || countdown !== null}
       >

@@ -44,11 +44,11 @@ export default function EditUserButton({
 
   return (
     <>
-      {message && <span className="text-success ml-4">{message}</span>}
+      {message && <span className="text-success">{message}</span>}
       <button
         onClick={handleToggle}
         disabled={loading}
-        className="btn btn--warning ml-4"
+        className="btn btn--secondary"
       >
         {loading
           ? 'Bezig...'

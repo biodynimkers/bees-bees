@@ -80,8 +80,8 @@ export default async function UserDetailPage({
                   : `${user._count.apiaries} bijenstand`}
               </h3>
               {user._count.apiaries > 0 && (
-                <Link href={`/admin/users/${userId}/apiaries`}>
-                  <button className="btn btn--primary mt-4">
+                <Link href={`/admin/users/${userId}/apiaries`} style={{ marginTop: "var(--space-4)" }}>
+                  <button className="btn">
                     Bekijk{' '}
                     {user._count.apiaries > 1 ? 'bijenstanden' : 'bijenstand'}
                   </button>
@@ -98,8 +98,8 @@ export default async function UserDetailPage({
                   : `${totalHives} kast`}
               </h3>
               {totalHives > 0 && (
-                <Link href={`/admin/users/${userId}/hives`}>
-                  <button className="btn btn--primary mt-4">
+                <Link href={`/admin/users/${userId}/hives`} style={{ marginTop: "var(--space-4)" }}>
+                  <button className="btn">
                     Bekijk {totalHives > 1 ? 'kasten' : 'kast'}
                   </button>
                 </Link>
@@ -109,31 +109,31 @@ export default async function UserDetailPage({
             <div className="card">
               <h3 className="heading-tertiary">
                 {totalObservations === 0
-                  ? 'Geen observaties'
+                  ? 'Geen waarnemingen'
                   : totalObservations > 1
-                  ? `${totalObservations} observaties`
-                  : `${totalObservations} observatie`}
+                  ? `${totalObservations} waarnemingen`
+                  : `${totalObservations} waarneming`}
               </h3>
               {totalObservations > 0 && (
-                <Link href={`/admin/users/${userId}/observations`}>
-                  <button className="btn btn--primary mt-4">
+                <Link href={`/admin/users/${userId}/observations`} style={{ marginTop: "var(--space-4)" }}>
+                  <button className="btn">
                     Bekijk{' '}
-                    {totalObservations > 1 ? 'observaties' : 'observatie'}
+                    {totalObservations > 1 ? 'waarnemingen' : 'waarneming'}
                   </button>
                 </Link>
               )}
             </div>
           </div>
 
-          <div className="mt-8">
+          <div style={{ display: "flex", gap: "var(--space-3)", marginTop: "var(--space-8)" }}>
             {session?.user?.role === 'SUPERADMIN' && (
               <>
+                <EditUserButton userId={userId} currentRole={user.role} />
                 <DeleteUserButton
                   userId={userId}
                   userName={user.name}
                   currentRole={user.role}
                 />
-                <EditUserButton userId={userId} currentRole={user.role} />
               </>
             )}
           </div>

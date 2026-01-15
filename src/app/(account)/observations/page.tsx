@@ -92,7 +92,7 @@ export default async function AccountObservationsPage(searchParams: {
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <h1 className="heading-primary">Mijn observaties</h1>
+          <h1 className="heading-primary">Mijn waarnemingen</h1>
           <p className="page-header__subtitle">
             {totalObservations}{' '}
             {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}
@@ -109,8 +109,8 @@ export default async function AccountObservationsPage(searchParams: {
                   Overzicht
                 </h2>
                 <Link href="/observations/new">
-                  <button className="btn btn--primary">
-                    + Nieuwe observatie
+                  <button className="btn btn--secondary">
+                    + Nieuwe waarneming
                   </button>
                 </Link>
               </div>

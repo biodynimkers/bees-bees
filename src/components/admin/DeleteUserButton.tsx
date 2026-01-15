@@ -45,31 +45,40 @@ export default function DeleteUserButton({
 
   return (
     <>
-      {message && <span className="text-success ml-4">{message}</span>}
+      {message && <span className="text-success">{message}</span>}
       {!showConfirm ? (
         <button
           onClick={() => setShowConfirm(true)}
-          className="btn btn--danger ml-4"
+          className="btn btn--secondary"
         >
           Verwijder {userName}
         </button>
       ) : (
-        <>
-          <span>Weet je het zeker?</span>
-          <button
-            onClick={handleDelete}
-            disabled={loading}
-            className="btn btn--danger ml-4"
-          >
-            {loading ? 'Bezig...' : 'Ja, verwijderen'}
-          </button>
-          <button
-            onClick={() => setShowConfirm(false)}
-            className="btn btn--secondary ml-4"
-          >
-            Annuleren
-          </button>
-        </>
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3 className="heading-tertiary">
+              Bevestig verwijdering
+            </h3>
+            <p className="modal__text">
+              Weet je zeker dat je gebruiker {userName} wilt verwijderen?
+            </p>
+            <div className="modal__actions">
+              <button
+                onClick={() => setShowConfirm(false)}
+                className="btn btn--secondary"
+              >
+                Annuleren
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={loading}
+                className="btn btn--danger"
+              >
+                {loading ? 'Bezig...' : 'Ja, verwijderen'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

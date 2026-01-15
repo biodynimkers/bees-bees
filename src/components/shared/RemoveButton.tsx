@@ -27,7 +27,7 @@ export default function RemoveButton({
   return (
     <>
       <button
-        className="btn btn--secondary border-danger color-danger"
+        className="btn btn--secondary"
         onClick={() => setShowConfirm(true)}
       >
         {label}
@@ -49,7 +49,7 @@ export default function RemoveButton({
                 Annuleren
               </button>
               <button 
-                className="btn btn--primary bg-danger"
+                className="btn btn--danger"
                 onClick={handleDelete} 
                 disabled={loading}
               >

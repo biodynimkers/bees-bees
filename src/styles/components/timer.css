@@ -54,30 +54,7 @@
   max-width: 400px;
 }
 
-.timer__button {
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  padding: var(--space-4) var(--space-10);
-  background: var(--color-text);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  letter-spacing: 0.01em;
-  width: 100%;
-  max-width: 300px;
-}
-
-.timer__button:hover:not(:disabled) {
-  background: var(--color-accent);
-}
-
-.timer__button:disabled {
-  background: rgba(0, 0, 0, 0.1);
-  color: var(--color-text-light);
-  cursor: not-allowed;
-}
+/* Timer button removed - using standard .btn classes now */
 
 @media (max-width: 768px) {
   .timer {

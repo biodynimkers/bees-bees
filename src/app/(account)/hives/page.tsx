@@ -67,7 +67,7 @@ export default async function AccountHivesPage({
                   Overzicht
                 </h2>
                 <Link href="/hives/new">
-                  <button className="btn btn--primary">
+                  <button className="btn btn--secondary">
                     + Nieuwe kast
                   </button>
                 </Link>
@@ -141,7 +141,7 @@ export default async function AccountHivesPage({
                 Voeg eerst een bijenstand toe om kasten te kunnen aanmaken
               </p>
               <Link href="/apiaries/new">
-                <button className="btn btn--primary btn--lg">
+                <button className="btn btn--secondary btn--lg">
                   + Bijenstand toevoegen
                 </button>
               </Link>
