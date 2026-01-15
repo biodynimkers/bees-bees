@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import ObservationsTable from './ObservationsTable';
+import ObservationsTable from '../shared/ObservationsTable';
 
 interface Observation {
   id: number;
@@ -45,11 +45,11 @@ export default function ObservationsFilter({
   const [colorFilter, setColorFilter] = useState('');
 
   const filteredObservations = observations.filter(obs => {
-    const matchesSearch = 
+    const matchesSearch =
       obs.notes?.toLowerCase().includes(search.toLowerCase()) ||
       obs.hive?.name.toLowerCase().includes(search.toLowerCase());
     const matchesColor = !colorFilter || obs.pollenColor === colorFilter;
-    
+
     return matchesSearch && matchesColor;
   });
 
@@ -58,9 +58,9 @@ export default function ObservationsFilter({
   return (
     <>
       <div className="section-header">
-        <Link href="/admin" className="back-link">
+        {/* <Link href="/admin" className="back-link">
           ←
-        </Link>
+        </Link> */}
         <div className="filters">
           <input
             type="text"
@@ -69,7 +69,7 @@ export default function ObservationsFilter({
             onChange={e => setSearch(e.target.value)}
             className="form__input"
           />
-          
+
           <select
             value={colorFilter}
             onChange={e => setColorFilter(e.target.value)}
@@ -77,7 +77,9 @@ export default function ObservationsFilter({
           >
             <option value="">Alle kleuren</option>
             {colors.map(color => (
-              <option key={color} value={color}>{color}</option>
+              <option key={color} value={color}>
+                {color}
+              </option>
             ))}
           </select>
         </div>

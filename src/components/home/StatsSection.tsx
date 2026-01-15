@@ -15,7 +15,7 @@ export default function StatsSection({
         <div className="stats">
           <div className="stat">
             <span className="stat__number">{totalObservations}</span>
-            <span className="stat__label">Geregistreerde observaties</span>
+            <span className="stat__label">Geregistreerde waarnemingen</span>
           </div>
           <div className="stat">
             <span className="stat__number">{totalUsers}</span>

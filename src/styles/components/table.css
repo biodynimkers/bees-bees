@@ -91,8 +91,19 @@
   border-color: rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0.02);
 }
-
 @media (max-width: 768px) {
+  .table {
+    min-width: 37.5rem; /* Minimum breedte om cramping te voorkomen */
+    font-size: 0.85rem; /* Iets kleiner voor meer ruimte */
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-3) var(--space-4); /* Compactere padding */
+  }
+}
+
+/* @media (max-width: 768px) {
   .table-wrapper {
     border: none;
     background: transparent;
@@ -150,4 +161,4 @@
     display: inline-block;
     font-size: 0.9375rem;
   }
-}
+} */

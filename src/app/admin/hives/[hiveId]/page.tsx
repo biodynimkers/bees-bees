@@ -2,7 +2,7 @@ import prisma from '@/lib/client';
 import { requireAdmin } from '@/lib/auth-helpers';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import ObservationsTable from '@/components/admin/ObservationsTable';
+import ObservationsTable from '@/components/shared/ObservationsTable';
 
 export default async function AdminHiveDetailPage({
   params,
@@ -62,7 +62,7 @@ export default async function AdminHiveDetailPage({
       <section className="section ">
         <div className="container">
           <div className="section-header">
-            <h2 className="heading-secondary">Observaties</h2>
+            <h2 className="heading-secondary">Waarnemingen</h2>
             <Link href={returnUrl ?? '/admin/hives'}>
               <button className="btn btn--secondary">← Terug</button>
             </Link>

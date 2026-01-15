@@ -138,8 +138,11 @@ app/admin/
 - [ ] API aanvragen via waarnemingen
 - [ ] mobiele breakpoints
 - [ ] unauthorized page nog text en styling geven
+- [ ] ook alle lijsten van kasten in een tabel met paginatie stoppen?
 - [ ] ook bij mobiel tabellen niet veranderen in kaartjes (zie gesprek Barend)
 - [ ] de app/not-found.tsx pagina stylen
+- [ ] links in de tabellen gebruiksvriendelijk maken (kleur?, vet?)
+- [ ] de inline styles nog vervangen
 - [ ] skeletons?
 
 ### 6. Openbare Pagina's
@@ -247,6 +250,33 @@ app/admin/
   statusCode: number;
 }
 ```
+
+### Wijzigingen en toevoegingen observatieformulier
+
+- [ ] Veld 'kast' boven de teller
+- [ ] Vanuit snelle acties/observaties: tekstje 'Welke kast wil je observeren'
+- [ ] Vanuit kast: geen inputveld, gewoon tekst bovenaan
+- [x] Kleurkiezer voor het stuifmeelveld
+  - [x] Array van kleuren definieren: met objecten: string van bloemen, hexcode
+  - [x] Color picker maken
+    - [x] Grid van klikbare kleurvlakken
+    - [x] Geselecteerde kleuren worden gemarkeerd (checkmark en border)
+  - [x] inputveld limiteren tot drie kleuren
+  - [x] De geselecteerde kleuren tonen in het observatiekaartje, bijvoorbeeld als gekleurde bolletjes of blokjes.
+  - [x] Hover-functionaliteit
+  - [x] Klikbare legende of een infoknop die de plantenlijst per kleur uitlegt.TODO
+- [ ] Uitleg tussen de velden in stappen!Layout moet beter!
+- [ ] Bijenteller met de velden versmelten
+- [ ] Enkel binnenkomende bijen
+- [ ] Tijd en datum bovenaan het formulier: 'Deze waarneming wordt gedaan op [uur en dag]'
+- [ ] Stuifmeel in drie maten: weinig, gemiddeld of veel
+- [x] Bij veel bijen, die niet te tellen zijn: klik op optie 'teveel om te tellen'
+- [x] Knop: 'Geen stuifmeel waargenomen'
+- [ ] Algemene waarnemingen: mini text
+- [ ] Het weer toevoegen: weerbericht automatisch opnemen + lokale observatie mogelijk maken (regen, bewolkt, halfzon, zon en temperatuur)
+- [ ] Automatische recording bij de notities
+- [ ] Alle namen 'observatie(s)' veranderen door waarneming(en)
+- [ ] Export functie van data! CSV?
 
 ### 🎯 Eindresultaat
 

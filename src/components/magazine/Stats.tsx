@@ -17,7 +17,7 @@ export default function Stats({
             <span className="number-large">
               {totalObservations.toLocaleString()}
             </span>
-            <div className="stats__label">Observaties</div>
+            <div className="stats__label">Waarnemingen</div>
             <p className="stats__description">Geregistreerd door onze imkers</p>
           </div>
           <div className="stats__item">

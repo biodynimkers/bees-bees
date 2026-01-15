@@ -88,6 +88,10 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
+.footer .heading-tertiary {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 @media (max-width: 968px) {
   .footer__top {
     grid-template-columns: 1fr;

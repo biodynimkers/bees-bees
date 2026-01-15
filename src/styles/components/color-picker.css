@@ -1,0 +1,116 @@
+/* Color Picker Styles */
+.color-picker {
+  width: 100%;
+}
+
+.color-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+  max-width: 100%;
+}
+
+.color-picker__color {
+  width: 48px;
+  height: 48px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  min-width: 44px; /* Minimum touch target size for mobile */
+  min-height: 44px;
+}
+
+.color-picker__color:hover {
+  transform: scale(1.1);
+  border-color: var(--color-gray-400);
+}
+
+.color-picker__color--selected {
+  border-color: var(--color-primary);
+  border-width: 3px;
+  transform: scale(1.05);
+}
+
+.color-picker__color--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.color-picker__color--disabled:hover {
+  border-color: transparent;
+  transform: none;
+}
+
+.color-picker__color--no-pollen {
+  border: 2px solid var(--color-gray-400);
+  position: relative;
+}
+
+.color-picker__color--no-pollen:hover {
+  border-color: var(--color-gray-600);
+}
+
+.color-picker__no-pollen-text {
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+.color-picker__checkmark {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+.color-picker__help {
+  font-size: 13px;
+  color: var(--color-gray-600);
+  margin: 8px 0 0 0;
+  font-style: italic;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .color-picker__grid {
+    grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
+    gap: 16px;
+  }
+
+  .color-picker__color {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    min-height: 52px;
+  }
+}
+
+/* Focus styles for accessibility */
+.color-picker__color:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .color-picker__color {
+    border-width: 2px;
+    border-color: var(--color-gray-800);
+  }
+
+  .color-picker__color--selected {
+    border-width: 4px;
+  }
+}

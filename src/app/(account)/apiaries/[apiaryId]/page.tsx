@@ -71,6 +71,12 @@ export default async function AccountApiaryPage({
                   <span className="page-header__meta-label">Kasten</span>
                   <span className="page-header__meta-value">{totalHives}</span>
                 </div>
+                <div className="page-header__meta-item">
+                  <span className="page-header__meta-label">Coördinaten</span>
+                  <span className="page-header__meta-value">
+                    {apiary?.latitude.toFixed(6)}, {apiary?.longitude.toFixed(6)}
+                  </span>
+                </div>
               </div>
             </div>
             <div className="page-header__actions">
@@ -103,147 +109,98 @@ export default async function AccountApiaryPage({
           </h2>
           
           <div className="grid grid-two-columns gap-large">
-            <div className="card">
-              <h3 style={{ 
-                fontSize: "1rem",
-                fontWeight: "600",
-                marginBottom: "var(--space-4)",
-                color: "var(--color-text)"
-              }}>
-                Coördinaten
-              </h3>
-              <div style={{ marginBottom: "var(--space-4)" }}>
-                <p style={{ 
-                  fontSize: "0.875rem",
-                  color: "var(--color-text-light)",
-                  marginBottom: "var(--space-2)"
-                }}>
-                  GPS Locatie
-                </p>
-                <p style={{ 
-                  fontFamily: "var(--font-display)",
-                  fontSize: "1.125rem"
-                }}>
-                  {apiary?.latitude.toFixed(6)}, {apiary?.longitude.toFixed(6)}
-                </p>
-              </div>
-              <a 
-                href={`https://www.google.com/maps?q=${apiary?.latitude},${apiary?.longitude}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: "none" }}
-              >
-                <button className="btn btn--secondary btn--sm" style={{ width: "100%" }}>
-                  Open in Google Maps
-                </button>
-              </a>
+            {/* Kaart Links */}
+            <div>
+              <ApiaryMapWrapper
+                latitude={apiary?.latitude!}
+                longitude={apiary?.longitude!}
+              />
             </div>
 
-            <div className="card">
-              <h3 style={{ 
-                fontFamily: "var(--font-body)",
-                fontSize: "1.125rem",
-                fontWeight: 600,
-                marginBottom: "var(--space-2)"
-              }}>
-                Kaartlagen
-              </h3>
-              <p style={{ 
-                fontSize: "0.875rem",
-                color: "var(--color-text-light)",
-                lineHeight: 1.6,
-                marginBottom: "var(--space-4)"
-              }}>
-                Activeer nuttige informatie op de kaart voor tijdens je wandelingen in het foerageergebied.
-              </p>
+            {/* Info Rechts */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+              <div className="card">
+                <h3 style={{ 
+                  fontFamily: "var(--font-body)",
+                  fontSize: "1.125rem",
+                  fontWeight: 600,
+                  marginBottom: "var(--space-4)"
+                }}>
+                  Foerageergebied
+                </h3>
 
-              <div className="map-controls">
-                <div className="map-control-item">
-                  <div className="map-control-item__label">
-                    <p className="map-control-item__title">Plantwaarnemingen</p>
-                    <p className="map-control-item__desc">Bijvriendelijke planten via waarnemingen.be</p>
+                <div style={{ marginBottom: "var(--space-6)" }}>
+                  <h4 style={{ 
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                    marginBottom: "var(--space-2)",
+                    color: "var(--color-text)"
+                  }}>
+               
+                  </h4>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
+                      <div style={{ 
+                        width: "20px", 
+                        height: "3px", 
+                        background: "#FF0000",
+                        borderRadius: "2px",
+                        flexShrink: 0
+                      }}></div>
+                      <span style={{ fontSize: "0.875rem" }}>200m</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
+                      <div style={{ 
+                        width: "20px", 
+                        height: "3px", 
+                        background: "#0000FF",
+                        borderRadius: "2px",
+                        flexShrink: 0
+                      }}></div>
+                      <span style={{ fontSize: "0.875rem" }}>2 km</span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
+                      <div style={{ 
+                        width: "20px", 
+                        height: "3px", 
+                        background: "#800080",
+                        borderRadius: "2px",
+                        flexShrink: 0
+                      }}></div>
+                      <span style={{ fontSize: "0.875rem" }}>7 km</span>
+                    </div>
                   </div>
-                  <label className="toggle-switch">
-                    <input type="checkbox" id="plantToggle" />
-                    <span className="toggle-slider"></span>
-                  </label>
                 </div>
 
-                <div className="map-control-item">
-                  <div className="map-control-item__label">
-                    <p className="map-control-item__title">Afstandsindicatie</p>
-                    <p className="map-control-item__desc">Toon afstand tot planten in popups</p>
-                  </div>
-                  <label className="toggle-switch">
-                    <input type="checkbox" id="distanceToggle" />
-                    <span className="toggle-slider"></span>
-                  </label>
-                </div>
-
-                <div className="map-control-item">
-                  <div className="map-control-item__label">
-                    <p className="map-control-item__title">Alleen binnen 2 km</p>
-                    <p className="map-control-item__desc">Filter planten op primair foerageergebied</p>
-                  </div>
-                  <label className="toggle-switch">
-                    <input type="checkbox" id="rangeToggle" />
-                    <span className="toggle-slider"></span>
-                  </label>
-                </div>
-
-                <div className="map-control-item">
-                  <div className="map-control-item__label">
-                    <p className="map-control-item__title">Bloeitijd huidige maand</p>
-                    <p className="map-control-item__desc">Toon alleen wat nu bloeit</p>
-                  </div>
-                  <label className="toggle-switch">
-                    <input type="checkbox" id="seasonToggle" />
-                    <span className="toggle-slider"></span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="map-legend">
-                <div className="map-legend-item">
-                  <div className="map-legend-circle" style={{ color: "#3b82f6" }}></div>
-                  <span>2 km (80% foerageergebied)</span>
-                </div>
-                <div className="map-legend-item">
-                  <div className="map-legend-circle" style={{ color: "#9333ea" }}></div>
-                  <span>7 km (maximaal bereik)</span>
-                </div>
-                <div className="map-legend-item">
-                  <div style={{ 
-                    width: "12px", 
-                    height: "12px", 
-                    borderRadius: "50%", 
-                    background: "#f97316" 
-                  }}></div>
-                  <span>Nectarplanten</span>
-                </div>
-                <div className="map-legend-item">
-                  <div style={{ 
-                    width: "12px", 
-                    height: "12px", 
-                    borderRadius: "50%", 
-                    background: "#dc2626" 
-                  }}></div>
-                  <span>Stuifmeelbronnen</span>
+                <div style={{ 
+                  padding: "var(--space-4)",
+                  background: "rgba(59, 130, 246, 0.1)",
+                  borderRadius: "8px",
+                  borderLeft: "3px solid #3b82f6"
+                }}>
+                  <h4 style={{ 
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                    marginBottom: "var(--space-2)",
+                    color: "var(--color-text)"
+                  }}>
+                    Kaart bedienen
+                  </h4>
+                  <ul style={{ 
+                    fontSize: "0.875rem",
+                    color: "var(--color-text-light)",
+                    lineHeight: 1.6,
+                    margin: 0,
+                    paddingLeft: "var(--space-5)"
+                  }}>
+                    <li>Gebruik <strong>+ en -</strong> knoppen om te zoomen</li>
+                    <li><strong>Scroll</strong> met muis om in/uit te zoomen</li>
+                    <li><strong>Sleep</strong> met muis om kaart te verplaatsen</li>
+                    <li>Klik op <strong>Fullscreen</strong> voor groter beeld</li>
+                  </ul>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section ">
-        <div className="container">
-          <div className="map-container" style={{ height: "600px" }}>
-            <ApiaryMapWrapper
-              latitude={apiary?.latitude!}
-              longitude={apiary?.longitude!}
-              apiaryName={apiary?.name || ''}
-            />
           </div>
         </div>
       </section>
@@ -256,7 +213,7 @@ export default async function AccountApiaryPage({
             </h2>
             {hives.length > 0 && (
               <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}>
-                <button className="btn btn--primary">
+                <button className="btn btn--secondary">
                   + Nieuwe kast
                 </button>
               </Link>
@@ -286,7 +243,7 @@ export default async function AccountApiaryPage({
                         <p className="card__value">{hive.type}</p>
                         <p className="card__label">Type volk</p>
                         <p className="card__value">{hive.colonyType}</p>
-                        <p className="card__label">Observaties</p>
+                        <p className="card__label">Waarnemingen</p>
                         <p className="card__value">{hive.observations.length}</p>
                       </div>
                     </div>
@@ -335,7 +292,7 @@ export default async function AccountApiaryPage({
                 Voeg uw eerste bijenkast toe aan deze stand
               </p>
               <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}>
-                <button className="btn btn--primary btn--lg">
+                <button className="btn btn--secondary btn--lg">
                   + Eerste kast toevoegen
                 </button>
               </Link>

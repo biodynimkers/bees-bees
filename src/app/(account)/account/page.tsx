@@ -76,7 +76,7 @@ export default async function AccountPage() {
           <p className="page-header__subtitle">
             {isNewUser
               ? 'Welkom bij BEES - Uw digitale platform voor bijenbeheer'
-              : 'Beheer uw bijenstanden, kasten en observaties'}
+              : 'Beheer uw bijenstanden, kasten en waarnemingen'}
           </p>
         </div>
       </Section>
@@ -114,7 +114,7 @@ export default async function AccountPage() {
                   <div className="card__icon">
                     <Eye size={36} strokeWidth={1.5} />
                   </div>
-                  <h3 className="heading-tertiary">Start met observaties</h3>
+                  <h3 className="heading-tertiary">Start met waarnemingen</h3>
                   <p className="card__text">
                     Registreer uw waarnemingen per kast. Houd de gezondheid,
                     activiteit en belangrijke momenten overzichtelijk bij.
@@ -123,7 +123,7 @@ export default async function AccountPage() {
               </SectionContent>
 
               <div className="text-center margin-top-large">
-                <Link href="/apiaries/new" className="btn btn--primary btn--large">
+                <Link href="/apiaries/new" className="btn btn--secondary btn--large">
                   Start nu - Voeg eerste bijenstand toe
                 </Link>
               </div>
@@ -142,19 +142,19 @@ export default async function AccountPage() {
               <SectionContent grid="three">
                 <Link href="/apiaries" className="card card--stat">
                   <span className="number-large">{totalApiaries}</span>
-                  <p className="card__label">Bijenstanden</p>
+                  <p className="card__label">{totalApiaries === 1 ? 'Bijenstand' : 'Bijenstanden'}</p>
                   <span className="btn btn--secondary btn--small">Bekijk alle</span>
                 </Link>
 
                 <Link href="/hives" className="card card--stat">
                   <span className="number-large">{totalHives}</span>
-                  <p className="card__label">Kasten</p>
+                  <p className="card__label">{totalHives === 1 ? 'Kast' : 'Kasten'}</p>
                   <span className="btn btn--secondary btn--small">Bekijk alle</span>
                 </Link>
 
                 <Link href="/observations" className="card card--stat">
                   <span className="number-large">{totalObservations}</span>
-                  <p className="card__label">Observaties</p>
+                  <p className="card__label">{totalObservations === 1 ? 'Waarneming' : 'Waarnemingen'}</p>
                   <span className="btn btn--secondary btn--small">Bekijk alle</span>
                 </Link>
               </SectionContent>
@@ -171,19 +171,16 @@ export default async function AccountPage() {
                 <Link href="/apiaries/new" className="card card--action">
                   <span className="card__category">Toevoegen</span>
                   <h3 className="heading-tertiary">Bijenstand</h3>
-                  <p className="card__text">Nieuwe locatie registreren</p>
                 </Link>
 
                 <Link href="/hives/new" className="card card--action">
                   <span className="card__category">Toevoegen</span>
                   <h3 className="heading-tertiary">Kast</h3>
-                  <p className="card__text">Bijenkast koppelen aan stand</p>
                 </Link>
 
                 <Link href="/observations/new" className="card card--action">
                   <span className="card__category">Toevoegen</span>
-                  <h3 className="heading-tertiary">Observatie</h3>
-                  <p className="card__text">Waarneming bij kast noteren</p>
+                  <h3 className="heading-tertiary">Waarneming</h3>
                 </Link>
               </SectionContent>
             </div>

@@ -133,7 +133,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="section-actions">
-            <Link href="/auth/register" className="btn btn--primary btn--large">
+            <Link href="/auth/register" className="btn btn--secondary btn--large">
               Gratis account aanmaken
             </Link>
           </div>

@@ -170,11 +170,8 @@ export default function PlatformPage() {
               Registreer nu gratis en begin met het digitaliseren van je imkerij
             </p>
             <div className="flex justify-center gap-small">
-              <a href="/auth/register" className="btn btn--primary">
+              <a href="/auth/register" className="btn btn--secondary">
                 Gratis account aanmaken
-              </a>
-              <a href="/contact" className="btn btn--secondary">
-                Eerst contact opnemen
               </a>
             </div>
           </div>

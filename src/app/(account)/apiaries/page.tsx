@@ -57,7 +57,7 @@ export default async function AccountApiariesPage({
                   Mijn bijenstanden
                 </h2>
                 <Link href="/apiaries/new">
-                  <button className="btn btn--primary">
+                  <button className="btn btn--secondary">
                     + Nieuwe bijenstand
                   </button>
                 </Link>
@@ -72,11 +72,12 @@ export default async function AccountApiariesPage({
                   >
                     <div className="card">
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "var(--space-4)" }}>
-                        <h3 className="heading-tertiary">{apiary.name}</h3>
+                        <h3 className="heading-tertiary" style={{ color: "white", background: "var(--color-primary)", padding: "var(--space-2) var(--space-3)", borderRadius: "4px" }}>{apiary.name}</h3>
                         <span style={{ 
                           fontSize: "0.875rem",
                           padding: "var(--space-2) var(--space-3)",
-                          background: "rgba(0, 0, 0, 0.05)",
+                          background: "var(--color-primary)",
+                          color: "white",
                           borderRadius: "4px"
                         }}>
                           {apiary.hives.length} {apiary.hives.length === 1 ? 'kast' : 'kasten'}
@@ -131,7 +132,7 @@ export default async function AccountApiariesPage({
                 Begin met het toevoegen van uw eerste bijenstand
               </p>
               <Link href="/apiaries/new">
-                <button className="btn btn--primary btn--lg">
+                <button className="btn btn--secondary btn--lg">
                   + Eerste bijenstand toevoegen
                 </button>
               </Link>

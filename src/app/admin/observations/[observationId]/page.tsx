@@ -2,8 +2,6 @@ import prisma from '@/lib/client';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
 import { redirect } from 'next/navigation';
-import DeleteEntityButton from '@/components/shared/DeleteEntityButton';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { formatBeeCount } from '@/lib/utils/formatBeeCount';
 import PollenColorLegend from '@/components/shared/PollenColorLegend';
@@ -30,7 +28,7 @@ export default async function Observation({
   if (!observation) {
     notFound();
   }
-  if (observation.hive.apiary.userId !== session?.user.id) {
+  if (session?.user.role !== 'ADMIN' && session?.user.role !== 'SUPERADMIN') {
     redirect('/unauthorized');
   }
 
@@ -53,29 +51,6 @@ export default async function Observation({
                 {observation.hive.name} • {observation.hive.apiary.name} •{' '}
                 {new Date(observation.createdAt).toLocaleDateString('nl-BE')}
               </p>
-              <a className="back-link" href="/observations">
-                ←
-              </a>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                gap: 'var(--space-3)',
-                flexWrap: 'wrap',
-              }}
-            >
-              <Link href={`/observations/${observationId}/edit`}>
-                <button className="btn btn--secondary">
-                  Wijzig waarneming
-                </button>
-              </Link>
-              {observation && (
-                <DeleteEntityButton
-                  id={observation.id}
-                  type="observation"
-                  label="Verwijder"
-                />
-              )}
             </div>
           </div>
         </div>
@@ -104,7 +79,7 @@ export default async function Observation({
                   borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
                 }}
               >
-                Observatie gegevens
+                Details
               </h2>
 
               <div
@@ -394,20 +369,15 @@ export default async function Observation({
                     >
                       Kast
                     </p>
-                    <Link
-                      href={`/hives/${observation.hive.id}`}
+                    <p
                       style={{
                         fontFamily: 'var(--font-display)',
                         fontSize: '1.125rem',
                         color: 'var(--color-text)',
-                        textDecoration: 'underline',
-                        textDecorationColor: 'rgba(0, 0, 0, 0.2)',
-                        textUnderlineOffset: '4px',
-                        transition: 'text-decoration-color 0.3s',
                       }}
                     >
                       {observation.hive.name}
-                    </Link>
+                    </p>
                   </div>
                   <div>
                     <p
@@ -422,20 +392,15 @@ export default async function Observation({
                     >
                       Bijenstand
                     </p>
-                    <Link
-                      href={`/apiaries/${observation.hive.apiary.id}`}
+                    <p
                       style={{
                         fontFamily: 'var(--font-display)',
                         fontSize: '1.125rem',
                         color: 'var(--color-text)',
-                        textDecoration: 'underline',
-                        textDecorationColor: 'rgba(0, 0, 0, 0.2)',
-                        textUnderlineOffset: '4px',
-                        transition: 'text-decoration-color 0.3s',
                       }}
                     >
                       {observation.hive.apiary.name}
-                    </Link>
+                    </p>
                   </div>
                 </div>
               </div>

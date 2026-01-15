@@ -14,8 +14,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { hiveId, beeCount, pollenColor, notes } = body;
     const validationResult = newObservationSchema.safeParse({
-      hiveId: parseInt(hiveId),
-      beeCount: parseInt(beeCount),
+      hiveId,
+      beeCount,
       pollenColor,
       notes,
     });
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     // Valideer dat de hive bestaat en bij de user hoort
     const hive = await prisma.hive.findUnique({
-      where: { id: hiveId },
+      where: { id: validationResult.data.hiveId },
       include: {
         apiary: {
           include: {
@@ -48,10 +48,10 @@ export async function POST(request: NextRequest) {
 
     const observation = await prisma.observation.create({
       data: {
-        hiveId,
-        beeCount,
-        pollenColor,
-        notes,
+        hiveId: validationResult.data.hiveId!,
+        beeCount: validationResult.data.beeCount!,
+        pollenColor: validationResult.data.pollenColor,
+        notes: validationResult.data.notes || null,
       },
     });
 

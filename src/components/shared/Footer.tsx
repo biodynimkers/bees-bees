@@ -9,8 +9,8 @@ export default function Footer() {
         <div className="footer__top">
           <div className="footer__brand">
             <div className="footer__logo">
-              <img src="/assets/logo.png" alt="Logo" className="footer__logo-image" />
-              <span>Biodynamische Imkers</span>
+              <img src="/assets/logo-footer.png" alt="Logo" className="footer__logo-image" />
+              <span className="text-small">Biodynamische Imkers Vlaanderen</span>
             </div>
             <p className="footer__tagline">
               Digitaal imkeren voor de moderne bijhouder.

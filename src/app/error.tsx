@@ -11,7 +11,9 @@ export default function Error({
     <div>
       <h2>Er ging iets mis!</h2>
       <p>{error.message}</p>
-      <button onClick={() => reset()}>Opnieuw proberen</button>
+      <button className="btn btn--primary" onClick={() => reset()}>
+        Opnieuw proberen
+      </button>
     </div>
   );
 }

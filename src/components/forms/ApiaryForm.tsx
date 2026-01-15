@@ -426,7 +426,7 @@ export default function ApiaryForm({
         <button
           type="submit"
           disabled={loading}
-          className="btn btn--primary btn--large"
+          className="btn btn--secondary btn--large"
         >
           {loading
             ? initialApiary

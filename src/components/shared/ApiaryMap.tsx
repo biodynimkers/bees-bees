@@ -1,114 +1,143 @@
 'use client';
 
-import { MapContainer, TileLayer, Marker, Circle, Popup } from 'react-leaflet';
-import { useState, useEffect } from 'react';
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-import PlantObservationsLayer from './map/PlantObservationsLayer';
-
-// Fix for default marker icon
-if (typeof window !== 'undefined') {
-  delete (L.Icon.Default.prototype as any)._getIconUrl;
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-  });
-}
+import { useRef, useState } from 'react';
+import Map, { Marker, Layer, Source, NavigationControl } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 interface ApiaryMapProps {
   latitude: number;
   longitude: number;
-  apiaryName: string;
+  showFullscreen?: boolean;
 }
 
-export default function ApiaryMap({ latitude, longitude, apiaryName }: ApiaryMapProps) {
-  const position: [number, number] = [latitude, longitude];
-  const [showPlants, setShowPlants] = useState(false);
-  const [showDistance, setShowDistance] = useState(false);
-  const [only2km, setOnly2km] = useState(false);
-  const [currentSeasonOnly, setCurrentSeasonOnly] = useState(false);
+export default function ApiaryMap({ latitude, longitude, showFullscreen = true }: ApiaryMapProps) {
+  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
+  const mapRef = useRef<any>(null);
+  const [viewState, setViewState] = useState({
+    longitude,
+    latitude,
+    zoom: 14
+  });
 
-  // Listen to toggle changes from the checkboxes in the page
-  useEffect(() => {
-    const plantToggle = document.getElementById('plantToggle') as HTMLInputElement;
-    const distanceToggle = document.getElementById('distanceToggle') as HTMLInputElement;
-    const rangeToggle = document.getElementById('rangeToggle') as HTMLInputElement;
-    const seasonToggle = document.getElementById('seasonToggle') as HTMLInputElement;
-    
-    const handlePlantChange = () => setShowPlants(plantToggle?.checked || false);
-    const handleDistanceChange = () => setShowDistance(distanceToggle?.checked || false);
-    const handleRangeChange = () => setOnly2km(rangeToggle?.checked || false);
-    const handleSeasonChange = () => setCurrentSeasonOnly(seasonToggle?.checked || false);
+  // Create circle features for 200m, 2km, 7km
+  const createCircle = (radius: number) => {
+    const points = 64;
+    const coords = [];
+    const distanceX = radius / (111320 * Math.cos(latitude * Math.PI / 180));
+    const distanceY = radius / 110574;
 
-    if (plantToggle) {
-      plantToggle.addEventListener('change', handlePlantChange);
+    for (let i = 0; i < points; i++) {
+      const theta = (i / points) * (2 * Math.PI);
+      const x = distanceX * Math.cos(theta);
+      const y = distanceY * Math.sin(theta);
+      coords.push([longitude + x, latitude + y]);
     }
-    if (distanceToggle) {
-      distanceToggle.addEventListener('change', handleDistanceChange);
-    }
-    if (rangeToggle) {
-      rangeToggle.addEventListener('change', handleRangeChange);
-    }
-    if (seasonToggle) {
-      seasonToggle.addEventListener('change', handleSeasonChange);
-    }
+    coords.push(coords[0]);
 
-    return () => {
-      plantToggle?.removeEventListener('change', handlePlantChange);
-      distanceToggle?.removeEventListener('change', handleDistanceChange);
-      rangeToggle?.removeEventListener('change', handleRangeChange);
-      seasonToggle?.removeEventListener('change', handleSeasonChange);
+    return {
+      type: 'Feature' as const,
+      geometry: {
+        type: 'LineString' as const,
+        coordinates: coords
+      },
+      properties: {}
     };
-  }, []);
+  };
+
+  const circle200m = createCircle(200);
+  const circle2km = createCircle(2000);
+  const circle7km = createCircle(7000);
+
+  const handleFullscreen = () => {
+    const wrapper = document.getElementById('apiary-map-wrapper');
+    if (wrapper) {
+      if (!document.fullscreenElement) {
+        wrapper.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  };
 
   return (
-    <MapContainer
-      center={position}
-      zoom={12}
-      style={{ height: '100%', width: '100%' }}
-      scrollWheelZoom={false}
-    >
-      <TileLayer
-        attribution='&copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-      />
+    <div className="map-wrapper" id="apiary-map-wrapper" style={{ 
+      position: 'relative',
+      width: '100%', 
+      height: '400px',
+      minHeight: '400px'
+    }}>
+      <Map
+        ref={mapRef}
+        {...viewState}
+        onMove={evt => setViewState(evt.viewState)}
+        mapboxAccessToken={mapboxToken}
+        mapStyle="mapbox://styles/mapbox/satellite-v9"
+        style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+      >
+        {/* Zoom Controls */}
+        <NavigationControl position="top-left" showCompass={false} />
+        {/* 200m circle - red */}
+        <Source id="circle-200m" type="geojson" data={circle200m}>
+          <Layer
+            id="circle-200m-layer"
+            type="line"
+            paint={{
+              'line-color': '#FF0000',
+              'line-width': 2,
+              'line-opacity': 0.8
+            }}
+          />
+        </Source>
+
+        {/* 2km circle - blue */}
+        <Source id="circle-2km" type="geojson" data={circle2km}>
+          <Layer
+            id="circle-2km-layer"
+            type="line"
+            paint={{
+              'line-color': '#0000FF',
+              'line-width': 2,
+              'line-opacity': 0.8
+            }}
+          />
+        </Source>
+
+        {/* 7km circle - purple */}
+        <Source id="circle-7km" type="geojson" data={circle7km}>
+          <Layer
+            id="circle-7km-layer"
+            type="line"
+            paint={{
+              'line-color': '#800080',
+              'line-width': 2,
+              'line-opacity': 0.8
+            }}
+          />
+        </Source>
+
+        {/* Apiary marker */}
+        <Marker longitude={longitude} latitude={latitude}>
+          <div className="map-marker">
+            <svg width="30" height="40" viewBox="0 0 30 40" fill="none">
+              <path
+                d="M15 0C6.716 0 0 6.716 0 15c0 11.25 15 25 15 25s15-13.75 15-25C30 6.716 23.284 0 15 0z"
+                fill="#FF6B00"
+              />
+              <circle cx="15" cy="15" r="8" fill="white" />
+            </svg>
+          </div>
+        </Marker>
+      </Map>
       
-      <Marker position={position}>
-        <Popup>{apiaryName}</Popup>
-      </Marker>
-      
-      <Circle
-        center={position}
-        radius={7000}
-        pathOptions={{
-          color: '#9b59b6',
-          fillColor: '#9b59b6',
-          fillOpacity: 0.15,
-          weight: 2,
-        }}
-      />
-      
-      <Circle
-        center={position}
-        radius={2000}
-        pathOptions={{
-          color: '#3498db',
-          fillColor: '#3498db',
-          fillOpacity: 0.25,
-          weight: 3,
-        }}
-      />
-      
-      {showPlants && (
-        <PlantObservationsLayer 
-          latitude={latitude} 
-          longitude={longitude} 
-          radiusKm={only2km ? 2 : 7}
-          showDistance={showDistance}
-          currentSeasonOnly={currentSeasonOnly}
-        />
+      {showFullscreen && (
+        <button 
+          className="btn btn--secondary map-fullscreen-btn"
+          onClick={handleFullscreen}
+          type="button"
+        >
+          Fullscreen
+        </button>
       )}
-    </MapContainer>
+    </div>
   );
 }

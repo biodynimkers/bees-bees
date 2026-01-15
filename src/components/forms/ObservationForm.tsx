@@ -1,13 +1,14 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useEffect } from 'react';
 import Timer from '@/components/shared/Timer';
+import ColorPicker from './ColorPicker';
 import {
   newObservationSchema,
   updateObservationSchema,
 } from '@/lib/validators/schemas';
+import { pollenColors } from '@/lib/pollenColors';
 
 interface ObservationFormProps {
   hiveId?: string | undefined;
@@ -20,7 +21,9 @@ export default function ObservationForm({
   initialObservation,
 }: ObservationFormProps) {
   const [beeCount, setBeeCount] = useState('');
+  const [tooManyBees, setTooManyBees] = useState(false);
   const [pollenColor, setPollenColor] = useState('');
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
   const [hives, setHives] = useState<
@@ -33,13 +36,20 @@ export default function ObservationForm({
     string[]
   > | null>(null);
   const router = useRouter();
+
   useEffect(() => {
     if (!initialObservation) return;
     async function fetchHive() {
       const res = await fetch(`/api/observations/${initialObservation}`);
       if (res.ok) {
         const data = await res.json();
-        setBeeCount(data.beeCount.toString());
+        if (data.beeCount === -1) {
+          setBeeCount('');
+          setTooManyBees(true);
+        } else {
+          setBeeCount(data.beeCount.toString());
+          setTooManyBees(false);
+        }
         setPollenColor(data.pollenColor);
         setNotes(data.notes || '');
       } else {
@@ -67,6 +77,47 @@ export default function ObservationForm({
     }
   }, [hiveId]);
 
+  // Sync selectedColors with pollenColor
+  useEffect(() => {
+    setPollenColor(selectedColors.join(', '));
+  }, [selectedColors]);
+
+  const handleColorToggle = (hex: string) => {
+    const isNoPollenOption = pollenColors.find(
+      color => color.hex === hex
+    )?.isNoPollenOption;
+
+    setSelectedColors(prev => {
+      if (isNoPollenOption) {
+        // If selecting "no pollen", clear all other selections
+        return prev.includes(hex) ? [] : [hex];
+      } else {
+        // If selecting a regular color, remove "no pollen" if present and handle normally
+        const filteredPrev = prev.filter(
+          color => !pollenColors.find(c => c.hex === color)?.isNoPollenOption
+        );
+
+        if (filteredPrev.includes(hex)) {
+          // Remove color
+          return filteredPrev.filter(color => color !== hex);
+        } else if (filteredPrev.length < 3) {
+          // Add color
+          return [...filteredPrev, hex];
+        }
+        return filteredPrev;
+      }
+    });
+
+    // Clear field errors if any
+    if (fieldErrors?.pollenColor) {
+      setFieldErrors(prev => {
+        if (!prev) return null;
+        const { pollenColor, ...rest } = prev;
+        return Object.keys(rest).length ? rest : null;
+      });
+    }
+  };
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError('');
@@ -80,10 +131,23 @@ export default function ObservationForm({
       return;
     }
 
+    // Check required fields
+    if (!tooManyBees && (!beeCount || parseInt(beeCount) === 0)) {
+      setError('Voer een aantal bijen in of selecteer "Te veel om te tellen"');
+      setLoading(false);
+      return;
+    }
+
+    if (selectedColors.length === 0) {
+      setError('Selecteer tenminste één stuifmeelkleur');
+      setLoading(false);
+      return;
+    }
+
     const observationData = {
-      beeCount: parseInt(beeCount),
+      beeCount: tooManyBees ? -1 : parseInt(beeCount),
       pollenColor,
-      notes: notes || null,
+      notes: notes || '',
       ...(!initialObservation && { hiveId: parseInt(finalHiveId) }),
     };
 
@@ -122,7 +186,6 @@ export default function ObservationForm({
 
   return (
     <>
-      <Timer />
       <form onSubmit={handleSubmit} className="form">
         {error && (
           <div className="form-error form-error--general">
@@ -175,78 +238,146 @@ export default function ObservationForm({
           </div>
         )}
         <div className="form__group">
+          <h3 className="form__section-title">Observatie - Aantal bijen</h3>
+          <p className="form__instructions">
+            Druk op 'Start timer' en tel 30 seconden lang hoeveel bijen er
+            binnenkomen in de kast.
+          </p>
+          <Timer />
           <label htmlFor="beeCount" className="form__label">
             Aantal bijen *
           </label>
           <div className="bee-counter">
-            <button
-              type="button"
-              className="bee-counter__button"
-              onClick={() =>
-                setBeeCount(prev =>
-                  Math.max(0, parseInt(prev || '0') - 1).toString()
-                )
-              }
-            >
-              −1
-            </button>
+            <div className="bee-counter__controls">
+              <button
+                type="button"
+                className="bee-counter__button bee-counter__button--mobile-only"
+                disabled={tooManyBees}
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setBeeCount(prev => {
+                    const newValue = Math.max(
+                      0,
+                      parseInt(prev || '0') - 1
+                    ).toString();
+                    return newValue;
+                  });
+                }}
+              >
+                −1
+              </button>
+              <button
+                type="button"
+                className="bee-counter__button bee-counter__button--mobile-only"
+                disabled={tooManyBees}
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setBeeCount(prev => {
+                    const newValue = (parseInt(prev || '0') + 1).toString();
+                    return newValue;
+                  });
+                }}
+              >
+                +1
+              </button>
+            </div>
             <input
               type="number"
               id="beeCount"
               value={beeCount}
+              disabled={tooManyBees}
               onChange={e => {
-                setBeeCount(e.target.value);
-                if (fieldErrors?.beeCount) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { beeCount, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
+                const value = e.target.value;
+                // Only allow numbers (and empty string for clearing)
+                if (value === '' || /^\d+$/.test(value)) {
+                  setBeeCount(value);
+                  if (fieldErrors?.beeCount) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { beeCount, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
                 }
               }}
+              onKeyDown={e => {
+                // Allow navigation, editing keys and keyboard shortcuts
+                if (
+                  [
+                    'Backspace',
+                    'Delete',
+                    'Tab',
+                    'Escape',
+                    'Enter',
+                    'ArrowLeft',
+                    'ArrowRight',
+                    'Home',
+                    'End',
+                  ].includes(e.key) ||
+                  e.ctrlKey ||
+                  e.metaKey ||
+                  /[0-9]/.test(e.key)
+                ) {
+                  return; // Allow these keys
+                }
+                e.preventDefault(); // Block everything else
+              }}
               className="form__input bee-counter__input"
-              placeholder="Geschat aantal bijen"
+              placeholder={tooManyBees ? "Te veel om te tellen" : "Geschat aantal bijen"}
               required
-              min="0"
+              inputMode="numeric"
             />
-            <button
-              type="button"
-              className="bee-counter__button"
-              onClick={() =>
-                setBeeCount(prev => (parseInt(prev || '0') + 1).toString())
-              }
-            >
-              +1
-            </button>
           </div>
+          <label className="form__checkbox-label">
+            <input
+              type="checkbox"
+              checked={tooManyBees}
+              onChange={(e) => {
+                setTooManyBees(e.target.checked);
+                if (e.target.checked) {
+                  setBeeCount(''); // Clear input when too many is selected
+                }
+              }}
+              className="form__checkbox"
+            />
+            Te veel bijen om te tellen
+          </label>
           <p className="form__help">
             Tel de bijen tijdens de 30 seconden observatie
           </p>
         </div>
         <div className="form__group">
-          <label htmlFor="pollenColor" className="form__label">
-            Stuifmeelkleur *
-          </label>
-          <input
-            type="text"
-            id="pollenColor"
-            value={pollenColor}
-            onChange={e => {
-              setPollenColor(e.target.value);
-              if (fieldErrors?.pollenColor) {
-                setFieldErrors(prev => {
-                  if (!prev) return null;
-                  const { pollenColor, ...rest } = prev;
-                  return Object.keys(rest).length ? rest : null;
-                });
-              }
-            }}
-            className="form__input"
-            placeholder="bv. Geel, Oranje, Wit"
-            required
+          <h3 className="form__section-title">Observatie - Stuifmeelkleur</h3>
+          <p className="form__instructions">
+            Start opnieuw de timer en observeer 30 seconden de stuifmeelkleuren
+            op de bijen. Selecteer maximaal 3 verschillende kleuren, of kies
+            'Geen' indien geen stuifmeel zichtbaar is.
+          </p>
+          <Timer />
+          <label className="form__label">Stuifmeelkleur *</label>
+          <ColorPicker
+            pollenColors={pollenColors}
+            selectedColors={selectedColors}
+            onColorToggle={handleColorToggle}
+            maxColors={3}
           />
+          {fieldErrors?.pollenColor && (
+            <div className="form-error">
+              {fieldErrors.pollenColor.map((error, i) => (
+                <p key={i}>{error}</p>
+              ))}
+            </div>
+          )}
+          <input type="hidden" name="pollenColor" value={pollenColor} />
         </div>
         <div className="form__group">
+          <h3 className="form__section-title">Aanvullende observaties</h3>
+          <p className="form__instructions">
+            Noteer eventuele bijzonderheden die je tijdens de observatie hebt
+            opgemerkt.
+          </p>
           <label htmlFor="notes" className="form__label">
             Notities (optioneel)
           </label>
@@ -258,11 +389,18 @@ export default function ObservationForm({
             placeholder="Extra opmerkingen over de kast..."
             rows={4}
           />
+          {fieldErrors?.notes && (
+            <div className="form-error">
+              {fieldErrors.notes.map((error, i) => (
+                <p key={i}>{error}</p>
+              ))}
+            </div>
+          )}
         </div>
         <div className="form__actions">
           <button
             type="submit"
-            className="btn btn--primary btn--large"
+            className="btn btn--secondary btn--large"
             disabled={loading}
           >
             {loading

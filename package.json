@@ -16,11 +16,13 @@
     "leaflet": "^1.9.4",
     "leaflet.fullscreen": "^5.1.1",
     "lucide-react": "^0.556.0",
+    "mapbox-gl": "^3.18.0",
     "next": "15.5.7",
     "next-auth": "^4.24.13",
     "react": "19.1.2",
     "react-dom": "19.1.2",
     "react-leaflet": "^5.0.0",
+    "react-map-gl": "^7.1.9",
     "zod": "^4.3.5"
   },
   "devDependencies": {

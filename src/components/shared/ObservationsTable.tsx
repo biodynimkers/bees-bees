@@ -1,5 +1,8 @@
 import { Observation, Hive, Apiary, User } from '@prisma/client';
 import Link from 'next/link';
+import { formatBeeCount } from '@/lib/utils/formatBeeCount';
+
+import { pollenColors } from '@/lib/pollenColors';
 
 interface ObservationsTableProps {
   observations: Array<
@@ -26,26 +29,68 @@ export default function ObservationsTable({
   currentPage,
   totalPages,
 }: ObservationsTableProps) {
+  const getObservationLink = (id: number) => {
+    if (currentPath?.includes('/admin')) {
+      return `/admin/observations/${id}`;
+    }
+    return `/observations/${id}`;
+  };
+
   return (
     <>
       <div className="table-wrapper">
         <table className="table">
           <thead>
             <tr>
+              <th>Datum</th>
               <th>Aantal bijen</th>
               <th>Stuifmeel kleur</th>
               <th>Notities</th>
               {showHive && <th>Kast</th>}
               {showApiary && <th>Bijenstand</th>}
               {showUser && <th>Eigenaar</th>}
-              <th>Aangemaakt</th>
             </tr>
           </thead>
           <tbody>
             {observations.map(observation => (
               <tr key={observation.id}>
-                <td data-label="Aantal bijen">{observation.beeCount}</td>
-                <td data-label="Stuifmeel kleur">{observation.pollenColor}</td>
+                <td data-label="Datum">
+                  <Link href={getObservationLink(observation.id)}>
+                    {new Date(observation.createdAt).toLocaleDateString(
+                      'nl-BE'
+                    )}
+                  </Link>
+                </td>
+                <td data-label="Aantal bijen">{formatBeeCount(observation.beeCount)}</td>
+                <td data-label="Stuifmeel kleur">
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '4px',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {observation.pollenColor.split(', ').map((color, index) => {
+                      const colorData = pollenColors.find(c => c.hex === color);
+                      const plantNames =
+                        colorData?.species.join(', ') || 'Onbekend';
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            width: '16px',
+                            height: '16px',
+                            borderRadius: '50%',
+                            backgroundColor: color,
+                            border: '1px solid rgba(0, 0, 0, 0.2)',
+                            flexShrink: 0,
+                          }}
+                          title={`Mogelijke planten: ${plantNames}`}
+                        />
+                      );
+                    })}
+                  </div>
+                </td>
                 <td data-label="Notities">{observation.notes || '-'}</td>
                 {showHive && observation.hive && (
                   <td data-label="Kast">
@@ -56,21 +101,22 @@ export default function ObservationsTable({
                 )}
                 {showApiary && observation.hive?.apiary && (
                   <td data-label="Bijenstand">
-                    <Link href={`/admin/apiaries/${observation.hive.apiary.id}`}>
+                    <Link
+                      href={`/admin/apiaries/${observation.hive.apiary.id}`}
+                    >
                       {observation.hive.apiary.name}
                     </Link>
                   </td>
                 )}
                 {showUser && observation.hive?.apiary?.user && (
                   <td data-label="Eigenaar">
-                    <Link href={`/admin/users/${observation.hive.apiary.userId}`}>
+                    <Link
+                      href={`/admin/users/${observation.hive.apiary.userId}`}
+                    >
                       {observation.hive.apiary.user.name}
                     </Link>
                   </td>
                 )}
-                <td data-label="Aangemaakt">
-                  {new Date(observation.createdAt).toLocaleDateString('nl-BE')}
-                </td>
               </tr>
             ))}
           </tbody>
