@@ -29,7 +29,6 @@ export default async function AccountApiaryHivePage({
   if (!hive) {
     notFound();
   }
-  const apiaryId = hive.apiary.id;
   const searchParamsResult = await searchParams;
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
   const totalObservations = await prisma.observation.count({
@@ -39,8 +38,20 @@ export default async function AccountApiaryHivePage({
   const totalPages = Math.ceil(totalObservations / observationsPerPage);
   const observations = await prisma.observation.findMany({
     where: { hiveId: parseInt(hiveId) },
+    include: {
+      hive: {
+        include: {
+          apiary: {
+            include: {
+              user: true,
+            },
+          },
+        },
+      },
+    },
     skip: (currentPage - 1) * observationsPerPage,
     take: observationsPerPage,
+    orderBy: { createdAt: 'desc' },
   });
 
   return (
@@ -103,71 +114,6 @@ export default async function AccountApiaryHivePage({
 
           {observations.length > 0 ? (
             <>
-              {/* <div className="grid grid-three-columns">
-                {observations.map(obs => (
-                  <Link
-                    key={obs.id}
-                    href={`/observations/${obs.id}`}
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <div className="card">
-                      <p className="card__category">Observatie</p>
-                      <h3 className="heading-tertiary">
-                        {new Date(obs.createdAt).toLocaleDateString('nl-BE', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric',
-                        })}
-                      </h3>
-                      <p className="card__date">
-                        {new Date(obs.createdAt).toLocaleTimeString('nl-BE', {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </p>
-                      <div className="card__divider">
-                        <p className="card__label">Bijenstand</p>
-                        <p className="card__value">{hive.apiary.name}</p>
-                        <p className="card__label">Kast</p>
-                        <p className="card__value">{hive.name}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div> */}
-
-              {/* {totalPages > 1 && (
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: 'var(--space-3)',
-                    marginTop: 'var(--space-12)',
-                  }}
-                >
-                  {currentPage > 1 && (
-                    <Link href={`/hives/${hiveId}?page=${currentPage - 1}`}>
-                      <button className="btn btn--secondary">← Vorige</button>
-                    </Link>
-                  )}
-                  <span
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      padding: '0 var(--space-4)',
-                      fontSize: '0.875rem',
-                      color: 'var(--color-text-light)',
-                    }}
-                  >
-                    Pagina {currentPage} van {totalPages}
-                  </span>
-                  {currentPage < totalPages && (
-                    <Link href={`/hives/${hiveId}?page=${currentPage + 1}`}>
-                      <button className="btn btn--secondary">Volgende →</button>
-                    </Link>
-                  )}
-                </div>
-              )} */}
               <section className="section ">
                 <div className="container">
                   <ObservationsFilter
