@@ -24,6 +24,8 @@ export default function ObservationForm({
   const [tooManyBees, setTooManyBees] = useState(false);
   const [pollenColor, setPollenColor] = useState('');
   const [pollenAmount, setPollenAmount] = useState('');
+  const [weatherCondition, setWeatherCondition] = useState('');
+  const [temperature, setTemperature] = useState('');
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
@@ -53,6 +55,8 @@ export default function ObservationForm({
         }
         setPollenColor(data.pollenColor);
         setPollenAmount(data.pollenAmount || '');
+        setWeatherCondition(data.weatherCondition || '');
+        setTemperature(data.temperature?.toString() || '');
         setNotes(data.notes || '');
       } else {
         console.error('Failed to fetch hive data');
@@ -150,6 +154,8 @@ export default function ObservationForm({
       beeCount: tooManyBees ? -1 : parseInt(beeCount),
       pollenColor,
       pollenAmount,
+      weatherCondition,
+      temperature: temperature ? parseFloat(temperature) : null,
       notes: notes || '',
       ...(!initialObservation && { hiveId: parseInt(finalHiveId) }),
     };
@@ -480,6 +486,179 @@ export default function ObservationForm({
             </div>
           )}
           <input type="hidden" name="pollenAmount" value={pollenAmount} />
+        </div>
+        <div className="form__group">
+          <h3 className="form__section-title">Observatie - Weer</h3>
+          <p className="form__instructions">
+            Noteer de weersomstandigheden tijdens de observatie voor betere context.
+          </p>
+          <label className="form__label">Weersomstandigheden *</label>
+          <div className="form__radio-group">
+            <button
+              type="button"
+              className={`btn ${
+                weatherCondition === 'SUNNY' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  weatherCondition === 'SUNNY'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  weatherCondition === 'SUNNY' ? 'white' : 'var(--color-text)',
+                border:
+                  weatherCondition === 'SUNNY'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setWeatherCondition('SUNNY');
+                if (fieldErrors?.weatherCondition) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { weatherCondition, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              ☀️ Zonnig
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                weatherCondition === 'PARTLY_CLOUDY' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  weatherCondition === 'PARTLY_CLOUDY'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  weatherCondition === 'PARTLY_CLOUDY' ? 'white' : 'var(--color-text)',
+                border:
+                  weatherCondition === 'PARTLY_CLOUDY'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setWeatherCondition('PARTLY_CLOUDY');
+                if (fieldErrors?.weatherCondition) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { weatherCondition, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              ⛅ Half bewolkt
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                weatherCondition === 'CLOUDY' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  weatherCondition === 'CLOUDY'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  weatherCondition === 'CLOUDY' ? 'white' : 'var(--color-text)',
+                border:
+                  weatherCondition === 'CLOUDY'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setWeatherCondition('CLOUDY');
+                if (fieldErrors?.weatherCondition) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { weatherCondition, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              ☁️ Bewolkt
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                weatherCondition === 'RAINY' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  weatherCondition === 'RAINY'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  weatherCondition === 'RAINY' ? 'white' : 'var(--color-text)',
+                border:
+                  weatherCondition === 'RAINY'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setWeatherCondition('RAINY');
+                if (fieldErrors?.weatherCondition) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { weatherCondition, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              🌧️ Regenachtig
+            </button>
+          </div>
+          {fieldErrors?.weatherCondition && (
+            <div className="form-error">
+              {fieldErrors.weatherCondition.map((error, i) => (
+                <p key={i}>{error}</p>
+              ))}
+            </div>
+          )}
+          
+          <label htmlFor="temperature" className="form__label" style={{ marginTop: 'var(--space-6)' }}>
+            Temperatuur (optioneel)
+          </label>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+            <input
+              type="number"
+              id="temperature"
+              value={temperature}
+              onChange={e => {
+                setTemperature(e.target.value);
+                if (fieldErrors?.temperature) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { temperature, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+              className="form__input"
+              placeholder="20"
+              min="-20"
+              max="50"
+              step="0.5"
+              style={{ width: '120px' }}
+            />
+            <span>°C</span>
+          </div>
+          {fieldErrors?.temperature && (
+            <div className="form-error">
+              {fieldErrors.temperature.map((error, i) => (
+                <p key={i}>{error}</p>
+              ))}
+            </div>
+          )}
+          <input type="hidden" name="weatherCondition" value={weatherCondition} />
+          <input type="hidden" name="temperature" value={temperature} />
         </div>
         <div className="form__group">
           <h3 className="form__section-title">Aanvullende observaties</h3>
