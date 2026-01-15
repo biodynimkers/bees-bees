@@ -37,7 +37,18 @@ export default async function AccountApiariesPage({
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries} {totalApiaries === 1 ? 'locatie' : 'locaties'})</h1>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
+            <div>
+              <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries} {totalApiaries === 1 ? 'locatie' : 'locaties'})</h1>
+            </div>
+            <div className="page-header__actions">
+              <Link href="/apiaries/new">
+                <button className="btn btn--secondary">
+                  + Nieuwe bijenstand
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -45,21 +56,6 @@ export default async function AccountApiariesPage({
         <div className="container">
           {apiaries.length > 0 ? (
             <>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-8)" }}>
-                <h2 className="heading-secondary" style={{ 
-                  fontFamily: "var(--font-display)",
-                  fontSize: "2rem",
-                  fontWeight: "400"
-                }}>
-                  Mijn bijenstanden
-                </h2>
-                <Link href="/apiaries/new">
-                  <button className="btn btn--secondary">
-                    + Nieuwe bijenstand
-                  </button>
-                </Link>
-              </div>
-
               <div className="grid grid-two-columns">
                 {apiaries.map(apiary => (
                   <Link
@@ -68,21 +64,16 @@ export default async function AccountApiariesPage({
                     style={{ textDecoration: 'none' }}
                   >
                     <div className="card">
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "var(--space-4)" }}>
-                        <h3 className="heading-tertiary" style={{ color: "white", background: "var(--color-primary)", padding: "var(--space-2) var(--space-3)", borderRadius: "4px" }}>{apiary.name}</h3>
-                        <span style={{ 
-                          fontSize: "0.875rem",
-                          padding: "var(--space-2) var(--space-3)",
-                          background: "var(--color-primary)",
-                          color: "white",
-                          borderRadius: "4px"
-                        }}>
-                          {apiary.hives.length} {apiary.hives.length === 1 ? 'kast' : 'kasten'}
-                        </span>
-                      </div>
-                      <p className="card__text">
-                        {apiary.latitude?.toFixed(5)}, {apiary.longitude?.toFixed(5)}
+                      <p className="card__category">
+                        Bijenstand
                       </p>
+                      <h3 className="heading-tertiary">
+                        {apiary.name}
+                      </h3>
+                      <div className="card__divider">
+                        <p className="card__label">Kasten</p>
+                        <p className="card__value">{apiary.hives.length} {apiary.hives.length === 1 ? 'kast' : 'kasten'}</p>
+                      </div>
                     </div>
                   </Link>
                 ))}

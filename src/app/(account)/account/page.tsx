@@ -135,10 +135,6 @@ export default async function AccountPage() {
         <>
           <Section variant="alternate">
             <div className="container">
-              <SectionHeader>
-                <h2 className="heading-secondary">Uw overzicht</h2>
-              </SectionHeader>
-
               <SectionContent grid="three">
                 <Link href="/apiaries" className="card card--stat">
                   <span className="number-large">{totalApiaries}</span>
@@ -163,10 +159,6 @@ export default async function AccountPage() {
 
           <Section>
             <div className="container">
-              <SectionHeader>
-                <h2 className="heading-secondary">Snelle acties</h2>
-              </SectionHeader>
-
               <SectionContent grid="three">
                 <Link href="/apiaries/new" className="card card--action">
                   <span className="card__category">Toevoegen</span>

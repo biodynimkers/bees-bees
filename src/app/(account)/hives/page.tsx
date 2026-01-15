@@ -51,7 +51,18 @@ export default async function AccountHivesPage({
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <h1 className="heading-primary">Mijn kasten ({totalHives} {totalHives === 1 ? 'kast' : 'kasten'})</h1>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
+            <div>
+              <h1 className="heading-primary">Mijn kasten ({totalHives} {totalHives === 1 ? 'kast' : 'kasten'})</h1>
+            </div>
+            <div className="page-header__actions">
+              <Link href="/hives/new">
+                <button className="btn btn--secondary">
+                  + Nieuwe kast
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -59,17 +70,6 @@ export default async function AccountHivesPage({
         <div className="container">
           {hives.length > 0 ? (
             <>
-              <div className="section-header">
-                <h2 className="heading-secondary">
-                  Overzicht
-                </h2>
-                <Link href="/hives/new">
-                  <button className="btn btn--secondary">
-                    + Nieuwe kast
-                  </button>
-                </Link>
-              </div>
-
               <div className="grid grid-three-columns">
                 {hives.map(hive => (
                   <Link
