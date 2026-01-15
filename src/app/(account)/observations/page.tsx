@@ -97,112 +97,28 @@ export default async function AccountObservationsPage(searchParams: {
       <section className="section ">
         <div className="container">
           {observations.length > 0 ? (
-            <>
-              <div className="section-header">
-                <h2 className="heading-secondary">
-                  Overzicht
-                </h2>
-                <Link href="/observations/new">
-                  <button className="btn btn--secondary">
-                    + Nieuwe waarneming
-                  </button>
-                </Link>
-              </div>
+        <>
+          <div className="section-header">
+            <h2 className="heading-secondary">
+              Overzicht
+            </h2>
+            <Link href="/observations/new">
+              <button className="btn btn--secondary">
+                + Nieuwe waarneming
+              </button>
+            </Link>
+          </div>
 
-            //   <div className="grid grid-three-columns">
-            //     {observations.map(observation => (
-            //       <Link
-            //         key={observation.id}
-            //         href={`/observations/${observation.id}`}
-            //         style={{ textDecoration: 'none' }}
-            //       >
-            //         <div className="card">
-            //           <p className="card__category">Observatie</p>
-            //           <h3 className="heading-tertiary">
-            //             {new Date(observation.createdAt).toLocaleDateString(
-            //               'nl-BE',
-            //               {
-            //                 day: 'numeric',
-            //                 month: 'long',
-            //                 year: 'numeric',
-            //               }
-            //             )}
-            //           </h3>
-            //           <p className="card__date">
-            //             {new Date(observation.createdAt).toLocaleTimeString(
-            //               'nl-BE',
-            //               {
-            //                 hour: '2-digit',
-            //                 minute: '2-digit',
-            //               }
-            //             )}
-            //           </p>
-            //           <div className="card__divider">
-            //             <p className="card__label">Bijenstand</p>
-            //             <p className="card__value">
-            //               {observation.hive.apiary.name}
-            //             </p>
-            //             <p className="card__label">Kast</p>
-            //             <p className="card__value">{observation.hive.name}</p>
-            //           </div>
-            //         </div>
-            //       </Link>
-            //     ))}
-            //   </div>
-
-            //   {totalPages > 1 && (
-            //     <div
-            //       style={{
-            //         display: 'flex',
-            //         justifyContent: 'center',
-            //         alignItems: 'center',
-            //         gap: 'var(--space-4)',
-            //         marginTop: 'var(--space-12)',
-            //       }}
-            //     >
-            //       <Link
-            //         href={`/observations?page=${
-            //           currentPage > 1 ? currentPage - 1 : 1
-            //         }`}
-            //       >
-            //         <button
-            //           className="btn btn--secondary"
-            //           disabled={currentPage === 1}
-            //         >
-            //           Vorige
-            //         </button>
-            //       </Link>
-            //       <span style={{ color: 'var(--color-text-light)' }}>
-            //         Pagina {currentPage} van {totalPages}
-            //       </span>
-            //       <Link
-            //         href={`/observations?page=${
-            //           currentPage < totalPages ? currentPage + 1 : totalPages
-            //         }`}
-            //       >
-            //         <button
-            //           className="btn btn--secondary"
-            //           disabled={currentPage === totalPages}
-            //         >
-            //           Volgende
-            //         </button>
-            //       </Link>
-            //     </div>
-            //   )}
-            // </>
-            <section className="section ">
-              <div className="container">
-                <ObservationsFilter
-                  observations={observations}
-                  showHive={true}
-                  showApiary={true}
-                  showUser={false}
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  currentPath={`/observations`}
-                />
-              </div>
-            </section>
+          <ObservationsFilter
+            observations={observations}
+            showHive={true}
+            showApiary={true}
+            showUser={false}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            currentPath={`/observations`}
+          />
+        </>
           ) : (
             <div style={{ textAlign: 'center', padding: 'var(--space-16) 0' }}>
               <h2
