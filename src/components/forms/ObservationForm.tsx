@@ -23,6 +23,9 @@ export default function ObservationForm({
   const [beeCount, setBeeCount] = useState('');
   const [tooManyBees, setTooManyBees] = useState(false);
   const [pollenColor, setPollenColor] = useState('');
+  const [pollenAmount, setPollenAmount] = useState('');
+  const [weatherCondition, setWeatherCondition] = useState('');
+  const [temperature, setTemperature] = useState('');
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
@@ -51,6 +54,9 @@ export default function ObservationForm({
           setTooManyBees(false);
         }
         setPollenColor(data.pollenColor);
+        setPollenAmount(data.pollenAmount || '');
+        setWeatherCondition(data.weatherCondition || '');
+        setTemperature(data.temperature?.toString() || '');
         setNotes(data.notes || '');
       } else {
         console.error('Failed to fetch hive data');
@@ -147,6 +153,9 @@ export default function ObservationForm({
     const observationData = {
       beeCount: tooManyBees ? -1 : parseInt(beeCount),
       pollenColor,
+      pollenAmount,
+      weatherCondition,
+      temperature: temperature ? parseFloat(temperature) : null,
       notes: notes || '',
       ...(!initialObservation && { hiveId: parseInt(finalHiveId) }),
     };
@@ -325,7 +334,9 @@ export default function ObservationForm({
                 e.preventDefault(); // Block everything else
               }}
               className="form__input bee-counter__input"
-              placeholder={tooManyBees ? "Te veel om te tellen" : "Geschat aantal bijen"}
+              placeholder={
+                tooManyBees ? 'Te veel om te tellen' : 'Geschat aantal bijen'
+              }
               required
               inputMode="numeric"
             />
@@ -334,7 +345,7 @@ export default function ObservationForm({
             <input
               type="checkbox"
               checked={tooManyBees}
-              onChange={(e) => {
+              onChange={e => {
                 setTooManyBees(e.target.checked);
                 if (e.target.checked) {
                   setBeeCount(''); // Clear input when too many is selected
@@ -351,11 +362,10 @@ export default function ObservationForm({
         <div className="form__group">
           <h3 className="form__section-title">Observatie - Stuifmeelkleur</h3>
           <p className="form__instructions">
-            Start opnieuw de timer en observeer 30 seconden de stuifmeelkleuren
-            op de bijen. Selecteer maximaal 3 verschillende kleuren, of kies
-            'Geen' indien geen stuifmeel zichtbaar is.
+            Neem even de tij om de stuifmeelkleuren op de bijen te observeren.
+            Selecteer maximaal 3 verschillende kleuren, of kies 'Geen' indien
+            geen stuifmeel zichtbaar is.
           </p>
-          <Timer />
           <label className="form__label">Stuifmeelkleur *</label>
           <ColorPicker
             pollenColors={pollenColors}
@@ -371,6 +381,284 @@ export default function ObservationForm({
             </div>
           )}
           <input type="hidden" name="pollenColor" value={pollenColor} />
+        </div>
+        <div className="form__group">
+          <label className="form__label">Hoeveelheid stuifmeel *</label>
+          <p className="form__instructions">
+            Geef aan hoeveel stuifmeel je gemiddeld op de bijen ziet.
+          </p>
+          <div className="form__radio-group">
+            <button
+              type="button"
+              className={`btn ${
+                pollenAmount === 'WEINIG' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  pollenAmount === 'WEINIG'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  pollenAmount === 'WEINIG' ? 'white' : 'var(--color-text)',
+                border:
+                  pollenAmount === 'WEINIG'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setPollenAmount('WEINIG');
+                if (fieldErrors?.pollenAmount) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { pollenAmount, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              Weinig
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                pollenAmount === 'GEMIDDELD' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  pollenAmount === 'GEMIDDELD'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  pollenAmount === 'GEMIDDELD' ? 'white' : 'var(--color-text)',
+                border:
+                  pollenAmount === 'GEMIDDELD'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setPollenAmount('GEMIDDELD');
+                if (fieldErrors?.pollenAmount) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { pollenAmount, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              Gemiddeld
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                pollenAmount === 'VEEL' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  pollenAmount === 'VEEL'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color: pollenAmount === 'VEEL' ? 'white' : 'var(--color-text)',
+                border:
+                  pollenAmount === 'VEEL'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setPollenAmount('VEEL');
+                if (fieldErrors?.pollenAmount) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { pollenAmount, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              Veel
+            </button>
+          </div>
+          {fieldErrors?.pollenAmount && (
+            <div className="form-error">
+              {fieldErrors.pollenAmount.map((error, i) => (
+                <p key={i}>{error}</p>
+              ))}
+            </div>
+          )}
+          <input type="hidden" name="pollenAmount" value={pollenAmount} />
+        </div>
+        <div className="form__group">
+          <h3 className="form__section-title">Observatie - Weer</h3>
+          <p className="form__instructions">
+            Noteer de weersomstandigheden tijdens de observatie voor betere context.
+          </p>
+          <label className="form__label">Weersomstandigheden *</label>
+          <div className="form__radio-group">
+            <button
+              type="button"
+              className={`btn ${
+                weatherCondition === 'SUNNY' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  weatherCondition === 'SUNNY'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  weatherCondition === 'SUNNY' ? 'white' : 'var(--color-text)',
+                border:
+                  weatherCondition === 'SUNNY'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setWeatherCondition('SUNNY');
+                if (fieldErrors?.weatherCondition) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { weatherCondition, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              ☀️ Zonnig
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                weatherCondition === 'PARTLY_CLOUDY' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  weatherCondition === 'PARTLY_CLOUDY'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  weatherCondition === 'PARTLY_CLOUDY' ? 'white' : 'var(--color-text)',
+                border:
+                  weatherCondition === 'PARTLY_CLOUDY'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setWeatherCondition('PARTLY_CLOUDY');
+                if (fieldErrors?.weatherCondition) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { weatherCondition, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              ⛅ Half bewolkt
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                weatherCondition === 'CLOUDY' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  weatherCondition === 'CLOUDY'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  weatherCondition === 'CLOUDY' ? 'white' : 'var(--color-text)',
+                border:
+                  weatherCondition === 'CLOUDY'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setWeatherCondition('CLOUDY');
+                if (fieldErrors?.weatherCondition) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { weatherCondition, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              ☁️ Bewolkt
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                weatherCondition === 'RAINY' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  weatherCondition === 'RAINY'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  weatherCondition === 'RAINY' ? 'white' : 'var(--color-text)',
+                border:
+                  weatherCondition === 'RAINY'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setWeatherCondition('RAINY');
+                if (fieldErrors?.weatherCondition) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { weatherCondition, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              🌧️ Regenachtig
+            </button>
+          </div>
+          {fieldErrors?.weatherCondition && (
+            <div className="form-error">
+              {fieldErrors.weatherCondition.map((error, i) => (
+                <p key={i}>{error}</p>
+              ))}
+            </div>
+          )}
+          
+          <label htmlFor="temperature" className="form__label" style={{ marginTop: 'var(--space-6)' }}>
+            Temperatuur (optioneel)
+          </label>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+            <input
+              type="number"
+              id="temperature"
+              value={temperature}
+              onChange={e => {
+                setTemperature(e.target.value);
+                if (fieldErrors?.temperature) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { temperature, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+              className="form__input"
+              placeholder="20"
+              min="-20"
+              max="50"
+              step="0.5"
+              style={{ width: '120px' }}
+            />
+            <span>°C</span>
+          </div>
+          {fieldErrors?.temperature && (
+            <div className="form-error">
+              {fieldErrors.temperature.map((error, i) => (
+                <p key={i}>{error}</p>
+              ))}
+            </div>
+          )}
+          <input type="hidden" name="weatherCondition" value={weatherCondition} />
+          <input type="hidden" name="temperature" value={temperature} />
         </div>
         <div className="form__group">
           <h3 className="form__section-title">Aanvullende observaties</h3>
