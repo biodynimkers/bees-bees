@@ -42,7 +42,7 @@ export default function ObservationForm({
 
   useEffect(() => {
     if (!initialObservation) return;
-    async function fetchHive() {
+    async function fetchObservation() {
       const res = await fetch(`/api/observations/${initialObservation}`);
       if (res.ok) {
         const data = await res.json();
@@ -53,16 +53,24 @@ export default function ObservationForm({
           setBeeCount(data.beeCount.toString());
           setTooManyBees(false);
         }
-        setPollenColor(data.pollenColor);
+
+        // Handle pollen color - convert string back to array
+        const pollenColorString = data.pollenColor || '';
+        const colorsArray = pollenColorString
+          .split(', ')
+          .filter((color: string) => color.trim() !== '');
+        setSelectedColors(colorsArray);
+        // Don't set pollenColor here - let useEffect handle it
+
         setPollenAmount(data.pollenAmount || '');
         setWeatherCondition(data.weatherCondition || '');
         setTemperature(data.temperature?.toString() || '');
         setNotes(data.notes || '');
       } else {
-        console.error('Failed to fetch hive data');
+        console.error('Failed to fetch observation data');
       }
     }
-    fetchHive();
+    fetchObservation();
   }, [initialObservation]);
 
   // Fetch hives when no hiveId is provided
@@ -490,7 +498,8 @@ export default function ObservationForm({
         <div className="form__group">
           <h3 className="form__section-title">Observatie - Weer</h3>
           <p className="form__instructions">
-            Noteer de weersomstandigheden tijdens de observatie voor betere context.
+            Noteer de weersomstandigheden tijdens de observatie voor betere
+            context.
           </p>
           <label className="form__label">Weersomstandigheden *</label>
           <div className="form__radio-group">
@@ -527,7 +536,9 @@ export default function ObservationForm({
             <button
               type="button"
               className={`btn ${
-                weatherCondition === 'PARTLY_CLOUDY' ? 'btn--primary' : 'btn--secondary'
+                weatherCondition === 'PARTLY_CLOUDY'
+                  ? 'btn--primary'
+                  : 'btn--secondary'
               }`}
               style={{
                 backgroundColor:
@@ -535,7 +546,9 @@ export default function ObservationForm({
                     ? 'var(--color-primary)'
                     : 'var(--color-gray-200)',
                 color:
-                  weatherCondition === 'PARTLY_CLOUDY' ? 'white' : 'var(--color-text)',
+                  weatherCondition === 'PARTLY_CLOUDY'
+                    ? 'white'
+                    : 'var(--color-text)',
                 border:
                   weatherCondition === 'PARTLY_CLOUDY'
                     ? '2px solid var(--color-primary)'
@@ -557,7 +570,9 @@ export default function ObservationForm({
             <button
               type="button"
               className={`btn ${
-                weatherCondition === 'CLOUDY' ? 'btn--primary' : 'btn--secondary'
+                weatherCondition === 'CLOUDY'
+                  ? 'btn--primary'
+                  : 'btn--secondary'
               }`}
               style={{
                 backgroundColor:
@@ -622,11 +637,21 @@ export default function ObservationForm({
               ))}
             </div>
           )}
-          
-          <label htmlFor="temperature" className="form__label" style={{ marginTop: 'var(--space-6)' }}>
+
+          <label
+            htmlFor="temperature"
+            className="form__label"
+            style={{ marginTop: 'var(--space-6)' }}
+          >
             Temperatuur (optioneel)
           </label>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'var(--space-3)',
+            }}
+          >
             <input
               type="number"
               id="temperature"
@@ -657,7 +682,11 @@ export default function ObservationForm({
               ))}
             </div>
           )}
-          <input type="hidden" name="weatherCondition" value={weatherCondition} />
+          <input
+            type="hidden"
+            name="weatherCondition"
+            value={weatherCondition}
+          />
           <input type="hidden" name="temperature" value={temperature} />
         </div>
         <div className="form__group">
