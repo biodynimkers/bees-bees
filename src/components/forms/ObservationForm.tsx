@@ -23,6 +23,7 @@ export default function ObservationForm({
   const [beeCount, setBeeCount] = useState('');
   const [tooManyBees, setTooManyBees] = useState(false);
   const [pollenColor, setPollenColor] = useState('');
+  const [pollenAmount, setPollenAmount] = useState('');
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
@@ -51,6 +52,7 @@ export default function ObservationForm({
           setTooManyBees(false);
         }
         setPollenColor(data.pollenColor);
+        setPollenAmount(data.pollenAmount || '');
         setNotes(data.notes || '');
       } else {
         console.error('Failed to fetch hive data');
@@ -147,6 +149,7 @@ export default function ObservationForm({
     const observationData = {
       beeCount: tooManyBees ? -1 : parseInt(beeCount),
       pollenColor,
+      pollenAmount,
       notes: notes || '',
       ...(!initialObservation && { hiveId: parseInt(finalHiveId) }),
     };
@@ -325,7 +328,9 @@ export default function ObservationForm({
                 e.preventDefault(); // Block everything else
               }}
               className="form__input bee-counter__input"
-              placeholder={tooManyBees ? "Te veel om te tellen" : "Geschat aantal bijen"}
+              placeholder={
+                tooManyBees ? 'Te veel om te tellen' : 'Geschat aantal bijen'
+              }
               required
               inputMode="numeric"
             />
@@ -334,7 +339,7 @@ export default function ObservationForm({
             <input
               type="checkbox"
               checked={tooManyBees}
-              onChange={(e) => {
+              onChange={e => {
                 setTooManyBees(e.target.checked);
                 if (e.target.checked) {
                   setBeeCount(''); // Clear input when too many is selected
@@ -351,11 +356,10 @@ export default function ObservationForm({
         <div className="form__group">
           <h3 className="form__section-title">Observatie - Stuifmeelkleur</h3>
           <p className="form__instructions">
-            Start opnieuw de timer en observeer 30 seconden de stuifmeelkleuren
-            op de bijen. Selecteer maximaal 3 verschillende kleuren, of kies
-            'Geen' indien geen stuifmeel zichtbaar is.
+            Neem even de tij om de stuifmeelkleuren op de bijen te observeren.
+            Selecteer maximaal 3 verschillende kleuren, of kies 'Geen' indien
+            geen stuifmeel zichtbaar is.
           </p>
-          <Timer />
           <label className="form__label">Stuifmeelkleur *</label>
           <ColorPicker
             pollenColors={pollenColors}
@@ -371,6 +375,111 @@ export default function ObservationForm({
             </div>
           )}
           <input type="hidden" name="pollenColor" value={pollenColor} />
+        </div>
+        <div className="form__group">
+          <label className="form__label">Hoeveelheid stuifmeel *</label>
+          <p className="form__instructions">
+            Geef aan hoeveel stuifmeel je gemiddeld op de bijen ziet.
+          </p>
+          <div className="form__radio-group">
+            <button
+              type="button"
+              className={`btn ${
+                pollenAmount === 'WEINIG' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  pollenAmount === 'WEINIG'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  pollenAmount === 'WEINIG' ? 'white' : 'var(--color-text)',
+                border:
+                  pollenAmount === 'WEINIG'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setPollenAmount('WEINIG');
+                if (fieldErrors?.pollenAmount) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { pollenAmount, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              Weinig
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                pollenAmount === 'GEMIDDELD' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  pollenAmount === 'GEMIDDELD'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color:
+                  pollenAmount === 'GEMIDDELD' ? 'white' : 'var(--color-text)',
+                border:
+                  pollenAmount === 'GEMIDDELD'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setPollenAmount('GEMIDDELD');
+                if (fieldErrors?.pollenAmount) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { pollenAmount, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              Gemiddeld
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                pollenAmount === 'VEEL' ? 'btn--primary' : 'btn--secondary'
+              }`}
+              style={{
+                backgroundColor:
+                  pollenAmount === 'VEEL'
+                    ? 'var(--color-primary)'
+                    : 'var(--color-gray-200)',
+                color: pollenAmount === 'VEEL' ? 'white' : 'var(--color-text)',
+                border:
+                  pollenAmount === 'VEEL'
+                    ? '2px solid var(--color-primary)'
+                    : '2px solid var(--color-gray-300)',
+              }}
+              onClick={() => {
+                setPollenAmount('VEEL');
+                if (fieldErrors?.pollenAmount) {
+                  setFieldErrors(prev => {
+                    if (!prev) return null;
+                    const { pollenAmount, ...rest } = prev;
+                    return Object.keys(rest).length ? rest : null;
+                  });
+                }
+              }}
+            >
+              Veel
+            </button>
+          </div>
+          {fieldErrors?.pollenAmount && (
+            <div className="form-error">
+              {fieldErrors.pollenAmount.map((error, i) => (
+                <p key={i}>{error}</p>
+              ))}
+            </div>
+          )}
+          <input type="hidden" name="pollenAmount" value={pollenAmount} />
         </div>
         <div className="form__group">
           <h3 className="form__section-title">Aanvullende observaties</h3>

@@ -265,12 +265,12 @@ app/admin/
   - [x] inputveld limiteren tot drie kleuren
   - [x] De geselecteerde kleuren tonen in het observatiekaartje, bijvoorbeeld als gekleurde bolletjes of blokjes.
   - [x] Hover-functionaliteit
-  - [x] Klikbare legende of een infoknop die de plantenlijst per kleur uitlegt.TODO
+  - [x] Klikbare legende of een infoknop die de plantenlijst per kleur uitlegt.
 - [ ] Uitleg tussen de velden in stappen!Layout moet beter!
 - [ ] Bijenteller met de velden versmelten
 - [ ] Enkel binnenkomende bijen
-- [ ] Tijd en datum bovenaan het formulier: 'Deze waarneming wordt gedaan op [uur en dag]'
-- [ ] Stuifmeel in drie maten: weinig, gemiddeld of veel
+- [ ] Tijd en datum bovenaan het formulier: 'Deze waarneming wordt gedaan op [uur en dag]'TODO
+- [ ] Stuifmeel in drie maten: weinig, gemiddeld of veel TODO
 - [x] Bij veel bijen, die niet te tellen zijn: klik op optie 'teveel om te tellen'
 - [x] Knop: 'Geen stuifmeel waargenomen'
 - [ ] Algemene waarnemingen: mini text

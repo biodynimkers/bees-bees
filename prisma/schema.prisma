@@ -51,14 +51,15 @@ model Hive {
 }
 
 model Observation {
-  id          Int      @id @default(autoincrement())
-  hiveId      Int
-  hive        Hive     @relation(fields: [hiveId], references: [id], onDelete: Cascade)
-  beeCount    Int
-  pollenColor String
-  notes       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           Int          @id @default(autoincrement())
+  hiveId       Int
+  hive         Hive         @relation(fields: [hiveId], references: [id], onDelete: Cascade)
+  beeCount     Int
+  pollenColor  String
+  pollenAmount PollenAmount @default(GEMIDDELD)
+  notes        String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 }
 
 model Plant {
@@ -84,6 +85,12 @@ model ApiaryPlant {
   customEnd   Int?
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+}
+
+enum PollenAmount {
+  WEINIG
+  GEMIDDELD
+  VEEL
 }
 
 enum ForageIntensity {

@@ -12,10 +12,11 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { hiveId, beeCount, pollenColor, notes } = body;
+    const { hiveId, beeCount, pollenColor, pollenAmount, notes } = body;
     const validationResult = newObservationSchema.safeParse({
       hiveId,
       beeCount,
+      pollenAmount,
       pollenColor,
       notes,
     });
@@ -51,6 +52,7 @@ export async function POST(request: NextRequest) {
         hiveId: validationResult.data.hiveId!,
         beeCount: validationResult.data.beeCount!,
         pollenColor: validationResult.data.pollenColor,
+        pollenAmount: validationResult.data.pollenAmount,
         notes: validationResult.data.notes || null,
       },
     });

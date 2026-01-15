@@ -46,11 +46,14 @@ export const newObservationSchema = z.object({
   hiveId: z
     .number()
     .optional() // needed to allow refine to work properly
-    .refine(val => val !== undefined, { message: 'Hive ID is vereist.' }),
+    .refine(val => val !== undefined, { message: 'Kast ID is vereist.' }),
   beeCount: z
     .number()
     .optional()
     .refine(val => val !== undefined, { message: 'Bee count is vereist.' }),
+  pollenAmount: z.enum(['WEINIG', 'GEMIDDELD', 'VEEL'], {
+    message: 'Pollen amount is vereist.',
+  }),
   pollenColor: z.string().min(1, 'Pollen color is vereist.'),
   notes: z.string().optional(),
 });
@@ -59,6 +62,9 @@ export const updateObservationSchema = z.object({
     .number()
     .optional()
     .refine(val => val !== undefined, { message: 'Bee count is vereist.' }),
+  pollenAmount: z.enum(['WEINIG', 'GEMIDDELD', 'VEEL'], {
+    message: 'Pollen amount is vereist.',
+  }),
   pollenColor: z.string().min(1, 'Pollen color is vereist.'),
   notes: z.string().optional(),
 });
