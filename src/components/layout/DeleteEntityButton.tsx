@@ -1,5 +1,5 @@
 'use client';
-import RemoveButton from '@/components/ui/RemoveButton';
+import RemoveButton from '@/components/shared/RemoveButton';
 import { useRouter } from 'next/navigation';
 import { deleteEntity } from '@/app/actions/deleteEntity';
 type DeleteEntityButtonProps = {
