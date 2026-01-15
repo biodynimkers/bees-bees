@@ -39,11 +39,14 @@ export async function PUT(
       return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
     }
     const body = await req.json();
-    const { beeCount, pollenColor, notes } = body;
+    const { beeCount, pollenColor, pollenAmount, weatherCondition, temperature, notes } = body;
 
     const validationResult = updateObservationSchema.safeParse({
       beeCount: parseInt(beeCount),
       pollenColor,
+      pollenAmount,
+      weatherCondition,
+      temperature: temperature ? parseFloat(temperature) : null,
       notes,
     });
     if (!validationResult.success) {
@@ -79,15 +82,18 @@ export async function PUT(
     ) {
       return NextResponse.json({ error: 'Niet gemachtigd' }, { status: 403 });
     }
-    const updatedApiary = await prisma.observation.update({
+    const updatedObservation = await prisma.observation.update({
       where: { id },
       data: {
-        beeCount,
-        pollenColor,
-        notes,
+        beeCount: validationResult.data.beeCount!,
+        pollenColor: validationResult.data.pollenColor,
+        pollenAmount: validationResult.data.pollenAmount,
+        weatherCondition: validationResult.data.weatherCondition,
+        temperature: validationResult.data.temperature,
+        notes: validationResult.data.notes || null,
       },
     });
-    return NextResponse.json(updatedApiary, { status: 200 });
+    return NextResponse.json(updatedObservation, { status: 200 });
   } catch (error) {
     console.error('Error updating apiary:', error);
     return NextResponse.json(
