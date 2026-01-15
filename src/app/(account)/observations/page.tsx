@@ -82,15 +82,7 @@ export default async function AccountObservationsPage(searchParams: {
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <h1 className="heading-primary">
-            Mijn waarnemingen ({totalObservations})
-          </h1>
-          {/* <p className="page-header__subtitle">
-          <h1 className="heading-primary">Mijn waarnemingen</h1>
-          <p className="page-header__subtitle">
-            {totalObservations}{' '}
-            {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}
-          </p> */}
+          <h1 className="heading-primary">Mijn waarnemingen ({totalObservations} {totalObservations === 1 ? 'waarneming' : 'waarnemingen'})</h1>
         </div>
       </section>
 

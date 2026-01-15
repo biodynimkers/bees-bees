@@ -65,19 +65,7 @@ export default async function AccountApiaryPage({
         <div className="container">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
             <div>
-              <h1 className="heading-primary">{apiary?.name}</h1>
-              <div className="page-header__meta">
-                <div className="page-header__meta-item">
-                  <span className="page-header__meta-label">Kasten</span>
-                  <span className="page-header__meta-value">{totalHives}</span>
-                </div>
-                <div className="page-header__meta-item">
-                  <span className="page-header__meta-label">Coördinaten</span>
-                  <span className="page-header__meta-value">
-                    {apiary?.latitude.toFixed(6)}, {apiary?.longitude.toFixed(6)}
-                  </span>
-                </div>
-              </div>
+              <h1 className="heading-primary">{apiary?.name} ({totalHives} {totalHives === 1 ? 'kast' : 'kasten'})</h1>
             </div>
             <div className="page-header__actions">
               <Link href={`/apiaries/${apiary?.id}/edit`}>

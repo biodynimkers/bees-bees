@@ -33,7 +33,7 @@ interface ApiaryMapProps {
 export default function ApiaryMap({ 
   latitude, 
   longitude, 
-  showGbifData = false 
+  showGbifData = false
 }: ApiaryMapProps) {
   const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
   const mapRef = useRef<any>(null);
@@ -364,7 +364,7 @@ export default function ApiaryMap({
                   color: isInBloom(selectedOccurrence) ? '#c2185b' : '#006600',
                   border: `2px solid ${isInBloom(selectedOccurrence) ? '#ff1493' : '#00ff00'}`,
                 }}>
-                  {isInBloom(selectedOccurrence) ? 'In bloei' : 'Niet in bloeiperiode'}
+                  {isInBloom(selectedOccurrence) ? 'In bloei' : 'Niet in bloei'}
                 </div>
 
                 {selectedOccurrence.family && (
@@ -444,11 +444,11 @@ export default function ApiaryMap({
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{ width: '14px', height: '14px', backgroundColor: '#ff1493', borderRadius: '50%', border: '2px solid white', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
-                  <span>In bloei (apr-sep)</span>
+                  <span>In bloei</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{ width: '14px', height: '14px', backgroundColor: '#00ff00', borderRadius: '50%', border: '2px solid white', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
-                  <span>Buiten bloeiperiode</span>
+                  <span>Niet in bloei</span>
                 </div>
               </div>
               

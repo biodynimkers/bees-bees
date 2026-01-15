@@ -37,10 +37,7 @@ export default async function AccountApiariesPage({
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <h1 className="heading-primary">Mijn bijenstanden</h1>
-          <p className="page-header__subtitle">
-            {totalApiaries} {totalApiaries === 1 ? 'locatie' : 'locaties'}
-          </p>
+          <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries} {totalApiaries === 1 ? 'locatie' : 'locaties'})</h1>
         </div>
       </section>
 

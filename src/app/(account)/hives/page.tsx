@@ -51,10 +51,7 @@ export default async function AccountHivesPage({
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <h1 className="heading-primary">Mijn kasten</h1>
-          <p className="page-header__subtitle">
-            {totalHives} {totalHives === 1 ? 'kast' : 'kasten'}
-          </p>
+          <h1 className="heading-primary">Mijn kasten ({totalHives} {totalHives === 1 ? 'kast' : 'kasten'})</h1>
         </div>
       </section>
 

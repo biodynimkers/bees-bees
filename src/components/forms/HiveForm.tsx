@@ -225,7 +225,7 @@ export default function HiveForm({
           className="form__select"
           value={colonyType}
           onChange={e => {
-            setName(e.target.value);
+            setColonyType(e.target.value);
             if (fieldErrors?.colonyType) {
               setFieldErrors(prev => {
                 if (!prev) return null;
