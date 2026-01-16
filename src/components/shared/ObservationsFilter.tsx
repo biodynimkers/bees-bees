@@ -92,7 +92,7 @@ export default function ObservationsFilter({
           <SearchInput
             value={search}
             onChange={handleSearchChange}
-            placeholder="Zoek op notities of kast..."
+            placeholder="Zoek op bijenstand, kast of notities"
           />
           <select
             value={colorFilter}

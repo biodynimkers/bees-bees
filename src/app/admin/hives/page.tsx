@@ -11,7 +11,7 @@ export default async function AdminHivesPage({
   await requireAdmin();
   const searchParamsResult = await searchParams;
   const currentPage = Number(searchParamsResult?.page ?? '1');
-  const hivesPerPage = 50;
+  const hivesPerPage = 2;
   const totalHives = await prisma.hive.count();
   const totalPages = Math.ceil(totalHives / hivesPerPage);
 
@@ -43,7 +43,7 @@ export default async function AdminHivesPage({
           <div className="page-header__top">
             <h1 className="heading-primary">Alle kasten</h1>
             <p className="page-header__subtitle">
-              Totaal: {totalHives} {totalHives === 1 ? "kast" : "kasten"}
+              Totaal: {totalHives} {totalHives === 1 ? 'kast' : 'kasten'}
             </p>
           </div>
         </div>
