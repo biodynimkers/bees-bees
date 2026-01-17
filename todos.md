@@ -146,7 +146,7 @@ app/admin/
 - [ ] de usersfilter nog aanpassen TODO
 - [x] de observatiefilters zowel in admin als account routes en onder hiveId, dus 3!
 - [x] in observatiefilter nog debounce en kruisje plaatsen
-- [x] de apiaries en hives filters in de admin route nog aanpassen
+- [x] de apiaries en hives filters in de admin route nog aanpassen TODO
 
 ### 6. Openbare Pagina's
 
