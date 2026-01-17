@@ -144,6 +144,9 @@ app/admin/
 - [ ] links in de tabellen gebruiksvriendelijk maken (kleur?, vet?)
 - [ ] de inline styles nog vervangen
 - [ ] de usersfilter nog aanpassen
+- [x] de observatiefilters zowel in admin als account routes en onder hiveId, dus 3!
+- [x] in observatiefilter nog debounce en kruisje plaatsen
+- [ ] de apiaries en hives filters in de admin route nog aanpassen
 
 ### 6. Openbare Pagina's
 
@@ -253,7 +256,7 @@ app/admin/
 
 ### Wijzigingen en toevoegingen observatieformulier
 
-- [ ] Veld 'kast' boven de teller
+- [x] Veld 'kast' boven de teller
 - [ ] Vanuit snelle acties/observaties: tekstje 'Welke kast wil je observeren'
 - [ ] Vanuit kast: geen inputveld, gewoon tekst bovenaan
 - [x] Kleurkiezer voor het stuifmeelveld
@@ -269,14 +272,14 @@ app/admin/
 - [ ] Bijenteller met de velden versmelten
 - [ ] Enkel binnenkomende bijen
 - [ ] Tijd en datum bovenaan het formulier: 'Deze waarneming wordt gedaan op [uur en dag]'TODO
-- [ ] Stuifmeel in drie maten: weinig, gemiddeld of veel TODO
+- [x] Stuifmeel in drie maten: weinig, gemiddeld of veel TODO
 - [x] Bij veel bijen, die niet te tellen zijn: klik op optie 'teveel om te tellen'
 - [x] Knop: 'Geen stuifmeel waargenomen'
 - [ ] Algemene waarnemingen: mini text
-- [ ] Het weer toevoegen: weerbericht automatisch opnemen + lokale observatie mogelijk maken (regen, bewolkt, halfzon, zon en temperatuur)
+- [x] (Het weer toevoegen: weerbericht automatisch opnemen) + lokale observatie mogelijk maken (regen, bewolkt, halfzon, zon en temperatuur)
 - [ ] Automatische recording bij de notities
-- [ ] Alle namen 'observatie(s)' veranderen door waarneming(en)
-- [ ] Export functie van data! CSV?
+- [x] Alle namen 'observatie(s)' veranderen door waarneming(en)
+- [ ] Export functie van data! CSV?TODO
 - [ ] BUG indien geen waarnemingen op http://localhost:3000/admin/hives/34?returnUrl=%2Fadmin%2Fusers%2Fcmij5yzbh0000uks06vvfkvfq%2Fhives : ternary : 'nog geen observaties'
 
 ### 🎯 Eindresultaat

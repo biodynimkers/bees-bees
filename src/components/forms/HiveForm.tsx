@@ -218,7 +218,7 @@ export default function HiveForm({
 
       <div className="form__group">
         <label htmlFor="colonyType" className="form__label">
-          Type volk *
+          Variëteit
         </label>
         <select
           id="colonyType"
@@ -236,12 +236,11 @@ export default function HiveForm({
           }}
           required
         >
-          <option value="">-- Selecteer volk --</option>
+          <option value="">-- Selecteer variëteit --</option>
           <option value="Buckfast">Buckfast</option>
           <option value="Carnica">Carnica</option>
-          <option value="Italiaanse bij">Italiaanse bij</option>
-          <option value="Zwarte bij">Zwarte bij (Belgische)</option>
-          <option value="Hybride">Hybride</option>
+          <option value="mengeling">mengeling</option>
+          <option value="andere">andere</option>
           <option value="Onbekend">Onbekend</option>
         </select>
         {fieldErrors?.colonyType && (

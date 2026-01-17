@@ -25,13 +25,14 @@ export default function ObservationForm({
   const [pollenColor, setPollenColor] = useState('');
   const [pollenAmount, setPollenAmount] = useState('');
   const [weatherCondition, setWeatherCondition] = useState('');
-  const [temperature, setTemperature] = useState('');
+  const [temperature, setTemperature] = useState<number | ''>(20);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
   const [hives, setHives] = useState<
     Array<{ id: number; name: string; apiary: { name: string } }>
   >([]);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<Record<
@@ -163,7 +164,7 @@ export default function ObservationForm({
       pollenColor,
       pollenAmount,
       weatherCondition,
-      temperature: temperature ? parseFloat(temperature) : null,
+      temperature: temperature ? temperature : null,
       notes: notes || '',
       ...(!initialObservation && { hiveId: parseInt(finalHiveId) }),
     };
@@ -657,7 +658,9 @@ export default function ObservationForm({
               id="temperature"
               value={temperature}
               onChange={e => {
-                setTemperature(e.target.value);
+                setTemperature(
+                  e.target.value === '' ? '' : Number(e.target.value)
+                );
                 if (fieldErrors?.temperature) {
                   setFieldErrors(prev => {
                     if (!prev) return null;

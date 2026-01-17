@@ -28,6 +28,11 @@ export default function HivesFilter({
   currentPath,
   showApiary = true,
   showUser = true,
+  search: initialSearch = '',
+  typeFilter: initialType = '',
+  colonyFilter: initialColony = '',
+  types,
+  colonies,
 }: {
   hives: Hive[];
   currentPage: number;
@@ -35,22 +40,25 @@ export default function HivesFilter({
   currentPath: string;
   showApiary?: boolean;
   showUser?: boolean;
+  search?: string;
+  typeFilter?: string;
+  colonyFilter?: string;
+  types: string[];
+  colonies: string[];
 }) {
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState('');
   const [colonyFilter, setColonyFilter] = useState('');
 
   const filteredHives = hives.filter(hive => {
-    const matchesSearch = hive.name.toLowerCase().includes(search.toLowerCase()) ||
+    const matchesSearch =
+      hive.name.toLowerCase().includes(search.toLowerCase()) ||
       hive.apiary?.name.toLowerCase().includes(search.toLowerCase());
     const matchesType = !typeFilter || hive.type === typeFilter;
     const matchesColony = !colonyFilter || hive.colonyType === colonyFilter;
-    
+
     return matchesSearch && matchesType && matchesColony;
   });
-
-  const types = [...new Set(hives.map(h => h.type))];
-  const colonies = [...new Set(hives.map(h => h.colonyType))];
 
   return (
     <>
@@ -66,15 +74,17 @@ export default function HivesFilter({
             onChange={e => setSearch(e.target.value)}
             className="form__input"
           />
-          
+
           <select
             value={typeFilter}
             onChange={e => setTypeFilter(e.target.value)}
             className="form__select"
           >
-            <option value="">Alle types</option>
+            <option value="">Alle behuizing</option>
             {types.map(type => (
-              <option key={type} value={type}>{type}</option>
+              <option key={type} value={type}>
+                {type}
+              </option>
             ))}
           </select>
 
@@ -83,9 +93,11 @@ export default function HivesFilter({
             onChange={e => setColonyFilter(e.target.value)}
             className="form__select"
           >
-            <option value="">Alle volken</option>
+            <option value="">Alle variëteiten</option>
             {colonies.map(colony => (
-              <option key={colony} value={colony}>{colony}</option>
+              <option key={colony} value={colony}>
+                {colony}
+              </option>
             ))}
           </select>
         </div>

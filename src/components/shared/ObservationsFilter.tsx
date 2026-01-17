@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 import Link from 'next/link';
-import ObservationsTable from '../shared/ObservationsTable';
+import ObservationsTable from '@/components/shared/ObservationsTable';
+import SearchInput from '@/components/shared/SearchInput';
 
 interface Observation {
   id: number;
@@ -36,6 +38,7 @@ export default function ObservationsFilter({
   search: initialSearch = '',
   colorFilter: initialColorFilter = '',
   allColors = [],
+  placeholder = 'Zoek...',
 }: {
   observations: Observation[];
   currentPage: number;
@@ -46,24 +49,24 @@ export default function ObservationsFilter({
   showUser?: boolean;
   search?: string;
   colorFilter?: string;
-  allColors?: string[];
+  allColors?: { value: string; label: string; hex: string }[];
+  placeholder?: string;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [search, setSearch] = useState(initialSearch);
   const [colorFilter, setColorFilter] = useState(initialColorFilter);
 
-  const handleSearchChange = (value: string) => {
-    setSearch(value);
-    const params = new URLSearchParams(searchParams);
+  const debouncedSearchUpdate = useDebouncedCallback((value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
     if (value) {
       params.set('search', value);
     } else {
       params.delete('search');
     }
-    params.delete('page'); // Reset to page 1 when filtering
+    params.delete('page');
     router.push(`${currentPath}?${params.toString()}`);
-  };
+  }, 300);
 
   const handleColorChange = (value: string) => {
     setColorFilter(value);
@@ -77,8 +80,7 @@ export default function ObservationsFilter({
     router.push(`${currentPath}?${params.toString()}`);
   };
 
-  // Get all unique colors for the dropdown - use allColors prop
-  const colors = allColors.length > 0 ? allColors : [...new Set(observations.map(o => o.pollenColor))];
+  const colors = allColors; //
 
   return (
     <>
@@ -87,23 +89,30 @@ export default function ObservationsFilter({
           ←
         </Link> */}
         <div className="filters">
-          <input
-            type="text"
-            placeholder="Zoek op notities of kast..."
+          <SearchInput
             value={search}
-            onChange={e => handleSearchChange(e.target.value)}
-            className="form__input"
+            onChange={(value: string) => {
+              setSearch(value);
+              debouncedSearchUpdate(value);
+            }}
+            placeholder={placeholder}
           />
-
           <select
             value={colorFilter}
             onChange={e => handleColorChange(e.target.value)}
             className="form__select"
           >
             <option value="">Alle kleuren</option>
-            {colors.map(color => (
-              <option key={color} value={color}>
-                {color}
+            {allColors.map(option => (
+              <option
+                key={option.value}
+                value={option.value}
+                style={{
+                  backgroundColor: option.hex,
+                  color: '#000',
+                }}
+              >
+                {option.label}
               </option>
             ))}
           </select>
