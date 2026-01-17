@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
+import ApiariesOverviewMap from '@/components/shared/ApiariesOverviewMap';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,7 +29,24 @@ export default async function AccountApiariesPage({
     take: apiariesPerPage,
     include: {
       hives: true,
+      _count: {
+        select: { hives: true }
+      }
     },
+  });
+
+  // Haal alle apiaries op voor de kaart (zonder pagination)
+  const allApiaries = await prisma.apiary.findMany({
+    where: { userId: session?.user?.id },
+    select: {
+      id: true,
+      name: true,
+      latitude: true,
+      longitude: true,
+      _count: {
+        select: { hives: true }
+      }
+    }
   });
 
   if (!apiaries) redirect('/auth/login');
@@ -37,16 +55,18 @@ export default async function AccountApiariesPage({
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
-            <div>
-              <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries} {totalApiaries === 1 ? 'locatie' : 'locaties'})</h1>
-            </div>
-            <div className="page-header__actions">
-              <Link href="/apiaries/new">
-                <button className="btn btn--secondary">
-                  + Nieuwe bijenstand
-                </button>
-              </Link>
+          <div className="nav__container" style={{ padding: 0 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
+              <div>
+                <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries} {totalApiaries === 1 ? 'locatie' : 'locaties'})</h1>
+              </div>
+              <div className="page-header__actions">
+                <Link href="/apiaries/new">
+                  <button className="btn btn--secondary">
+                    + Nieuwe bijenstand
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -56,6 +76,21 @@ export default async function AccountApiariesPage({
         <div className="container">
           {apiaries.length > 0 ? (
             <>
+              {/* Overzichtskaart */}
+              <div style={{ marginBottom: 'var(--space-12)' }}>
+                <h2 className="heading-secondary" style={{ marginBottom: 'var(--space-6)' }}>
+                  Overzicht locaties
+                </h2>
+                <ApiariesOverviewMap apiaries={allApiaries} />
+              </div>
+
+              {/* Bijenstanden grid */}
+              <div style={{ marginBottom: 'var(--space-8)' }}>
+                <h2 className="heading-secondary" style={{ marginBottom: 'var(--space-6)' }}>
+                  Alle bijenstanden
+                </h2>
+              </div>
+              
               <div className="grid grid-two-columns">
                 {apiaries.map(apiary => (
                   <Link

@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import ApiariesTable from './ApiariesTable';
+import { useDebouncedCallback } from 'use-debounce';
+import SearchInput from '@/components/shared/SearchInput';
 
 interface Apiary {
   id: number;
@@ -21,18 +24,28 @@ export default function ApiariesFilter({
   currentPage,
   totalPages,
   currentPath,
+  search: initialSearch = '',
 }: {
   apiaries: Apiary[];
   currentPage: number;
   totalPages: number;
   currentPath: string;
+  search?: string;
 }) {
-  const [search, setSearch] = useState('');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState(initialSearch);
 
-  const filteredApiaries = apiaries.filter(apiary =>
-    apiary.name.toLowerCase().includes(search.toLowerCase()) ||
-    apiary.user.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const debouncedSearchUpdate = useDebouncedCallback((value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set('search', value);
+    } else {
+      params.delete('search');
+    }
+    params.delete('page');
+    router.push(`${currentPath}?${params.toString()}`);
+  }, 300);
 
   return (
     <>
@@ -40,19 +53,21 @@ export default function ApiariesFilter({
         <Link href="/admin" className="back-link">
           ←
         </Link>
-        <div className="search-wrapper">
-          <input
-            type="text"
-            placeholder="Zoek op naam of eigenaar..."
+
+        <div className="filters">
+          <SearchInput
             value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="form__input search-input"
+            onChange={(value: string) => {
+              setSearch(value);
+              debouncedSearchUpdate(value);
+            }}
+            placeholder={'Zoek op naam of eigenaar...'}
           />
         </div>
       </div>
 
       <ApiariesTable
-        apiaries={filteredApiaries as any}
+        apiaries={apiaries as any}
         showUser={true}
         currentPath={currentPath}
         totalPages={totalPages}

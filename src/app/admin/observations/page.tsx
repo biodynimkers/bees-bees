@@ -1,20 +1,35 @@
 import { prisma } from '@/lib/client';
+import { redirect } from 'next/navigation';
 import ObservationsFilter from '@/components/shared/ObservationsFilter';
-import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth-options';
+import { pollenColors } from '@/lib/pollenColors';
+
+export const dynamic = 'force-dynamic';
+
+type SearchParams = {
+  page?: string;
+  search?: string;
+  color?: string;
+};
 
 export default async function AdminObservationsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string; search?: string; color?: string }>;
+  searchParams: Promise<SearchParams>;
 }) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) redirect('/auth/login');
   const searchParamsResult = await searchParams;
-  const currentPage = Number(searchParamsResult?.page ?? '1');
+  const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
   const search = searchParamsResult?.search ?? '';
   const colorFilter = searchParamsResult?.color ?? '';
   const observationsPerPage = 5;
 
-  // Build dynamic where clause based on search parameters
-  const whereClause: any = {};
+  // ADMIN: geen userId-filter
+  const baseWhere = {};
+
+  const whereClause: any = { ...baseWhere };
 
   // Add search filter
   if (search) {
@@ -48,7 +63,9 @@ export default async function AdminObservationsPage({
 
   // Add color filter
   if (colorFilter) {
-    whereClause.pollenColor = colorFilter;
+    whereClause.pollenColor = {
+      contains: colorFilter,
+    };
   }
 
   const totalObservations = await prisma.observation.count({
@@ -57,11 +74,13 @@ export default async function AdminObservationsPage({
   const totalPages = Math.ceil(totalObservations / observationsPerPage);
 
   // Get all unique colors for filter dropdown
-  const allColors = await prisma.observation.findMany({
-    select: { pollenColor: true },
-    distinct: ['pollenColor'],
-  });
-
+  const allColors = pollenColors
+    .filter(c => !c.isNoPollenOption)
+    .map(c => ({
+      value: c.hex, // hier ga ik op filteren
+      label: c.species.join(', '), // optioneel voor weergave
+      hex: c.hex,
+    }));
   const observations = await prisma.observation.findMany({
     where: whereClause,
     skip: (currentPage - 1) * observationsPerPage,
@@ -92,7 +111,8 @@ export default async function AdminObservationsPage({
           <div className="page-header__top">
             <h1 className="heading-primary">Alle waarnemingen</h1>
             <p className="page-header__subtitle">
-              Totaal: {totalObservations} {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}
+              Totaal: {totalObservations}{' '}
+              {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}
               {search && ` (gefilterd op "${search}")`}
               {colorFilter && ` (kleur: ${colorFilter})`}
             </p>
@@ -112,7 +132,8 @@ export default async function AdminObservationsPage({
             currentPath={'/admin/observations'}
             search={search}
             colorFilter={colorFilter}
-            allColors={allColors.map(c => c.pollenColor)}
+            allColors={allColors}
+            placeholder="Zoek op bijenstand, kast of notities"
           />
         </div>
       </section>

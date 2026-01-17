@@ -6,7 +6,13 @@ import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
-const StatCard = ({ value, label }: { value: string | number; label: string }) => (
+const StatCard = ({
+  value,
+  label,
+}: {
+  value: string | number;
+  label: string;
+}) => (
   <div className="card stats-card">
     <h3 className="heading-tertiary">{value}</h3>
     <p className="stats-card__label">{label}</p>
@@ -16,11 +22,22 @@ const StatCard = ({ value, label }: { value: string | number; label: string }) =
 export default async function AdminStatsPage() {
   const session = await getServerSession(authOptions);
 
-  if (!session?.user?.id || session.user.role !== 'ADMIN') {
+  if (
+    !session?.user?.id ||
+    (session.user.role !== 'ADMIN' && session.user.role !== 'SUPERADMIN')
+  ) {
     redirect('/unauthorized');
   }
 
-  const [totalUsers, activeUsers, adminCount, totalApiaries, totalHives, totalObservations, avgBeeCount] = await Promise.all([
+  const [
+    totalUsers,
+    activeUsers,
+    adminCount,
+    totalApiaries,
+    totalHives,
+    totalObservations,
+    avgBeeCount,
+  ] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { apiaries: { some: {} } } }),
     prisma.user.count({ where: { role: 'ADMIN' } }),
@@ -30,8 +47,10 @@ export default async function AdminStatsPage() {
     prisma.observation.aggregate({ _avg: { beeCount: true } }),
   ]);
 
-  const avgHivesPerApiary = totalApiaries > 0 ? (totalHives / totalApiaries).toFixed(1) : '0';
-  const avgObsPerHive = totalHives > 0 ? (totalObservations / totalHives).toFixed(1) : '0';
+  const avgHivesPerApiary =
+    totalApiaries > 0 ? (totalHives / totalApiaries).toFixed(1) : '0';
+  const avgObsPerHive =
+    totalHives > 0 ? (totalObservations / totalHives).toFixed(1) : '0';
   const avgBeeStrength = avgBeeCount._avg.beeCount?.toFixed(1) || '0';
 
   return (
@@ -39,7 +58,9 @@ export default async function AdminStatsPage() {
       <section className="page-header">
         <div className="container">
           <h1 className="heading-primary">Platform statistieken</h1>
-          <p className="page-header__subtitle">Overzicht van alle data in het systeem</p>
+          <p className="page-header__subtitle">
+            Overzicht van alle data in het systeem
+          </p>
         </div>
       </section>
 
@@ -48,7 +69,9 @@ export default async function AdminStatsPage() {
           <div className="section-header">
             <h2 className="heading-secondary">Gebruikers</h2>
             <Link href="/admin">
-              <button className="btn btn--secondary">← Terug naar dashboard</button>
+              <button className="btn btn--secondary">
+                ← Terug naar dashboard
+              </button>
             </Link>
           </div>
           <div className="grid grid-three-columns">

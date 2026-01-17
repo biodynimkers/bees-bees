@@ -51,16 +51,18 @@ export default async function AccountHivesPage({
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
-            <div>
-              <h1 className="heading-primary">Mijn kasten ({totalHives} {totalHives === 1 ? 'kast' : 'kasten'})</h1>
-            </div>
-            <div className="page-header__actions">
-              <Link href="/hives/new">
-                <button className="btn btn--secondary">
-                  + Nieuwe kast
-                </button>
-              </Link>
+          <div className="nav__container" style={{ padding: 0 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
+              <div>
+                <h1 className="heading-primary">Mijn kasten ({totalHives} {totalHives === 1 ? 'kast' : 'kasten'})</h1>
+              </div>
+              <div className="page-header__actions">
+                <Link href="/hives/new">
+                  <button className="btn btn--secondary">
+                    + Nieuwe kast
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
