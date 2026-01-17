@@ -13,6 +13,7 @@ import {
   LayoutDashboard,
   BarChart3,
   Users,
+  Settings,
 } from 'lucide-react';
 
 export default function Navigation() {
@@ -228,6 +229,19 @@ export default function Navigation() {
                         </Link>
                       </>
                     )}
+                    {session?.user?.role === 'SUPERADMIN' && (
+                      <>
+                        <div className="nav__dropdown-divider"></div>
+                        <Link
+                          href="/admin/extras"
+                          className="nav__dropdown-item"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          <Settings size={16} />
+                          <span>Extras</span>
+                        </Link>
+                      </>
+                    )}
                     <div className="nav__dropdown-divider"></div>
                     <button
                       onClick={handleLogout}
@@ -362,7 +376,20 @@ export default function Navigation() {
                     onClick={closeMobileMenu}
                   >
                     <Eye size={16} />
-                    <span>Alle observaties</span>
+                    <span>Alle waarnemingen</span>
+                  </Link>
+                </>
+              )}
+              {session?.user?.role === 'SUPERADMIN' && (
+                <>
+                  <div className="nav__mobile-divider"></div>
+                  <Link
+                    href="/admin/extras"
+                    className="nav__mobile-link"
+                    onClick={closeMobileMenu}
+                  >
+                    <Settings size={16} />
+                    <span>Extras</span>
                   </Link>
                 </>
               )}
