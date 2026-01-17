@@ -143,10 +143,10 @@ app/admin/
 - [ ] de app/not-found.tsx pagina stylen
 - [ ] links in de tabellen gebruiksvriendelijk maken (kleur?, vet?)
 - [ ] de inline styles nog vervangen
-- [ ] de usersfilter nog aanpassen
+- [ ] de usersfilter nog aanpassen TODO
 - [x] de observatiefilters zowel in admin als account routes en onder hiveId, dus 3!
 - [x] in observatiefilter nog debounce en kruisje plaatsen
-- [ ] de apiaries en hives filters in de admin route nog aanpassen
+- [x] de apiaries en hives filters in de admin route nog aanpassen
 
 ### 6. Openbare Pagina's
 
