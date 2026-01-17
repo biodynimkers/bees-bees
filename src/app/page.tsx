@@ -1,24 +1,58 @@
 import Button from "@/components/magazine/Button";
 import Stats from "@/components/magazine/Stats";
+import HeroImage from "@/components/home/HeroImage";
 import prisma from "@/lib/client";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
 export const dynamic = "force-dynamic";
+
+async function getHeroImageData() {
+  try {
+    const publicPath = join(process.cwd(), 'public', 'assets');
+    
+    // Check of custom image bestaat
+    try {
+      await readFile(join(publicPath, 'hero-custom.jpg'));
+      
+      // Check of alt text bestaat
+      let altText = 'Bijen in de natuur';
+      try {
+        const altData = await readFile(join(publicPath, 'hero-alt.json'), 'utf-8');
+        const parsed = JSON.parse(altData);
+        if (parsed.alt) {
+          altText = parsed.alt;
+        }
+      } catch {}
+      
+      return {
+        url: '/assets/hero-custom.jpg',
+        alt: altText
+      };
+    } catch {
+      return {
+        url: '/assets/hero-new.jpg',
+        alt: 'Bijen in de natuur'
+      };
+    }
+  } catch {
+    return {
+      url: '/assets/hero-new.jpg',
+      alt: 'Bijen in de natuur'
+    };
+  }
+}
 
 export default async function Home() {
   const totalObservations = await prisma.observation.count();
   const totalUsers = await prisma.user.count();
   const totalHives = await prisma.hive.count();
+  const heroData = await getHeroImageData();
 
   return (
     <>
       <section className="hero hero-home">
-        <div className="hero__image-wrapper">
-          <img
-            src="/assets/hero-new.jpg"
-            alt="Bijen in de natuur"
-            className="hero__image"
-          />
-        </div>
+        <HeroImage imageUrl={heroData.url} altText={heroData.alt} />
         <div className="hero__content">
           <h1 className="heading-primary">Digitaal Bijenhouden - Platform voor Imkers</h1>
           <p className="hero__subtitle">

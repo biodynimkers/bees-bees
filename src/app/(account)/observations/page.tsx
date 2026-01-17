@@ -140,26 +140,21 @@ export default async function AccountObservationsPage({
     <>
       <section className="page-header" data-page="—">
         <div className="container">
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              gap: 'var(--space-12)',
-            }}
-          >
-            <div>
-              <h1 className="heading-primary">
-                Mijn waarnemingen ({totalObservations}{' '}
-                {totalObservations === 1 ? 'waarneming' : 'waarnemingen'})
-              </h1>
-            </div>
-            <div className="page-header__actions">
-              <Link href="/observations/new">
-                <button className="btn btn--secondary">
-                  + Nieuwe waarneming
-                </button>
-              </Link>
+          <div className="nav__container" style={{ padding: 0 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
+              <div>
+                <h1 className="heading-primary">
+                  Mijn waarnemingen ({totalObservations}{' '}
+                  {totalObservations === 1 ? 'waarneming' : 'waarnemingen'})
+                </h1>
+              </div>
+              <div className="page-header__actions">
+                <Link href="/observations/new">
+                  <button className="btn btn--secondary">
+                    + Nieuwe waarneming
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
