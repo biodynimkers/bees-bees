@@ -3,9 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import Section from '@/components/shared/Section';
-import SectionHeader from '@/components/shared/SectionHeader';
-import SectionContent from '@/components/shared/SectionContent';
 
 const MAX_FILE_SIZE = 800 * 1024; // 800KB
 const RECOMMENDED_WIDTH = 1920;
@@ -218,11 +215,9 @@ export default function ExtrasPage() {
 
   if (status === 'loading') {
     return (
-      <Section first>
-        <div className="container">
-          <p>Laden...</p>
-        </div>
-      </Section>
+      <div className="container" style={{ padding: 'var(--space-10)' }}>
+        <p>Laden...</p>
+      </div>
     );
   }
 
@@ -234,15 +229,13 @@ export default function ExtrasPage() {
     <>
       <section className="page-header">
         <div className="container">
-          <h1 className="heading-primary"> Hero Afbeelding</h1>
-        
+          <h1 className="heading-primary">Hero Afbeelding</h1>
         </div>
       </section>
 
-      <Section>
+      <section style={{ padding: 'var(--space-10) 0' }}>
         <div className="container">
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        
 
             <div className="card" style={{ marginBottom: 'var(--space-10)', padding: 'var(--space-8)' }}>
               <h3 className="heading-tertiary" style={{ marginBottom: 'var(--space-5)' }}>
@@ -251,21 +244,15 @@ export default function ExtrasPage() {
               <div style={{ display: 'grid', gap: 'var(--space-4)' }}>
                 <div>
                   <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)' }}>
-                  <p style={{ fontWeight: 500 }}>Max 800KB, 90% kwaliteit</p>
+                    Bestandstype
                   </p>
                   <p style={{ fontWeight: 500 }}>JPG, PNG of WebP</p>
                 </div>
                 <div>
                   <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)' }}>
-                    Maximum grootte
-                  </p>
-                  <p style={{ fontWeight: 500 }}>2MB</p>
-                </div>
-                <div>
-                  <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)' }}>
                     Automatische compressie
                   </p>
-                  <p style={{ fontWeight: 500 }}>Naar ±500K20 × 1080 pixels</p>
+                  <p style={{ fontWeight: 500 }}>Max 800KB, 90% kwaliteit, 1920 × 1080 pixels</p>
                 </div>
               </div>
             </div>
@@ -441,7 +428,7 @@ export default function ExtrasPage() {
 
           </div>
         </div>
-      </Section>
+      </section>
     </>
   );
 }
