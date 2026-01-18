@@ -74,7 +74,8 @@ export const updateObservationSchema = z.object({
   temperature: z.number().nullable().optional(),
   notes: z.string().optional(),
 });
-export const resetPasswordSchema = z.object({
+// For API route (server-side validation)
+export const resetPasswordApiSchema = z.object({
   token: z.string().min(1, 'Token is vereist'),
   password: z.string().min(8, 'Wachtwoord moet minstens 8 tekens zijn'),
 });
@@ -85,3 +86,14 @@ export const forgotPasswordSchema = z.object({
     .min(1, 'E-mailadres is verplicht')
     .email('Voer een geldig e-mailadres in'),
 });
+
+// For frontend form (client-side validation)
+export const resetPasswordFormSchema = z
+  .object({
+    password: z.string().min(8, 'Wachtwoord moet minstens 8 tekens zijn'),
+    confirmPassword: z.string().min(8, 'Bevestig uw wachtwoord'),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Wachtwoorden komen niet overeen',
+    path: ['confirmPassword'],
+  });

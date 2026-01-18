@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/client';
 import bcrypt from 'bcrypt';
-import { z } from 'zod';
-import { resetPasswordSchema } from '@/lib/validators/schemas';
+import { resetPasswordApiSchema } from '@/lib/validators/schemas';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
     // Validate input
-    const validationResult = resetPasswordSchema.safeParse(body);
+    const validationResult = resetPasswordApiSchema.safeParse(body);
     if (!validationResult.success) {
       const { fieldErrors } = validationResult.error.flatten();
       return NextResponse.json(
