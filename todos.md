@@ -292,3 +292,4 @@ TODO
 - [] bespreken met docent, deployment voor klant met eigen account enz.
 - [] bespreken met docent, snelheid van de renders
 - [] de prisma-modellen plant en apiaryplant verwijderen?
+- [] api-routes nog met zod valideren?
