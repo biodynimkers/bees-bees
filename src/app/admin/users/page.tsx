@@ -5,11 +5,15 @@ import { authOptions } from '@/lib/auth-options';
 import UsersPageClient from '@/components/admin/UsersPageClient';
 
 export const dynamic = 'force-dynamic';
+type SearchParams = {
+  page?: string;
+  search?: string;
+};
 
 export default async function UsersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<SearchParams>;
 }) {
   const session = await getServerSession(authOptions);
 
@@ -19,15 +23,24 @@ export default async function UsersPage({
   ) {
     redirect('/unauthorized');
   }
-  const page = await searchParams;
-  const currentPage = Number(page?.page ?? '1');
-  const usersPerPage = 5;
+  const searchParamsResult = (await searchParams) || {};
+  const { page = '1', search = '' } = searchParamsResult;
+  const currentPage = Number(searchParamsResult?.page ?? '1');
+  const usersPerPage = 20;
   const totalUsers = await prisma.user.count();
   const totalPages = Math.ceil(totalUsers / usersPerPage);
 
   const users = await prisma.user.findMany({
     skip: (currentPage - 1) * usersPerPage,
     take: usersPerPage,
+    where: {
+      OR: [
+        {
+          name: { contains: search, mode: 'insensitive' },
+        },
+        { email: { contains: search, mode: 'insensitive' } },
+      ],
+    },
     select: {
       id: true,
       name: true,
@@ -51,7 +64,8 @@ export default async function UsersPage({
           <div className="page-header__top">
             <h1 className="heading-primary">Alle gebruikers</h1>
             <p className="page-header__subtitle">
-              Totaal: {totalUsers} {totalUsers === 1 ? "gebruiker" : "gebruikers"}
+              Totaal: {totalUsers}{' '}
+              {totalUsers === 1 ? 'gebruiker' : 'gebruikers'}
             </p>
           </div>
         </div>
@@ -61,6 +75,7 @@ export default async function UsersPage({
         users={users}
         currentPage={currentPage}
         totalPages={totalPages}
+        search={search}
       />
     </>
   );
