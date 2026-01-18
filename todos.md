@@ -290,6 +290,6 @@ Een volledig functionele bijenstandbeheer applicatie met robuuste backend, gebru
 TODO
 
 - [] bespreken met docent, deployment voor klant met eigen account enz.
+- [] keys voor mapbox en resend voor klant?
 - [] bespreken met docent, snelheid van de renders
 - [] de prisma-modellen plant en apiaryplant verwijderen?
-- [] api-routes nog met zod valideren?
