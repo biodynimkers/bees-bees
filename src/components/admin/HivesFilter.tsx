@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import HivesTable from './HivesTable';
+import { useDebouncedCallback } from 'use-debounce';
 
 interface Hive {
   id: number;
@@ -46,19 +48,25 @@ export default function HivesFilter({
   types: string[];
   colonies: string[];
 }) {
-  const [search, setSearch] = useState('');
-  const [typeFilter, setTypeFilter] = useState('');
-  const [colonyFilter, setColonyFilter] = useState('');
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const filteredHives = hives.filter(hive => {
-    const matchesSearch =
-      hive.name.toLowerCase().includes(search.toLowerCase()) ||
-      hive.apiary?.name.toLowerCase().includes(search.toLowerCase());
-    const matchesType = !typeFilter || hive.type === typeFilter;
-    const matchesColony = !colonyFilter || hive.colonyType === colonyFilter;
+  const [search, setSearch] = useState(initialSearch);
+  const [typeFilter, setTypeFilter] = useState(initialType);
+  const [colonyFilter, setColonyFilter] = useState(initialColony);
 
-    return matchesSearch && matchesType && matchesColony;
-  });
+  //functie meer generiek gemaakt zodat die voor meerdere filters gebruikt kan worden
+
+  const debouncedUpdateUrl = useDebouncedCallback(
+    (key: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (value) params.set(key, value);
+      else params.delete(key);
+      params.delete('page');
+      router.push(`${currentPath}?${params.toString()}`);
+    },
+    300,
+  );
 
   return (
     <>
@@ -69,15 +77,23 @@ export default function HivesFilter({
         <div className="filters">
           <input
             type="text"
-            placeholder="Zoek op naam..."
+            placeholder="Zoek op naam of bijenstand..."
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => {
+              const value = e.target.value;
+              setSearch(value);
+              debouncedUpdateUrl('search', value);
+            }}
             className="form__input"
           />
 
           <select
             value={typeFilter}
-            onChange={e => setTypeFilter(e.target.value)}
+            onChange={e => {
+              const value = e.target.value;
+              setTypeFilter(value);
+              debouncedUpdateUrl('type', value);
+            }}
             className="form__select"
           >
             <option value="">Alle behuizing</option>
@@ -90,7 +106,11 @@ export default function HivesFilter({
 
           <select
             value={colonyFilter}
-            onChange={e => setColonyFilter(e.target.value)}
+            onChange={e => {
+              const value = e.target.value;
+              setColonyFilter(value);
+              debouncedUpdateUrl('colony', value);
+            }}
             className="form__select"
           >
             <option value="">Alle variëteiten</option>
@@ -104,7 +124,7 @@ export default function HivesFilter({
       </div>
 
       <HivesTable
-        hives={filteredHives as any}
+        hives={hives as any}
         showApiary={showApiary}
         showUser={showUser}
         currentPath={currentPath}

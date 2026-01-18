@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
+import SearchInput from '../shared/SearchInput';
 
 interface User {
   id: string;
@@ -15,16 +18,31 @@ export default function UsersPageClient({
   users,
   currentPage,
   totalPages,
+  search: initialSearch = '',
 }: {
   users: User[];
   currentPage: number;
   totalPages: number;
+  search?: string;
 }) {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearch);
 
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // const filteredUsers = users.filter(user =>
+  //   user.name.toLowerCase().includes(search.toLowerCase())
+  // );
+  const debouncedSearchUpdate = useDebouncedCallback((value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set('search', value);
+    } else {
+      params.delete('search');
+    }
+    params.delete('page');
+    router.push(`/admin/users?${params.toString()}`);
+  }, 300);
 
   return (
     <section className="section ">
@@ -33,13 +51,14 @@ export default function UsersPageClient({
           <Link href="/admin" className="back-link">
             ←
           </Link>
-          <div className="search-wrapper">
-            <input
-              type="text"
-              placeholder="Zoek op naam..."
+          <div className="filters">
+            <SearchInput
               value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="form__input search-input"
+              onChange={(value: string) => {
+                setSearch(value);
+                debouncedSearchUpdate(value);
+              }}
+              placeholder={'Zoek op naam of e-mailadres...'}
             />
           </div>
         </div>
@@ -55,7 +74,7 @@ export default function UsersPageClient({
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.map(user => (
+              {users.map(user => (
                 <tr key={user.id}>
                   <td>
                     {user.name}{' '}
