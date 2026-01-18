@@ -15,14 +15,15 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(cuid())
-  name           String
-  email          String   @unique
-  hashedPassword String
-  role           Role     @default(USER)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  apiaries       Apiary[]
+  id                  String               @id @default(cuid())
+  name                String
+  email               String               @unique
+  hashedPassword      String
+  role                Role                 @default(USER)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  passwordResetTokens PasswordResetToken[]
+  apiaries            Apiary[]
 }
 
 model Apiary {
@@ -62,6 +63,17 @@ model Observation {
   notes            String?
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([userId, token])
 }
 
 model Plant {
