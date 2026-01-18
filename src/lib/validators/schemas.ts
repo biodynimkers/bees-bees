@@ -1,6 +1,4 @@
-import { HardDriveDownloadIcon } from 'lucide-react';
 import { z } from 'zod';
-import { be } from 'zod/locales';
 export const registerSchema = z.object({
   name: z.string().min(1, 'Naam is vereist.'),
   email: z
@@ -75,4 +73,8 @@ export const updateObservationSchema = z.object({
   }),
   temperature: z.number().nullable().optional(),
   notes: z.string().optional(),
+});
+export const resetPasswordSchema = z.object({
+  token: z.string().min(1, 'Token is vereist'),
+  password: z.string().min(8, 'Wachtwoord moet minstens 8 tekens zijn'),
 });
