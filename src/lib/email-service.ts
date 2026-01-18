@@ -8,17 +8,18 @@ interface SendPasswordResetEmailProps {
   resetUrl: string;
 }
 
-export async function sendPasswordResetEmail({ 
-  email, 
-  name, 
-  resetUrl 
+export async function sendPasswordResetEmail({
+  email,
+  name,
+  resetUrl,
 }: SendPasswordResetEmailProps) {
   try {
     // Use Resend's onboarding domain for development/testing
     // In production, you can add your own verified domain
-    const fromEmail = process.env.NODE_ENV === 'production' 
-      ? 'BEES Platform <noreply@resend.dev>' // Use your own domain when you have one
-      : 'BEES Platform <onboarding@resend.dev>'; // Resend test domain
+    const fromEmail =
+      process.env.NODE_ENV === 'production'
+        ? 'BEES Platform <noreply@resend.dev>' // Use your own domain when you have one
+        : 'BEES Platform <onboarding@resend.dev>'; // Resend test domain
 
     const { data, error } = await resend.emails.send({
       from: fromEmail,
@@ -138,7 +139,7 @@ Het BEES Platform team
 
 ---
 Deze email is automatisch gegenereerd. Gelieve niet te antwoorden op deze email.
-      `
+      `,
     });
 
     if (error) {
@@ -148,7 +149,6 @@ Deze email is automatisch gegenereerd. Gelieve niet te antwoorden op deze email.
 
     console.log('Password reset email sent successfully:', data);
     return data;
-    
   } catch (error) {
     console.error('Error in sendPasswordResetEmail:', error);
     throw error;

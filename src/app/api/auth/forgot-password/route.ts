@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/client';
 import crypto from 'crypto';
-import { sendPasswordResetEmail } from '@/lib/email-service';
+// TODO: Uncomment when RESEND_API_KEY is configured
+// import { sendPasswordResetEmail } from '@/lib/email-service';
 
 export async function POST(request: NextRequest) {
   try {
@@ -48,6 +49,9 @@ export async function POST(request: NextRequest) {
     // 5. Send email with reset link
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${token}`;
 
+    // TODO: Enable email sending when RESEND_API_KEY is configured
+    // Temporarily commented out to prevent errors before Resend setup
+    /*
     try {
       await sendPasswordResetEmail({
         email: user.email,
@@ -71,6 +75,17 @@ export async function POST(request: NextRequest) {
         { status: 500 },
       );
     }
+    */
+
+    // Temporary fallback: Log reset URL for testing
+    console.log('='.repeat(60));
+    console.log('PASSWORD RESET REQUEST');
+    console.log('='.repeat(60));
+    console.log(`Email: ${email}`);
+    console.log(`Name: ${user.name}`);
+    console.log(`Reset URL: ${resetUrl}`);
+    console.log(`Token expires: ${expiresAt}`);
+    console.log('='.repeat(60));
 
     return NextResponse.json({
       message: 'Als het e-mailadres bestaat, is een reset link verstuurd',
