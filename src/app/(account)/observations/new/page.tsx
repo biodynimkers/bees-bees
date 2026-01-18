@@ -26,12 +26,12 @@ export default async function AccountObservationNewPage({
     <>
       <section className="page-header">
         <div className="container">
-          <h1 className="heading-primary">Nieuwe waarneming</h1>
+          <h1 className="heading-primary">Nieuwe waarneming toevoegen</h1>
        
         </div>
       </section>
 
-      <section className="section ">
+      <section className="section">
         <div className="container container--narrow">
           <ObservationForm hiveId={hiveId} hiveName={hiveName} />
         </div>

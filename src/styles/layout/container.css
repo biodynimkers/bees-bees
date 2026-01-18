@@ -1,8 +1,3 @@
-/* ============================================
-   LAYOUT: Container
-   Uniform width everywhere - 1600px max
-   ============================================ */
-
 .l-container {
   max-width: var(--container-max);
   width: 100%;

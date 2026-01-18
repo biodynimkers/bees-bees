@@ -248,7 +248,13 @@ export default function HiveForm({
         )}
       </div>
 
-      <div className="form__actions">
+      <div className="form__actions form__actions--center">
+        <Link
+          href={apiaryId ? `/apiaries/${apiaryId}` : '/apiaries'}
+          className="btn btn--secondary btn--large"
+        >
+          Annuleren
+        </Link>
         <button
           type="submit"
           className="btn btn--secondary btn--large"
@@ -262,12 +268,6 @@ export default function HiveForm({
             ? 'Behuizing Bewerken'
             : 'Behuizing toevoegen'}
         </button>
-        <Link
-          href={apiaryId ? `/apiaries/${apiaryId}` : '/apiaries'}
-          className="btn btn--secondary btn--large"
-        >
-          Annuleren
-        </Link>
       </div>
     </form>
   );

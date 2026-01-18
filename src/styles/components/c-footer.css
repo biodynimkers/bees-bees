@@ -1,8 +1,3 @@
-/* ============================================
-   COMPONENT: Footer
-   .c-footer, .c-footer__*
-   ============================================ */
-
 .c-footer {
   background: var(--c-gray-800);
   color: var(--c-white);
@@ -116,7 +111,7 @@
 .footer__top { display: grid; grid-template-columns: 1.5fr 2fr; gap: var(--s-16); padding-bottom: var(--s-16); border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: var(--s-10); }
 .footer__brand { max-width: 400px; }
 .footer__logo { display: flex; align-items: center; gap: var(--s-3); font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; letter-spacing: 0.05em; margin-bottom: var(--s-4); }
-.footer__logo-image { height: 48px; width: auto; opacity: 0.9; }
+.footer__logo-image { height: 40px; width: auto; opacity: 0.9; }
 .footer__tagline { font-size: var(--text-base); line-height: 1.7; color: rgba(255, 255, 255, 0.7); }
 .footer__links { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-10); }
 .footer__column { display: flex; flex-direction: column; }

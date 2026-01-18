@@ -43,17 +43,17 @@ export default function RemoveButton({
             </p>
             <div className="modal__actions">
               <button 
-                className="btn btn--secondary" 
-                onClick={() => setShowConfirm(false)}
-              >
-                Annuleren
-              </button>
-              <button 
                 className="btn btn--danger"
                 onClick={handleDelete} 
                 disabled={loading}
               >
                 {loading ? loadingText : 'Ja, verwijderen'}
+              </button>
+              <button 
+                className="btn btn--secondary" 
+                onClick={() => setShowConfirm(false)}
+              >
+                Annuleren
               </button>
             </div>
           </div>

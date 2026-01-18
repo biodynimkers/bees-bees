@@ -1,8 +1,3 @@
-/* ============================================
-   COMPONENT: Modal
-   .c-modal, .c-modal__*
-   ============================================ */
-
 .c-modal-overlay {
   position: fixed;
   inset: 0;

@@ -1,11 +1,4 @@
-/* ============================================
-   DESIGN TOKENS - Single Source of Truth
-   The Row inspired: clean, minimal, consistent
-   ============================================ */
-
 :root {
-  /* -------------------- COLORS -------------------- */
-  /* Neutral palette - lighter for luxury feel */
   --c-white: #ffffff;
   --c-black: #1a1a1a;
   --c-gray-50: #fafafa;

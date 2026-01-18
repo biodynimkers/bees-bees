@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { apiarySchema } from '@/lib/validators/schemas';
 import dynamic from 'next/dynamic';
 
@@ -442,7 +443,13 @@ export default function ApiaryForm({
         />
       )}
 
-      <div className="form__actions">
+      <div className="form__actions form__actions--center">
+        <Link
+          href="/apiaries"
+          className="btn btn--secondary btn--large"
+        >
+          Annuleren
+        </Link>
         <button
           type="submit"
           disabled={loading}

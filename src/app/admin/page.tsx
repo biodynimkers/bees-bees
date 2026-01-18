@@ -59,6 +59,15 @@ export default function AdminPage() {
                 </p>
               </div>
             </Link>
+
+            <Link href="/admin/extras">
+              <div className="card">
+                <h3 className="heading-tertiary">Extra's</h3>
+                <p className="card__text">
+                  Beheer hero afbeelding en content
+                </p>
+              </div>
+            </Link>
           </div>
         </div>
       </section>

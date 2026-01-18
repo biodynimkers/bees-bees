@@ -1,9 +1,3 @@
-/* ============================================
-   COMPONENT: Buttons
-   Max 3 variants: default (primary), secondary, ghost
-   Light, not heavy - font-weight 400-500 max
-   ============================================ */
-
 .c-btn {
   display: inline-flex;
   align-items: center;
