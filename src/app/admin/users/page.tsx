@@ -1,5 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import UsersPageClient from '@/components/admin/UsersPageClient';
@@ -58,15 +59,14 @@ export default async function UsersPage({
   });
 
   return (
-    <>
-      <section className="page-header">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <div className="page-header__top">
-            <h1 className="heading-primary">Alle gebruikers</h1>
-            <p className="page-header__subtitle">
-              Totaal: {totalUsers}{' '}
-              {totalUsers === 1 ? 'gebruiker' : 'gebruikers'}
-            </p>
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">
+              Totaal: {totalUsers} {totalUsers === 1 ? 'gebruiker' : 'gebruikers'}
+            </span>
+            <h1 className="platform-hero__title">Alle gebruikers</h1>
           </div>
         </div>
       </section>
@@ -77,6 +77,6 @@ export default async function UsersPage({
         totalPages={totalPages}
         search={search}
       />
-    </>
+    </div>
   );
 }

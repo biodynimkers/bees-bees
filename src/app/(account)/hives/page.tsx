@@ -29,7 +29,7 @@ export default async function AccountHivesPage({
 
   const searchParamsResult = await searchParams;
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
-  const hivesPerPage = 10;
+  const hivesPerPage = 20;
   const totalHives = await prisma.hive.count({
     where: {
       apiary: { userId: session?.user?.id },

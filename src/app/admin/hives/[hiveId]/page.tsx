@@ -31,7 +31,7 @@ export default async function AdminHiveDetailPage({
   } = searchParamsResult;
 
   const currentPage = Number(page);
-  const observationsPerPage = 10;
+  const observationsPerPage = 20;
   const baseWhere = {
     hiveId: parseInt(hiveId, 10),
   };

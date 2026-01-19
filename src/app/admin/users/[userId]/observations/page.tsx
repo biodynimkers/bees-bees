@@ -13,7 +13,7 @@ export default async function AdminUserObservationsPage({
   await requireAdmin();
   const { userId } = await params;
   const { page } = await searchParams;
-  const observationsPerPage = 5;
+  const observationsPerPage = 20;
   const currentPage = Number(page ?? '1');
   const totalObservations = await prisma.observation.count({
     where: {
@@ -56,24 +56,20 @@ export default async function AdminUserObservationsPage({
   });
 
   return (
-    <>
-      <section className="page-header">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <h1 className="heading-primary">Waarnemingen van {user.name}</h1>
-          <p className="page-header__subtitle">
-            Totaal: {totalObservations}
-          </p>
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">
+              Totaal: {totalObservations}
+            </span>
+            <h1 className="platform-hero__title">Waarnemingen van {user.name}</h1>
+          </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container">
-          <div className="section-header">
-            <Link href={`/admin/users/${userId}`}>
-              <button className="btn btn--secondary">← Terug naar imker</button>
-            </Link>
-          </div>
-
           <ObservationsTable
             observations={observations}
             showUser={false}
@@ -83,6 +79,6 @@ export default async function AdminUserObservationsPage({
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

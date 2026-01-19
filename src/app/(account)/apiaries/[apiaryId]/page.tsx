@@ -48,7 +48,7 @@ export default async function AccountApiaryPage({
   const totalHives = await prisma.hive.count({
     where: { apiaryId: parseInt(apiaryId) },
   });
-  const hivesPerPage = 10;
+  const hivesPerPage = 20;
   const totalPages = Math.ceil(totalHives / hivesPerPage);
   const hives = await prisma.hive.findMany({
     where: { apiaryId: parseInt(apiaryId) },

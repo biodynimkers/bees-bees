@@ -45,12 +45,9 @@ export default function UsersPageClient({
   }, 300);
 
   return (
-    <section className="section ">
+    <section className="home-features">
       <div className="container">
         <div className="section-header">
-          <Link href="/admin" className="back-link">
-            ←
-          </Link>
           <div className="filters">
             <SearchInput
               value={search}

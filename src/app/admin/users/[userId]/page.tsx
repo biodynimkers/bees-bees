@@ -50,95 +50,64 @@ export default async function UserDetailPage({
   }
   const session = await getServerSession(authOptions);
   return (
-    <>
-      <section className="page-header">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <h1 className="heading-primary">{user.name}</h1>
-          <p className="page-header__subtitle">{user.email}</p>
-          <p className="page-header__subtitle">Rol: {user.role}</p>
-        </div>
-      </section>
-
-      <section className="section ">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="heading-secondary">Overzicht</h2>
-            <Link href="/admin/users">
-              <button className="btn btn--secondary">
-                ← Terug naar alle imkers
-              </button>
-            </Link>
-          </div>
-
-          <div className="grid grid-three-columns">
-            <div className="card">
-              <h3 className="heading-tertiary">
-                {user._count.apiaries === 0
-                  ? 'Geen bijenstanden'
-                  : user._count.apiaries > 1
-                  ? `${user._count.apiaries} bijenstanden`
-                  : `${user._count.apiaries} bijenstand`}
-              </h3>
-              {user._count.apiaries > 0 && (
-                <Link href={`/admin/users/${userId}/apiaries`} className="margin-top-small">
-                  <button className="btn">
-                    Bekijk{' '}
-                    {user._count.apiaries > 1 ? 'bijenstanden' : 'bijenstand'}
-                  </button>
-                </Link>
-              )}
-            </div>
-
-            <div className="card">
-              <h3 className="heading-tertiary">
-                {totalHives === 0
-                  ? 'Geen behuizingen'
-                  : totalHives > 1
-                  ? `${totalHives} behuizingen`
-                  : `${totalHives} behuizing`}
-              </h3>
-              {totalHives > 0 && (
-                <Link href={`/admin/users/${userId}/hives`} className="margin-top-small">
-                  <button className="btn">
-                    Bekijk {totalHives > 1 ? 'behuizingen' : 'behuizing'}
-                  </button>
-                </Link>
-              )}
-            </div>
-
-            <div className="card">
-              <h3 className="heading-tertiary">
-                {totalObservations === 0
-                  ? 'Geen waarnemingen'
-                  : totalObservations > 1
-                  ? `${totalObservations} waarnemingen`
-                  : `${totalObservations} waarneming`}
-              </h3>
-              {totalObservations > 0 && (
-                <Link href={`/admin/users/${userId}/observations`} className="margin-top-small">
-                  <button className="btn">
-                    Bekijk{' '}
-                    {totalObservations > 1 ? 'waarnemingen' : 'waarneming'}
-                  </button>
-                </Link>
-              )}
-            </div>
-          </div>
-
-          <div className="flex gap-sm margin-top-large">
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">{user.email} • Rol: {user.role}</span>
+            <h1 className="platform-hero__title">{user.name}</h1>
             {session?.user?.role === 'SUPERADMIN' && (
-              <>
+              <div className="btn-group">
                 <EditUserButton userId={userId} currentRole={user.role} />
                 <DeleteUserButton
                   userId={userId}
                   userName={user.name}
                   currentRole={user.role}
                 />
-              </>
+              </div>
             )}
           </div>
         </div>
       </section>
-    </>
+
+      <section className="home-features">
+        <div className="container">
+          <div className="home-features__grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+            <Link href={`/admin/users/${userId}/apiaries`} className="feature-card">
+              <div className="feature-card__meta">
+                <div className="meta-item">
+                  <span className="meta-label">Bijenstanden</span>
+                  <span className="meta-value" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                    {user._count.apiaries}
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            <Link href={`/admin/users/${userId}/hives`} className="feature-card">
+              <div className="feature-card__meta">
+                <div className="meta-item">
+                  <span className="meta-label">Behuizingen</span>
+                  <span className="meta-value" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                    {totalHives}
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            <Link href={`/admin/users/${userId}/observations`} className="feature-card">
+              <div className="feature-card__meta">
+                <div className="meta-item">
+                  <span className="meta-label">Waarnemingen</span>
+                  <span className="meta-value" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                    {totalObservations}
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

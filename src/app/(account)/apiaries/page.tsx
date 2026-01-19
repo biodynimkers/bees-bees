@@ -14,7 +14,7 @@ export default async function AccountApiariesPage({
 }) {
   const searchParamsResult = await searchParams;
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
-  const apiariesPerPage = 10;
+  const apiariesPerPage = 20;
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect('/auth/login');
 

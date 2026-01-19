@@ -25,7 +25,7 @@ export default async function AdminHivesPage({
     colony = '',
   } = searchParamsResult;
   const currentPage = Number(page);
-  const hivesPerPage = 2;
+  const hivesPerPage = 20;
   // const totalHives = await prisma.hive.count();
 
   const baseWhere = {};

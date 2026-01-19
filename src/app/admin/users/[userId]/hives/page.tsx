@@ -15,7 +15,7 @@ export default async function UserHivesPage({
 
   const { userId } = await params;
   const searchParamsResult = await searchParams;
-  const hivesPerPage = 5;
+  const hivesPerPage = 20;
   const currentPage = Number(searchParamsResult?.page ?? '1');
   const totalHives = await prisma.hive.count({
     where: {
@@ -56,24 +56,20 @@ export default async function UserHivesPage({
   });
 
   return (
-    <>
-      <section className="page-header">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <h1 className="heading-primary">Behuizingen van {user.name}</h1>
-          <p className="page-header__subtitle">
-            Totaal: {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
-          </p>
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">
+              Totaal: {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
+            </span>
+            <h1 className="platform-hero__title">Behuizingen van {user.name}</h1>
+          </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container">
-          <div className="section-header">
-            <Link href={`/admin/users/${userId}`}>
-              <button className="btn btn--secondary">← Terug naar imker</button>
-            </Link>
-          </div>
-
           <HivesTable
             hives={hives}
             showApiary={true}
@@ -84,6 +80,6 @@ export default async function UserHivesPage({
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

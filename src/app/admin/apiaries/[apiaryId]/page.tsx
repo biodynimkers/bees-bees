@@ -15,7 +15,7 @@ export default async function ApiaryDetailPage({
 
   await requireAdmin();
   const { returnUrl } = (await searchParams) || '/admin/apiaries';
-  const hivesPerPage = 5;
+  const hivesPerPage = 20;
   const currentPage = Number(page ?? '1');
   const totalHives = await prisma.hive.count({
     where: { apiaryId: parseInt(apiaryId) },
