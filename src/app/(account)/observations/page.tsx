@@ -51,7 +51,7 @@ export default async function AccountObservationsPage({
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
   const search = searchParamsResult?.search ?? '';
   const colorFilter = searchParamsResult?.color ?? '';
-  const observationsPerPage = 5;
+  const observationsPerPage = 20;
 
   // Build dynamic where clause based on search parameters
   const baseWhere = {
@@ -141,7 +141,14 @@ export default async function AccountObservationsPage({
       <section className="page-header" data-page="—">
         <div className="container">
           <div className="nav__container" style={{ padding: 0 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                width: '100%',
+              }}
+            >
               <div>
                 <h1 className="heading-primary">
                   Mijn waarnemingen ({totalObservations})

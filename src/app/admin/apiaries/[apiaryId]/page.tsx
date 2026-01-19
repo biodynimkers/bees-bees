@@ -15,7 +15,7 @@ export default async function ApiaryDetailPage({
 
   await requireAdmin();
   const { returnUrl } = (await searchParams) || '/admin/apiaries';
-  const hivesPerPage = 5;
+  const hivesPerPage = 20;
   const currentPage = Number(page ?? '1');
   const totalHives = await prisma.hive.count({
     where: { apiaryId: parseInt(apiaryId) },
@@ -44,7 +44,10 @@ export default async function ApiaryDetailPage({
         <div className="container">
           <h1 className="heading-primary">{apiary.name}</h1>
           <p className="page-header__subtitle">
-            Eigenaar: <Link href={`/admin/users/${apiary.user.id}`}>{apiary.user.name}</Link>
+            Eigenaar:{' '}
+            <Link href={`/admin/users/${apiary.user.id}`}>
+              {apiary.user.name}
+            </Link>
           </p>
           <p className="page-header__subtitle">
             Locatie: {apiary.latitude}, {apiary.longitude}
@@ -55,12 +58,14 @@ export default async function ApiaryDetailPage({
       <section className="section ">
         <div className="container">
           <div className="section-header">
-            <h2 className="heading-secondary">Behuizingen in deze bijenstand</h2>
+            <h2 className="heading-secondary">
+              Behuizingen in deze bijenstand
+            </h2>
             <Link href={returnUrl ?? '/admin/apiaries'}>
               <button className="btn btn--secondary">← Terug</button>
             </Link>
           </div>
-          
+
           <HivesTable
             hives={apiary.hives}
             showApiary={false}

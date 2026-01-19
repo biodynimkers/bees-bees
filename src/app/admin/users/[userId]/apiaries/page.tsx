@@ -13,7 +13,7 @@ export default async function AdminUserApiariesPage({
 
   const { userId } = await params;
   const searchParamsResult = await searchParams;
-  const apiariesPerPage = 5;
+  const apiariesPerPage = 20;
   const currentPage = Number(searchParamsResult?.page ?? '1');
   const totalApiaries = await prisma.apiary.count();
   const totalPages = Math.ceil(totalApiaries / apiariesPerPage);
@@ -35,7 +35,8 @@ export default async function AdminUserApiariesPage({
         <div className="container">
           <h1 className="heading-primary">Bijenstanden van {user?.name}</h1>
           <p className="page-header__subtitle">
-            Totaal: {apiaries.length} {apiaries.length === 1 ? 'bijenstand' : 'bijenstanden'}
+            Totaal: {apiaries.length}{' '}
+            {apiaries.length === 1 ? 'bijenstand' : 'bijenstanden'}
           </p>
         </div>
       </section>
@@ -47,7 +48,7 @@ export default async function AdminUserApiariesPage({
               <button className="btn btn--secondary">← Terug naar imker</button>
             </Link>
           </div>
-          
+
           <ApiariesTable
             apiaries={apiaries}
             showUser={false}

@@ -24,7 +24,7 @@ export default async function AdminObservationsPage({
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
   const search = searchParamsResult?.search ?? '';
   const colorFilter = searchParamsResult?.color ?? '';
-  const observationsPerPage = 5;
+  const observationsPerPage = 20;
 
   // ADMIN: geen userId-filter
   const baseWhere = {};

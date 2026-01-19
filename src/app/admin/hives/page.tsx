@@ -25,7 +25,7 @@ export default async function AdminHivesPage({
     colony = '',
   } = searchParamsResult;
   const currentPage = Number(page);
-  const hivesPerPage = 2;
+  const hivesPerPage = 20;
   // const totalHives = await prisma.hive.count();
 
   const baseWhere = {};
@@ -96,7 +96,8 @@ export default async function AdminHivesPage({
           <div className="page-header__top">
             <h1 className="heading-primary">Alle behuizingen</h1>
             <p className="page-header__subtitle">
-              Totaal: {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
+              Totaal: {totalHives}{' '}
+              {totalHives === 1 ? 'behuizing' : 'behuizingen'}
             </p>
           </div>
         </div>

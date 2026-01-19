@@ -14,7 +14,7 @@ export default async function AccountApiariesPage({
 }) {
   const searchParamsResult = await searchParams;
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
-  const apiariesPerPage = 5;
+  const apiariesPerPage = 20;
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect('/auth/login');
 
@@ -30,8 +30,8 @@ export default async function AccountApiariesPage({
     include: {
       hives: true,
       _count: {
-        select: { hives: true }
-      }
+        select: { hives: true },
+      },
     },
   });
 
@@ -44,9 +44,9 @@ export default async function AccountApiariesPage({
       latitude: true,
       longitude: true,
       _count: {
-        select: { hives: true }
-      }
-    }
+        select: { hives: true },
+      },
+    },
   });
 
   if (!apiaries) redirect('/auth/login');
@@ -56,9 +56,18 @@ export default async function AccountApiariesPage({
       <section className="page-header" data-page="—">
         <div className="container">
           <div className="nav__container" style={{ padding: 0 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                width: '100%',
+              }}
+            >
               <div>
-                <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries})</h1>
+                <h1 className="heading-primary">
+                  Mijn bijenstanden ({totalApiaries})
+                </h1>
               </div>
               <div className="page-header__actions">
                 <Link href="/apiaries/new">
@@ -78,7 +87,10 @@ export default async function AccountApiariesPage({
             <>
               {/* Overzichtskaart */}
               <div style={{ marginBottom: 'var(--space-12)' }}>
-                <h2 className="heading-secondary" style={{ marginBottom: 'var(--space-6)' }}>
+                <h2
+                  className="heading-secondary"
+                  style={{ marginBottom: 'var(--space-6)' }}
+                >
                   Overzicht locaties
                 </h2>
                 <ApiariesOverviewMap apiaries={allApiaries} />
@@ -86,11 +98,14 @@ export default async function AccountApiariesPage({
 
               {/* Bijenstanden grid */}
               <div style={{ marginBottom: 'var(--space-8)' }}>
-                <h2 className="heading-secondary" style={{ marginBottom: 'var(--space-6)' }}>
+                <h2
+                  className="heading-secondary"
+                  style={{ marginBottom: 'var(--space-6)' }}
+                >
                   Alle bijenstanden
                 </h2>
               </div>
-              
+
               <div className="grid grid-two-columns">
                 {apiaries.map(apiary => (
                   <Link
@@ -99,15 +114,16 @@ export default async function AccountApiariesPage({
                     style={{ textDecoration: 'none' }}
                   >
                     <div className="card">
-                      <p className="card__category">
-                        Bijenstand
-                      </p>
-                      <h3 className="heading-tertiary">
-                        {apiary.name}
-                      </h3>
+                      <p className="card__category">Bijenstand</p>
+                      <h3 className="heading-tertiary">{apiary.name}</h3>
                       <div className="card__divider">
                         <p className="card__label">Behuizingen</p>
-                        <p className="card__value">{apiary.hives.length} {apiary.hives.length === 1 ? 'behuizing' : 'behuizingen'}</p>
+                        <p className="card__value">
+                          {apiary.hives.length}{' '}
+                          {apiary.hives.length === 1
+                            ? 'behuizing'
+                            : 'behuizingen'}
+                        </p>
                       </div>
                     </div>
                   </Link>
@@ -115,23 +131,35 @@ export default async function AccountApiariesPage({
               </div>
 
               {totalPages > 1 && (
-                <div style={{ 
-                  display: "flex", 
-                  justifyContent: "center", 
-                  alignItems: "center",
-                  gap: "var(--space-4)",
-                  marginTop: "var(--space-12)"
-                }}>
-                  <Link href={`/apiaries?page=${currentPage > 1 ? currentPage - 1 : 1}`}>
-                    <button className="btn btn--secondary" disabled={currentPage === 1}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 'var(--space-4)',
+                    marginTop: 'var(--space-12)',
+                  }}
+                >
+                  <Link
+                    href={`/apiaries?page=${currentPage > 1 ? currentPage - 1 : 1}`}
+                  >
+                    <button
+                      className="btn btn--secondary"
+                      disabled={currentPage === 1}
+                    >
                       Vorige
                     </button>
                   </Link>
-                  <span style={{ color: "var(--color-text-light)" }}>
+                  <span style={{ color: 'var(--color-text-light)' }}>
                     Pagina {currentPage} van {totalPages}
                   </span>
-                  <Link href={`/apiaries?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}>
-                    <button className="btn btn--secondary" disabled={currentPage === totalPages}>
+                  <Link
+                    href={`/apiaries?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}
+                  >
+                    <button
+                      className="btn btn--secondary"
+                      disabled={currentPage === totalPages}
+                    >
                       Volgende
                     </button>
                   </Link>
@@ -139,19 +167,24 @@ export default async function AccountApiariesPage({
               )}
             </>
           ) : (
-            <div style={{ textAlign: "center", padding: "var(--space-16) 0" }}>
-              <h2 className="heading-secondary" style={{ 
-                fontFamily: "var(--font-display)",
-                fontSize: "2rem",
-                fontWeight: "400",
-                marginBottom: "var(--space-4)"
-              }}>
+            <div style={{ textAlign: 'center', padding: 'var(--space-16) 0' }}>
+              <h2
+                className="heading-secondary"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '2rem',
+                  fontWeight: '400',
+                  marginBottom: 'var(--space-4)',
+                }}
+              >
                 Nog geen bijenstanden
               </h2>
-              <p style={{ 
-                color: "var(--color-text-light)",
-                marginBottom: "var(--space-8)"
-              }}>
+              <p
+                style={{
+                  color: 'var(--color-text-light)',
+                  marginBottom: 'var(--space-8)',
+                }}
+              >
                 Begin met het toevoegen van uw eerste bijenstand
               </p>
               <Link href="/apiaries/new">
@@ -164,6 +197,5 @@ export default async function AccountApiariesPage({
         </div>
       </section>
     </>
-  
   );
 }

@@ -15,7 +15,7 @@ export default async function UserHivesPage({
 
   const { userId } = await params;
   const searchParamsResult = await searchParams;
-  const hivesPerPage = 5;
+  const hivesPerPage = 20;
   const currentPage = Number(searchParamsResult?.page ?? '1');
   const totalHives = await prisma.hive.count({
     where: {
@@ -61,7 +61,8 @@ export default async function UserHivesPage({
         <div className="container">
           <h1 className="heading-primary">Behuizingen van {user.name}</h1>
           <p className="page-header__subtitle">
-            Totaal: {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
+            Totaal: {totalHives}{' '}
+            {totalHives === 1 ? 'behuizing' : 'behuizingen'}
           </p>
         </div>
       </section>
