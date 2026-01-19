@@ -51,9 +51,6 @@ export default async function Observation({
               Waarneming {new Date(observation.createdAt).toLocaleDateString('nl-BE')}
             </h1>
             <div className="btn-group">
-              <Link href="/observations" className="btn btn--secondary">
-                ← Terug
-              </Link>
               <Link href={`/observations/${observationId}/edit`} className="btn btn--secondary">
                 Bewerk
               </Link>
