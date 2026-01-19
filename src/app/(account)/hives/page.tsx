@@ -29,7 +29,7 @@ export default async function AccountHivesPage({
 
   const searchParamsResult = await searchParams;
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
-  const hivesPerPage = 5;
+  const hivesPerPage = 10;
   const totalHives = await prisma.hive.count({
     where: {
       apiary: { userId: session?.user?.id },
@@ -48,51 +48,46 @@ export default async function AccountHivesPage({
   });
 
   return (
-    <>
-      <section className="page-header" data-page="—">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <div className="nav__container" style={{ padding: 0 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
-              <div>
-                <h1 className="heading-primary">Mijn behuizingen ({totalHives})</h1>
-              </div>
-              <div className="page-header__actions">
-                <Link href="/hives/new">
-                  <button className="btn btn--secondary">
-                    + Nieuwe behuizing
-                  </button>
-                </Link>
-              </div>
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">{totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}</span>
+            <h1 className="platform-hero__title">Mijn behuizingen</h1>
+            <div className="btn-group">
+              <Link href="/hives/new" className="btn btn--secondary">
+                + Nieuwe behuizing
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container">
           {hives.length > 0 ? (
             <>
-              <div className="grid grid-three-columns">
+              <div className="home-features__grid">
                 {hives.map(hive => (
                   <Link
                     key={hive.id}
                     href={`/hives/${hive.id}`}
-                    style={{ textDecoration: 'none' }}
+                    className="feature-card"
                   >
-                    <div className="card">
-                      <p className="card__category">
-                        Behuizing
-                      </p>
-                      <h3 className="heading-tertiary">
-                        {hive.name}
-                      </h3>
-                      <div className="card__divider">
-                        <p className="card__label">Bijenstand</p>
-                        <p className="card__value">{hive.apiary.name}</p>
-                        <p className="card__label">Type behuizing</p>
-                        <p className="card__value">{hive.type}</p>
-                        <p className="card__label">Variëteit</p>
-                        <p className="card__value">{hive.colonyType}</p>
+                    <span className="feature-card__label">Behuizing</span>
+                    <h3 className="feature-card__title">{hive.name}</h3>
+                    <div className="feature-card__meta">
+                      <div className="meta-item">
+                        <span className="meta-label">Bijenstand</span>
+                        <span className="meta-value">{hive.apiary.name}</span>
+                      </div>
+                      <div className="meta-item">
+                        <span className="meta-label">Type behuizing</span>
+                        <span className="meta-value">{hive.type}</span>
+                      </div>
+                      <div className="meta-item">
+                        <span className="meta-label">Variëteit</span>
+                        <span className="meta-value">{hive.colonyType}</span>
                       </div>
                     </div>
                   </Link>
@@ -100,54 +95,30 @@ export default async function AccountHivesPage({
               </div>
 
               {totalPages > 1 && (
-                <div style={{ 
-                  display: "flex", 
-                  justifyContent: "center", 
-                  alignItems: "center",
-                  gap: "var(--space-4)",
-                  marginTop: "var(--space-12)"
-                }}>
-                  <Link href={`/hives?page=${currentPage > 1 ? currentPage - 1 : 1}`}>
-                    <button className="btn btn--secondary" disabled={currentPage === 1}>
-                      Vorige
-                    </button>
+                <div className="pagination">
+                  <Link href={`/hives?page=${currentPage > 1 ? currentPage - 1 : 1}`} className="btn btn--secondary">
+                    Vorige
                   </Link>
-                  <span style={{ color: "var(--color-text-light)" }}>
+                  <span className="pagination-info">
                     Pagina {currentPage} van {totalPages}
                   </span>
-                  <Link href={`/hives?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}>
-                    <button className="btn btn--secondary" disabled={currentPage === totalPages}>
-                      Volgende
-                    </button>
+                  <Link href={`/hives?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`} className="btn btn--secondary">
+                    Volgende
                   </Link>
                 </div>
               )}
             </>
           ) : (
-            <div style={{ textAlign: "center", padding: "var(--space-16) 0" }}>
-              <h2 className="heading-secondary" style={{ 
-                fontFamily: "var(--font-display)",
-                fontSize: "2rem",
-                fontWeight: "400",
-                marginBottom: "var(--space-4)"
-              }}>
-                Nog geen bijhuizingen
-              </h2>
-              <p style={{ 
-                color: "var(--color-text-light)",
-                marginBottom: "var(--space-8)"
-              }}>
-                Voeg eerst een bijenstand toe om bijhuizingen te kunnen aanmaken
-              </p>
-              <Link href="/apiaries/new">
-                <button className="btn btn--secondary btn--lg">
-                  + Bijenstand toevoegen
-                </button>
+            <div className="empty-state">
+              <h2 className="feature-card__title">Nog geen bijhuizingen</h2>
+              <p className="feature-card__text">Voeg eerst een bijenstand toe om bijhuizingen te kunnen aanmaken</p>
+              <Link href="/apiaries/new" className="btn btn--primary">
+                + Bijenstand toevoegen
               </Link>
             </div>
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 }

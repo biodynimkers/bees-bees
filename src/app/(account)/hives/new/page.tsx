@@ -18,21 +18,22 @@ export default async function AccountApiaryNewHivePage({
   }
 
   return (
-    <>
-      <section className="page-header" data-page="—">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <h1 className="heading-primary">Nieuwe behuizing</h1>
-          <p className="page-header__subtitle">
-
-          </p>
+          <div className="platform-hero__content">
+            <h1 className="platform-hero__title">
+              Nieuwe behuizing
+            </h1>
+          </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container container--narrow">
           <HiveForm apiaryId={apiaryId} apiaryName={apiaryName} />
         </div>
       </section>
-    </>
+    </div>
   );
 }
