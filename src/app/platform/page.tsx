@@ -1,4 +1,42 @@
+'use client';
+
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+
 export default function PlatformPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: 'Kost het platform iets?',
+      answer: 'Nee, het platform is volledig gratis te gebruiken. Er zijn geen verborgen kosten of premium features. Alles staat open voor alle gebruikers.'
+    },
+    {
+      question: 'Zijn mijn gegevens veilig?',
+      answer: 'Ja, je gegevens zijn volledig privé. Alleen jij hebt toegang tot je bijenstanden en observaties. We delen geen data met derden en je GPS-locaties zijn afgeschermd.'
+    },
+    {
+      question: 'Werkt het platform op mobiele telefoon?',
+      answer: 'Het platform is volledig responsive en werkt op alle apparaten. Noteer observaties direct in het veld via je smartphone en bekijk ze later op je computer.'
+    },
+    {
+      question: 'Wat als ik hulp nodig heb?',
+      answer: 'Je kunt altijd contact met ons opnemen via de contactpagina. We helpen je graag verder met vragen over het platform of technische problemen.'
+    },
+    {
+      question: 'Hoeveel behuizingen kan ik registreren?',
+      answer: 'Er is geen limiet. Of je nu 2 behuizingen hebt of 200, het platform schaalt mee. Voeg onbeperkt bijenstanden, behuizingen en observaties toe.'
+    },
+    {
+      question: 'Kan ik mijn data exporteren?',
+      answer: 'Je data blijft altijd van jou. In de toekomst voegen we export-functionaliteit toe zodat je een backup kunt maken van al je gegevens.'
+    }
+  ];
+
   return (
     <>
       <section className="section section-first">
@@ -9,12 +47,12 @@ export default function PlatformPage() {
                 Digitaal Platform voor Bijenhouden - Overzichtelijk Imkeren
               </h1>
               <p className="text-large margin-bottom-small">
-                Houd al je bijenstanden, kasten en observaties bij op één centrale plek. 
+                Houd al je bijenstanden, behuizingen en observaties bij op één centrale plek. 
                 Geen papieren notitieboekjes meer, geen verspreid werk. Alles netjes 
                 georganiseerd en altijd bij de hand.
               </p>
               <p className="text-large">
-                Of je nu 2 kasten hebt of 20, het platform schaalt mee met je imkerij.
+                Of je nu 2 behuizingen hebt of 20, het platform schaalt mee met je imkerij.
               </p>
             </div>
             <div className="info-box">
@@ -23,7 +61,7 @@ export default function PlatformPage() {
                 • Overzicht over meerdere standen
               </p>
               <p className="info-box__text">
-                • Geschiedenis per kast raadplegen
+                • Geschiedenis per behuizing raadplegen
               </p>
               <p className="info-box__text">
                 • Patronen herkennen in je observaties
@@ -72,14 +110,14 @@ export default function PlatformPage() {
             </div>
             <div className="card">
               <span className="number-large">03</span>
-              <h3 className="heading-tertiary">Kasten registreren</h3>
+              <h3 className="heading-tertiary">Bijhuizingen registreren</h3>
               <p className="card__text margin-bottom-small">
-                Koppel kasten aan je standen. Geef elke kast een unieke naam en 
-                houd bij welk type kast het is (Dadant, Langstroth, enz.) en welk 
-                type volk erin zit.
+                Koppel bijhuizingen aan je standen. Geef elke bijhuizing een unieke naam en 
+                houd bij welk type bijhuizing het is (Dadant, Langstroth, enz.) en welk 
+                variëteit erin zit.
               </p>
               <p className="card__text text-light">
-                Per stand zie je direct al je kasten in één overzicht
+                Per stand zie je direct al je behuizingen in één overzicht
               </p>
             </div>
 
@@ -87,77 +125,45 @@ export default function PlatformPage() {
               <span className="number-large">04</span>
               <h3 className="heading-tertiary">Waarnemingen loggen</h3>
               <p className="card__text margin-bottom-small">
-                Noteer observaties direct bij je kastcontroles. Bijensterkte, 
+                Noteer observaties direct bij je behuizingcontroles. Bijensterkte, 
                 stuifmeelkleur, bijzonderheden – alles vastleggen voor later 
                 teruglezen.
               </p>
               <p className="card__text text-light">
-                Zie je geschiedenis per kast en herken patronen
+                Zie je geschiedenis per behuizing en herken patronen
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="section">
         <div className="container">
           <div className="section-header text-center">
             <h2 className="heading-secondary">Veelgestelde vragen over het platform</h2>
           </div>
 
-          <div className="grid grid-two-columns gap-large">
-            <div className="card">
-              <h3 className="heading-tertiary">Kost het platform iets?</h3>
-              <p className="card__text">
-                Nee, het platform is volledig gratis te gebruiken. Er zijn geen 
-                verborgen kosten of premium features. Alles staat open voor 
-                alle gebruikers.
-              </p>
-            </div>
-
-            <div className="card">
-              <h3 className="heading-tertiary">Zijn mijn gegevens veilig?</h3>
-              <p className="card__text">
-                Ja, je gegevens zijn volledig privé. Alleen jij hebt toegang tot 
-                je bijenstanden en observaties. We delen geen data met derden 
-                en je GPS-locaties zijn afgeschermd.
-              </p>
-            </div>
-
-            <div className="card">
-              <h3 className="heading-tertiary">Werkt het platform op mobiele telefoon?</h3>
-              <p className="card__text">
-                Het platform is volledig responsive en werkt op alle apparaten. 
-                Noteer observaties direct in het veld via je smartphone en bekijk 
-                ze later op je computer.
-              </p>
-            </div>
-
-            <div className="card">
-              <h3 className="heading-tertiary">Wat als ik hulp nodig heb?</h3>
-              <p className="card__text">
-                Je kunt altijd contact met ons opnemen via de contactpagina. 
-                We helpen je graag verder met vragen over het platform of 
-                technische problemen.
-              </p>
-            </div>
-
-            <div className="card">
-              <h3 className="heading-tertiary">Hoeveel kasten kan ik registreren?</h3>
-              <p className="card__text">
-                Er is geen limiet. Of je nu 2 kasten hebt of 200, het platform 
-                schaalt mee. Voeg onbeperkt bijenstanden, kasten en observaties toe.
-              </p>
-            </div>
-
-            <div className="card">
-              <h3 className="heading-tertiary">Kan ik mijn data exporteren?</h3>
-              <p className="card__text">
-                Je data blijft altijd van jou. In de toekomst voegen we export-
-                functionaliteit toe zodat je een backup kunt maken van al je 
-                gegevens.
-              </p>
-            </div>
+          <div className="faq-list">
+            {faqs.map((faq, index) => (
+              <div key={index} className="faq-item">
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="faq-question"
+                  aria-expanded={openFaq === index}
+                >
+                  <span>{faq.question}</span>
+                  <ChevronDown 
+                    size={20} 
+                    className={`faq-icon ${openFaq === index ? 'is-open' : ''}`}
+                  />
+                </button>
+                {openFaq === index && (
+                  <div className="faq-answer">
+                    <p>{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>

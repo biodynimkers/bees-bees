@@ -96,7 +96,7 @@ export default function VisionPage() {
 
           <SectionContent grid="two">
             <div className="feature-card feature-card--01">
-              <div className="feature-card__number">01</div>
+            
               <h3 className="heading-tertiary">Opleidingen & Workshops</h3>
               <p className="feature-card__text">
                 Van basiscursussen tot verdiepende opleidingen. Ook workshops
@@ -106,7 +106,7 @@ export default function VisionPage() {
             </div>
 
             <div className="feature-card feature-card--02">
-              <div className="feature-card__number">02</div>
+             
               <h3 className="heading-tertiary">Netwerk & Begeleiding</h3>
               <p className="feature-card__text">
                 BD-Bee Buddies bieden ondersteuning aan imkers. Regionale
@@ -116,7 +116,7 @@ export default function VisionPage() {
             </div>
 
             <div className="feature-card feature-card--03">
-              <div className="feature-card__number">03</div>
+          
               <h3 className="heading-tertiary">Informatieplatform</h3>
               <p className="feature-card__text">
                 Website met ledengroep, zwermlijsten en digitale tools om het
@@ -125,7 +125,7 @@ export default function VisionPage() {
             </div>
 
             <div className="feature-card feature-card--04">
-              <div className="feature-card__number">04</div>
+         
               <h3 className="heading-tertiary">Samenwerking & Dialoog</h3>
               <p className="feature-card__text">
                 Werking naar kinderen en scholen, samenwerking met biodynamische

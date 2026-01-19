@@ -148,15 +148,15 @@ export default async function AccountApiaryHivePage({
       <section className="section section-alternate">
         <div className="container">
           <div className="section-header">
-            <h2 className="heading-secondary">Kast informatie</h2>
+            <h2 className="heading-secondary">Behuizing informatie</h2>
           </div>
           <div className="grid grid-two-columns">
             <div className="card">
               <p className="card__label">Bijenstand</p>
               <p className="card__value">{hive.apiary.name}</p>
-              <p className="card__label">Type kast</p>
+              <p className="card__label">Type behuizing</p>
               <p className="card__value">{hive.type}</p>
-              <p className="card__label">Type volk</p>
+              <p className="card__label">Variëteit</p>
               <p className="card__value">{hive.colonyType}</p>
             </div>
             <div className="card">

@@ -61,7 +61,7 @@ export default async function AdminUserObservationsPage({
         <div className="container">
           <h1 className="heading-primary">Waarnemingen van {user.name}</h1>
           <p className="page-header__subtitle">
-            Totaal: {totalObservations} {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}
+            Totaal: {totalObservations}
           </p>
         </div>
       </section>

@@ -55,7 +55,7 @@ export default async function ApiaryDetailPage({
       <section className="section ">
         <div className="container">
           <div className="section-header">
-            <h2 className="heading-secondary">Kasten in deze bijenstand</h2>
+            <h2 className="heading-secondary">Behuizingen in deze bijenstand</h2>
             <Link href={returnUrl ?? '/admin/apiaries'}>
               <button className="btn btn--secondary">← Terug</button>
             </Link>

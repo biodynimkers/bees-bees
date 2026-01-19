@@ -162,7 +162,7 @@ export default function Navigation() {
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       <Box size={16} />
-                      <span>Kasten</span>
+                      <span>Behuizingen</span>
                     </Link>
                     <Link
                       href="/observations"
@@ -217,7 +217,7 @@ export default function Navigation() {
                           onClick={() => setIsDropdownOpen(false)}
                         >
                           <Box size={16} />
-                          <span>Alle kasten</span>
+                          <span>Alle behuizingen</span>
                         </Link>
                         <Link
                           href="/admin/observations"
@@ -245,7 +245,7 @@ export default function Navigation() {
                     <div className="nav__dropdown-divider"></div>
                     <button
                       onClick={handleLogout}
-                      className="nav__dropdown-item nav__dropdown-item--danger"
+                      className="nav__dropdown-item"
                     >
                       <LogOut size={16} />
                       <span>Uitloggen</span>
@@ -313,7 +313,7 @@ export default function Navigation() {
                 onClick={closeMobileMenu}
               >
                 <Box size={16} />
-                <span>Kasten</span>
+                <span>Behuizingen</span>
               </Link>
               <Link
                 href="/observations"
@@ -368,7 +368,7 @@ export default function Navigation() {
                     onClick={closeMobileMenu}
                   >
                     <Box size={16} />
-                    <span>Alle kasten</span>
+                    <span>Alle behuizingen</span>
                   </Link>
                   <Link
                     href="/admin/observations"

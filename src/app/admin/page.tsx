@@ -35,9 +35,9 @@ export default function AdminPage() {
 
             <Link href="/admin/hives">
               <div className="card">
-                <h3 className="heading-tertiary">Kasten</h3>
+                <h3 className="heading-tertiary">Behuizingen</h3>
                 <p className="card__text">
-                  Overzicht van alle bijenkasten
+                  Overzicht van alle bijenbehuizingen
                 </p>
               </div>
             </Link>
@@ -56,6 +56,15 @@ export default function AdminPage() {
                 <h3 className="heading-tertiary">Statistieken</h3>
                 <p className="card__text">
                   Platform statistieken en analyses
+                </p>
+              </div>
+            </Link>
+
+            <Link href="/admin/extras">
+              <div className="card">
+                <h3 className="heading-tertiary">Extra's</h3>
+                <p className="card__text">
+                  Beheer hero afbeelding en content
                 </p>
               </div>
             </Link>

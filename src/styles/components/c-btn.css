@@ -1,0 +1,112 @@
+.c-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-8);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.2;
+  border: 1px solid var(--c-gray-300);
+  border-radius: 0;
+  background: var(--c-white);
+  color: var(--c-text);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.c-btn:hover {
+  border-color: var(--c-text);
+  background: var(--c-gray-50);
+  transform: translateY(-1px);
+}
+
+.c-btn:active {
+  transform: translateY(0);
+}
+
+/* Variant: Secondary (subtle background) */
+.c-btn--secondary {
+  background: var(--c-gray-100);
+  border-color: var(--c-gray-300);
+}
+
+.c-btn--secondary:hover {
+  background: var(--c-gray-200);
+  border-color: var(--c-gray-400);
+}
+
+/* Variant: Ghost (no background) */
+.c-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  padding: var(--s-3) var(--s-6);
+}
+
+.c-btn--ghost:hover {
+  background: var(--c-gray-100);
+  border-color: var(--c-gray-200);
+}
+
+/* Size: Small */
+.c-btn--sm {
+  padding: var(--s-3) var(--s-6);
+  font-size: var(--text-sm);
+}
+
+/* Size: Large */
+.c-btn--lg {
+  padding: var(--s-5) var(--s-12);
+  font-size: var(--text-lg);
+}
+
+/* Full width */
+.c-btn--full {
+  width: 100%;
+}
+
+/* States */
+.c-btn:disabled,
+.c-btn.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .c-btn { padding: var(--s-4) var(--s-6); }
+}
+
+/* Legacy support - map old names */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2); padding: var(--s-4) var(--s-8); font-family: var(--font-body); font-size: var(--text-base); font-weight: 500; line-height: 1.2; border: 1px solid var(--c-border); border-radius: var(--radius-md); background: var(--c-white); color: var(--c-text); cursor: pointer; transition: all var(--duration-fast) var(--ease); text-decoration: none; white-space: nowrap; }
+.btn:hover { border-color: var(--c-text); background: var(--c-gray-50); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.btn:active { transform: translateY(0); }
+.btn--sm { padding: var(--s-3) var(--s-6); font-size: var(--text-sm); }
+.btn--lg, .btn--large { padding: var(--s-5) var(--s-12); font-size: var(--text-lg); }
+.btn--full { width: 100%; }
+.btn:disabled, .btn--disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+.btn--primary, .btn--secondary { background: var(--c-white); border-color: var(--c-border); color: var(--c-text); }
+.btn--primary:hover, .btn--secondary:hover { border-color: var(--c-text); background: var(--c-gray-50); color: var(--c-text); box-shadow: var(--shadow-sm); }
+
+@media (max-width: 768px) {
+  .c-btn { padding: var(--s-4) var(--s-6); }
+}
+
+/* ============================================
+   Legacy support - map old button classes
+   ============================================ */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--s-3); padding: var(--s-4) var(--s-8); font-family: var(--font-body); font-size: var(--text-base); font-weight: 400; line-height: 1.2; border: 1px solid var(--c-gray-300); border-radius: 0; background: var(--c-white); color: var(--c-text); cursor: pointer; transition: all var(--duration-base) var(--ease); text-decoration: none; white-space: nowrap; }
+.btn:hover { border-color: var(--c-text); background: var(--c-gray-50); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn--sm { padding: var(--s-3) var(--s-6); font-size: var(--text-sm); }
+.btn--lg, .btn--large { padding: var(--s-5) var(--s-12); font-size: var(--text-lg); }
+.btn--full { width: 100%; }
+.btn:disabled, .btn--disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+.btn--primary { background: var(--c-white); border-color: var(--c-gray-300); }
+.btn--secondary { background: var(--c-gray-100); border-color: var(--c-gray-300); }
+.btn--secondary:hover { background: var(--c-gray-200); border-color: var(--c-gray-400); }
+.btn--ghost { background: transparent; border-color: transparent; }
+.btn--ghost:hover { background: var(--c-gray-100); }

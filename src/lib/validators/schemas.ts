@@ -44,7 +44,7 @@ export const newObservationSchema = z.object({
   hiveId: z
     .number()
     .optional() // needed to allow refine to work properly
-    .refine(val => val !== undefined, { message: 'Kast ID is vereist.' }),
+    .refine(val => val !== undefined, { message: 'Behuizing ID is vereist.' }),
   beeCount: z
     .number()
     .optional()

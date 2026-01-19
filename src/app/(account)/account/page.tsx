@@ -76,7 +76,7 @@ export default async function AccountPage() {
           <p className="page-header__subtitle">
             {isNewUser
               ? 'Welkom bij BEES - Uw digitale platform voor bijenbeheer'
-              : 'Beheer uw bijenstanden, kasten en waarnemingen'}
+              : 'Beheer uw bijenstanden, behuizingen en waarnemingen'}
           </p>
         </div>
       </Section>
@@ -93,7 +93,7 @@ export default async function AccountPage() {
                   </div>
                   <h3 className="heading-tertiary">Voeg een bijenstand toe</h3>
                   <p className="card__text">
-                    Begin met het registreren van de locatie waar uw bijenkasten
+                    Begin met het registreren van de locatie waar uw behuizingen
                     staan. Geef deze een herkenbare naam zoals "Tuin" of
                     "Boerderij Janssens".
                   </p>
@@ -103,10 +103,10 @@ export default async function AccountPage() {
                   <div className="card__icon">
                     <Box size={36} strokeWidth={1.5} />
                   </div>
-                  <h3 className="heading-tertiary">Registreer uw kasten</h3>
+                  <h3 className="heading-tertiary">Registreer uw behuizingen</h3>
                   <p className="card__text">
-                    Voeg de bijenkasten toe die op uw bijenstand staan. Noteer
-                    het type kast en de sterkte van het volk.
+                    Voeg de behuizingen toe die op uw bijenstand staan. Noteer
+                    het type behuizing en de sterkte van het volk.
                   </p>
                 </div>
 
@@ -116,7 +116,7 @@ export default async function AccountPage() {
                   </div>
                   <h3 className="heading-tertiary">Start met waarnemingen</h3>
                   <p className="card__text">
-                    Registreer uw waarnemingen per kast. Houd de gezondheid,
+                    Registreer uw waarnemingen per behuizing. Houd de gezondheid,
                     activiteit en belangrijke momenten overzichtelijk bij.
                   </p>
                 </div>
@@ -144,7 +144,7 @@ export default async function AccountPage() {
 
                 <Link href="/hives" className="card card--stat">
                   <span className="number-large">{totalHives}</span>
-                  <p className="card__label">{totalHives === 1 ? 'Kast' : 'Kasten'}</p>
+                  <p className="card__label">{totalHives === 1 ? 'Behuizing' : 'Behuizingen'}</p>
                   <span className="btn btn--secondary btn--small">Bekijk alle</span>
                 </Link>
 
@@ -167,7 +167,7 @@ export default async function AccountPage() {
 
                 <Link href="/hives/new" className="card card--action">
                   <span className="card__category">Toevoegen</span>
-                  <h3 className="heading-tertiary">Kast</h3>
+                  <h3 className="heading-tertiary">Behuizing</h3>
                 </Link>
 
                 <Link href="/observations/new" className="card card--action">

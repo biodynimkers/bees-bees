@@ -144,8 +144,7 @@ export default async function AccountObservationsPage({
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
               <div>
                 <h1 className="heading-primary">
-                  Mijn waarnemingen ({totalObservations}{' '}
-                  {totalObservations === 1 ? 'waarneming' : 'waarnemingen'})
+                  Mijn waarnemingen ({totalObservations})
                 </h1>
               </div>
               <div className="page-header__actions">
@@ -173,7 +172,7 @@ export default async function AccountObservationsPage({
             search={search}
             colorFilter={colorFilter}
             allColors={allColors}
-            placeholder="Zoek op bijenstand, kast of notities"
+            placeholder="Zoek op bijenstand, behuizing of notities"
           />
         </div>
       </section>

@@ -94,9 +94,9 @@ export default async function AdminHivesPage({
       <section className="page-header">
         <div className="container">
           <div className="page-header__top">
-            <h1 className="heading-primary">Alle kasten</h1>
+            <h1 className="heading-primary">Alle behuizingen</h1>
             <p className="page-header__subtitle">
-              Totaal: {totalHives} {totalHives === 1 ? 'kast' : 'kasten'}
+              Totaal: {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
             </p>
           </div>
         </div>

@@ -16,7 +16,7 @@ export default function Register() {
         <div className="container container--narrow">
           <RegisterForm createItem={createItem} />
 
-          <div className="text-center" style={{ marginTop: "var(--space-8)" }}>
+          <div className="text-center margin-top-large">
             <p className="card__description">
               Heeft u al een account?{" "}
               <Link href="/auth/login" className="text-link">

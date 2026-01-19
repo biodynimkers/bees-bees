@@ -25,7 +25,7 @@ export default function ApiariesTable({
               <th>Naam</th>
               <th>Locatie</th>
               {showUser && <th>Eigenaar</th>}
-              <th>Aantal kasten</th>
+              <th>Aantal behuizingen</th>
               <th>Aangemaakt</th>
             </tr>
           </thead>
@@ -45,7 +45,7 @@ export default function ApiariesTable({
                   {apiary.latitude}, {apiary.longitude}
                 </td>
                 {showUser && <td data-label="Eigenaar">{apiary.user.name}</td>}
-                <td data-label="Aantal kasten">{apiary._count.hives}</td>
+                <td data-label="Aantal behuizingen">{apiary._count.hives}</td>
                 <td data-label="Aangemaakt">{new Date(apiary.createdAt).toLocaleDateString('nl-BE')}</td>
               </tr>
             ))}

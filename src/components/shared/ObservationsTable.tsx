@@ -51,7 +51,7 @@ export default function ObservationsTable({
               <th>Weer</th>
               <th>Temperatuur</th>
               <th>Notities</th>
-              {showHive && <th>Kast</th>}
+              {showHive && <th>Behuizing</th>}
               {showApiary && <th>Bijenstand</th>}
               {showUser && <th>Eigenaar</th>}
             </tr>
@@ -109,7 +109,7 @@ export default function ObservationsTable({
                 </td>
                 <td data-label="Notities">{observation.notes || '-'}</td>
                 {showHive && observation.hive && (
-                  <td data-label="Kast">
+                  <td data-label="Behuizing">
                     <Link href={`/admin/hives/${observation.hive.id}`}>
                       {observation.hive.name}
                     </Link>

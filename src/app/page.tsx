@@ -76,7 +76,7 @@ export default async function Home() {
         totalHives={totalHives}
       />
 
-      <section className="section ">
+      <section className="section">
         <div className="container">
           <div className="section-header">
             <h2 className="heading-secondary">Belangrijkste functies voor imkers</h2>
@@ -100,11 +100,11 @@ export default async function Home() {
             </div>
             <div className="card">
               <div className="card__header">
-                <h3 className="heading-tertiary">Kasten registreren</h3>
+                <h3 className="heading-tertiary">Behuizingen registreren</h3>
               </div>
               <div className="card__content">
                 <p className="card__description">
-                  Houd per kast bij welk type het is, sinds wanneer het er staat
+                  Houd per behuizing bij welk type het is, sinds wanneer het er staat
                   en wat de huidige status is.
                 </p>
               </div>
@@ -157,19 +157,18 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section section-alternate">
+     <section className="section section-alternate">
         <div className="container">
-          <div className="section-header section-header">
+          <div className="text-center">
             <h2 className="heading-secondary">Gratis account aanmaken</h2>
-            <p className="section-description">
-              Sluit je aan bij imkers die hun bijenhouden al digitaal beheren.
-              Gratis en zonder verplichtingen.
+            <p className="text-large margin-bottom-large">
+              Registreer nu gratis en begin met het digitaliseren van je imkerij
             </p>
-          </div>
-          <div className="section-actions">
-            <Button href="/auth/register" variant="primary" size="lg">
-              Gratis account aanmaken
-            </Button>
+            <div className="flex justify-center gap-small">
+              <a href="/auth/register" className="btn btn--secondary">
+                Gratis account aanmaken
+              </a>
+            </div>
           </div>
         </div>
       </section>

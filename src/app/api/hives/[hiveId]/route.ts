@@ -66,7 +66,7 @@ export async function PUT(
     });
     if (!hive) {
       return NextResponse.json(
-        { error: 'Kast niet gevonden' },
+        { error: 'Behuizing niet gevonden' },
         { status: 404 }
       );
     }
@@ -89,7 +89,7 @@ export async function PUT(
   } catch (error) {
     console.error('Error updating hive:', error);
     return NextResponse.json(
-      { error: 'Er ging iets mis bij het bijwerken van de kast' },
+      { error: 'Er ging iets mis bij het bijwerken van de behuizing' },
       { status: 500 }
     );
   }

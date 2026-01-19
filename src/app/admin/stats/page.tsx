@@ -89,7 +89,7 @@ export default async function AdminStatsPage() {
           </div>
           <div className="grid grid-three-columns">
             <StatCard value={totalApiaries} label="Bijenstanden" />
-            <StatCard value={totalHives} label="Kasten" />
+            <StatCard value={totalHives} label="Behuizingen" />
             <StatCard value={totalObservations} label="Waarnemingen" />
           </div>
         </div>
@@ -101,8 +101,8 @@ export default async function AdminStatsPage() {
             <h2 className="heading-secondary">Gemiddelden</h2>
           </div>
           <div className="grid grid-three-columns">
-            <StatCard value={avgHivesPerApiary} label="Kasten per bijenstand" />
-            <StatCard value={avgObsPerHive} label="Waarnemingen per kast" />
+            <StatCard value={avgHivesPerApiary} label="Behuizingen per bijenstand" />
+            <StatCard value={avgObsPerHive} label="Waarnemingen per behuizing" />
             <StatCard value={avgBeeStrength} label="Gem. bijensterkte (1-10)" />
           </div>
         </div>

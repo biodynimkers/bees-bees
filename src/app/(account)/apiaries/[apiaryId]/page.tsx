@@ -65,7 +65,7 @@ export default async function AccountApiaryPage({
         <div className="container">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
             <div>
-              <h1 className="heading-primary">{apiary?.name} ({totalHives} {totalHives === 1 ? 'kast' : 'kasten'})</h1>
+              <h1 className="heading-primary">{apiary?.name} ({totalHives})</h1>
             </div>
             <div className="page-header__actions">
               <Link href={`/apiaries/${apiary?.id}/edit`}>
@@ -192,12 +192,12 @@ export default async function AccountApiaryPage({
         <div className="container">
           <div className="section-header">
             <h2 className="heading-secondary">
-              Kasten in deze stand
+              Behuizingen in deze stand
             </h2>
             {hives.length > 0 && (
               <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}>
                 <button className="btn btn--secondary">
-                  + Nieuwe kast
+                  + Nieuwe behuizing
                 </button>
               </Link>
             )}
@@ -214,7 +214,7 @@ export default async function AccountApiaryPage({
                   >
                     <div className="card">
                       <p className="card__category">
-                        Kast
+                        Behuizing
                       </p>
                       <h3 className="heading-tertiary">
                         {hive.name}
@@ -222,9 +222,9 @@ export default async function AccountApiaryPage({
                       <div className="card__divider">
                         <p className="card__label">Bijenstand</p>
                         <p className="card__value">{apiary?.name}</p>
-                        <p className="card__label">Type kast</p>
+                        <p className="card__label">Type behuizing</p>
                         <p className="card__value">{hive.type}</p>
-                        <p className="card__label">Type volk</p>
+                        <p className="card__label">Variëteit</p>
                         <p className="card__value">{hive.colonyType}</p>
                         <p className="card__label">Waarnemingen</p>
                         <p className="card__value">{hive.observations.length}</p>
@@ -266,17 +266,17 @@ export default async function AccountApiaryPage({
                 fontWeight: "400",
                 marginBottom: "var(--space-4)"
               }}>
-                Nog geen kasten
+                Nog geen behuizingen
               </h2>
               <p style={{ 
                 color: "var(--color-text-light)",
                 marginBottom: "var(--space-8)"
               }}>
-                Voeg uw eerste bijenkast toe aan deze stand
+                Voeg uw eerste behuizing toe aan deze stand
               </p>
               <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}>
                 <button className="btn btn--secondary btn--lg">
-                  + Eerste kast toevoegen
+                  + Eerste behuizing toevoegen
                 </button>
               </Link>
             </div>

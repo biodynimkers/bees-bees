@@ -150,7 +150,7 @@ export default async function AdminHiveDetailPage({
             search={search}
             colorFilter={color}
             allColors={allColors}
-            placeholder="Zoek op kast of notities"
+            placeholder="Zoek op behuizing of notities"
           />
         </div>
       </section>

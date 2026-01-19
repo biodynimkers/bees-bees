@@ -111,8 +111,7 @@ export default async function AdminObservationsPage({
           <div className="page-header__top">
             <h1 className="heading-primary">Alle waarnemingen</h1>
             <p className="page-header__subtitle">
-              Totaal: {totalObservations}{' '}
-              {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}
+              Totaal: {totalObservations}
               {search && ` (gefilterd op "${search}")`}
               {colorFilter && ` (kleur: ${colorFilter})`}
             </p>
@@ -133,7 +132,7 @@ export default async function AdminObservationsPage({
             search={search}
             colorFilter={colorFilter}
             allColors={allColors}
-            placeholder="Zoek op bijenstand, kast of notities"
+            placeholder="Zoek op bijenstand, behuizing of notities"
           />
         </div>
       </section>

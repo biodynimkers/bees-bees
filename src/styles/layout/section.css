@@ -1,0 +1,48 @@
+.l-section {
+  padding: var(--s-24) 0;
+  width: 100%;
+}
+
+.l-section--first {
+  margin-top: calc(var(--nav-height) + var(--s-16));
+  padding-top: var(--s-20);
+}
+
+.l-section--sm {
+  padding: var(--s-16) 0;
+}
+
+.l-section--lg {
+  padding: var(--s-24) 0 var(--s-24);
+}
+
+.l-section--xl {
+  padding: var(--s-24) 0 var(--s-24);
+}
+
+/* Subtle background alternation */
+.l-section--alt {
+  background: var(--c-gray-50);
+}
+
+/* Remove bottom padding when section follows another */
+.l-section + .l-section {
+  padding-top: var(--s-20);
+}
+
+@media (max-width: 768px) {
+  .l-section {
+    padding: var(--s-16) 0;
+  }
+
+  .l-section--first {
+    margin-top: var(--nav-height);
+    padding-top: var(--s-12);
+  }
+}
+
+/* Legacy support */
+.section { padding: var(--s-24) 0; width: 100%; }
+.section-first { margin-top: calc(var(--nav-height) + var(--s-16)); padding-top: var(--s-20); }
+.section-default { background: var(--c-white); }
+.section-alternate { background: var(--c-gray-50); }

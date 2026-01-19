@@ -58,7 +58,7 @@ export default async function AccountApiariesPage({
           <div className="nav__container" style={{ padding: 0 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
               <div>
-                <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries} {totalApiaries === 1 ? 'locatie' : 'locaties'})</h1>
+                <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries})</h1>
               </div>
               <div className="page-header__actions">
                 <Link href="/apiaries/new">
@@ -106,8 +106,8 @@ export default async function AccountApiariesPage({
                         {apiary.name}
                       </h3>
                       <div className="card__divider">
-                        <p className="card__label">Kasten</p>
-                        <p className="card__value">{apiary.hives.length} {apiary.hives.length === 1 ? 'kast' : 'kasten'}</p>
+                        <p className="card__label">Behuizingen</p>
+                        <p className="card__value">{apiary.hives.length} {apiary.hives.length === 1 ? 'behuizing' : 'behuizingen'}</p>
                       </div>
                     </div>
                   </Link>

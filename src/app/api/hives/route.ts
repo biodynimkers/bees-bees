@@ -34,7 +34,7 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching hives:', error);
     return NextResponse.json(
-      { error: 'Er ging iets mis bij het ophalen van de kasten' },
+      { error: 'Er ging iets mis bij het ophalen van de behuizingen' },
       { status: 500 }
     );
   }
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Maak kast aan
+    // Maak behuizing aan
     const hive = await prisma.hive.create({
       data: {
         type,
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error('Error creating hive:', error);
     return NextResponse.json(
-      { error: 'Er ging iets mis bij het aanmaken van de kast' },
+      { error: 'Er ging iets mis bij het aanmaken van de behuizing' },
       { status: 500 }
     );
   }

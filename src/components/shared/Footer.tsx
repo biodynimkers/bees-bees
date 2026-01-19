@@ -12,9 +12,6 @@ export default function Footer() {
               <img src="/assets/logo-footer.png" alt="Logo" className="footer__logo-image" />
               <span className="text-small">Biodynamische Imkers Vlaanderen</span>
             </div>
-            <p className="footer__tagline">
-              Digitaal imkeren voor de moderne bijhouder.
-            </p>
           </div>
           
           <div className="footer__links">

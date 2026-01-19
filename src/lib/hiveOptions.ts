@@ -1,7 +1,7 @@
 export const HIVE_TYPES = [
   'korf',
   'hangkorf',
-  'simplex/spaarkast',
+  'simplex/spaarbehuizing',
   'aanrainbeuten',
   'anders',
 ];

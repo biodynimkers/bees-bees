@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { apiarySchema } from '@/lib/validators/schemas';
 import dynamic from 'next/dynamic';
 
@@ -301,7 +302,7 @@ export default function ApiaryForm({
           </label>
         </div>
         <p className="form__help">
-          Voor nauwkeurige locaties van bijenkasten in velden of bossen, gebruik
+          Voor nauwkeurige locaties van bijenbehuizingen in velden of bossen, gebruik
           GPS op uw smartphone.
         </p>
       </div>
@@ -376,7 +377,7 @@ export default function ApiaryForm({
           >
             <strong> Belangrijk:</strong> Deze functie werkt alleen nauwkeurig
             op smartphones met GPS. Desktop computers gebruiken WiFi/IP-locatie
-            en zijn niet geschikt voor het bepalen van bijenkasten in velden of
+            en zijn niet geschikt voor het bepalen van bijenbehuizingen in velden of
             bossen.
             <br />
             <strong>Gebruik uw smartphone voor beste resultaten.</strong>
@@ -442,7 +443,13 @@ export default function ApiaryForm({
         />
       )}
 
-      <div className="form__actions">
+      <div className="form__actions form__actions--center">
+        <Link
+          href="/apiaries"
+          className="btn btn--secondary btn--large"
+        >
+          Annuleren
+        </Link>
         <button
           type="submit"
           disabled={loading}

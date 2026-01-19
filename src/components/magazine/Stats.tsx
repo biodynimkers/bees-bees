@@ -27,7 +27,7 @@ export default function Stats({
           </div>
           <div className="stats__item">
             <span className="number-large">{totalHives.toLocaleString()}</span>
-            <div className="stats__label">Bijenkasten</div>
+            <div className="stats__label">Behuizingen</div>
             <p className="stats__description">In beheer via ons systeem</p>
           </div>
         </div>

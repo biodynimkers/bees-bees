@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
     if (!hive || hive.apiary.user.id !== session.user.id) {
       return NextResponse.json(
-        { error: 'Bijenkast niet gevonden' },
+        { error: 'Behuizing niet gevonden' },
         { status: 404 }
       );
     }

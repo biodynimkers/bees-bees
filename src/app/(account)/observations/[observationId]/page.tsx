@@ -537,7 +537,7 @@ export default async function Observation({
               </div>
             </div>
 
-            {/* Kast Info & Notities Card */}
+            {/* Behuizing Info & Notities Card */}
             <div
               style={{
                 display: 'flex',
@@ -545,7 +545,7 @@ export default async function Observation({
                 gap: 'var(--space-10)',
               }}
             >
-              {/* Kast informatie */}
+              {/* Behuizing informatie */}
               <div className="card" style={{ padding: 'var(--space-10)' }}>
                 <h3
                   style={{
@@ -557,7 +557,7 @@ export default async function Observation({
                     borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
                   }}
                 >
-                  Kast informatie
+                  Behuizing informatie
                 </h3>
                 <div
                   style={{
@@ -577,7 +577,7 @@ export default async function Observation({
                         fontWeight: '600',
                       }}
                     >
-                      Kast
+                      Behuizing
                     </p>
                     <Link
                       href={`/hives/${observation.hive.id}`}

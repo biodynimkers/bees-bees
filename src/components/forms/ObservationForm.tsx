@@ -141,7 +141,7 @@ export default function ObservationForm({
     const finalHiveId = hiveId || selectedHiveId;
 
     if (!finalHiveId) {
-      setError('Selecteer eerst een kast');
+      setError('Selecteer eerst een behuizing');
       setLoading(false);
       return;
     }
@@ -213,7 +213,7 @@ export default function ObservationForm({
         {!hiveId && (
           <div className="form__group">
             <label htmlFor="hiveSelect" className="form__label">
-              Kast *
+              Behuizing *
             </label>
             <select
               id="hiveSelect"
@@ -231,7 +231,7 @@ export default function ObservationForm({
               }}
               required
             >
-              <option value="">-- Selecteer kast --</option>
+              <option value="">-- Selecteer behuizing --</option>
               {hives.map(hive => (
                 <option key={hive.id} value={hive.id}>
                   {hive.apiary.name} - {hive.name}
@@ -242,24 +242,21 @@ export default function ObservationForm({
         )}
         {hiveId && hiveName && (
           <div className="form__group">
-            <label className="form__label">Kast</label>
+            <label className="form__label">Behuizing</label>
             <input
               type="text"
               value={hiveName}
               className="form__input"
               disabled
-              style={{
-                backgroundColor: 'var(--color-gray-100)',
-                cursor: 'not-allowed',
-              }}
             />
           </div>
         )}
+        <div className="form__section">
         <div className="form__group">
-          <h3 className="form__section-title">Observatie - Aantal bijen</h3>
+          <h3 className="form__section-title"><span className="form__step-badge">Stap 1</span> Aantal bijen</h3>
           <p className="form__instructions">
             Druk op 'Start timer' en tel 30 seconden lang hoeveel bijen er
-            binnenkomen in de kast.
+            binnenkomen in de behuizing.
           </p>
           <Timer />
           <label htmlFor="beeCount" className="form__label">
@@ -368,8 +365,10 @@ export default function ObservationForm({
             Tel de bijen tijdens de 30 seconden observatie
           </p>
         </div>
+        </div>
+        <div className="form__section">
         <div className="form__group">
-          <h3 className="form__section-title">Observatie - Stuifmeelkleur</h3>
+          <h3 className="form__section-title"><span className="form__step-badge">Stap 2</span> Stuifmeelkleur</h3>
           <p className="form__instructions">
             Neem even de tij om de stuifmeelkleuren op de bijen te observeren.
             Selecteer maximaal 3 verschillende kleuren, of kies 'Geen' indien
@@ -399,21 +398,7 @@ export default function ObservationForm({
           <div className="form__radio-group">
             <button
               type="button"
-              className={`btn ${
-                pollenAmount === 'WEINIG' ? 'btn--primary' : 'btn--secondary'
-              }`}
-              style={{
-                backgroundColor:
-                  pollenAmount === 'WEINIG'
-                    ? 'var(--color-primary)'
-                    : 'var(--color-gray-200)',
-                color:
-                  pollenAmount === 'WEINIG' ? 'white' : 'var(--color-text)',
-                border:
-                  pollenAmount === 'WEINIG'
-                    ? '2px solid var(--color-primary)'
-                    : '2px solid var(--color-gray-300)',
-              }}
+              className={`btn ${pollenAmount === 'WEINIG' ? 'btn--primary' : 'btn--secondary'}`}
               onClick={() => {
                 setPollenAmount('WEINIG');
                 if (fieldErrors?.pollenAmount) {
@@ -429,21 +414,7 @@ export default function ObservationForm({
             </button>
             <button
               type="button"
-              className={`btn ${
-                pollenAmount === 'GEMIDDELD' ? 'btn--primary' : 'btn--secondary'
-              }`}
-              style={{
-                backgroundColor:
-                  pollenAmount === 'GEMIDDELD'
-                    ? 'var(--color-primary)'
-                    : 'var(--color-gray-200)',
-                color:
-                  pollenAmount === 'GEMIDDELD' ? 'white' : 'var(--color-text)',
-                border:
-                  pollenAmount === 'GEMIDDELD'
-                    ? '2px solid var(--color-primary)'
-                    : '2px solid var(--color-gray-300)',
-              }}
+              className={`btn ${pollenAmount === 'GEMIDDELD' ? 'btn--primary' : 'btn--secondary'}`}
               onClick={() => {
                 setPollenAmount('GEMIDDELD');
                 if (fieldErrors?.pollenAmount) {
@@ -459,20 +430,7 @@ export default function ObservationForm({
             </button>
             <button
               type="button"
-              className={`btn ${
-                pollenAmount === 'VEEL' ? 'btn--primary' : 'btn--secondary'
-              }`}
-              style={{
-                backgroundColor:
-                  pollenAmount === 'VEEL'
-                    ? 'var(--color-primary)'
-                    : 'var(--color-gray-200)',
-                color: pollenAmount === 'VEEL' ? 'white' : 'var(--color-text)',
-                border:
-                  pollenAmount === 'VEEL'
-                    ? '2px solid var(--color-primary)'
-                    : '2px solid var(--color-gray-300)',
-              }}
+              className={`btn ${pollenAmount === 'VEEL' ? 'btn--primary' : 'btn--secondary'}`}
               onClick={() => {
                 setPollenAmount('VEEL');
                 if (fieldErrors?.pollenAmount) {
@@ -496,8 +454,10 @@ export default function ObservationForm({
           )}
           <input type="hidden" name="pollenAmount" value={pollenAmount} />
         </div>
+        </div>
+        <div className="form__section">
         <div className="form__group">
-          <h3 className="form__section-title">Observatie - Weer</h3>
+          <h3 className="form__section-title"><span className="form__step-badge">Stap 3</span> Weersomstandigheden</h3>
           <p className="form__instructions">
             Noteer de weersomstandigheden tijdens de observatie voor betere
             context.
@@ -506,21 +466,7 @@ export default function ObservationForm({
           <div className="form__radio-group">
             <button
               type="button"
-              className={`btn ${
-                weatherCondition === 'SUNNY' ? 'btn--primary' : 'btn--secondary'
-              }`}
-              style={{
-                backgroundColor:
-                  weatherCondition === 'SUNNY'
-                    ? 'var(--color-primary)'
-                    : 'var(--color-gray-200)',
-                color:
-                  weatherCondition === 'SUNNY' ? 'white' : 'var(--color-text)',
-                border:
-                  weatherCondition === 'SUNNY'
-                    ? '2px solid var(--color-primary)'
-                    : '2px solid var(--color-gray-300)',
-              }}
+              className={`btn ${weatherCondition === 'SUNNY' ? 'btn--primary' : 'btn--secondary'}`}
               onClick={() => {
                 setWeatherCondition('SUNNY');
                 if (fieldErrors?.weatherCondition) {
@@ -536,25 +482,7 @@ export default function ObservationForm({
             </button>
             <button
               type="button"
-              className={`btn ${
-                weatherCondition === 'PARTLY_CLOUDY'
-                  ? 'btn--primary'
-                  : 'btn--secondary'
-              }`}
-              style={{
-                backgroundColor:
-                  weatherCondition === 'PARTLY_CLOUDY'
-                    ? 'var(--color-primary)'
-                    : 'var(--color-gray-200)',
-                color:
-                  weatherCondition === 'PARTLY_CLOUDY'
-                    ? 'white'
-                    : 'var(--color-text)',
-                border:
-                  weatherCondition === 'PARTLY_CLOUDY'
-                    ? '2px solid var(--color-primary)'
-                    : '2px solid var(--color-gray-300)',
-              }}
+              className={`btn ${weatherCondition === 'PARTLY_CLOUDY' ? 'btn--primary' : 'btn--secondary'}`}
               onClick={() => {
                 setWeatherCondition('PARTLY_CLOUDY');
                 if (fieldErrors?.weatherCondition) {
@@ -570,23 +498,7 @@ export default function ObservationForm({
             </button>
             <button
               type="button"
-              className={`btn ${
-                weatherCondition === 'CLOUDY'
-                  ? 'btn--primary'
-                  : 'btn--secondary'
-              }`}
-              style={{
-                backgroundColor:
-                  weatherCondition === 'CLOUDY'
-                    ? 'var(--color-primary)'
-                    : 'var(--color-gray-200)',
-                color:
-                  weatherCondition === 'CLOUDY' ? 'white' : 'var(--color-text)',
-                border:
-                  weatherCondition === 'CLOUDY'
-                    ? '2px solid var(--color-primary)'
-                    : '2px solid var(--color-gray-300)',
-              }}
+              className={`btn ${weatherCondition === 'CLOUDY' ? 'btn--primary' : 'btn--secondary'}`}
               onClick={() => {
                 setWeatherCondition('CLOUDY');
                 if (fieldErrors?.weatherCondition) {
@@ -602,21 +514,7 @@ export default function ObservationForm({
             </button>
             <button
               type="button"
-              className={`btn ${
-                weatherCondition === 'RAINY' ? 'btn--primary' : 'btn--secondary'
-              }`}
-              style={{
-                backgroundColor:
-                  weatherCondition === 'RAINY'
-                    ? 'var(--color-primary)'
-                    : 'var(--color-gray-200)',
-                color:
-                  weatherCondition === 'RAINY' ? 'white' : 'var(--color-text)',
-                border:
-                  weatherCondition === 'RAINY'
-                    ? '2px solid var(--color-primary)'
-                    : '2px solid var(--color-gray-300)',
-              }}
+              className={`btn ${weatherCondition === 'RAINY' ? 'btn--primary' : 'btn--secondary'}`}
               onClick={() => {
                 setWeatherCondition('RAINY');
                 if (fieldErrors?.weatherCondition) {
@@ -639,20 +537,10 @@ export default function ObservationForm({
             </div>
           )}
 
-          <label
-            htmlFor="temperature"
-            className="form__label"
-            style={{ marginTop: 'var(--space-6)' }}
-          >
+          <label htmlFor="temperature" className="form__label" style={{ marginTop: 'var(--s-4)' }}>
             Temperatuur (optioneel)
           </label>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'var(--space-3)',
-            }}
-          >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
             <input
               type="number"
               id="temperature"
@@ -692,8 +580,10 @@ export default function ObservationForm({
           />
           <input type="hidden" name="temperature" value={temperature} />
         </div>
+        </div>
+        <div className="form__section">
         <div className="form__group">
-          <h3 className="form__section-title">Aanvullende observaties</h3>
+          <h3 className="form__section-title"><span className="form__step-badge">Stap 4</span> Aanvullende observaties</h3>
           <p className="form__instructions">
             Noteer eventuele bijzonderheden die je tijdens de observatie hebt
             opgemerkt.
@@ -706,7 +596,7 @@ export default function ObservationForm({
             value={notes}
             onChange={e => setNotes(e.target.value)}
             className="form__textarea"
-            placeholder="Extra opmerkingen over de kast..."
+            placeholder="Extra opmerkingen over de behuizing..."
             rows={4}
           />
           {fieldErrors?.notes && (
@@ -717,7 +607,14 @@ export default function ObservationForm({
             </div>
           )}
         </div>
-        <div className="form__actions">
+        </div>
+        <div className="form__actions form__actions--center">
+          <Link
+            href={hiveId ? `/hives/${hiveId}` : '/observations'}
+            className="btn btn--secondary btn--large"
+          >
+            Annuleren
+          </Link>
           <button
             type="submit"
             className="btn btn--secondary btn--large"
@@ -726,15 +623,9 @@ export default function ObservationForm({
             {loading
               ? 'Bezig met opslaan...'
               : initialObservation
-              ? 'Observatie bewerken'
-              : 'Observatie toevoegen'}
+              ? 'Waarneming bewerken'
+              : 'Waarneming toevoegen'}
           </button>
-          <Link
-            href={hiveId ? `/hives/${hiveId}` : '/observations'}
-            className="btn btn--secondary btn--large"
-          >
-            Annuleren
-          </Link>
         </div>
       </form>
     </>

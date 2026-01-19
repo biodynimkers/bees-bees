@@ -215,7 +215,7 @@ export default function ExtrasPage() {
 
   if (status === 'loading') {
     return (
-      <div className="container" style={{ padding: 'var(--space-10)' }}>
+      <div className="container section">
         <p>Laden...</p>
       </div>
     );
@@ -233,26 +233,26 @@ export default function ExtrasPage() {
         </div>
       </section>
 
-      <section style={{ padding: 'var(--space-10) 0' }}>
-        <div className="container">
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+      <section className="section">
+        <div className="container container--narrow">
+          <div>
 
-            <div className="card" style={{ marginBottom: 'var(--space-10)', padding: 'var(--space-8)' }}>
-              <h3 className="heading-tertiary" style={{ marginBottom: 'var(--space-5)' }}>
+            <div className="card margin-bottom-large">
+              <h3 className="heading-tertiary margin-bottom-medium">
                 Vereisten
               </h3>
-              <div style={{ display: 'grid', gap: 'var(--space-4)' }}>
+              <div className="grid gap-md">
                 <div>
-                  <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)' }}>
+                  <p className="text-small text-muted margin-bottom-extra-small">
                     Bestandstype
                   </p>
-                  <p style={{ fontWeight: 500 }}>JPG, PNG of WebP</p>
+                  <p>JPG, PNG of WebP</p>
                 </div>
                 <div>
-                  <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)' }}>
+                  <p className="text-small text-muted margin-bottom-extra-small">
                     Automatische compressie
                   </p>
-                  <p style={{ fontWeight: 500 }}>Max 800KB, 90% kwaliteit, 1920 × 1080 pixels</p>
+                  <p>Max 800KB, 90% kwaliteit, 1920 × 1080 pixels</p>
                 </div>
               </div>
             </div>

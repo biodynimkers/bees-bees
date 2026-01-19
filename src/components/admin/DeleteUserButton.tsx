@@ -64,17 +64,17 @@ export default function DeleteUserButton({
             </p>
             <div className="modal__actions">
               <button
-                onClick={() => setShowConfirm(false)}
-                className="btn btn--secondary"
-              >
-                Annuleren
-              </button>
-              <button
                 onClick={handleDelete}
                 disabled={loading}
                 className="btn btn--danger"
               >
                 {loading ? 'Bezig...' : 'Ja, verwijderen'}
+              </button>
+              <button
+                onClick={() => setShowConfirm(false)}
+                className="btn btn--secondary"
+              >
+                Annuleren
               </button>
             </div>
           </div>

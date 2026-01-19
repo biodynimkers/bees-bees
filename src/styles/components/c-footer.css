@@ -1,0 +1,133 @@
+.c-footer {
+  background: var(--c-gray-800);
+  color: var(--c-white);
+  padding: var(--s-20) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.c-footer__top {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: var(--s-16);
+  padding-bottom: var(--s-16);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: var(--s-10);
+}
+
+.c-footer__brand {
+  max-width: 400px;
+}
+
+.c-footer__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--s-4);
+}
+
+.c-footer__logo-img {
+  height: 48px;
+  width: auto;
+  opacity: 0.9;
+}
+
+.c-footer__tagline {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.c-footer__links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-10);
+}
+
+.c-footer__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-footer__heading {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--s-6);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.c-footer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.c-footer__link {
+  font-size: var(--text-base);
+  color: rgba(255, 255, 255, 0.8);
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.c-footer__link:hover {
+  color: var(--c-white);
+}
+
+.c-footer__bottom {
+  text-align: center;
+  padding-top: var(--s-6);
+}
+
+.c-footer__bottom p {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 968px) {
+  .c-footer__top {
+    grid-template-columns: 1fr;
+    gap: var(--s-12);
+  }
+  
+  .c-footer__links {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .c-footer__links {
+    grid-template-columns: 1fr;
+    gap: var(--s-8);
+  }
+}
+
+/* Legacy support */
+.footer { background-color: var(--c-gray-800); color: var(--c-white); padding: var(--s-20) 0; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.footer__top { display: grid; grid-template-columns: 1.5fr 2fr; gap: var(--s-16); padding-bottom: var(--s-16); border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: var(--s-10); }
+.footer__brand { max-width: 400px; }
+.footer__logo { display: flex; align-items: center; gap: var(--s-3); font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; letter-spacing: 0.05em; margin-bottom: var(--s-4); }
+.footer__logo-image { height: 40px; width: auto; opacity: 0.9; }
+.footer__tagline { font-size: var(--text-base); line-height: 1.7; color: rgba(255, 255, 255, 0.7); }
+.footer__links { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-10); }
+.footer__column { display: flex; flex-direction: column; }
+.footer__heading { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: var(--s-6); color: rgba(255, 255, 255, 0.5); }
+.footer__nav { display: flex; flex-direction: column; gap: var(--s-3); }
+.footer__link { font-size: var(--text-base); color: rgba(255, 255, 255, 0.8); transition: color var(--duration-fast) var(--ease); }
+.footer__link:hover { color: var(--c-white); }
+.footer__bottom { text-align: center; padding-top: var(--s-6); }
+.footer__bottom p { font-size: var(--text-sm); color: rgba(255, 255, 255, 0.5); }
+.footer .heading-tertiary { color: rgba(255, 255, 255, 0.5); }
+
+@media (max-width: 968px) {
+  .footer__top { grid-template-columns: 1fr; gap: var(--s-12); }
+  .footer__links { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .footer__links { grid-template-columns: 1fr; gap: var(--s-8); }
+}

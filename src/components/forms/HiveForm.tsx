@@ -103,7 +103,7 @@ export default function HiveForm({
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || 'Kon kast niet opslaan');
+        throw new Error(data.error || 'Kon behuizing niet opslaan');
       }
 
       initialHive
@@ -158,7 +158,7 @@ export default function HiveForm({
 
       <div className="form__group">
         <label htmlFor="name" className="form__label">
-          Kastnaam *
+          Behuizing naam *
         </label>
         <input
           id="name"
@@ -175,7 +175,7 @@ export default function HiveForm({
             }
           }}
           className="form__input"
-          placeholder="Bvb: Kast 1, Blauwe kast..."
+          placeholder="Bvb: Behuizing 1, Blauwe behuizing..."
           required
         />
         {fieldErrors?.name && (
@@ -185,7 +185,7 @@ export default function HiveForm({
 
       <div className="form__group">
         <label htmlFor="type" className="form__label">
-          Type kast *
+          Type behuizing *
         </label>
         <select
           id="type"
@@ -208,7 +208,7 @@ export default function HiveForm({
           <option value="Langstroth">Langstroth</option>
           <option value="Warré">Warré</option>
           <option value="Top Bar Hive">Top Bar Hive</option>
-          <option value="Klokkast">Klokkast</option>
+          <option value="Klokbehuizing">Klokbehuizing</option>
           <option value="Anders">Anders</option>
         </select>
         {fieldErrors?.type && (
@@ -248,7 +248,13 @@ export default function HiveForm({
         )}
       </div>
 
-      <div className="form__actions">
+      <div className="form__actions form__actions--center">
+        <Link
+          href={apiaryId ? `/apiaries/${apiaryId}` : '/apiaries'}
+          className="btn btn--secondary btn--large"
+        >
+          Annuleren
+        </Link>
         <button
           type="submit"
           className="btn btn--secondary btn--large"
@@ -259,15 +265,9 @@ export default function HiveForm({
               ? 'Bezig met bewerken...'
               : 'Bezig met toevoegen...'
             : initialHive
-            ? 'Kast Bewerken'
-            : 'Kast toevoegen'}
+            ? 'Behuizing Bewerken'
+            : 'Behuizing toevoegen'}
         </button>
-        <Link
-          href={apiaryId ? `/apiaries/${apiaryId}` : '/apiaries'}
-          className="btn btn--secondary btn--large"
-        >
-          Annuleren
-        </Link>
       </div>
     </form>
   );

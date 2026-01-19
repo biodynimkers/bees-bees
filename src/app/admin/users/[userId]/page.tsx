@@ -80,7 +80,7 @@ export default async function UserDetailPage({
                   : `${user._count.apiaries} bijenstand`}
               </h3>
               {user._count.apiaries > 0 && (
-                <Link href={`/admin/users/${userId}/apiaries`} style={{ marginTop: "var(--space-4)" }}>
+                <Link href={`/admin/users/${userId}/apiaries`} className="margin-top-small">
                   <button className="btn">
                     Bekijk{' '}
                     {user._count.apiaries > 1 ? 'bijenstanden' : 'bijenstand'}
@@ -92,15 +92,15 @@ export default async function UserDetailPage({
             <div className="card">
               <h3 className="heading-tertiary">
                 {totalHives === 0
-                  ? 'Geen kasten'
+                  ? 'Geen behuizingen'
                   : totalHives > 1
-                  ? `${totalHives} kasten`
-                  : `${totalHives} kast`}
+                  ? `${totalHives} behuizingen`
+                  : `${totalHives} behuizing`}
               </h3>
               {totalHives > 0 && (
-                <Link href={`/admin/users/${userId}/hives`} style={{ marginTop: "var(--space-4)" }}>
+                <Link href={`/admin/users/${userId}/hives`} className="margin-top-small">
                   <button className="btn">
-                    Bekijk {totalHives > 1 ? 'kasten' : 'kast'}
+                    Bekijk {totalHives > 1 ? 'behuizingen' : 'behuizing'}
                   </button>
                 </Link>
               )}
@@ -115,7 +115,7 @@ export default async function UserDetailPage({
                   : `${totalObservations} waarneming`}
               </h3>
               {totalObservations > 0 && (
-                <Link href={`/admin/users/${userId}/observations`} style={{ marginTop: "var(--space-4)" }}>
+                <Link href={`/admin/users/${userId}/observations`} className="margin-top-small">
                   <button className="btn">
                     Bekijk{' '}
                     {totalObservations > 1 ? 'waarnemingen' : 'waarneming'}
@@ -125,7 +125,7 @@ export default async function UserDetailPage({
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "var(--space-3)", marginTop: "var(--space-8)" }}>
+          <div className="flex gap-sm margin-top-large">
             {session?.user?.role === 'SUPERADMIN' && (
               <>
                 <EditUserButton userId={userId} currentRole={user.role} />

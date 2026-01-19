@@ -23,7 +23,7 @@ export default function StatsSection({
           </div>
           <div className="stat">
             <span className="stat__number">{totalHives}</span>
-            <span className="stat__label">Bijenkasten</span>
+            <span className="stat__label">Behuizingen</span>
           </div>
         </div>
       </div>

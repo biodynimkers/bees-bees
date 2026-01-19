@@ -216,14 +216,14 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
                   color: '#666',
                   marginBottom: '0.25rem'
                 }}>
-                  Aantal kasten
+                  Aantal behuizingen
                 </p>
                 <p style={{
                   fontSize: '1rem',
                   fontWeight: 600,
                   color: '#1a1a1a'
                 }}>
-                  {selectedApiary._count?.hives || 0} {selectedApiary._count?.hives === 1 ? 'kast' : 'kasten'}
+                  {selectedApiary._count?.hives || 0} {selectedApiary._count?.hives === 1 ? 'behuizing' : 'behuizingen'}
                 </p>
               </div>
 

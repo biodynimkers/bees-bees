@@ -54,12 +54,12 @@ export default async function AccountHivesPage({
           <div className="nav__container" style={{ padding: 0 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
               <div>
-                <h1 className="heading-primary">Mijn kasten ({totalHives} {totalHives === 1 ? 'kast' : 'kasten'})</h1>
+                <h1 className="heading-primary">Mijn behuizingen ({totalHives})</h1>
               </div>
               <div className="page-header__actions">
                 <Link href="/hives/new">
                   <button className="btn btn--secondary">
-                    + Nieuwe kast
+                    + Nieuwe behuizing
                   </button>
                 </Link>
               </div>
@@ -81,7 +81,7 @@ export default async function AccountHivesPage({
                   >
                     <div className="card">
                       <p className="card__category">
-                        Kast
+                        Behuizing
                       </p>
                       <h3 className="heading-tertiary">
                         {hive.name}
@@ -89,9 +89,9 @@ export default async function AccountHivesPage({
                       <div className="card__divider">
                         <p className="card__label">Bijenstand</p>
                         <p className="card__value">{hive.apiary.name}</p>
-                        <p className="card__label">Type kast</p>
+                        <p className="card__label">Type behuizing</p>
                         <p className="card__value">{hive.type}</p>
-                        <p className="card__label">Type volk</p>
+                        <p className="card__label">Variëteit</p>
                         <p className="card__value">{hive.colonyType}</p>
                       </div>
                     </div>
@@ -131,13 +131,13 @@ export default async function AccountHivesPage({
                 fontWeight: "400",
                 marginBottom: "var(--space-4)"
               }}>
-                Nog geen kasten
+                Nog geen bijhuizingen
               </h2>
               <p style={{ 
                 color: "var(--color-text-light)",
                 marginBottom: "var(--space-8)"
               }}>
-                Voeg eerst een bijenstand toe om kasten te kunnen aanmaken
+                Voeg eerst een bijenstand toe om bijhuizingen te kunnen aanmaken
               </p>
               <Link href="/apiaries/new">
                 <button className="btn btn--secondary btn--lg">
