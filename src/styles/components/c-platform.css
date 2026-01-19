@@ -6,7 +6,7 @@
 
 /* Hero Section - Compact elegant */
 .platform-hero {
-  padding: 200px 0 140px;
+  padding: 200px 0 60px;
   background: linear-gradient(180deg, #ffffff 0%, #fafaf9 100%);
   position: relative;
 }
@@ -23,8 +23,7 @@
 
 .platform-hero__content {
   max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
+  text-align: left;
   opacity: 1;
   transform: translateY(0);
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);

@@ -61,9 +61,11 @@ export default async function AccountPage() {
         <section className="platform-hero">
           <div className="container">
             <div className="platform-hero__content">
+              <span className="platform-hero__label">Overzicht</span>
               <h1 className="platform-hero__title">
                 Hallo {user.name}
-          
+                {session.user.role === 'SUPERADMIN' && ' (superadmin)'}
+                {session.user.role === 'ADMIN' && ' (admin)'}
               </h1>
               <p className="platform-hero__intro">
                 {isNewUser

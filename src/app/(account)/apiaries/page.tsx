@@ -14,7 +14,7 @@ export default async function AccountApiariesPage({
 }) {
   const searchParamsResult = await searchParams;
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
-  const apiariesPerPage = 5;
+  const apiariesPerPage = 6;
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect('/auth/login');
 
@@ -52,63 +52,54 @@ export default async function AccountApiariesPage({
   if (!apiaries) redirect('/auth/login');
 
   return (
-    <>
-      <section className="page-header" data-page="—">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <div className="nav__container" style={{ padding: 0 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", width: "100%" }}>
-              <div>
-                <h1 className="heading-primary">Mijn bijenstanden ({totalApiaries})</h1>
-              </div>
-              <div className="page-header__actions">
-                <Link href="/apiaries/new">
-                  <button className="btn btn--secondary">
-                    + Nieuwe bijenstand
-                  </button>
-                </Link>
-              </div>
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">{totalApiaries} {totalApiaries === 1 ? 'bijenstand' : 'bijenstanden'}</span>
+            <h1 className="platform-hero__title">
+              Mijn bijenstanden
+            </h1>
+            <div style={{ marginTop: '32px' }}>
+              <Link href="/apiaries/new" className="btn btn--secondary btn--large">
+                + Nieuwe bijenstand
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container">
           {apiaries.length > 0 ? (
             <>
               {/* Overzichtskaart */}
-              <div style={{ marginBottom: 'var(--space-12)' }}>
-                <h2 className="heading-secondary" style={{ marginBottom: 'var(--space-6)' }}>
+              <div style={{ marginBottom: '60px' }}>
+                <h2 className="feature-card__title" style={{ textAlign: 'center', marginBottom: '32px' }}>
                   Overzicht locaties
                 </h2>
                 <ApiariesOverviewMap apiaries={allApiaries} />
               </div>
 
               {/* Bijenstanden grid */}
-              <div style={{ marginBottom: 'var(--space-8)' }}>
-                <h2 className="heading-secondary" style={{ marginBottom: 'var(--space-6)' }}>
-                  Alle bijenstanden
-                </h2>
-              </div>
-              
-              <div className="grid grid-two-columns">
+              <div className="home-features__grid">
                 {apiaries.map(apiary => (
                   <Link
                     key={apiary.id}
                     href={`/apiaries/${apiary.id}`}
+                    className="feature-card"
                     style={{ textDecoration: 'none' }}
                   >
-                    <div className="card">
-                      <p className="card__category">
-                        Bijenstand
+                    <div style={{ fontSize: '14px', color: 'rgba(14, 97, 93, 0.6)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                      Bijenstand
+                    </div>
+                    <h3 className="feature-card__title">
+                      {apiary.name}
+                    </h3>
+                    <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid rgba(14, 97, 93, 0.1)', width: '100%' }}>
+                      <p className="feature-card__text">
+                        {apiary.hives.length} {apiary.hives.length === 1 ? 'behuizing' : 'behuizingen'}
                       </p>
-                      <h3 className="heading-tertiary">
-                        {apiary.name}
-                      </h3>
-                      <div className="card__divider">
-                        <p className="card__label">Behuizingen</p>
-                        <p className="card__value">{apiary.hives.length} {apiary.hives.length === 1 ? 'behuizing' : 'behuizingen'}</p>
-                      </div>
                     </div>
                   </Link>
                 ))}
@@ -119,15 +110,15 @@ export default async function AccountApiariesPage({
                   display: "flex", 
                   justifyContent: "center", 
                   alignItems: "center",
-                  gap: "var(--space-4)",
-                  marginTop: "var(--space-12)"
+                  gap: "16px",
+                  marginTop: "60px"
                 }}>
                   <Link href={`/apiaries?page=${currentPage > 1 ? currentPage - 1 : 1}`}>
                     <button className="btn btn--secondary" disabled={currentPage === 1}>
                       Vorige
                     </button>
                   </Link>
-                  <span style={{ color: "var(--color-text-light)" }}>
+                  <span style={{ color: "rgba(14, 97, 93, 0.6)" }}>
                     Pagina {currentPage} van {totalPages}
                   </span>
                   <Link href={`/apiaries?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}>
@@ -139,31 +130,22 @@ export default async function AccountApiariesPage({
               )}
             </>
           ) : (
-            <div style={{ textAlign: "center", padding: "var(--space-16) 0" }}>
-              <h2 className="heading-secondary" style={{ 
-                fontFamily: "var(--font-display)",
-                fontSize: "2rem",
-                fontWeight: "400",
-                marginBottom: "var(--space-4)"
-              }}>
-                Nog geen bijenstanden
-              </h2>
-              <p style={{ 
-                color: "var(--color-text-light)",
-                marginBottom: "var(--space-8)"
-              }}>
-                Begin met het toevoegen van uw eerste bijenstand
-              </p>
-              <Link href="/apiaries/new">
-                <button className="btn btn--secondary btn--lg">
-                  + Eerste bijenstand toevoegen
-                </button>
-              </Link>
+            <div className="home-platform">
+              <div className="home-platform__content">
+                <h2 className="home-platform__title">Nog geen bijenstanden</h2>
+                <p className="home-platform__text">
+                  Begin met het toevoegen van uw eerste bijenstand
+                </p>
+                <div className="home-platform__actions">
+                  <Link href="/apiaries/new" className="btn btn--secondary btn--large">
+                    + Eerste bijenstand toevoegen
+                  </Link>
+                </div>
+              </div>
             </div>
           )}
         </div>
       </section>
-    </>
-  
+    </div>
   );
 }
