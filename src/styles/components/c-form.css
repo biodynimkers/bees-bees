@@ -127,7 +127,7 @@
 .form__input:focus, .form__textarea:focus, .form__select:focus { outline: none; border-color: var(--c-text); background-color: var(--c-white); box-shadow: 0 0 0 3px rgba(45, 55, 72, 0.08); }
 .form__textarea { min-height: 150px; resize: vertical; }
 .form__help { font-size: var(--text-sm); color: var(--c-text-muted); margin-top: var(--s-2); }
-.form__actions { display: flex; gap: var(--s-6); margin-top: var(--s-16); padding-top: var(--s-8); border-top: 1px solid var(--c-border-light); flex-direction: column-reverse; }
+.form__actions { display: flex; gap: var(--s-6); flex-direction: column-reverse; }
 .form__actions--center { justify-content: center; }
 
 @media (min-width: 768px) {
