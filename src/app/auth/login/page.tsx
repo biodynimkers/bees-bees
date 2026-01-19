@@ -5,6 +5,7 @@ import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
   type Errors = string | undefined | null;
@@ -15,6 +16,7 @@ export default function Login() {
     string[]
   > | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
@@ -122,7 +124,7 @@ export default function Login() {
               </label>
               <input
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 className="form__input"
                 placeholder="Uw wachtwoord"
@@ -132,6 +134,16 @@ export default function Login() {
                   }
                 }}
               />
+              <button
+                type="button"
+                className="toggle-button"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={
+                  showPassword ? 'Verberg wachtwoord' : 'Toon wachtwoord'
+                }
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
               {fieldErrors?.password && (
                 <div className="form-error">
                   {fieldErrors.password.map((error, index) => (

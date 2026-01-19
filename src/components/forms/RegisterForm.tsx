@@ -4,16 +4,18 @@ import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { registerSchema } from '@/lib/validators/schemas';
 import Button from '@/components/magazine/Button';
-
+import { Eye, EyeOff } from 'lucide-react';
 type FormProps = {
   createItem: (formData: Record<string, unknown>) => Promise<RegisterResult>;
 };
 export function RegisterForm({ createItem }: FormProps) {
   // In React+TypeScript kun je een type meegeven aan useState zodat de compiler weet welke shape de state later heeft: useState<Type>(initialValue)
-
   // errors are a mapping from field name to array of messages (zod.flatten().fieldErrors)
   const [errors, setErrors] = useState<Record<string, string[]> | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const router = useRouter();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -63,7 +65,6 @@ export function RegisterForm({ createItem }: FormProps) {
           ))}
         </div>
       )}
-
       <div className="form__group">
         <label htmlFor="name" className="form__label">
           Naam
@@ -92,7 +93,6 @@ export function RegisterForm({ createItem }: FormProps) {
           </div>
         )}
       </div>
-
       <div className="form__group">
         <label htmlFor="email" className="form__label">
           E-mailadres
@@ -122,26 +122,37 @@ export function RegisterForm({ createItem }: FormProps) {
         )}
       </div>
 
+      {/* Password group (met toggle) */}
       <div className="form__group">
         <label htmlFor="password" className="form__label">
           Wachtwoord
         </label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          className="form__input"
-          placeholder="Minimaal 8 tekens"
-          onChange={e => {
-            if (errors?.password) {
-              setErrors(prev => {
-                if (!prev) return null;
-                const { password, ...rest } = prev;
-                return Object.keys(rest).length ? rest : null;
-              });
-            }
-          }}
-        />
+        <div className="input-wrapper">
+          <input
+            id="password"
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            className="form__input password-input" // Extra class voor padding
+            placeholder="Minimaal 8 tekens"
+            onChange={e => {
+              if (errors?.password) {
+                setErrors(prev => {
+                  if (!prev) return null;
+                  const { password, ...rest } = prev;
+                  return Object.keys(rest).length ? rest : null;
+                });
+              }
+            }}
+          />
+          <button
+            type="button"
+            className="toggle-button"
+            onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? 'Verberg wachtwoord' : 'Toon wachtwoord'}
+          >
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
         {errors?.password && (
           <div className="form-error">
             {errors.password.map((msg, i) => (
@@ -150,7 +161,47 @@ export function RegisterForm({ createItem }: FormProps) {
           </div>
         )}
       </div>
-
+      {/* Confirm Password group */}
+      <div className="form__group">
+        <label htmlFor="confirmPassword" className="form__label">
+          Bevestig wachtwoord
+        </label>
+        <div className="input-wrapper">
+          <input
+            id="confirmPassword"
+            type={showConfirmPassword ? 'text' : 'password'}
+            name="confirmPassword"
+            className="form__input password-input"
+            placeholder="Herhaal wachtwoord"
+            onChange={e => {
+              if (errors?.confirmPassword) {
+                setErrors(prev => {
+                  if (!prev) return null;
+                  const { confirmPassword, ...rest } = prev;
+                  return Object.keys(rest).length ? rest : null;
+                });
+              }
+            }}
+          />
+          <button
+            type="button"
+            className="toggle-button"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            aria-label={
+              showConfirmPassword ? 'Verberg bevestiging' : 'Toon bevestiging'
+            }
+          >
+            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
+        </div>
+        {errors?.confirmPassword && (
+          <div className="form-error">
+            {errors.confirmPassword.map((msg, i) => (
+              <p key={i}>{msg}</p>
+            ))}
+          </div>
+        )}
+      </div>
       <Button
         type="submit"
         variant="primary"
