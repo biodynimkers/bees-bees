@@ -40,7 +40,7 @@ export default async function AccountApiaryHivePage({
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
   const search = searchParamsResult?.search ?? '';
   const colorFilter = searchParamsResult?.color ?? '';
-  const observationsPerPage = 2;
+  const observationsPerPage = 20;
 
   const baseWhere = {
     hiveId: parseInt(hiveId, 10),
@@ -105,33 +105,18 @@ export default async function AccountApiaryHivePage({
   });
 
   return (
-    <>
-      <section className="page-header" data-page="—">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              gap: 'var(--space-12)',
-            }}
-          >
-            <div>
-              <h1 className="heading-primary">
-                {hive.name} ({totalObservations}{' '}
-                {totalObservations === 1 ? 'waarneming' : 'waarnemingen'})
-              </h1>
-            </div>
-            <div className="page-header__actions">
-              <Link
-                href={`/observations/new?hiveId=${hiveId}&hiveName=${hive.name}`}
-              >
-                <button className="btn btn--secondary">
-                  + Waarneming toevoegen
-                </button>
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">{totalObservations} {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}</span>
+            <h1 className="platform-hero__title">{hive.name}</h1>
+            <div className="btn-group">
+              <Link href={`/observations/new?hiveId=${hiveId}&hiveName=${hive.name}`} className="btn btn--secondary">
+                + Waarneming toevoegen
               </Link>
-              <Link href={`/hives/${hive.id}/edit`}>
-                <button className="btn btn--secondary">Bewerk</button>
+              <Link href={`/hives/${hive.id}/edit`} className="btn btn--secondary">
+                Bewerk
               </Link>
               {hive && (
                 <DeleteEntityButton
@@ -145,48 +130,46 @@ export default async function AccountApiaryHivePage({
         </div>
       </section>
 
-      <section className="section section-alternate">
+      <section className="home-features">
         <div className="container">
-          <div className="section-header">
-            <h2 className="heading-secondary">Behuizing informatie</h2>
-          </div>
-          <div className="grid grid-two-columns">
-            <div className="card">
-              <p className="card__label">Bijenstand</p>
-              <p className="card__value">{hive.apiary.name}</p>
-              <p className="card__label">Type behuizing</p>
-              <p className="card__value">{hive.type}</p>
-              <p className="card__label">Variëteit</p>
-              <p className="card__value">{hive.colonyType}</p>
+          <h2 className="feature-card__title">Behuizing informatie</h2>
+          <div className="home-features__grid">
+            <div className="feature-card">
+              <h3 className="feature-card__title">Details</h3>
+              <div className="feature-card__meta">
+                <div className="meta-item">
+                  <span className="meta-label">Bijenstand</span>
+                  <span className="meta-value">{hive.apiary.name}</span>
+                </div>
+                <div className="meta-item">
+                  <span className="meta-label">Type behuizing</span>
+                  <span className="meta-value">{hive.type}</span>
+                </div>
+                <div className="meta-item">
+                  <span className="meta-label">Variëteit</span>
+                  <span className="meta-value">{hive.colonyType}</span>
+                </div>
+              </div>
             </div>
-            <div className="card">
-              <p className="card__label">Foto</p>
-              <div
-                style={{
-                  width: '100%',
-                  height: '200px',
-                  backgroundColor: 'var(--color-soft-gray)',
-                  borderRadius: '4px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--color-text-light)',
-                  fontSize: '0.875rem',
-                  border: '1px dashed rgba(0, 0, 0, 0.15)',
-                }}
-              >
-                Geen foto geüpload
+            <div className="feature-card">
+              <h3 className="feature-card__title">Foto upload</h3>
+              <div className="empty-photo">
+                Coming soon
+              </div>
+            </div>
+            <div className="feature-card">
+              <h3 className="feature-card__title">Extra foto</h3>
+              <div className="empty-photo">
+                Coming soon
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container">
-          <div className="section-header">
-            <h2 className="heading-secondary">Waarnemingen</h2>
-          </div>
+          <h2 className="feature-card__title">Waarnemingen</h2>
           <ObservationsFilter
             observations={observations}
             showHive={false}
@@ -202,6 +185,6 @@ export default async function AccountApiaryHivePage({
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }
