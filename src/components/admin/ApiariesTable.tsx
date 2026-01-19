@@ -42,7 +42,19 @@ export default function ApiariesTable({
                   </Link>
                 </td>
                 <td data-label="Locatie">
-                  {apiary.latitude}, {apiary.longitude}
+                  {apiary.latitude && apiary.longitude ? (
+                    <a 
+                      href={`https://www.google.com/maps?q=${apiary.latitude},${apiary.longitude}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--secondary"
+                      style={{ padding: '4px 8px', fontSize: '0.75rem', display: 'inline-block' }}
+                    >
+                      Kaart
+                    </a>
+                  ) : (
+                    '-'
+                  )}
                 </td>
                 {showUser && <td data-label="Eigenaar">{apiary.user.name}</td>}
                 <td data-label="Aantal behuizingen">{apiary._count.hives}</td>

@@ -90,19 +90,19 @@ export default async function AdminHivesPage({
   const colonies = COLONY_TYPES;
 
   return (
-    <>
-      <section className="page-header">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <div className="page-header__top">
-            <h1 className="heading-primary">Alle behuizingen</h1>
-            <p className="page-header__subtitle">
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">
               Totaal: {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
-            </p>
+            </span>
+            <h1 className="platform-hero__title">Alle behuizingen</h1>
           </div>
         </div>
       </section>
 
-      <section className="section section--default">
+      <section className="home-features">
         <div className="container">
           <HivesFilter
             hives={hives}
@@ -119,6 +119,6 @@ export default async function AdminHivesPage({
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

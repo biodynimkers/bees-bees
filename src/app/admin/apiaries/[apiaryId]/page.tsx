@@ -39,27 +39,37 @@ export default async function ApiaryDetailPage({
   if (!apiary) notFound();
 
   return (
-    <>
-      <section className="page-header">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <h1 className="heading-primary">{apiary.name}</h1>
-          <p className="page-header__subtitle">
-            Eigenaar: <Link href={`/admin/users/${apiary.user.id}`}>{apiary.user.name}</Link>
-          </p>
-          <p className="page-header__subtitle">
-            Locatie: {apiary.latitude}, {apiary.longitude}
-          </p>
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">
+              Eigenaar: <Link href={`/admin/users/${apiary.user.id}`} style={{ color: 'inherit', textDecoration: 'underline' }}>{apiary.user.name}</Link>
+            </span>
+            <h1 className="platform-hero__title">{apiary.name}</h1>
+            <p style={{ fontSize: '1rem', color: 'rgba(255, 255, 255, 0.85)', marginTop: '8px' }}>
+              Locatie: {apiary.latitude && apiary.longitude ? (
+                <a 
+                  href={`https://www.google.com/maps?q=${apiary.latitude},${apiary.longitude}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'inherit', textDecoration: 'underline' }}
+                >
+                  {apiary.latitude}, {apiary.longitude}
+                </a>
+              ) : (
+                'Niet ingesteld'
+              )}
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container">
-          <div className="section-header">
-            <h2 className="heading-secondary">Behuizingen in deze bijenstand</h2>
-            <Link href={returnUrl ?? '/admin/apiaries'}>
-              <button className="btn btn--secondary">← Terug</button>
-            </Link>
-          </div>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: 'var(--s-8)', color: 'rgb(14, 97, 93)' }}>
+            Behuizingen in deze bijenstand
+          </h2>
           
           <HivesTable
             hives={apiary.hives}
@@ -70,6 +80,6 @@ export default async function ApiaryDetailPage({
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

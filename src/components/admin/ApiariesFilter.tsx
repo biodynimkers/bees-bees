@@ -50,10 +50,6 @@ export default function ApiariesFilter({
   return (
     <>
       <div className="section-header">
-        <Link href="/admin" className="back-link">
-          ←
-        </Link>
-
         <div className="filters">
           <SearchInput
             value={search}

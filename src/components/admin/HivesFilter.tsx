@@ -71,9 +71,6 @@ export default function HivesFilter({
   return (
     <>
       <div className="section-header">
-        <Link href="/admin" className="back-link">
-          ←
-        </Link>
         <div className="filters">
           <input
             type="text"

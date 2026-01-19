@@ -44,10 +44,10 @@ export default function AdminPage() {
 
             <Link href="/admin/observations" className="feature-card">
               <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '8px', color: 'rgb(14, 97, 93)' }}>
-                Observaties
+                Waarnemingen
               </h3>
               <p style={{ fontSize: '0.9375rem', color: 'rgba(14, 97, 93, 0.7)' }}>
-                Alle geregistreerde observaties
+                Alle geregistreerde waarnemingen
               </p>
             </Link>
 

@@ -105,21 +105,21 @@ export default async function AdminObservationsPage({
   });
 
   return (
-    <>
-      <section className="page-header">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <div className="page-header__top">
-            <h1 className="heading-primary">Alle waarnemingen</h1>
-            <p className="page-header__subtitle">
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">
               Totaal: {totalObservations}
               {search && ` (gefilterd op "${search}")`}
-              {colorFilter && ` (kleur: ${colorFilter})`}
-            </p>
+              {colorFilter && ` (kleur gefilterd)`}
+            </span>
+            <h1 className="platform-hero__title">Alle waarnemingen</h1>
           </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container">
           <ObservationsFilter
             observations={observations}
@@ -136,6 +136,6 @@ export default async function AdminObservationsPage({
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }
