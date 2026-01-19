@@ -48,7 +48,7 @@ export default async function AccountApiaryPage({
   const totalHives = await prisma.hive.count({
     where: { apiaryId: parseInt(apiaryId) },
   });
-  const hivesPerPage = 3;
+  const hivesPerPage = 10;
   const totalPages = Math.ceil(totalHives / hivesPerPage);
   const hives = await prisma.hive.findMany({
     where: { apiaryId: parseInt(apiaryId) },
@@ -60,18 +60,15 @@ export default async function AccountApiaryPage({
   });
 
   return (
-    <>
-      <section className="page-header" data-page="01">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "var(--space-12)" }}>
-            <div>
-              <h1 className="heading-primary">{apiary?.name} ({totalHives})</h1>
-            </div>
-            <div className="page-header__actions">
-              <Link href={`/apiaries/${apiary?.id}/edit`}>
-                <button className="btn btn--secondary">
-                  Bewerk
-                </button>
+          <div className="platform-hero__content">
+            <span className="platform-hero__label">{totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}</span>
+            <h1 className="platform-hero__title">{apiary?.name}</h1>
+            <div className="btn-group">
+              <Link href={`/apiaries/${apiary?.id}/edit`} className="btn btn--secondary">
+                Bewerk
               </Link>
               {apiary && (
                 <DeleteEntityButton
@@ -85,17 +82,12 @@ export default async function AccountApiaryPage({
         </div>
       </section>
 
-      <section className="section section-alternate">
+      <section className="home-features">
         <div className="container">
-          <div className="section-header">
-            <h2 className="heading-secondary">
-              Locatie & Foerageergebied
-            </h2>
-          </div>
+          <h2 className="feature-card__title">Locatie & Foerageergebied</h2>
           
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 'var(--space-8)' }}>
-            {/* Kaart Links - Groter */}
-            <div style={{ minHeight: '600px' }}>
+          <div className="map-layout">
+            <div className="map-layout__map">
               <ApiaryMapWrapper
                 latitude={apiary?.latitude!}
                 longitude={apiary?.longitude!}
@@ -103,131 +95,78 @@ export default async function AccountApiaryPage({
               />
             </div>
 
-            {/* Info Rechts - Compacter */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
-              <Link href="/drachtkalender">
-                <button className="btn btn--primary" style={{ width: '100%' }}>
-                  Drachtkalender
-                </button>
+            <div className="map-layout__info">
+              <Link href="/drachtkalender" className="btn btn--primary">
+                Drachtkalender
               </Link>
-              
-              <div className="card" style={{ padding: 'var(--space-4)' }}>
-                <h3 style={{ 
-                  fontFamily: "var(--font-body)",
-                  fontSize: "1rem",
-                  fontWeight: 600,
-                  marginBottom: "var(--space-3)"
-                }}>
-                  Foerageergebied
-                </h3>
 
-                <div style={{ marginBottom: "var(--space-4)" }}>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-                      <div style={{ 
-                        width: "16px", 
-                        height: "3px", 
-                        background: "#FF0000",
-                        borderRadius: "2px",
-                        flexShrink: 0
-                      }}></div>
-                      <span style={{ fontSize: "0.8rem" }}>200m</span>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-                      <div style={{ 
-                        width: "16px", 
-                        height: "3px", 
-                        background: "#0000FF",
-                        borderRadius: "2px",
-                        flexShrink: 0
-                      }}></div>
-                      <span style={{ fontSize: "0.8rem" }}>2 km</span>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
-                      <div style={{ 
-                        width: "16px", 
-                        height: "3px", 
-                        background: "#800080",
-                        borderRadius: "2px",
-                        flexShrink: 0
-                      }}></div>
-                      <span style={{ fontSize: "0.8rem" }}>7 km</span>
-                    </div>
-                  </div>
+              <div className="map-info-card">
+                <h3 className="map-info-card__title">Foerageergebied</h3>
+                <div className="legend-item">
+                  <span className="legend-color" style={{ background: '#FF0000' }}></span>
+                  <span>200m</span>
                 </div>
+                <div className="legend-item">
+                  <span className="legend-color" style={{ background: '#0000FF' }}></span>
+                  <span>2 km</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-color" style={{ background: '#800080' }}></span>
+                  <span>7 km</span>
+                </div>
+              </div>
 
-                <div style={{ 
-                  padding: "var(--space-3)",
-                  background: "rgba(59, 130, 246, 0.1)",
-                  borderRadius: "6px",
-                  borderLeft: "3px solid #3b82f6"
-                }}>
-                  <h4 style={{ 
-                    fontSize: "1rem",
-                    fontWeight: 600,
-                    marginBottom: "var(--space-2)",
-                    color: "var(--color-text)"
-                  }}>
-                    Kaart bedienen
-                  </h4>
-                  <ul style={{ 
-                    fontSize: "0.9rem",
-                    color: "var(--color-text)",
-                    lineHeight: 1.6,
-                    margin: 0,
-                    paddingLeft: "var(--space-4)"
-                  }}>
-                    <li>Gebruik <strong>+/-</strong> om te zoomen</li>
-                    <li><strong>Sleep</strong> om te verplaatsen</li>
-                    <li>Klik op <strong>Fullscreen</strong> voor groter</li>
-                  </ul>
-                </div>
+              <div className="map-info-card">
+                <h3 className="map-info-card__title">Kaart bedienen</h3>
+                <ul className="map-info-list">
+                  <li>Gebruik +/- om te zoomen</li>
+                  <li>Sleep om te verplaatsen</li>
+                  <li>Klik op Fullscreen voor groter</li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section ">
+      <section className="home-features">
         <div className="container">
           <div className="section-header">
-            <h2 className="heading-secondary">
-              Behuizingen in deze stand
-            </h2>
+            <h2 className="feature-card__title">Behuizingen in deze stand</h2>
             {hives.length > 0 && (
-              <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}>
-                <button className="btn btn--secondary">
-                  + Nieuwe behuizing
-                </button>
+              <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`} className="btn btn--secondary">
+                + Nieuwe behuizing
               </Link>
             )}
           </div>
 
           {hives?.length ? (
             <>
-              <div className="grid grid-three-columns">
+              <div className="home-features__grid">
                 {hives.map(hive => (
                   <Link
                     key={hive.id}
                     href={`/hives/${hive.id}`}
-                    style={{ textDecoration: 'none' }}
+                    className="feature-card"
                   >
-                    <div className="card">
-                      <p className="card__category">
-                        Behuizing
-                      </p>
-                      <h3 className="heading-tertiary">
-                        {hive.name}
-                      </h3>
-                      <div className="card__divider">
-                        <p className="card__label">Bijenstand</p>
-                        <p className="card__value">{apiary?.name}</p>
-                        <p className="card__label">Type behuizing</p>
-                        <p className="card__value">{hive.type}</p>
-                        <p className="card__label">Variëteit</p>
-                        <p className="card__value">{hive.colonyType}</p>
-                        <p className="card__label">Waarnemingen</p>
-                        <p className="card__value">{hive.observations.length}</p>
+                    <span className="feature-card__label">Behuizing</span>
+                    <h3 className="feature-card__title">{hive.name}</h3>
+                    <div className="feature-card__meta">
+                      <div className="meta-item">
+                        <span className="meta-label">Bijenstand</span>
+                        <span className="meta-value">{apiary?.name}</span>
+                      </div>
+                      <div className="meta-item">
+                        <span className="meta-label">Type behuizing</span>
+                        <span className="meta-value">{hive.type}</span>
+                      </div>
+                      <div className="meta-item">
+                        <span className="meta-label">Variëteit</span>
+                        <span className="meta-value">{hive.colonyType}</span>
+                      </div>
+                      <div className="meta-item">
+                        <span className="meta-label">Waarnemingen</span>
+                        <span className="meta-value">{hive.observations.length}</span>
                       </div>
                     </div>
                   </Link>
@@ -235,54 +174,30 @@ export default async function AccountApiaryPage({
               </div>
 
               {totalPages > 1 && (
-                <div style={{ 
-                  display: "flex", 
-                  justifyContent: "center", 
-                  alignItems: "center",
-                  gap: "var(--space-4)",
-                  marginTop: "var(--space-12)"
-                }}>
-                  <Link href={`/apiaries/${apiaryId}?page=${currentPage > 1 ? currentPage - 1 : 1}`}>
-                    <button className="btn btn--secondary" disabled={currentPage === 1}>
-                      Vorige
-                    </button>
+                <div className="pagination">
+                  <Link href={`/apiaries/${apiaryId}?page=${currentPage > 1 ? currentPage - 1 : 1}`} className="btn btn--secondary">
+                    Vorige
                   </Link>
-                  <span style={{ color: "var(--color-text-light)" }}>
+                  <span className="pagination-info">
                     Pagina {currentPage} van {totalPages}
                   </span>
-                  <Link href={`/apiaries/${apiaryId}?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}>
-                    <button className="btn btn--secondary" disabled={currentPage === totalPages}>
-                      Volgende
-                    </button>
+                  <Link href={`/apiaries/${apiaryId}?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`} className="btn btn--secondary">
+                    Volgende
                   </Link>
                 </div>
               )}
             </>
           ) : (
-            <div style={{ textAlign: "center", padding: "var(--space-16) 0" }}>
-              <h2 className="heading-secondary" style={{ 
-                fontFamily: "var(--font-display)",
-                fontSize: "2rem",
-                fontWeight: "400",
-                marginBottom: "var(--space-4)"
-              }}>
-                Nog geen behuizingen
-              </h2>
-              <p style={{ 
-                color: "var(--color-text-light)",
-                marginBottom: "var(--space-8)"
-              }}>
-                Voeg uw eerste behuizing toe aan deze stand
-              </p>
-              <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}>
-                <button className="btn btn--secondary btn--lg">
-                  + Eerste behuizing toevoegen
-                </button>
+            <div className="empty-state">
+              <h2 className="feature-card__title">Nog geen behuizingen</h2>
+              <p className="feature-card__text">Voeg uw eerste behuizing toe aan deze stand</p>
+              <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`} className="btn btn--primary">
+                + Eerste behuizing toevoegen
               </Link>
             </div>
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 }
