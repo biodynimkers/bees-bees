@@ -6,6 +6,28 @@ import { formatWeatherCondition, formatTemperature } from '@/lib/utils/formatWea
 
 import { pollenColors } from '@/lib/pollenColors';
 
+const getWeatherEmoji = (weatherCondition: string | null | undefined): string => {
+  switch (weatherCondition) {
+    case 'SUNNY':
+      return '☀️';
+    case 'PARTLY_CLOUDY':
+      return '⛅';
+    case 'CLOUDY':
+      return '☁️';
+    case 'RAINY':
+      return '🌧️';
+    default:
+      return '-';
+  }
+};
+
+const truncateNotes = (notes: string | null): string => {
+  if (!notes) return '-';
+  const words = notes.trim().split(/\s+/);
+  if (words.length <= 2) return notes;
+  return words.slice(0, 2).join(' ') + '...';
+};
+
 interface ObservationsTableProps {
   observations: Array<
     Observation & {
@@ -51,6 +73,7 @@ export default function ObservationsTable({
               <th>Weer</th>
               <th>Temperatuur</th>
               <th>Notities</th>
+              <th>Locatie</th>
               {showHive && <th>Behuizing</th>}
               {showApiary && <th>Bijenstand</th>}
               {showUser && <th>Eigenaar</th>}
@@ -101,13 +124,32 @@ export default function ObservationsTable({
                 <td data-label="Stuifmeel hoeveelheid">
                   {formatPollenAmount(observation.pollenAmount)}
                 </td>
-                <td data-label="Weer">
-                  {formatWeatherCondition(observation.weatherCondition)}
+                <td data-label="Weer" style={{ fontSize: '1.25rem', textAlign: 'center' }}>
+                  {getWeatherEmoji(observation.weatherCondition)}
                 </td>
                 <td data-label="Temperatuur">
                   {formatTemperature(observation.temperature)}
                 </td>
-                <td data-label="Notities">{observation.notes || '-'}</td>
+                <td data-label="Notities">
+                  <Link href={getObservationLink(observation.id)} style={{ display: 'block' }}>
+                    {truncateNotes(observation.notes)}
+                  </Link>
+                </td>
+                <td data-label="Locatie">
+                  {observation.hive?.apiary?.latitude && observation.hive?.apiary?.longitude ? (
+                    <a 
+                      href={`https://www.google.com/maps?q=${observation.hive.apiary.latitude},${observation.hive.apiary.longitude}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--secondary"
+                      style={{ padding: '4px 8px', fontSize: '0.75rem', display: 'inline-block' }}
+                    >
+                      Kaart
+                    </a>
+                  ) : (
+                    '-'
+                  )}
+                </td>
                 {showHive && observation.hive && (
                   <td data-label="Behuizing">
                     <Link href={`/admin/hives/${observation.hive.id}`}>

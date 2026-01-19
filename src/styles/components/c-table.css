@@ -96,13 +96,13 @@
 
 /* Legacy support */
 .table-wrapper { width: 100%; overflow-x: auto; border: 1px solid rgba(63, 66, 46, 0.15); background: white; border-radius: 4px; margin-top: var(--s-8); }
-.table { width: 100%; border-collapse: collapse; font-size: var(--text-base); background: white; }
+.table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; background: white; }
 .table thead { background-color: rgba(63, 66, 46, 0.04); border-bottom: 2px solid rgba(63, 66, 46, 0.15); }
-.table th { padding: var(--s-5) var(--s-6); text-align: left; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-text); }
+.table th { padding: var(--s-4) var(--s-5); text-align: left; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--c-text); }
 .table tbody tr { border-bottom: 1px solid rgba(63, 66, 46, 0.08); transition: background-color var(--duration-fast) var(--ease); }
 .table tbody tr:hover { background-color: rgba(63, 66, 46, 0.02); }
 .table tbody tr:last-child { border-bottom: none; }
-.table td { padding: var(--s-5) var(--s-6); vertical-align: middle; color: var(--c-text); font-size: var(--text-base); }
+.table td { padding: var(--s-4) var(--s-5); vertical-align: middle; color: var(--c-text); font-size: 0.8125rem; }
 .table td a { color: var(--c-text); text-decoration: none; font-weight: 500; transition: color var(--duration-fast) var(--ease); }
 .table td a:hover { color: var(--c-accent); text-decoration: underline; }
 .table__cell--name { font-weight: 500; }
