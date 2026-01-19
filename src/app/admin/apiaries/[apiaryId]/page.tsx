@@ -74,6 +74,7 @@ export default async function ApiaryDetailPage({
           <HivesTable
             hives={apiary.hives}
             showApiary={false}
+            showUser={false}
             currentPath={`/admin/apiaries/${apiaryId}`}
             totalPages={totalPages}
             currentPage={currentPage}
