@@ -6,6 +6,7 @@ import { requireAdmin } from '@/lib/auth-helpers';
 import Link from 'next/link';
 import DeleteUserButton from '@/components/admin/DeleteUserButton';
 import EditUserButton from '@/components/admin/EditUserButton';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -69,6 +70,8 @@ export default async function UserDetailPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Gebruikers', href: '/admin/users' }, { label: user.name }]} />
 
       <section className="home-features">
         <div className="container">

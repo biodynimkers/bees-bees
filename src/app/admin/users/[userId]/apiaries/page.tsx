@@ -2,6 +2,7 @@ import prisma from '@/lib/client';
 import ApiariesTable from '@/components/admin/ApiariesTable';
 import { requireAdmin } from '@/lib/auth-helpers';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 export default async function AdminUserApiariesPage({
   params,
   searchParams,
@@ -41,6 +42,8 @@ export default async function AdminUserApiariesPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Gebruikers', href: '/admin/users' }, { label: user?.name || '', href: `/admin/users/${userId}` }, { label: 'Bijenstanden' }]} />
 
       <section className="home-features">
         <div className="container">

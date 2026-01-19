@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -62,6 +63,11 @@ export default async function AccountHivesPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: 'Account', href: '/account' },
+        { label: 'Behuizingen' }
+      ]} />
 
       <section className="home-features">
         <div className="container">

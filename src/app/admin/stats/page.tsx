@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -63,6 +64,8 @@ export default async function AdminStatsPage() {
           </p>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Statistieken' }]} />
 
       <section className="section ">
         <div className="container">

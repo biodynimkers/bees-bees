@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 import ObservationsFilter from '@/components/shared/ObservationsFilter';
 import { pollenColors } from '@/lib/pollenColors';
 
@@ -151,6 +152,11 @@ export default async function AccountObservationsPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: 'Account', href: '/account' },
+        { label: 'Waarnemingen' }
+      ]} />
 
       <section className="home-features">
         <div className="container">

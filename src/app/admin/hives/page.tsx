@@ -2,6 +2,7 @@ import prisma from '@/lib/client';
 import HivesFilter from '@/components/admin/HivesFilter';
 import { requireAdmin } from '@/lib/auth-helpers';
 import { HIVE_TYPES, COLONY_TYPES } from '@/lib/hiveOptions';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 type SearchParams = {
   page?: string;
@@ -101,6 +102,8 @@ export default async function AdminHivesPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Behuizingen' }]} />
 
       <section className="home-features">
         <div className="container">

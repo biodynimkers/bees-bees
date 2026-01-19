@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { requireAdmin } from '@/lib/auth-helpers';
 import HivesTable from '@/components/admin/HivesTable';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 export default async function ApiaryDetailPage({
   params,
   searchParams,
@@ -64,6 +65,8 @@ export default async function ApiaryDetailPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Bijenstanden', href: '/admin/apiaries' }, { label: apiary.name }]} />
 
       <section className="home-features">
         <div className="container">

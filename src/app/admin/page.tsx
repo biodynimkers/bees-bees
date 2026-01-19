@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export default function AdminPage() {
   return (
@@ -11,6 +12,8 @@ export default function AdminPage() {
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin' }]} />
 
       <section className="home-features">
         <div className="container">

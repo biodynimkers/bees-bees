@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
 import prisma from '@/lib/client';
 import ObservationForm from '@/components/forms/ObservationForm';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export default async function AccountObservationNewPage({
   searchParams,
@@ -33,6 +34,14 @@ export default async function AccountObservationNewPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Account', href: '/account' },
+          { label: 'Waarnemingen', href: '/observations' },
+          { label: 'Nieuwe waarneming' },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container container--narrow">

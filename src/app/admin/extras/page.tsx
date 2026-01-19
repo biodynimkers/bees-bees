@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 const MAX_FILE_SIZE = 800 * 1024; // 800KB
 const RECOMMENDED_WIDTH = 1920;
@@ -238,6 +239,8 @@ export default function ExtrasPage() {
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: "Extra's" }]} />
 
       <section className="home-features">
         <div className="container container--narrow">

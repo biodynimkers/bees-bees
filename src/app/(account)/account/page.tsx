@@ -4,6 +4,7 @@ import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import { MapPin, Box, Eye } from 'lucide-react';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -73,6 +74,10 @@ export default async function AccountPage() {
             </div>
           </div>
         </section>
+
+        <Breadcrumbs items={[
+          { label: 'Account' }
+        ]} />
 
         {isNewUser ? (
           <>

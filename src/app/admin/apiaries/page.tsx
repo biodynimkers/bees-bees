@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/client';
 import ApiariesFilter from '@/components/admin/ApiariesFilter';
 import { requireAdmin } from '@/lib/auth-helpers';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 type SearchParams = {
   page?: string;
@@ -72,6 +73,8 @@ export default async function AdminApiariesPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Bijenstanden' }]} />
 
       <section className="home-features">
         <div className="container">

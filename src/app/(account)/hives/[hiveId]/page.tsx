@@ -7,6 +7,7 @@ import DeleteEntityButton from '@/components/shared/DeleteEntityButton';
 import { notFound } from 'next/navigation';
 import ObservationsFilter from '@/components/shared/ObservationsFilter';
 import { pollenColors } from '@/lib/pollenColors';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 type SearchParams = {
@@ -129,6 +130,14 @@ export default async function AccountApiaryHivePage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Account', href: '/account' },
+          { label: 'Behuizingen', href: '/hives' },
+          { label: hive.name },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container">

@@ -7,6 +7,7 @@ import { formatBeeCount } from '@/lib/utils/formatBeeCount';
 import PollenColorLegend from '@/components/shared/PollenColorLegend';
 import { pollenColors } from '@/lib/pollenColors';
 import Link from 'next/link';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,6 +61,8 @@ export default async function Observation({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Waarnemingen', href: '/admin/observations' }, { label: 'Details' }]} />
 
       <section className="home-features">
         <div className="container">

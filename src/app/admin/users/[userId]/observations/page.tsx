@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { requireAdmin } from '@/lib/auth-helpers';
 import ObservationsTable from '@/components/shared/ObservationsTable';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 export default async function AdminUserObservationsPage({
   params,
   searchParams,
@@ -67,6 +68,8 @@ export default async function AdminUserObservationsPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Gebruikers', href: '/admin/users' }, { label: user.name, href: `/admin/users/${userId}` }, { label: 'Waarnemingen' }]} />
 
       <section className="home-features">
         <div className="container">

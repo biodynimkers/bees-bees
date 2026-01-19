@@ -5,6 +5,7 @@ import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import DeleteEntityButton from '@/components/shared/DeleteEntityButton';
 import ApiaryMapWrapper from '@/components/shared/ApiaryMapWrapper';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -81,6 +82,12 @@ export default async function AccountApiaryPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: 'Account', href: '/account' },
+        { label: 'Bijenstanden', href: '/apiaries' },
+        { label: apiary?.name || 'Bijenstand' }
+      ]} />
 
       <section className="home-features">
         <div className="container">

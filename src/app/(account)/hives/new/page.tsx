@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import prisma from '@/lib/client';
 import HiveForm from '@/components/forms/HiveForm';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export default async function AccountApiaryNewHivePage({
   searchParams,
@@ -28,6 +29,14 @@ export default async function AccountApiaryNewHivePage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Account', href: '/account' },
+          { label: 'Behuizingen', href: '/hives' },
+          { label: 'Nieuwe behuizing' },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container container--narrow">

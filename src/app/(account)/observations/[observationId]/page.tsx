@@ -13,6 +13,7 @@ import {
 } from '@/lib/utils/formatWeather';
 import PollenColorLegend from '@/components/shared/PollenColorLegend';
 import { pollenColors } from '@/lib/pollenColors';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -65,6 +66,14 @@ export default async function Observation({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs
+        items={[
+          { label: 'Account', href: '/account' },
+          { label: 'Waarnemingen', href: '/observations' },
+          { label: 'Details' },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container">

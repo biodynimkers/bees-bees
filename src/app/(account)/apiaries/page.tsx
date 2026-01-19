@@ -4,6 +4,7 @@ import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import ApiariesOverviewMap from '@/components/shared/ApiariesOverviewMap';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -68,6 +69,11 @@ export default async function AccountApiariesPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: 'Account', href: '/account' },
+        { label: 'Bijenstanden' }
+      ]} />
 
       <section className="home-features">
         <div className="container">

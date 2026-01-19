@@ -4,6 +4,7 @@ import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import UsersPageClient from '@/components/admin/UsersPageClient';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 type SearchParams = {
@@ -70,6 +71,8 @@ export default async function UsersPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Gebruikers' }]} />
 
       <UsersPageClient
         users={users}

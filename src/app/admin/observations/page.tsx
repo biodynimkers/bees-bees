@@ -4,6 +4,7 @@ import ObservationsFilter from '@/components/shared/ObservationsFilter';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
 import { pollenColors } from '@/lib/pollenColors';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -118,6 +119,8 @@ export default async function AdminObservationsPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Waarnemingen' }]} />
 
       <section className="home-features">
         <div className="container">

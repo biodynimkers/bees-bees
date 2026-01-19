@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { requireAdmin } from '@/lib/auth-helpers';
 import HivesTable from '@/components/admin/HivesTable';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export default async function UserHivesPage({
   params,
@@ -67,6 +68,8 @@ export default async function UserHivesPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Gebruikers', href: '/admin/users' }, { label: user.name, href: `/admin/users/${userId}` }, { label: 'Behuizingen' }]} />
 
       <section className="home-features">
         <div className="container">

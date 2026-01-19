@@ -3,6 +3,7 @@ import { requireAdmin } from '@/lib/auth-helpers';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ObservationsFilter from '@/components/shared/ObservationsFilter';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 import { pollenColors } from '@/lib/pollenColors';
 type SearchParams = {
@@ -131,6 +132,8 @@ export default async function AdminHiveDetailPage({
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Behuizingen', href: '/admin/hives' }, { label: hive.name }]} />
 
       <section className="home-features">
         <div className="container">

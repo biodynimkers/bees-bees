@@ -3,6 +3,7 @@ import prisma from '@/lib/client';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export default async function EditObservationPage({
   params,
@@ -24,14 +25,24 @@ export default async function EditObservationPage({
   }
 
   return (
-    <>
-      <section className="page-header">
+    <div className="platform-page">
+      <section className="platform-hero">
         <div className="container">
-          <h1 className="heading-primary">Observatie bewerken</h1>
+          <div className="platform-hero__content">
+            <h1 className="platform-hero__title">Waarneming bewerken</h1>
+          </div>
         </div>
       </section>
 
-      <section className="section ">
+      <Breadcrumbs
+        items={[
+          { label: 'Account', href: '/account' },
+          { label: 'Waarnemingen', href: '/observations' },
+          { label: 'Bewerken' },
+        ]}
+      />
+
+      <section className="home-features">
         <div className="container container--narrow">
           <ObservationForm 
             initialObservation={observationId} 
@@ -39,6 +50,6 @@ export default async function EditObservationPage({
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

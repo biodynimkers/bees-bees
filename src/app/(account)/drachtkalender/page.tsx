@@ -1,4 +1,5 @@
 import DrachtkalenderSection from '@/components/shared/DrachtkalenderSection';
+import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,6 +16,11 @@ export default function DrachtkalenderPage() {
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: 'Account', href: '/account' },
+        { label: 'Drachtkalender' }
+      ]} />
 
       <section className="home-features">
         <div className="container">
