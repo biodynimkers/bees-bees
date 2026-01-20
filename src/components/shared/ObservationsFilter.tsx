@@ -88,7 +88,7 @@ export default function ObservationsFilter({
         {/* <Link href="/admin" className="back-link">
           ←
         </Link> */}
-        <div className="filters">
+        {/* <div className="filters">
           <SearchInput
             value={search}
             onChange={(value: string) => {
@@ -116,6 +116,88 @@ export default function ObservationsFilter({
               </option>
             ))}
           </select>
+        </div> */}
+        <div className="filters">
+          <SearchInput
+            value={search}
+            onChange={(value: string) => {
+              setSearch(value);
+              debouncedSearchUpdate(value);
+            }}
+            placeholder={placeholder}
+          />
+          <div
+            style={{
+              border: '1px solid var(--c-border)',
+              borderRadius: '4px',
+              padding: 'var(--s-5)',
+              backgroundColor: 'var(--c-white)',
+            }}
+          >
+            <label
+              style={{
+                fontSize: 'var(--text-sm)',
+                color: 'var(--c-text-muted)',
+                marginBottom: 'var(--s-2)',
+                display: 'block',
+              }}
+            >
+              Zoek op stuifmeelkleur
+            </label>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              {/* 'Alle kleuren' knop */}
+              <button
+                type="button"
+                onClick={() => handleColorChange('')}
+                style={{
+                  padding: '8px',
+                  border: '1px solid #ccc',
+                  borderRadius: '4px',
+                  backgroundColor: colorFilter === '' ? '#e3f2fd' : 'white',
+                  cursor: 'pointer',
+                }}
+                aria-label="Alle kleuren"
+              >
+                <span>Alle</span>
+              </button>
+
+              {allColors.map(option => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => handleColorChange(option.value)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '4px',
+                    border:
+                      colorFilter === option.value
+                        ? '2px solid #1976d2'
+                        : '1px solid rgba(0, 0, 0, 0.2)',
+                    borderRadius: '50%',
+                    backgroundColor: 'transparent',
+                    cursor: 'pointer',
+                    width: '24px',
+                    height: '24px',
+                  }}
+                  aria-pressed={colorFilter === option.value}
+                  aria-label={option.label}
+                >
+                  <div
+                    style={{
+                      width: '16px',
+                      height: '16px',
+                      borderRadius: '50%',
+                      backgroundColor: option.hex,
+                      border: '1px solid rgba(0, 0, 0, 0.2)',
+                      flexShrink: 0,
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
