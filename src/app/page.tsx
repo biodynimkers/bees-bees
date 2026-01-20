@@ -1,7 +1,6 @@
 import Button from "@/components/magazine/Button";
 import Stats from "@/components/magazine/Stats";
 import HeroImage from "@/components/home/HeroImage";
-import ScrollCursor from "@/components/home/ScrollCursor";
 import ScrollAnimations from "@/components/home/ScrollAnimations";
 import prisma from "@/lib/client";
 import { readFile } from "fs/promises";
@@ -53,7 +52,6 @@ export default async function Home() {
 
   return (
     <>
-      <ScrollCursor />
       <ScrollAnimations />
       
       {/* Hero - Full width image at top */}
