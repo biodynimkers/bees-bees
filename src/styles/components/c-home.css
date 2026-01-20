@@ -298,7 +298,8 @@
   margin-top: 32px;
 }
 
-.section-header {
+.section-header:has(h2),
+.section-header:has(.btn) {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
