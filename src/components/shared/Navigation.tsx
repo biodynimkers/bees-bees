@@ -320,7 +320,7 @@ export default function Navigation() {
                 onClick={closeMobileMenu}
               >
                 <Eye size={16} />
-                <span>Observaties</span>
+                <span>Waarnemingen</span>
               </Link>
               {(session.user.role === 'ADMIN' ||
                 session.user.role === 'SUPERADMIN') && (
