@@ -12,7 +12,15 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { hiveId, beeCount, pollenColor, pollenAmount, weatherCondition, temperature, notes } = body;
+    const {
+      hiveId,
+      beeCount,
+      pollenColor,
+      pollenAmount,
+      weatherCondition,
+      temperature,
+      notes,
+    } = body;
     const validationResult = newObservationSchema.safeParse({
       hiveId,
       beeCount,
@@ -26,7 +34,7 @@ export async function POST(request: NextRequest) {
       const { fieldErrors } = validationResult.error.flatten();
       return NextResponse.json(
         { ok: false, errors: fieldErrors },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -45,7 +53,7 @@ export async function POST(request: NextRequest) {
     if (!hive || hive.apiary.user.id !== session.user.id) {
       return NextResponse.json(
         { error: 'Behuizing niet gevonden' },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -66,7 +74,7 @@ export async function POST(request: NextRequest) {
     console.error('Error creating observation:', error);
     return NextResponse.json(
       { error: 'Observatie kon niet worden aangemaakt' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

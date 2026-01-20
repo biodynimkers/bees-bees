@@ -318,8 +318,9 @@ TODO
 - [] na toevoegen bijenstanden en kasten vanuit /account gaat de redirect respectievelijk naar /apiaries en /apiaries[id], dus waar ze zijn toegevoegd
 - [] /hives/[id]/edit: het type behuizing staat niet voorgeselecteerd
 - [] /observations/[id]/edit: redirect niet naar /observations/[id] maar naar /hives/id
-- [] /observations/[id]/edit: krijg foutmelding 'Invalid input: expected number, received string' als ik geen wijziging doe
-- [] observations/new: bij geen stuifmeelkleur moet ik toch nog een hoeveelheid pollen invullen, zal "GEEN" in de enum moeten toevoegen en voorselecteren als er geen stuifmeelkleur is, of veld optioneel maken en 'GEEN' als default value maken
+- [x] /observations/[id]/edit: krijg foutmelding 'Invalid input: expected number, received string' als ik geen wijziging doe
+
+- [] observations/new: bij geen stuifmeelkleur moet ik toch nog een hoeveelheid pollen invullen, zal "GEEN" in de enum moeten toevoegen en voorselecteren als er geen stuifmeelkleur is, of veld optioneel maken en 'GEEN' als default value maken, is dat niet het eenvoudigste?
 
 TODO
 
