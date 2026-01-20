@@ -6,10 +6,9 @@ import Link from 'next/link';
 import { apiarySchema } from '@/lib/validators/schemas';
 import dynamic from 'next/dynamic';
 
-const InteractiveApiaryMap = dynamic(
-  () => import('./InteractiveApiaryMap'),
-  { ssr: false }
-);
+const InteractiveApiaryMap = dynamic(() => import('./InteractiveApiaryMap'), {
+  ssr: false,
+});
 export default function ApiaryForm({
   initialApiary,
 }: {
@@ -20,7 +19,7 @@ export default function ApiaryForm({
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [locationMethod, setLocationMethod] = useState<'address' | 'gps'>(
-    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'gps' : 'address'
+    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? 'gps' : 'address',
   ); // preselectie op basis van apparaat
   const [geocodingLoading, setGeocodingLoading] = useState(false);
 
@@ -30,7 +29,6 @@ export default function ApiaryForm({
       const res = await fetch(`/api/apiaries/${initialApiary}`);
       if (res.ok) {
         const data = await res.json();
-        console.log('Fetched apiary data:', data);
         setName(data.name);
         setLatitude(data.latitude.toString());
         setLongitude(data.longitude.toString());
@@ -107,7 +105,7 @@ export default function ApiaryForm({
         enableHighAccuracy: true,
         timeout: 15000,
         maximumAge: 0,
-      }
+      },
     );
   };
 
@@ -127,6 +125,8 @@ export default function ApiaryForm({
 
     setGeocodingLoading(true);
     setGeocodingError('');
+    // Verwijder de  field errors wanneer de coördinaen successvol zijn opgehaald
+    setFieldErrors(null);
 
     const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -137,8 +137,8 @@ export default function ApiaryForm({
       if (mapboxToken) {
         const response = await fetch(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-            address
-          )}.json?country=BE,NL&limit=1&access_token=${mapboxToken}`
+            address,
+          )}.json?country=BE,NL&limit=1&access_token=${mapboxToken}`,
         );
 
         const mapboxData = await response.json();
@@ -148,6 +148,7 @@ export default function ApiaryForm({
           setLatitude(lat.toString());
           setLongitude(lng.toString());
           setGeocodingError('');
+          setFieldErrors(null);
           return;
         }
       }
@@ -155,13 +156,13 @@ export default function ApiaryForm({
       // Fallback naar Nominatim als Mapbox niet beschikbaar is of geen resultaten geeft
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-          address
+          address,
         )}&countrycodes=be,nl&limit=1`,
         {
           headers: {
             'User-Agent': 'BeesApp/1.0',
           },
-        }
+        },
       );
 
       data = await response.json();
@@ -172,12 +173,12 @@ export default function ApiaryForm({
         setGeocodingError('');
       } else {
         setGeocodingError(
-          'Adres niet gevonden. Probeer een meer specifiek adres (straat, nummer, stad).'
+          'Adres niet gevonden. Probeer een meer specifiek adres (straat, nummer, stad).',
         );
       }
     } catch (err) {
       setGeocodingError(
-        'Kon adres niet omzetten naar coördinaten. Probeer het opnieuw.'
+        'Kon adres niet omzetten naar coördinaten. Probeer het opnieuw.',
       );
       console.error('Geocoding error:', err);
     } finally {
@@ -302,8 +303,8 @@ export default function ApiaryForm({
           </label>
         </div>
         <p className="form__help">
-          Voor nauwkeurige locaties van bijenbehuizingen in velden of bossen, gebruik
-          GPS op uw smartphone.
+          Voor nauwkeurige locaties van bijenbehuizingen in velden of bossen,
+          gebruik GPS op uw smartphone.
         </p>
       </div>
       {/* Adres invoer */}
@@ -377,8 +378,8 @@ export default function ApiaryForm({
           >
             <strong> Belangrijk:</strong> Deze functie werkt alleen nauwkeurig
             op smartphones met GPS. Desktop computers gebruiken WiFi/IP-locatie
-            en zijn niet geschikt voor het bepalen van bijenbehuizingen in velden of
-            bossen.
+            en zijn niet geschikt voor het bepalen van bijenbehuizingen in
+            velden of bossen.
             <br />
             <strong>Gebruik uw smartphone voor beste resultaten.</strong>
           </div>
@@ -444,10 +445,7 @@ export default function ApiaryForm({
       )}
 
       <div className="form__actions form__actions--center">
-        <Link
-          href="/apiaries"
-          className="btn btn--secondary btn--large"
-        >
+        <Link href="/apiaries" className="btn btn--secondary btn--large">
           Annuleren
         </Link>
         <button
@@ -460,8 +458,8 @@ export default function ApiaryForm({
               ? 'Bewerken...'
               : 'Toevoegen...'
             : initialApiary
-            ? 'Bewerk bijenstand'
-            : 'Bijenstand toevoegen'}
+              ? 'Bewerk bijenstand'
+              : 'Bijenstand toevoegen'}
         </button>
       </div>
     </form>

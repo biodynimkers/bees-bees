@@ -110,6 +110,7 @@ enum WeatherCondition {
 }
 
 enum PollenAmount {
+  GEEN
   WEINIG
   GEMIDDELD
   VEEL
