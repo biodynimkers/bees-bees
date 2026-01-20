@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { hiveSchema } from '@/lib/validators/schemas';
+import { HIVE_TYPES, COLONY_TYPES } from '@/lib/hiveOptions';
+import { de } from 'zod/locales';
+//TODO loop over defined hive types and colony types to create options in the form
 
 export default function HiveForm({
   apiaryId,
@@ -19,7 +22,7 @@ export default function HiveForm({
   const [colonyType, setColonyType] = useState('');
   const [selectedApiaryId, setSelectedApiaryId] = useState(apiaryId || '');
   const [apiaries, setApiaries] = useState<Array<{ id: number; name: string }>>(
-    []
+    [],
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -204,12 +207,11 @@ export default function HiveForm({
           required
         >
           <option value="">-- Selecteer type --</option>
-          <option value="Dadant">Dadant</option>
-          <option value="Langstroth">Langstroth</option>
-          <option value="Warré">Warré</option>
-          <option value="Top Bar Hive">Top Bar Hive</option>
-          <option value="Klokbehuizing">Klokbehuizing</option>
-          <option value="Anders">Anders</option>
+          {HIVE_TYPES.map(hiveType => (
+            <option key={hiveType} value={hiveType}>
+              {hiveType}
+            </option>
+          ))}
         </select>
         {fieldErrors?.type && (
           <span className="form-error">{fieldErrors.type[0]}</span>
@@ -237,11 +239,11 @@ export default function HiveForm({
           required
         >
           <option value="">-- Selecteer variëteit --</option>
-          <option value="Buckfast">Buckfast</option>
-          <option value="Carnica">Carnica</option>
-          <option value="mengeling">mengeling</option>
-          <option value="andere">andere</option>
-          <option value="Onbekend">Onbekend</option>
+          {COLONY_TYPES.map(colType => (
+            <option key={colType} value={colType}>
+              {colType}
+            </option>
+          ))}
         </select>
         {fieldErrors?.colonyType && (
           <span className="form-error">{fieldErrors.colonyType[0]}</span>
@@ -265,8 +267,8 @@ export default function HiveForm({
               ? 'Bezig met bewerken...'
               : 'Bezig met toevoegen...'
             : initialHive
-            ? 'Behuizing Bewerken'
-            : 'Behuizing toevoegen'}
+              ? 'Behuizing Bewerken'
+              : 'Behuizing toevoegen'}
         </button>
       </div>
     </form>

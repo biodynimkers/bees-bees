@@ -99,7 +99,7 @@ export default function ObservationForm({
 
   const handleColorToggle = (hex: string) => {
     const isNoPollenOption = pollenColors.find(
-      color => color.hex === hex
+      color => color.hex === hex,
     )?.isNoPollenOption;
 
     setSelectedColors(prev => {
@@ -109,7 +109,7 @@ export default function ObservationForm({
       } else {
         // If selecting a regular color, remove "no pollen" if present and handle normally
         const filteredPrev = prev.filter(
-          color => !pollenColors.find(c => c.hex === color)?.isNoPollenOption
+          color => !pollenColors.find(c => c.hex === color)?.isNoPollenOption,
         );
 
         if (filteredPrev.includes(hex)) {
@@ -252,361 +252,381 @@ export default function ObservationForm({
           </div>
         )}
         <div className="form__section">
-        <div className="form__group">
-          <h3 className="form__section-title"><span className="form__step-badge">Stap 1</span> Aantal bijen</h3>
-          <p className="form__instructions">
-            Druk op 'Start timer' en tel 30 seconden lang hoeveel bijen er
-            binnenkomen in de behuizing.
-          </p>
-          <Timer />
-          <label htmlFor="beeCount" className="form__label">
-            Aantal bijen *
-          </label>
-          <div className="bee-counter">
-            <div className="bee-counter__controls">
-              <button
-                type="button"
-                className="bee-counter__button bee-counter__button--mobile-only"
+          <div className="form__group">
+            <h3 className="form__section-title">
+              <span className="form__step-badge">Stap 1</span> Aantal bijen
+            </h3>
+            <p className="form__instructions">
+              Druk op 'Start timer' en tel 30 seconden lang hoeveel bijen er
+              binnenkomen in de behuizing.
+            </p>
+            <Timer />
+            <label htmlFor="beeCount" className="form__label">
+              Aantal binnenkomende bijen *
+            </label>
+            <div className="bee-counter">
+              <div className="bee-counter__controls">
+                <button
+                  type="button"
+                  className="bee-counter__button bee-counter__button--mobile-only"
+                  disabled={tooManyBees}
+                  onClick={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setBeeCount(prev => {
+                      const newValue = Math.max(
+                        0,
+                        parseInt(prev || '0') - 1,
+                      ).toString();
+                      return newValue;
+                    });
+                  }}
+                >
+                  −1
+                </button>
+                <button
+                  type="button"
+                  className="bee-counter__button bee-counter__button--mobile-only"
+                  disabled={tooManyBees}
+                  onClick={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setBeeCount(prev => {
+                      const newValue = (parseInt(prev || '0') + 1).toString();
+                      return newValue;
+                    });
+                  }}
+                >
+                  +1
+                </button>
+              </div>
+              <input
+                type="number"
+                id="beeCount"
+                value={beeCount}
                 disabled={tooManyBees}
-                onClick={e => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setBeeCount(prev => {
-                    const newValue = Math.max(
-                      0,
-                      parseInt(prev || '0') - 1
-                    ).toString();
-                    return newValue;
-                  });
+                onChange={e => {
+                  const value = e.target.value;
+                  // Only allow numbers (and empty string for clearing)
+                  if (value === '' || /^\d+$/.test(value)) {
+                    setBeeCount(value);
+                    if (fieldErrors?.beeCount) {
+                      setFieldErrors(prev => {
+                        if (!prev) return null;
+                        const { beeCount, ...rest } = prev;
+                        return Object.keys(rest).length ? rest : null;
+                      });
+                    }
+                  }
                 }}
-              >
-                −1
-              </button>
-              <button
-                type="button"
-                className="bee-counter__button bee-counter__button--mobile-only"
-                disabled={tooManyBees}
-                onClick={e => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setBeeCount(prev => {
-                    const newValue = (parseInt(prev || '0') + 1).toString();
-                    return newValue;
-                  });
+                onKeyDown={e => {
+                  // Allow navigation, editing keys and keyboard shortcuts
+                  if (
+                    [
+                      'Backspace',
+                      'Delete',
+                      'Tab',
+                      'Escape',
+                      'Enter',
+                      'ArrowLeft',
+                      'ArrowRight',
+                      'Home',
+                      'End',
+                    ].includes(e.key) ||
+                    e.ctrlKey ||
+                    e.metaKey ||
+                    /[0-9]/.test(e.key)
+                  ) {
+                    return; // Allow these keys
+                  }
+                  e.preventDefault(); // Block everything else
                 }}
-              >
-                +1
-              </button>
+                className="form__input bee-counter__input"
+                placeholder={
+                  tooManyBees ? 'Te veel om te tellen' : 'Geschat aantal bijen'
+                }
+                required
+                inputMode="numeric"
+              />
             </div>
-            <input
-              type="number"
-              id="beeCount"
-              value={beeCount}
-              disabled={tooManyBees}
-              onChange={e => {
-                const value = e.target.value;
-                // Only allow numbers (and empty string for clearing)
-                if (value === '' || /^\d+$/.test(value)) {
-                  setBeeCount(value);
-                  if (fieldErrors?.beeCount) {
+            <label className="form__checkbox-label">
+              <input
+                type="checkbox"
+                checked={tooManyBees}
+                onChange={e => {
+                  setTooManyBees(e.target.checked);
+                  if (e.target.checked) {
+                    setBeeCount(''); // Clear input when too many is selected
+                  }
+                }}
+                className="form__checkbox"
+              />
+              Te veel bijen om te tellen
+            </label>
+            <p className="form__help">
+              Tel de bijen tijdens de 30 seconden observatie
+            </p>
+          </div>
+        </div>
+        <div className="form__section">
+          <div className="form__group">
+            <h3 className="form__section-title">
+              <span className="form__step-badge">Stap 2</span> Stuifmeelkleur
+            </h3>
+            <p className="form__instructions">
+              Neem even de tij om de stuifmeelkleuren op de bijen te observeren.
+              Selecteer maximaal 3 verschillende kleuren, of kies 'Geen' indien
+              geen stuifmeel zichtbaar is.
+            </p>
+            <label className="form__label">Stuifmeelkleur *</label>
+            <ColorPicker
+              pollenColors={pollenColors}
+              selectedColors={selectedColors}
+              onColorToggle={handleColorToggle}
+              maxColors={3}
+            />
+            {fieldErrors?.pollenColor && (
+              <div className="form-error">
+                {fieldErrors.pollenColor.map((error, i) => (
+                  <p key={i}>{error}</p>
+                ))}
+              </div>
+            )}
+            <input type="hidden" name="pollenColor" value={pollenColor} />
+          </div>
+          <div className="form__group">
+            <label className="form__label">Hoeveelheid stuifmeel *</label>
+            <p className="form__instructions">
+              Geef aan hoeveel stuifmeel je gemiddeld op de bijen ziet.
+            </p>
+            <div className="form__radio-group">
+              <button
+                type="button"
+                className={`btn ${pollenAmount === 'WEINIG' ? 'btn--primary' : 'btn--secondary'}`}
+                onClick={() => {
+                  setPollenAmount('WEINIG');
+                  if (fieldErrors?.pollenAmount) {
                     setFieldErrors(prev => {
                       if (!prev) return null;
-                      const { beeCount, ...rest } = prev;
+                      const { pollenAmount, ...rest } = prev;
                       return Object.keys(rest).length ? rest : null;
                     });
                   }
-                }
-              }}
-              onKeyDown={e => {
-                // Allow navigation, editing keys and keyboard shortcuts
-                if (
-                  [
-                    'Backspace',
-                    'Delete',
-                    'Tab',
-                    'Escape',
-                    'Enter',
-                    'ArrowLeft',
-                    'ArrowRight',
-                    'Home',
-                    'End',
-                  ].includes(e.key) ||
-                  e.ctrlKey ||
-                  e.metaKey ||
-                  /[0-9]/.test(e.key)
-                ) {
-                  return; // Allow these keys
-                }
-                e.preventDefault(); // Block everything else
-              }}
-              className="form__input bee-counter__input"
-              placeholder={
-                tooManyBees ? 'Te veel om te tellen' : 'Geschat aantal bijen'
-              }
-              required
-              inputMode="numeric"
-            />
+                }}
+              >
+                Weinig
+              </button>
+              <button
+                type="button"
+                className={`btn ${pollenAmount === 'GEMIDDELD' ? 'btn--primary' : 'btn--secondary'}`}
+                onClick={() => {
+                  setPollenAmount('GEMIDDELD');
+                  if (fieldErrors?.pollenAmount) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { pollenAmount, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
+                }}
+              >
+                Gemiddeld
+              </button>
+              <button
+                type="button"
+                className={`btn ${pollenAmount === 'VEEL' ? 'btn--primary' : 'btn--secondary'}`}
+                onClick={() => {
+                  setPollenAmount('VEEL');
+                  if (fieldErrors?.pollenAmount) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { pollenAmount, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
+                }}
+              >
+                Veel
+              </button>
+            </div>
+            {fieldErrors?.pollenAmount && (
+              <div className="form-error">
+                {fieldErrors.pollenAmount.map((error, i) => (
+                  <p key={i}>{error}</p>
+                ))}
+              </div>
+            )}
+            <input type="hidden" name="pollenAmount" value={pollenAmount} />
           </div>
-          <label className="form__checkbox-label">
-            <input
-              type="checkbox"
-              checked={tooManyBees}
-              onChange={e => {
-                setTooManyBees(e.target.checked);
-                if (e.target.checked) {
-                  setBeeCount(''); // Clear input when too many is selected
-                }
-              }}
-              className="form__checkbox"
-            />
-            Te veel bijen om te tellen
-          </label>
-          <p className="form__help">
-            Tel de bijen tijdens de 30 seconden observatie
-          </p>
-        </div>
         </div>
         <div className="form__section">
-        <div className="form__group">
-          <h3 className="form__section-title"><span className="form__step-badge">Stap 2</span> Stuifmeelkleur</h3>
-          <p className="form__instructions">
-            Neem even de tij om de stuifmeelkleuren op de bijen te observeren.
-            Selecteer maximaal 3 verschillende kleuren, of kies 'Geen' indien
-            geen stuifmeel zichtbaar is.
-          </p>
-          <label className="form__label">Stuifmeelkleur *</label>
-          <ColorPicker
-            pollenColors={pollenColors}
-            selectedColors={selectedColors}
-            onColorToggle={handleColorToggle}
-            maxColors={3}
-          />
-          {fieldErrors?.pollenColor && (
-            <div className="form-error">
-              {fieldErrors.pollenColor.map((error, i) => (
-                <p key={i}>{error}</p>
-              ))}
+          <div className="form__group">
+            <h3 className="form__section-title">
+              <span className="form__step-badge">Stap 3</span>{' '}
+              Weersomstandigheden
+            </h3>
+            <p className="form__instructions">
+              Noteer de weersomstandigheden tijdens de observatie voor betere
+              context.
+            </p>
+            <label className="form__label">Weersomstandigheden *</label>
+            <div className="form__radio-group">
+              <button
+                type="button"
+                className={`btn ${weatherCondition === 'SUNNY' ? 'btn--primary' : 'btn--secondary'}`}
+                onClick={() => {
+                  setWeatherCondition('SUNNY');
+                  if (fieldErrors?.weatherCondition) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { weatherCondition, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
+                }}
+              >
+                ☀️ Zonnig
+              </button>
+              <button
+                type="button"
+                className={`btn ${weatherCondition === 'PARTLY_CLOUDY' ? 'btn--primary' : 'btn--secondary'}`}
+                onClick={() => {
+                  setWeatherCondition('PARTLY_CLOUDY');
+                  if (fieldErrors?.weatherCondition) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { weatherCondition, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
+                }}
+              >
+                ⛅ Half bewolkt
+              </button>
+              <button
+                type="button"
+                className={`btn ${weatherCondition === 'CLOUDY' ? 'btn--primary' : 'btn--secondary'}`}
+                onClick={() => {
+                  setWeatherCondition('CLOUDY');
+                  if (fieldErrors?.weatherCondition) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { weatherCondition, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
+                }}
+              >
+                ☁️ Bewolkt
+              </button>
+              <button
+                type="button"
+                className={`btn ${weatherCondition === 'RAINY' ? 'btn--primary' : 'btn--secondary'}`}
+                onClick={() => {
+                  setWeatherCondition('RAINY');
+                  if (fieldErrors?.weatherCondition) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { weatherCondition, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
+                }}
+              >
+                🌧️ Regenachtig
+              </button>
             </div>
-          )}
-          <input type="hidden" name="pollenColor" value={pollenColor} />
-        </div>
-        <div className="form__group">
-          <label className="form__label">Hoeveelheid stuifmeel *</label>
-          <p className="form__instructions">
-            Geef aan hoeveel stuifmeel je gemiddeld op de bijen ziet.
-          </p>
-          <div className="form__radio-group">
-            <button
-              type="button"
-              className={`btn ${pollenAmount === 'WEINIG' ? 'btn--primary' : 'btn--secondary'}`}
-              onClick={() => {
-                setPollenAmount('WEINIG');
-                if (fieldErrors?.pollenAmount) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { pollenAmount, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
-                }
-              }}
-            >
-              Weinig
-            </button>
-            <button
-              type="button"
-              className={`btn ${pollenAmount === 'GEMIDDELD' ? 'btn--primary' : 'btn--secondary'}`}
-              onClick={() => {
-                setPollenAmount('GEMIDDELD');
-                if (fieldErrors?.pollenAmount) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { pollenAmount, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
-                }
-              }}
-            >
-              Gemiddeld
-            </button>
-            <button
-              type="button"
-              className={`btn ${pollenAmount === 'VEEL' ? 'btn--primary' : 'btn--secondary'}`}
-              onClick={() => {
-                setPollenAmount('VEEL');
-                if (fieldErrors?.pollenAmount) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { pollenAmount, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
-                }
-              }}
-            >
-              Veel
-            </button>
-          </div>
-          {fieldErrors?.pollenAmount && (
-            <div className="form-error">
-              {fieldErrors.pollenAmount.map((error, i) => (
-                <p key={i}>{error}</p>
-              ))}
-            </div>
-          )}
-          <input type="hidden" name="pollenAmount" value={pollenAmount} />
-        </div>
-        </div>
-        <div className="form__section">
-        <div className="form__group">
-          <h3 className="form__section-title"><span className="form__step-badge">Stap 3</span> Weersomstandigheden</h3>
-          <p className="form__instructions">
-            Noteer de weersomstandigheden tijdens de observatie voor betere
-            context.
-          </p>
-          <label className="form__label">Weersomstandigheden *</label>
-          <div className="form__radio-group">
-            <button
-              type="button"
-              className={`btn ${weatherCondition === 'SUNNY' ? 'btn--primary' : 'btn--secondary'}`}
-              onClick={() => {
-                setWeatherCondition('SUNNY');
-                if (fieldErrors?.weatherCondition) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { weatherCondition, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
-                }
-              }}
-            >
-              ☀️ Zonnig
-            </button>
-            <button
-              type="button"
-              className={`btn ${weatherCondition === 'PARTLY_CLOUDY' ? 'btn--primary' : 'btn--secondary'}`}
-              onClick={() => {
-                setWeatherCondition('PARTLY_CLOUDY');
-                if (fieldErrors?.weatherCondition) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { weatherCondition, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
-                }
-              }}
-            >
-              ⛅ Half bewolkt
-            </button>
-            <button
-              type="button"
-              className={`btn ${weatherCondition === 'CLOUDY' ? 'btn--primary' : 'btn--secondary'}`}
-              onClick={() => {
-                setWeatherCondition('CLOUDY');
-                if (fieldErrors?.weatherCondition) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { weatherCondition, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
-                }
-              }}
-            >
-              ☁️ Bewolkt
-            </button>
-            <button
-              type="button"
-              className={`btn ${weatherCondition === 'RAINY' ? 'btn--primary' : 'btn--secondary'}`}
-              onClick={() => {
-                setWeatherCondition('RAINY');
-                if (fieldErrors?.weatherCondition) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { weatherCondition, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
-                }
-              }}
-            >
-              🌧️ Regenachtig
-            </button>
-          </div>
-          {fieldErrors?.weatherCondition && (
-            <div className="form-error">
-              {fieldErrors.weatherCondition.map((error, i) => (
-                <p key={i}>{error}</p>
-              ))}
-            </div>
-          )}
+            {fieldErrors?.weatherCondition && (
+              <div className="form-error">
+                {fieldErrors.weatherCondition.map((error, i) => (
+                  <p key={i}>{error}</p>
+                ))}
+              </div>
+            )}
 
-          <label htmlFor="temperature" className="form__label" style={{ marginTop: 'var(--s-4)' }}>
-            Temperatuur (optioneel)
-          </label>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-            <input
-              type="number"
-              id="temperature"
-              value={temperature}
-              onChange={e => {
-                setTemperature(
-                  e.target.value === '' ? '' : Number(e.target.value)
-                );
-                if (fieldErrors?.temperature) {
-                  setFieldErrors(prev => {
-                    if (!prev) return null;
-                    const { temperature, ...rest } = prev;
-                    return Object.keys(rest).length ? rest : null;
-                  });
-                }
+            <label
+              htmlFor="temperature"
+              className="form__label"
+              style={{ marginTop: 'var(--s-4)' }}
+            >
+              Temperatuur (optioneel)
+            </label>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--space-3)',
               }}
-              className="form__input"
-              placeholder="20"
-              min="-20"
-              max="50"
-              step="0.5"
-              style={{ width: '120px' }}
-            />
-            <span>°C</span>
-          </div>
-          {fieldErrors?.temperature && (
-            <div className="form-error">
-              {fieldErrors.temperature.map((error, i) => (
-                <p key={i}>{error}</p>
-              ))}
+            >
+              <input
+                type="number"
+                id="temperature"
+                value={temperature}
+                onChange={e => {
+                  setTemperature(
+                    e.target.value === '' ? '' : Number(e.target.value),
+                  );
+                  if (fieldErrors?.temperature) {
+                    setFieldErrors(prev => {
+                      if (!prev) return null;
+                      const { temperature, ...rest } = prev;
+                      return Object.keys(rest).length ? rest : null;
+                    });
+                  }
+                }}
+                className="form__input"
+                placeholder="20"
+                min="-20"
+                max="50"
+                step="0.5"
+                style={{ width: '120px' }}
+              />
+              <span>°C</span>
             </div>
-          )}
-          <input
-            type="hidden"
-            name="weatherCondition"
-            value={weatherCondition}
-          />
-          <input type="hidden" name="temperature" value={temperature} />
-        </div>
+            {fieldErrors?.temperature && (
+              <div className="form-error">
+                {fieldErrors.temperature.map((error, i) => (
+                  <p key={i}>{error}</p>
+                ))}
+              </div>
+            )}
+            <input
+              type="hidden"
+              name="weatherCondition"
+              value={weatherCondition}
+            />
+            <input type="hidden" name="temperature" value={temperature} />
+          </div>
         </div>
         <div className="form__section">
-        <div className="form__group">
-          <h3 className="form__section-title"><span className="form__step-badge">Stap 4</span> Aanvullende observaties</h3>
-          <p className="form__instructions">
-            Noteer eventuele bijzonderheden die je tijdens de observatie hebt
-            opgemerkt.
-          </p>
-          <label htmlFor="notes" className="form__label">
-            Notities (optioneel)
-          </label>
-          <textarea
-            id="notes"
-            value={notes}
-            onChange={e => setNotes(e.target.value)}
-            className="form__textarea"
-            placeholder="Extra opmerkingen over de behuizing..."
-            rows={4}
-          />
-          {fieldErrors?.notes && (
-            <div className="form-error">
-              {fieldErrors.notes.map((error, i) => (
-                <p key={i}>{error}</p>
-              ))}
-            </div>
-          )}
-        </div>
+          <div className="form__group">
+            <h3 className="form__section-title">
+              <span className="form__step-badge">Stap 4</span> Aanvullende
+              observaties
+            </h3>
+            <p className="form__instructions">
+              Noteer eventuele bijzonderheden die je tijdens de observatie hebt
+              opgemerkt.
+            </p>
+            <label htmlFor="notes" className="form__label">
+              Notities (optioneel)
+            </label>
+            <textarea
+              id="notes"
+              value={notes}
+              onChange={e => setNotes(e.target.value)}
+              className="form__textarea"
+              placeholder="Extra opmerkingen over de behuizing..."
+              rows={4}
+            />
+            {fieldErrors?.notes && (
+              <div className="form-error">
+                {fieldErrors.notes.map((error, i) => (
+                  <p key={i}>{error}</p>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
         <div className="form__actions form__actions--center">
           <Link
@@ -623,8 +643,8 @@ export default function ObservationForm({
             {loading
               ? 'Bezig met opslaan...'
               : initialObservation
-              ? 'Waarneming bewerken'
-              : 'Waarneming toevoegen'}
+                ? 'Waarneming bewerken'
+                : 'Waarneming toevoegen'}
           </button>
         </div>
       </form>

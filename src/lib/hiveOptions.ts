@@ -1,15 +1,15 @@
 export const HIVE_TYPES = [
-  'korf',
-  'hangkorf',
-  'simplex/spaarbehuizing',
-  'aanrainbeuten',
-  'anders',
+  'Korf',
+  'Hangkorf',
+  'Simplex/Spaarbehuizing',
+  'Aanrainbeuten',
+  'Anders',
 ];
 
 export const COLONY_TYPES = [
   ' Buckfast',
   'Carnica',
-  'mengeling',
-  'andere',
+  'Zwarte bij',
+  'Andere',
   'Onbekend',
 ];

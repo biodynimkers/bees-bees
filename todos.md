@@ -95,7 +95,7 @@ app/admin/
 - [x] enkel superadmin kan user deleten
 
 - [x] **GET** `/admin/users` → Alle gebruikers tonen (alleen beheerders)
-- [ ] **GET** `/admin/users` → debounce toevoegen in de filter in usersPageClient TODO
+- [x] **GET** `/admin/users` → debounce toevoegen in de filter in usersPageClient TODO
 - [x] **DELETE** `/admin/users/:id` → Gebruiker verwijderen (alleen beheerders) + cascade toevoegen aan Apiary
 - [x] → filter gebruikers (alleen beheerders)
 - [x] **GET** `/admin/users/:id` → User overview met stats
@@ -138,12 +138,11 @@ app/admin/
 - [ ] API aanvragen via waarnemingen
 - [ ] mobiele breakpoints
 - [ ] unauthorized page nog text en styling geven
-- [ ] ook alle lijsten van kasten in een tabel met paginatie stoppen?
 - [ ] ook bij mobiel tabellen niet veranderen in kaartjes (zie gesprek Barend)
 - [ ] de app/not-found.tsx pagina stylen
 - [ ] links in de tabellen gebruiksvriendelijk maken (kleur?, vet?)
 - [ ] de inline styles nog vervangen
-- [ ] de usersfilter nog aanpassen TODO
+- [x] de usersfilter nog aanpassen
 - [x] de observatiefilters zowel in admin als account routes en onder hiveId, dus 3!
 - [x] in observatiefilter nog debounce en kruisje plaatsen
 - [x] de apiaries en hives filters in de admin route nog aanpassen TODO
@@ -154,9 +153,9 @@ app/admin/
 - [x] **Over Ons** (`/about`): Informatiepagina over het project
 - [x] **Registratie** (`/register`): Aanmeldformulier
 - [x] **Inlogpagina** (`/api/auth/signin`): Login interface
-- [] **Registratie** (`/register`): Aanmeldformulier: paswoord dubbel typen
-- [] **Inlogpagina** (`/api/auth/signin`): Login interface: paswoord zichtbaar maken
-- [] **Inlogpagina** (`/api/auth/signin`): Login interface: "paswoord vergeten?"
+- [x] **Registratie** (`/register`): Aanmeldformulier: paswoord dubbel typen en paswoord zichtbaar maken
+- [x] **Inlogpagina** (`/api/auth/signin`): Login interface: paswoord zichtbaar maken
+- [x] **Inlogpagina** (`/api/auth/signin`): Login interface: "paswoord vergeten?"
 
 ---
 
@@ -198,9 +197,9 @@ app/admin/
 
 ### 12. Foutafhandeling & Gebruikerservaring
 
-- [ ] **Globale Foutafhandeling** (`src/app/error.tsx`): Algemene error fallback
+- [x] **Globale Foutafhandeling** (`src/app/error.tsx`): Algemene error fallback
 - [x] **404 Pagina** (`src/app/not-found.tsx`): Aangepaste niet-gevonden pagina
-- [ ] **Rolgebaseerde Foutmeldingen**: 403/401 berichten per gebruikerstype
+- [x] **Rolgebaseerde Foutmeldingen**: 403/401 berichten per gebruikerstype
 
 ### 13. Prestatie & Laadstatus
 
@@ -268,8 +267,8 @@ app/admin/
   - [x] De geselecteerde kleuren tonen in het observatiekaartje, bijvoorbeeld als gekleurde bolletjes of blokjes.
   - [x] Hover-functionaliteit
   - [x] Klikbare legende of een infoknop die de plantenlijst per kleur uitlegt.
-- [ ] Uitleg tussen de velden in stappen!Layout moet beter!
-- [ ] Bijenteller met de velden versmelten
+- [x] Uitleg tussen de velden in stappen!Layout moet beter!
+- [x] Bijenteller met de velden versmelten
 - [ ] Enkel binnenkomende bijen
 - [ ] Tijd en datum bovenaan het formulier: 'Deze waarneming wordt gedaan op [uur en dag]'TODO
 - [x] Stuifmeel in drie maten: weinig, gemiddeld of veel TODO
@@ -289,6 +288,42 @@ Een volledig functionele bijenstandbeheer applicatie met robuuste backend, gebru
 
 TODO
 
+### Tests
+
+- [x]BUG? nieuwe bijenstand toegevoegd vanuit /account
+- [x] nieuwe bijenstand toegevoegd vanuit /apiaries ok
+  - [x]BUG in /apiaries/new
+  - [x] de bijenstand bewerkt ok
+  - [x] de bijenstand verwijderd ok
+
+- [x]BUG? nieuwe kast toegevoegd vanuit /account
+- [x] nieuwe kast toegevoegd vanuit /apiaries/[id]
+  - [x] BUG in /hives/[id]/edit
+
+- [x] waarneming toegevoegd vanuit hives/[id] ok
+- [x] waarneming toegevoegd vanuit /account -[x]BUG in observations/new
+
+- [] waarneming bewerkt
+  - [] BUG in observations/[id]/edit
+
+- []
+- []
+- []
+- []
+- []
+
+### Bugs gevonden
+
+- [] /apiaries/new: bij toevoegen nieuwe bijenstand, als je via adres gaat,en je vult een adres in zonder op locatie te drukken en dan op de 'bijenstand toevoegen drukt, krijg je terecht de melding 'Vul een adres in en klik op "Zoek locatie".' Als je dat dan onmiddellijk doet, krijg je de melding 'Invalid input: expected number, received NaN'. Maar als je toch weer op 'bijenstand toevoegen' klikt, wordt hij wel toegevoegd
+- [] na toevoegen bijenstanden en kasten vanuit /account gaat de redirect respectievelijk naar /apiaries en /apiaries[id], dus waar ze zijn toegevoegd
+- [] /hives/[id]/edit: het type behuizing staat niet voorgeselecteerd
+- [] /observations/[id]/edit: redirect niet naar /observations/[id] maar naar /hives/id
+- [] /observations/[id]/edit: krijg foutmelding 'Invalid input: expected number, received string' als ik geen wijziging doe
+- [] observations/new: bij geen stuifmeelkleur moet ik toch nog een hoeveelheid pollen invullen, zal "GEEN" in de enum moeten toevoegen en voorselecteren als er geen stuifmeelkleur is, of veld optioneel maken en 'GEEN' als default value maken
+
+TODO
+
+- [] de temperatuur in observationform weer laten tellen vanaf de placeholderwaarde
 - [] bespreken met docent, deployment voor klant met eigen account enz.
 - [] keys voor mapbox en resend voor klant?
 - [] bespreken met docent, snelheid van de renders

@@ -31,8 +31,8 @@ export default async function AccountApiariesPage({
     include: {
       hives: true,
       _count: {
-        select: { hives: true }
-      }
+        select: { hives: true },
+      },
     },
   });
 
@@ -45,9 +45,9 @@ export default async function AccountApiariesPage({
       latitude: true,
       longitude: true,
       _count: {
-        select: { hives: true }
-      }
-    }
+        select: { hives: true },
+      },
+    },
   });
 
   if (!apiaries) redirect('/auth/login');
@@ -127,8 +127,13 @@ export default async function AccountApiariesPage({
                   <span style={{ color: "rgba(14, 97, 93, 0.6)" }}>
                     Pagina {currentPage} van {totalPages}
                   </span>
-                  <Link href={`/apiaries?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}>
-                    <button className="btn btn--secondary" disabled={currentPage === totalPages}>
+                  <Link
+                    href={`/apiaries?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}
+                  >
+                    <button
+                      className="btn btn--secondary"
+                      disabled={currentPage === totalPages}
+                    >
                       Volgende
                     </button>
                   </Link>
