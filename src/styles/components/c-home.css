@@ -572,8 +572,8 @@ a.feature-card:hover .feature-card__title {
 
 @media (max-width: 968px) {
   .home-hero {
-    height: 60vh;
-    min-height: 450px;
+    height: 45vh;
+    min-height: 350px;
   }
   
   .home-content {
@@ -657,8 +657,8 @@ a.feature-card:hover .feature-card__title {
 
 @media (max-width: 640px) {
   .home-hero {
-    height: 50vh;
-    min-height: 300px;
+    height: 40vh;
+    min-height: 280px;
   }
   
   .home-content {
