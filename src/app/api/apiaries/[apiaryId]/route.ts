@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server';
 import { apiarySchema } from '@/lib/validators/schemas';
 export async function GET(
   _req: NextRequest,
-  { params }: { params: Promise<{ apiaryId: string }> }
+  { params }: { params: Promise<{ apiaryId: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -21,7 +21,7 @@ export async function GET(
     if (!apiary) {
       return NextResponse.json({ error: 'Niet gevonden' }, { status: 404 });
     }
-    console.log('NextResponse:', apiary);
+
     return NextResponse.json(apiary);
   } catch (error) {
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
@@ -30,7 +30,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ apiaryId: string }> }
+  { params }: { params: Promise<{ apiaryId: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -50,7 +50,7 @@ export async function PUT(
       // after flatten: fieldErrors has type Record<string, string[]>
       return NextResponse.json(
         { ok: false, errors: fieldErrors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const { apiaryId } = await params;
@@ -61,7 +61,7 @@ export async function PUT(
     if (!apiary) {
       return NextResponse.json(
         { error: 'Bijenstand niet gevonden' },
-        { status: 404 }
+        { status: 404 },
       );
     }
     if (apiary.userId !== session.user.id && session.user.role !== 'ADMIN') {
@@ -80,7 +80,7 @@ export async function PUT(
     console.error('Error updating apiary:', error);
     return NextResponse.json(
       { error: 'Er ging iets mis bij het bijwerken van de bijenstand' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

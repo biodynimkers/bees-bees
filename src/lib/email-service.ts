@@ -146,8 +146,6 @@ Deze email is automatisch gegenereerd. Gelieve niet te antwoorden op deze email.
       console.error('Error sending email:', error);
       throw new Error('Failed to send email');
     }
-
-    console.log('Password reset email sent successfully:', data);
     return data;
   } catch (error) {
     console.error('Error in sendPasswordResetEmail:', error);

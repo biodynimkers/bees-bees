@@ -38,7 +38,6 @@ export default function HiveForm({
       const res = await fetch(`/api/hives/${initialHive}`);
       if (res.ok) {
         const data = await res.json();
-        console.log('Fetched hive data:', data);
         setName(data.name);
         setType(data.type);
         setColonyType(data.colonyType);
