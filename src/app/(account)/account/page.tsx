@@ -68,7 +68,7 @@ export default async function AccountPage() {
               </h1>
               <p className="platform-hero__intro">
                 {isNewUser
-                  ? 'Welkom bij BEES - Uw digitale platform voor bijenbeheer'
+                  ? 'Welkom bij uw digitale platform voor bijenbeheer'
                   : 'Beheer uw bijenstanden, behuizingen en waarnemingen'}
               </p>
             </div>
@@ -85,45 +85,45 @@ export default async function AccountPage() {
               <div className="container">
                 <div className="home-features__grid">
                   <div className="feature-card">
-                    <MapPin size={36} strokeWidth={1.5} color="rgb(14, 97, 93)" style={{ marginBottom: '24px' }} />
+                    <MapPin className="feature-card__icon" size={36} strokeWidth={1.5} />
                     <h3 className="feature-card__title">Voeg een bijenstand toe</h3>
                     <p className="feature-card__text">
-                      Begin met het registreren van de locatie waar uw behuizingen
-                      staan. Geef deze een herkenbare naam zoals "Tuin" of
-                      "Boerderij Janssens".
+                      Begin met het registreren van de locatie waar je behuizingen staan. Geef deze een herkenbare naam zoals "Tuin" of "Boerderij Janssens".
                     </p>
                   </div>
 
                   <div className="feature-card">
-                    <Box size={36} strokeWidth={1.5} color="rgb(14, 97, 93)" style={{ marginBottom: '24px' }} />
-                    <h3 className="feature-card__title">Registreer uw behuizingen</h3>
+                    <Box className="feature-card__icon" size={36} strokeWidth={1.5} />
+                    <h3 className="feature-card__title">Registreer je behuizingen</h3>
                     <p className="feature-card__text">
-                      Voeg de behuizingen toe die op uw bijenstand staan. Noteer
-                      het type behuizing en de sterkte van het volk.
+                      Voeg de behuizingen toe die op je bijenstand staan. Noteer het type behuizing en de sterkte van het volk.
                     </p>
                   </div>
 
                   <div className="feature-card">
-                    <Eye size={36} strokeWidth={1.5} color="rgb(14, 97, 93)" style={{ marginBottom: '24px' }} />
+                    <Eye className="feature-card__icon" size={36} strokeWidth={1.5} />
                     <h3 className="feature-card__title">Start met waarnemingen</h3>
                     <p className="feature-card__text">
-                      Registreer uw waarnemingen per behuizing. Houd de gezondheid,
-                      activiteit en belangrijke momenten overzichtelijk bij.
+                      Registreer je waarnemingen per behuizing. Houd de gezondheid, activiteit en belangrijke momenten overzichtelijk bij.
                     </p>
                   </div>
                 </div>
               </div>
             </section>
 
-            <section className="home-platform">
-              <div className="container">
-                <div className="home-platform__content">
+            <div className="home-platform">
+              <div className="home-platform__content in-view">
+                <h2 className="home-platform__title">Begin met je eerste bijenstand</h2>
+                <p className="home-platform__text">
+                  Voeg je eerste bijenstand toe om behuizingen en waarnemingen bij te houden.
+                </p>
+                <div className="home-platform__actions">
                   <Link href="/apiaries/new" className="btn btn--secondary btn--large">
-                    Start nu - Voeg eerste bijenstand toe
+                    + Voeg je eerste bijenstand toe
                   </Link>
                 </div>
               </div>
-            </section>
+            </div>
           </>
         ) : (
           <>

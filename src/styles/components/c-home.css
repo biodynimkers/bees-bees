@@ -464,6 +464,12 @@ a.feature-card:hover .feature-card__title {
   color: rgb(14, 97, 93);
 }
 
+/* Feature card icon styling */
+.feature-card__icon {
+  color: rgb(14, 97, 93);
+  margin-bottom: 24px;
+}
+
 /* Account page - no animations */
 .platform-page .feature-card {
   opacity: 1;
