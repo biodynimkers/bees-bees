@@ -27,33 +27,27 @@
 }
 
 .color-picker__color:hover {
-  transform: scale(1.1);
-  border-color: var(--color-gray-400);
+  transform: scale(1.05);
 }
 
 .color-picker__color--selected {
-  border-color: var(--color-primary);
-  border-width: 3px;
+  border-color: #000000;
+  border-width: 1px;
   transform: scale(1.05);
 }
 
 .color-picker__color--disabled {
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: not-allowed;
 }
 
 .color-picker__color--disabled:hover {
-  border-color: transparent;
+  opacity: 0.3;
   transform: none;
 }
 
 .color-picker__color--no-pollen {
-  border: 2px solid var(--color-gray-400);
   position: relative;
-}
-
-.color-picker__color--no-pollen:hover {
-  border-color: var(--color-gray-600);
 }
 
 .color-picker__no-pollen-text {
@@ -98,18 +92,6 @@
 
 /* Focus styles for accessibility */
 .color-picker__color:focus {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid #1F2937;
   outline-offset: 2px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .color-picker__color {
-    border-width: 2px;
-    border-color: var(--color-gray-800);
-  }
-
-  .color-picker__color--selected {
-    border-width: 4px;
-  }
 }

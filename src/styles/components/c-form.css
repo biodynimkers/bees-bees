@@ -120,8 +120,9 @@
 .form__checkbox-label { display: flex; align-items: center; gap: var(--s-4); font-family: var(--font-body); font-size: var(--text-base); color: var(--c-text); margin: var(--s-6) 0; cursor: pointer; padding: var(--s-4); border-radius: 4px; transition: background-color var(--duration-fast) var(--ease); }
 .form__checkbox-label:hover { background-color: var(--c-gray-50); }
 .form__checkbox { width: 20px; height: 20px; cursor: pointer; accent-color: var(--c-text); }
-.form__input, .form__textarea, .form__select { width: 100%; padding: var(--s-5) var(--s-5); font-family: var(--font-body); font-size: var(--text-base); color: var(--c-text); background-color: var(--c-white); border: 1px solid var(--c-border); border-radius: 4px; transition: all var(--duration-base) var(--ease); }
-.form__input:focus, .form__textarea:focus, .form__select:focus { outline: none; border-color: var(--c-text); background-color: var(--c-white); box-shadow: 0 0 0 3px rgba(45, 55, 72, 0.08); }
+.form__input, .form__textarea, .form__select { width: 100%; padding: var(--s-5) var(--s-5); font-family: var(--font-body); font-size: var(--text-base); color: rgba(147, 155, 170, 0.581); background-color: var(--c-white); border: 1px solid var(--c-border); border-radius: 4px; transition: all var(--duration-base) var(--ease); }
+.form__input::placeholder, .form__textarea::placeholder { color: #9CA3AF; opacity: 1; }
+.form__input:focus, .form__textarea:focus, .form__select:focus { outline: none; border-color: var(--c-text); background-color: var(--c-white); box-shadow: 0 0 0 3px rgba(147, 155, 170, 0.536); }
 .form__textarea { min-height: 150px; resize: vertical; }
 .form__help { font-size: var(--text-sm); color: var(--c-text-muted); margin-top: var(--s-2); }
 .form__actions { display: flex; gap: var(--s-6); flex-direction: column-reverse; }
@@ -140,7 +141,7 @@
 .form-error--general { margin-bottom: var(--s-8); }
 .form__coordinates { display: flex; gap: var(--s-6); padding: var(--s-5) var(--s-6); background-color: var(--c-gray-50); border: 1px solid var(--c-border-light); border-radius: 0; font-size: var(--text-sm); color: var(--c-text); }
 .form__coordinates span { color: var(--c-text); font-weight: 500; }
-.form__radio-group { display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-6); background-color: var(--c-gray-50); border: 1px solid var(--c-border-light); border-radius: 0; }
+.form__radio-group { display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-6); }
 .form__radio { display: flex; align-items: center; gap: var(--s-3); font-size: var(--text-base); color: var(--c-text); cursor: pointer; padding: var(--s-3); transition: background-color var(--duration-fast) var(--ease); }
 .form__radio:hover { background-color: var(--c-gray-100); }
 .form__radio input[type='radio'] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--c-text); }
