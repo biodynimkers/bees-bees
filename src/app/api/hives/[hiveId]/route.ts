@@ -7,7 +7,7 @@ import { hiveSchema } from '@/lib/validators/schemas';
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: Promise<{ hiveId: string }> }
+  { params }: { params: Promise<{ hiveId: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -22,7 +22,7 @@ export async function GET(
     if (!hive) {
       return NextResponse.json({ error: 'Niet gevonden' }, { status: 404 });
     }
-    console.log('NextResponse:', hive);
+
     return NextResponse.json(hive);
   } catch (error) {
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
@@ -31,7 +31,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ hiveId: string }> }
+  { params }: { params: Promise<{ hiveId: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -51,7 +51,7 @@ export async function PUT(
       // after flatten: fieldErrors has type Record<string, string[]>
       return NextResponse.json(
         { ok: false, errors: fieldErrors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const { hiveId } = await params;
@@ -67,7 +67,7 @@ export async function PUT(
     if (!hive) {
       return NextResponse.json(
         { error: 'Behuizing niet gevonden' },
-        { status: 404 }
+        { status: 404 },
       );
     }
     if (
@@ -90,7 +90,7 @@ export async function PUT(
     console.error('Error updating hive:', error);
     return NextResponse.json(
       { error: 'Er ging iets mis bij het bijwerken van de behuizing' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

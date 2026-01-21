@@ -30,32 +30,6 @@
   filter: brightness(0.95);
 }
 
-/* Scroll Cursor Follower */
-.scroll-cursor {
-  position: fixed;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: rgba(14, 97, 93, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: all 0.15s cubic-bezier(0.23, 1, 0.32, 1);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 16px rgba(14, 97, 93, 0.3);
-}
-
-.scroll-cursor__text {
-  font-size: 11px;
-  font-weight: 600;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
 /* Content Section - H1, intro, stats */
 .home-content {
   padding: 60px 0 60px;
@@ -207,8 +181,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .feature-card {
@@ -224,6 +197,7 @@
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   border: 1px solid rgb(14, 97, 93);
   opacity: 0;
+  width: 100%;
   transform: translateY(40px);
   text-decoration: none;
 }
@@ -298,7 +272,8 @@
   margin-top: 32px;
 }
 
-.section-header {
+.section-header:has(h2),
+.section-header:has(.btn) {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -464,6 +439,12 @@ a.feature-card:hover .feature-card__title {
   color: rgb(14, 97, 93);
 }
 
+/* Feature card icon styling */
+.feature-card__icon {
+  color: rgb(14, 97, 93);
+  margin-bottom: 24px;
+}
+
 /* Account page - no animations */
 .platform-page .feature-card {
   opacity: 1;
@@ -507,8 +488,7 @@ a.feature-card:hover .feature-card__title {
 /* Platform CTA - Prestige section */
 .home-platform {
   padding: 80px 0 140px;
-  background: linear-gradient(180deg, #ffffff 0%, rgb(254, 252, 244) 100%);
-  border-top: 1px solid rgba(14, 97, 93, 0.04);
+  border-top: 1px solid rgba(14, 97, 93, 0.6);
 }
 
 .home-platform__content {
@@ -592,8 +572,8 @@ a.feature-card:hover .feature-card__title {
 
 @media (max-width: 968px) {
   .home-hero {
-    height: 60vh;
-    min-height: 450px;
+    height: 45vh;
+    min-height: 350px;
   }
   
   .home-content {
@@ -635,7 +615,8 @@ a.feature-card:hover .feature-card__title {
   }
   
   .home-features__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
   
   .feature-card {
@@ -655,15 +636,44 @@ a.feature-card:hover .feature-card__title {
     font-size: 17px;
   }
   
+  .home-platform__actions {
+    flex-direction: column;
+  }
+  
   .home-content__cta {
     margin-top: 40px;
+  }
+  
+  .section-header:has(h2),
+  .section-header:has(.btn) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .section-header .btn {
+    width: 100%;
+  }
+  
+  .map-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .map-layout__map {
+    flex: auto;
+    padding-bottom: 60%;
+  }
+  
+  .map-layout__info {
+    flex: auto;
   }
 }
 
 @media (max-width: 640px) {
   .home-hero {
-    height: 50vh;
-    min-height: 350px;
+    height: 40vh;
+    min-height: 280px;
   }
   
   .home-content {
@@ -701,6 +711,7 @@ a.feature-card:hover .feature-card__title {
   
   .home-features__grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   
   .feature-card {
@@ -731,11 +742,9 @@ a.feature-card:hover .feature-card__title {
   
   .home-platform__actions {
     flex-direction: column;
-    width: 100%;
   }
   
   .home-platform__actions .btn {
-    width: 100%;
     padding: 15px 32px;
   }
   
@@ -747,5 +756,15 @@ a.feature-card:hover .feature-card__title {
     width: 100%;
     padding: 13px 28px;
     font-size: 13px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .section-header .btn {
+    width: 100%;
   }
 }

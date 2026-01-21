@@ -1,7 +1,6 @@
 import Button from "@/components/magazine/Button";
 import Stats from "@/components/magazine/Stats";
 import HeroImage from "@/components/home/HeroImage";
-import ScrollCursor from "@/components/home/ScrollCursor";
 import ScrollAnimations from "@/components/home/ScrollAnimations";
 import prisma from "@/lib/client";
 import { readFile } from "fs/promises";
@@ -53,7 +52,6 @@ export default async function Home() {
 
   return (
     <>
-      <ScrollCursor />
       <ScrollAnimations />
       
       {/* Hero - Full width image at top */}
@@ -148,7 +146,7 @@ De locaties van je bijenstanden blijven standaard afgeschermd en zijn enkel zich
         <div className="container">
           <div className="home-platform__content">
             <h2 className="home-platform__title">Klaar om te starten?</h2>
-          
+              <p className="home-platform__text">Begin vandaag nog met het beheren van je bijenstanden en behuizingen.</p>
             <div className="home-platform__actions">
              
               <Button href="/auth/register" variant="primary" size="lg">

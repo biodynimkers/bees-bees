@@ -46,7 +46,6 @@ export default function Login() {
       });
 
       if (!res?.ok) {
-        console.log('signIn errors:', res?.error);
         if (res?.error === 'CredentialsSignin') {
           setErrors(
             'Onjuiste inloggegevens. Controleer uw e-mail en wachtwoord.',
@@ -78,9 +77,6 @@ export default function Login() {
       <section className="page-header" data-page="—">
         <div className="container">
           <h1 className="heading-primary">Inloggen</h1>
-          <p className="page-header__subtitle">
-            Welkom terug bij uw bijenwaarnemingen
-          </p>
         </div>
       </section>
 
@@ -122,28 +118,30 @@ export default function Login() {
               <label htmlFor="password" className="form__label">
                 Wachtwoord
               </label>
-              <input
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                className="form__input"
-                placeholder="Uw wachtwoord"
-                onChange={e => {
-                  if (fieldErrors?.password) {
-                    setFieldErrors(prev => ({ ...prev, password: [] }));
+              <div className="form__input-wrapper">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  className="form__input form__input--with-icon"
+                  placeholder="Uw wachtwoord"
+                  onChange={e => {
+                    if (fieldErrors?.password) {
+                      setFieldErrors(prev => ({ ...prev, password: [] }));
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  className="form__toggle-password"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={
+                    showPassword ? 'Verberg wachtwoord' : 'Toon wachtwoord'
                   }
-                }}
-              />
-              <button
-                type="button"
-                className="toggle-button"
-                onClick={() => setShowPassword(!showPassword)}
-                aria-label={
-                  showPassword ? 'Verberg wachtwoord' : 'Toon wachtwoord'
-                }
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
               {fieldErrors?.password && (
                 <div className="form-error">
                   {fieldErrors.password.map((error, index) => (
@@ -153,32 +151,32 @@ export default function Login() {
               )}
             </div>
 
-            <button
-              type="submit"
-              className="btn btn--primary btn--large btn--full"
-              disabled={loading}
-            >
-              {loading ? 'Inloggen...' : 'Inloggen'}
-            </button>
-
-            <div
-              className="text-center"
-              style={{ marginTop: 'var(--space-4)' }}
-            >
-              <Link href="/forgot-password" className="text-link">
-                Wachtwoord vergeten?
-              </Link>
+            <div className="form__submit-wrapper">
+              <button
+                type="submit"
+                className="btn btn--primary btn--large btn--full"
+                disabled={loading}
+              >
+                {loading ? 'Inloggen...' : 'Inloggen'}
+              </button>
             </div>
-          </form>
 
-          <div className="text-center margin-top-large">
-            <p className="card__description">
+            <p className="form__footer-text">
               Nog geen account?{' '}
-              <Link href="/auth/register" className="text-link">
+              <Link
+                href="/auth/register"
+                className="form__link form__link--primary"
+              >
                 Registreer hier
               </Link>
             </p>
-          </div>
+            
+            <p className="form__footer-text">
+              <Link href="/forgot-password" className="form__link">
+                Wachtwoord vergeten?
+              </Link>
+            </p>
+          </form>
         </div>
       </section>
     </>

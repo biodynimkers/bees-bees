@@ -79,7 +79,7 @@ export default async function Observation({
         <div className="container">
           <PollenColorLegend style={{ marginBottom: 'var(--s-12)' }} />
           
-          <div className="home-features__grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+          <div className="home-features__grid">
             {/* Datum en tijd */}
             <div className="feature-card">
               <div className="feature-card__meta">

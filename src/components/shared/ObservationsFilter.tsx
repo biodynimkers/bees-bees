@@ -85,9 +85,6 @@ export default function ObservationsFilter({
   return (
     <>
       <div className="section-header">
-        {/* <Link href="/admin" className="back-link">
-          ←
-        </Link> */}
         <div className="filters">
           <SearchInput
             value={search}
@@ -97,25 +94,41 @@ export default function ObservationsFilter({
             }}
             placeholder={placeholder}
           />
-          <select
-            value={colorFilter}
-            onChange={e => handleColorChange(e.target.value)}
-            className="form__select"
-          >
-            <option value="">Alle kleuren</option>
-            {allColors.map(option => (
-              <option
-                key={option.value}
-                value={option.value}
-                style={{
-                  backgroundColor: option.hex,
-                  color: '#000',
-                }}
-              >
-                {option.label}
-              </option>
-            ))}
-          </select>
+          
+          {allColors.length > 0 && (
+            <div className="filter-group">
+              <label className="filter-group__label">
+                Stuifmeelkleur
+              </label>
+              <div className="filter-colors">
+                <button
+                  type="button"
+                  onClick={() => handleColorChange('')}
+                  className={`filter-color-btn ${colorFilter === '' ? 'filter-color-btn--active' : ''}`}
+                  aria-label="Alle kleuren"
+                >
+                  Alle
+                </button>
+
+                {allColors.map(option => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => handleColorChange(option.value)}
+                    className={`filter-color-swatch ${colorFilter === option.value ? 'filter-color-swatch--active' : ''}`}
+                    aria-pressed={colorFilter === option.value}
+                    aria-label={option.label}
+                    title={option.label}
+                  >
+                    <div
+                      className="filter-color-swatch__inner"
+                      style={{ backgroundColor: option.hex }}
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

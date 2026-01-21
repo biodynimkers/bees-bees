@@ -55,8 +55,6 @@ export async function POST(request: NextRequest) {
         name: user.name,
         resetUrl,
       });
-
-      console.log(`Password reset email sent to: ${email}`);
     } catch (emailError) {
       console.error('Failed to send reset email:', emailError);
       // Delete the token if email fails
@@ -72,16 +70,6 @@ export async function POST(request: NextRequest) {
         { status: 500 },
       );
     }
-
-    // Temporary fallback: Log reset URL for testing
-    console.log('='.repeat(60));
-    console.log('PASSWORD RESET REQUEST');
-    console.log('='.repeat(60));
-    console.log(`Email: ${email}`);
-    console.log(`Name: ${user.name}`);
-    console.log(`Reset URL: ${resetUrl}`);
-    console.log(`Token expires: ${expiresAt}`);
-    console.log('='.repeat(60));
 
     return NextResponse.json({
       message: 'Als het e-mailadres bestaat, is een reset link verstuurd',

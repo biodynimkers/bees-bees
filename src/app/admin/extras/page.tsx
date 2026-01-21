@@ -252,13 +252,13 @@ export default function ExtrasPage() {
               </h3>
               <div className="grid gap-md">
                 <div>
-                  <p className="text-small text-muted margin-bottom-extra-small">
+                  <p style={{ marginBottom: '8px', fontWeight: 500 }}>
                     Bestandstype
                   </p>
                   <p>JPG, PNG of WebP</p>
                 </div>
                 <div>
-                  <p className="text-small text-muted margin-bottom-extra-small">
+                  <p style={{ marginBottom: '8px', fontWeight: 500 }}>
                     Automatische compressie
                   </p>
                   <p>Max 800KB, 90% kwaliteit, 1920 × 1080 pixels</p>
@@ -276,7 +276,7 @@ export default function ExtrasPage() {
                   border: '1px solid #4caf50'
                 }}
               >
-                <p style={{ color: '#2e7d32', margin: 0 }}>
+                <p>
                   {message}
                 </p>
               </div>
@@ -292,7 +292,7 @@ export default function ExtrasPage() {
                   border: '1px solid #f44336'
                 }}
               >
-                <p style={{ color: '#c62828', margin: 0 }}>
+                <p>
                   {error}
                 </p>
               </div>
@@ -350,7 +350,7 @@ export default function ExtrasPage() {
                   <label htmlFor="altText" className="form__label">
                     Alt tekst (verplicht voor SEO)
                   </label>
-                  <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', marginBottom: 'var(--space-3)' }}>
+                  <p className="form__help">
                     Beschrijf de afbeelding in 1-2 zinnen. Dit helpt zoekmachines en mensen met een screenreader.
                   </p>
                   <input
@@ -362,7 +362,7 @@ export default function ExtrasPage() {
                     onChange={(e) => setPendingAltText(e.target.value)}
                     maxLength={150}
                   />
-                  <p style={{ fontSize: '0.75rem', color: 'var(--color-text-light)', marginTop: 'var(--space-2)' }}>
+                  <p className="form__help">
                     {pendingAltText.length}/150 karakters
                   </p>
                 </div>
@@ -416,7 +416,7 @@ export default function ExtrasPage() {
                     }}
                   />
                 </div>
-                <p style={{ textAlign: 'center', color: 'var(--color-text-light)', marginBottom: 'var(--space-3)' }}>
+                <p style={{ textAlign: 'center', marginBottom: 'var(--space-3)' }}>
                   Deze afbeelding wordt getoond op de homepage
                 </p>
                 {altText && (
@@ -426,7 +426,7 @@ export default function ExtrasPage() {
                     borderRadius: 'var(--border-radius)',
                     textAlign: 'center'
                   }}>
-                    <p style={{ fontSize: '0.875rem', color: 'var(--color-text-light)', marginBottom: 'var(--space-2)' }}>
+                    <p style={{ marginBottom: 'var(--space-2)', fontWeight: 500 }}>
                       Alt tekst:
                     </p>
                     <p style={{ fontStyle: 'italic' }}>"{altText}"</p>

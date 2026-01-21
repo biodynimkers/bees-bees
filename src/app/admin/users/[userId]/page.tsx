@@ -75,7 +75,7 @@ export default async function UserDetailPage({
 
       <section className="home-features">
         <div className="container">
-          <div className="home-features__grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+          <div className="home-features__grid">
             <Link href={`/admin/users/${userId}/apiaries`} className="feature-card">
               <div className="feature-card__meta">
                 <div className="meta-item">

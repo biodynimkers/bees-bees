@@ -55,7 +55,7 @@ export const newObservationSchema = z.object({
     .number()
     .optional()
     .refine(val => val !== undefined, { message: 'Bee count is vereist.' }),
-  pollenAmount: z.enum(['WEINIG', 'GEMIDDELD', 'VEEL'], {
+  pollenAmount: z.enum(['GEEN', 'WEINIG', 'GEMIDDELD', 'VEEL'], {
     message: 'Pollen amount is vereist.',
   }),
   pollenColor: z.string().min(1, 'Pollen color is vereist.'),
@@ -70,7 +70,7 @@ export const updateObservationSchema = z.object({
     .number()
     .optional()
     .refine(val => val !== undefined, { message: 'Bee count is vereist.' }),
-  pollenAmount: z.enum(['WEINIG', 'GEMIDDELD', 'VEEL'], {
+  pollenAmount: z.enum(['GEEN', 'WEINIG', 'GEMIDDELD', 'VEEL'], {
     message: 'Pollen amount is vereist.',
   }),
   pollenColor: z.string().min(1, 'Pollen color is vereist.'),

@@ -25,7 +25,7 @@ export default function ObservationForm({
   const [pollenColor, setPollenColor] = useState('');
   const [pollenAmount, setPollenAmount] = useState('');
   const [weatherCondition, setWeatherCondition] = useState('');
-  const [temperature, setTemperature] = useState<number | ''>(20);
+  const [temperature, setTemperature] = useState<number | ''>('');
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
@@ -65,7 +65,7 @@ export default function ObservationForm({
 
         setPollenAmount(data.pollenAmount || '');
         setWeatherCondition(data.weatherCondition || '');
-        setTemperature(data.temperature?.toString() || '');
+        setTemperature(data.temperature ? Number(data.temperature) : '');
         setNotes(data.notes || '');
       } else {
         console.error('Failed to fetch observation data');
@@ -104,10 +104,16 @@ export default function ObservationForm({
 
     setSelectedColors(prev => {
       if (isNoPollenOption) {
-        // If selecting "no pollen", clear all other selections
+        // Als "geen stuifmeel" wordt geselecteerd, automatisch pollenAmount op GEEN zetten
+        setPollenAmount('GEEN');
         return prev.includes(hex) ? [] : [hex];
       } else {
-        // If selecting a regular color, remove "no pollen" if present and handle normally
+        // Als een echte kleur wordt geselecteerd en pollenAmount is GEEN, reset naar WEINIG
+        if (pollenAmount === 'GEEN') {
+          setPollenAmount('WEINIG');
+        }
+
+        //als een reguliere kleur wordt geselecteerd, verwijder "geen stuifmeel" indien aanwezig en handel normaal af
         const filteredPrev = prev.filter(
           color => !pollenColors.find(c => c.hex === color)?.isNoPollenOption,
         );
@@ -132,6 +138,11 @@ export default function ObservationForm({
       });
     }
   };
+
+  // Check of "geen stuifmeel" is geselecteerd
+  const hasNoPollenSelected = selectedColors.some(
+    color => pollenColors.find(c => c.hex === color)?.isNoPollenOption,
+  );
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -164,7 +175,7 @@ export default function ObservationForm({
       pollenColor,
       pollenAmount,
       weatherCondition,
-      temperature: temperature ? temperature : null,
+      temperature: temperature === '' ? null : Number(temperature),
       notes: notes || '',
       ...(!initialObservation && { hiveId: parseInt(finalHiveId) }),
     };
@@ -395,59 +406,71 @@ export default function ObservationForm({
             <input type="hidden" name="pollenColor" value={pollenColor} />
           </div>
           <div className="form__group">
-            <label className="form__label">Hoeveelheid stuifmeel *</label>
+            <label className="form__label">
+              Hoeveelheid stuifmeel {!hasNoPollenSelected && '*'}
+            </label>
             <p className="form__instructions">
-              Geef aan hoeveel stuifmeel je gemiddeld op de bijen ziet.
+              {hasNoPollenSelected
+                ? 'Geen stuifmeel waargenomen'
+                : 'Geef aan hoeveel stuifmeel je gemiddeld op de bijen ziet.'}
             </p>
             <div className="form__radio-group">
-              <button
-                type="button"
-                className={`btn ${pollenAmount === 'WEINIG' ? 'btn--primary' : 'btn--secondary'}`}
-                onClick={() => {
-                  setPollenAmount('WEINIG');
-                  if (fieldErrors?.pollenAmount) {
-                    setFieldErrors(prev => {
-                      if (!prev) return null;
-                      const { pollenAmount, ...rest } = prev;
-                      return Object.keys(rest).length ? rest : null;
-                    });
-                  }
-                }}
-              >
-                Weinig
-              </button>
-              <button
-                type="button"
-                className={`btn ${pollenAmount === 'GEMIDDELD' ? 'btn--primary' : 'btn--secondary'}`}
-                onClick={() => {
-                  setPollenAmount('GEMIDDELD');
-                  if (fieldErrors?.pollenAmount) {
-                    setFieldErrors(prev => {
-                      if (!prev) return null;
-                      const { pollenAmount, ...rest } = prev;
-                      return Object.keys(rest).length ? rest : null;
-                    });
-                  }
-                }}
-              >
-                Gemiddeld
-              </button>
-              <button
-                type="button"
-                className={`btn ${pollenAmount === 'VEEL' ? 'btn--primary' : 'btn--secondary'}`}
-                onClick={() => {
-                  setPollenAmount('VEEL');
-                  if (fieldErrors?.pollenAmount) {
-                    setFieldErrors(prev => {
-                      if (!prev) return null;
-                      const { pollenAmount, ...rest } = prev;
-                      return Object.keys(rest).length ? rest : null;
-                    });
-                  }
-                }}
-              >
-                Veel
-              </button>
+              {hasNoPollenSelected ? (
+                <button type="button" className="btn btn--primary" disabled>
+                  Geen
+                </button>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className={`btn ${pollenAmount === 'WEINIG' ? 'btn--primary' : 'btn--secondary'}`}
+                    onClick={() => {
+                      setPollenAmount('WEINIG');
+                      if (fieldErrors?.pollenAmount) {
+                        setFieldErrors(prev => {
+                          if (!prev) return null;
+                          const { pollenAmount, ...rest } = prev;
+                          return Object.keys(rest).length ? rest : null;
+                        });
+                      }
+                    }}
+                  >
+                    Weinig
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn ${pollenAmount === 'GEMIDDELD' ? 'btn--primary' : 'btn--secondary'}`}
+                    onClick={() => {
+                      setPollenAmount('GEMIDDELD');
+                      if (fieldErrors?.pollenAmount) {
+                        setFieldErrors(prev => {
+                          if (!prev) return null;
+                          const { pollenAmount, ...rest } = prev;
+                          return Object.keys(rest).length ? rest : null;
+                        });
+                      }
+                    }}
+                  >
+                    Gemiddeld
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn ${pollenAmount === 'VEEL' ? 'btn--primary' : 'btn--secondary'}`}
+                    onClick={() => {
+                      setPollenAmount('VEEL');
+                      if (fieldErrors?.pollenAmount) {
+                        setFieldErrors(prev => {
+                          if (!prev) return null;
+                          const { pollenAmount, ...rest } = prev;
+                          return Object.keys(rest).length ? rest : null;
+                        });
+                      }
+                    }}
+                  >
+                    Veel
+                  </button>
+                </>
+              )}
             </div>
             {fieldErrors?.pollenAmount && (
               <div className="form-error">
@@ -572,6 +595,11 @@ export default function ObservationForm({
                       const { temperature, ...rest } = prev;
                       return Object.keys(rest).length ? rest : null;
                     });
+                  }
+                }}
+                onFocus={e => {
+                  if (e.target.value === '') {
+                    setTemperature(20);
                   }
                 }}
                 className="form__input"

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import HivesTable from './HivesTable';
 import { useDebouncedCallback } from 'use-debounce';
+import SearchInput from '@/components/shared/SearchInput';
 
 interface Hive {
   id: number;
@@ -72,51 +73,54 @@ export default function HivesFilter({
     <>
       <div className="section-header">
         <div className="filters">
-          <input
-            type="text"
-            placeholder="Zoek op naam of bijenstand..."
+          <SearchInput
             value={search}
-            onChange={e => {
-              const value = e.target.value;
+            onChange={(value: string) => {
               setSearch(value);
               debouncedUpdateUrl('search', value);
             }}
-            className="form__input"
+            placeholder="Zoek op naam of bijenstand..."
           />
 
-          <select
-            value={typeFilter}
-            onChange={e => {
-              const value = e.target.value;
-              setTypeFilter(value);
-              debouncedUpdateUrl('type', value);
-            }}
-            className="form__select"
-          >
-            <option value="">Alle behuizingen</option>
-            {types.map(type => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+          <div className="filter-group">
+            <label className="filter-group__label">Type behuizing</label>
+            <select
+              value={typeFilter}
+              onChange={e => {
+                const value = e.target.value;
+                setTypeFilter(value);
+                debouncedUpdateUrl('type', value);
+              }}
+              className="form__select"
+            >
+              <option value="">Alle behuizingen</option>
+              {types.map(type => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <select
-            value={colonyFilter}
-            onChange={e => {
-              const value = e.target.value;
-              setColonyFilter(value);
-              debouncedUpdateUrl('colony', value);
-            }}
-            className="form__select"
-          >
-            <option value="">Alle variëteiten</option>
-            {colonies.map(colony => (
-              <option key={colony} value={colony}>
-                {colony}
-              </option>
-            ))}
-          </select>
+          <div className="filter-group">
+            <label className="filter-group__label">Variëteit</label>
+            <select
+              value={colonyFilter}
+              onChange={e => {
+                const value = e.target.value;
+                setColonyFilter(value);
+                debouncedUpdateUrl('colony', value);
+              }}
+              className="form__select"
+            >
+              <option value="">Alle variëteiten</option>
+              {colonies.map(colony => (
+                <option key={colony} value={colony}>
+                  {colony}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 

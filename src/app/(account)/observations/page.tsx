@@ -6,6 +6,7 @@ import { authOptions } from '@/lib/auth-options';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 import ObservationsFilter from '@/components/shared/ObservationsFilter';
 import { pollenColors } from '@/lib/pollenColors';
+import EmptyState from '@/components/shared/EmptyState';
 
 export const dynamic = 'force-dynamic';
 
@@ -160,19 +161,28 @@ export default async function AccountObservationsPage({
 
       <section className="home-features">
         <div className="container">
-          <ObservationsFilter
-            observations={observations}
-            showHive={true}
-            showApiary={true}
-            showUser={false}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            currentPath={`/observations`}
-            search={search}
-            colorFilter={colorFilter}
-            allColors={allColors}
-            placeholder="Zoek op bijenstand, behuizing of notities"
-          />
+          {observations.length > 0 ? (
+            <ObservationsFilter
+              observations={observations}
+              showHive={true}
+              showApiary={true}
+              showUser={false}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              currentPath={`/observations`}
+              search={search}
+              colorFilter={colorFilter}
+              allColors={allColors}
+              placeholder="Zoek op bijenstand, behuizing of notities"
+            />
+          ) : (
+            <EmptyState
+              title="Nog geen waarnemingen"
+              description="Voeg eerst een bijenstand en behuizing toe om waarnemingen te kunnen registreren."
+              buttonText="+ Voeg je eerste bijenstand toe"
+              buttonHref="/apiaries/new"
+            />
+          )}
         </div>
       </section>
     </div>

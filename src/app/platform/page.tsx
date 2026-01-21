@@ -147,7 +147,7 @@ export default function PlatformPage() {
           <div className="container">
             <div className="home-platform__content animate-on-scroll">
               <h2 className="home-platform__title">Klaar om te starten?</h2>
-             
+             <p className="home-platform__text">Begin vandaag nog met het beheren van je bijenstanden en behuizingen.</p>
               <div className="home-platform__actions">
                 <a href="/auth/register" className="btn btn--primary">
                   Maak een gratis account aan 

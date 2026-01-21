@@ -38,6 +38,9 @@
 .grid-three-columns { grid-template-columns: repeat(3, 1fr); }
 .grid-four-columns { grid-template-columns: repeat(4, 1fr); }
 .grid-auto { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.gap-sm { gap: var(--s-4); }
+.gap-md { gap: var(--s-8); }
+.gap-lg { gap: var(--s-16); }
 
 @media (max-width: 768px) {
   .grid-two-columns,
@@ -45,4 +48,8 @@
   .grid-four-columns {
     grid-template-columns: 1fr;
   }
+  
+  .grid { gap: var(--s-6); }
+  .gap-md { gap: var(--s-6); }
+  .gap-lg { gap: var(--s-10); }
 }

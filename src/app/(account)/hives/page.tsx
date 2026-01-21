@@ -4,6 +4,7 @@ import Link from 'next/link';
 import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
 
 export const dynamic = 'force-dynamic';
 
@@ -115,13 +116,12 @@ export default async function AccountHivesPage({
               )}
             </>
           ) : (
-            <div className="empty-state">
-              <h2 className="feature-card__title">Nog geen bijhuizingen</h2>
-              <p className="feature-card__text">Voeg eerst een bijenstand toe om bijhuizingen te kunnen aanmaken</p>
-              <Link href="/apiaries/new" className="btn btn--primary">
-                + Bijenstand toevoegen
-              </Link>
-            </div>
+            <EmptyState
+              title="Nog geen behuizingen"
+              description="Voeg eerst een bijenstand toe om behuizingen te kunnen aanmaken en beheren."
+              buttonText="+ Voeg je eerste bijenstand toe"
+              buttonHref="/apiaries/new"
+            />
           )}
         </div>
       </section>

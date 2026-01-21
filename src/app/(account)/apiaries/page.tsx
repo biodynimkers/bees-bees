@@ -5,6 +5,7 @@ import prisma from '@/lib/client';
 import { authOptions } from '@/lib/auth-options';
 import ApiariesOverviewMap from '@/components/shared/ApiariesOverviewMap';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
 
 export const dynamic = 'force-dynamic';
 
@@ -141,19 +142,12 @@ export default async function AccountApiariesPage({
               )}
             </>
           ) : (
-            <div className="home-platform">
-              <div className="home-platform__content">
-                <h2 className="home-platform__title">Nog geen bijenstanden</h2>
-                <p className="home-platform__text">
-                  Begin met het toevoegen van uw eerste bijenstand
-                </p>
-                <div className="home-platform__actions">
-                  <Link href="/apiaries/new" className="btn btn--secondary btn--large">
-                    + Eerste bijenstand toevoegen
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <EmptyState
+              title="Nog geen bijenstanden"
+              description="Voeg je eerste bijenstand toe om te beginnen met het bijhouden van je bijen."
+              buttonText="+ Voeg je eerste bijenstand toe"
+              buttonHref="/apiaries/new"
+            />
           )}
         </div>
       </section>

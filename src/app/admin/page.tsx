@@ -17,7 +17,7 @@ export default function AdminPage() {
 
       <section className="home-features">
         <div className="container">
-          <div className="home-features__grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="home-features__grid">
             <Link href="/admin/users" className="feature-card">
               <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '8px', color: 'rgb(14, 97, 93)' }}>
                 Gebruikers

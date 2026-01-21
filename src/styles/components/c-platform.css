@@ -211,6 +211,10 @@
     padding: 160px 0 120px;
   }
 
+  .platform-hero__content {
+    max-width: 100%;
+  }
+
   .platform-hero__title {
     font-size: 56px;
   }
@@ -232,6 +236,10 @@
 @media (max-width: 768px) {
   .platform-hero {
     padding: 120px 0 80px;
+  }
+
+  .platform-hero__content {
+    max-width: 100%;
   }
 
   .platform-hero__title {

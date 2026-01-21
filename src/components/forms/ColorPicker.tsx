@@ -48,9 +48,6 @@ export default function ColorPicker({
               }
               title={colorData.species.join(', ')}
             >
-              {isSelected(colorData.hex) && (
-                <span className="color-picker__checkmark">✓</span>
-              )}
               {isNoPollenOption && (
                 <span className="color-picker__no-pollen-text">Geen</span>
               )}

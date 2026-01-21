@@ -13,6 +13,10 @@
   .l-container {
     padding: 0 var(--s-6);
   }
+  
+  .container {
+    padding: 0 var(--s-6);
+  }
 }
 
 /* Legacy support */
