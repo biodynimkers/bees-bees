@@ -23,6 +23,7 @@
 @import "./components/c-home.css";
 @import "./components/c-platform.css";
 @import "./components/c-breadcrumbs.css";
+@import "./components/c-stats.css";
 
 /* Domain-specific (keep separate) */
 @import "./components/bee-counter.css";
