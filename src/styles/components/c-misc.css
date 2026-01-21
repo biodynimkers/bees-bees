@@ -81,11 +81,18 @@
 .search-input-wrapper {
   position: relative;
   width: 100%;
+  min-width: 420px;
 }
 
 .search-input-wrapper .form__input {
   width: 100%;
   padding-right: 40px;
+}
+
+@media (max-width: 767px) {
+  .search-input-wrapper {
+    min-width: 100%;
+  }
 }
 
 .search-input__clear {

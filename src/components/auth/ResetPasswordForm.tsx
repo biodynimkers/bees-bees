@@ -82,36 +82,16 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   if (success) {
     return (
       <div className="card">
-        <div className="card__content" style={{ textAlign: 'center' }}>
-          <div
-            style={{
-              fontSize: '3rem',
-              marginBottom: 'var(--space-6)',
-              color: 'var(--color-success)',
-            }}
-          >
-            ✓
-          </div>
-          <h2
-            className="heading-secondary"
-            style={{ marginBottom: 'var(--space-4)' }}
-          >
+        <div className="card__content text-center">
+          <div className="status-icon status-icon--success">✓</div>
+          <h2 className="heading-secondary margin-bottom-small">
             Gelukt!
           </h2>
-          <p
-            className="card__description"
-            style={{ marginBottom: 'var(--space-6)' }}
-          >
+          <p className="card__description margin-bottom-large">
             Uw wachtwoord is succesvol gewijzigd. U kunt nu inloggen met uw
             nieuwe wachtwoord.
           </p>
-          <p
-            className="text-small"
-            style={{
-              color: 'var(--color-text-light)',
-              marginBottom: 'var(--space-6)',
-            }}
-          >
+          <p className="text-small color-text-light margin-bottom-large">
             U wordt automatisch doorgestuurd naar de inlogpagina...
           </p>
           <Link href="/auth/login" className="btn btn--primary">
@@ -190,24 +170,24 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
         )}
       </div>
 
-      <Button
-        type="submit"
-        variant="primary"
-        size="lg"
-        disabled={loading}
-        style={{ width: '100%' }}
-      >
-        {loading ? 'Wachtwoord wijzigen...' : 'Wachtwoord wijzigen'}
-      </Button>
-
-      <div className="text-center" style={{ marginTop: 'var(--space-8)' }}>
-        <p className="card__description">
-          Toch niet wijzigen?{' '}
-          <Link href="/auth/login" className="text-link">
-            Terug naar inloggen
-          </Link>
-        </p>
+      <div className="form__submit-wrapper">
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          disabled={loading}
+          className="btn--full"
+        >
+          {loading ? 'Wachtwoord wijzigen...' : 'Wachtwoord wijzigen'}
+        </Button>
       </div>
+
+      <p className="form__footer-text">
+        Toch niet wijzigen?{' '}
+        <Link href="/auth/login" className="form__link">
+          Terug naar inloggen
+        </Link>
+      </p>
     </form>
   );
 }

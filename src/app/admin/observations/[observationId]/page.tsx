@@ -73,7 +73,7 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Datum</span>
-                  <span className="meta-value">
+                  <span className="meta-value meta-value--small">
                     {new Date(observation.createdAt).toLocaleDateString('nl-BE', {
                       weekday: 'long',
                       year: 'numeric',
@@ -84,7 +84,7 @@ export default async function Observation({
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Tijd</span>
-                  <span className="meta-value">
+                  <span className="meta-value meta-value--small">
                     {new Date(observation.createdAt).toLocaleTimeString('nl-BE', {
                       hour: '2-digit',
                       minute: '2-digit',
@@ -99,7 +99,7 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Aantal bijen (geschat)</span>
-                  <span className="meta-value" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                  <span className="meta-value meta-value--small" style={{ fontSize: '2rem', fontWeight: '300' }}>
                     {formatBeeCount(observation.beeCount)}
                   </span>
                 </div>
@@ -153,11 +153,11 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Behuizing</span>
-                  <span className="meta-value">{observation.hive.name}</span>
+                  <span className="meta-value meta-value--small">{observation.hive.name}</span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Bijenstand</span>
-                  <span className="meta-value">{observation.hive.apiary.name}</span>
+                  <span className="meta-value meta-value--small">{observation.hive.apiary.name}</span>
                 </div>
               </div>
             </div>

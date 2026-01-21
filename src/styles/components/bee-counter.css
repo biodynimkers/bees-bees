@@ -60,6 +60,11 @@
   order: 1;
 }
 
+.bee-counter__input::placeholder {
+  font-size: 0.875rem;
+  color: #9e9e9eab;
+}
+
 @media (max-width: 767px) {
   .bee-counter__input {
     font-size: 2rem;

@@ -80,7 +80,7 @@ export default async function UserDetailPage({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Bijenstanden</span>
-                  <span className="meta-value" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                  <span className="meta-value">
                     {user._count.apiaries}
                   </span>
                 </div>
@@ -91,7 +91,7 @@ export default async function UserDetailPage({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Behuizingen</span>
-                  <span className="meta-value" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                  <span className="meta-value">
                     {totalHives}
                   </span>
                 </div>
@@ -102,7 +102,7 @@ export default async function UserDetailPage({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Waarnemingen</span>
-                  <span className="meta-value" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                  <span className="meta-value">
                     {totalObservations}
                   </span>
                 </div>

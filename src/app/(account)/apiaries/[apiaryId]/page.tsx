@@ -161,19 +161,19 @@ export default async function AccountApiaryPage({
                     <div className="feature-card__meta">
                       <div className="meta-item">
                         <span className="meta-label">Bijenstand</span>
-                        <span className="meta-value">{apiary?.name}</span>
+                        <span className="meta-value meta-value--small">{apiary?.name}</span>
                       </div>
                       <div className="meta-item">
                         <span className="meta-label">Type behuizing</span>
-                        <span className="meta-value">{hive.type}</span>
+                        <span className="meta-value meta-value--small">{hive.type}</span>
                       </div>
                       <div className="meta-item">
                         <span className="meta-label">Variëteit</span>
-                        <span className="meta-value">{hive.colonyType}</span>
+                        <span className="meta-value meta-value--small">{hive.colonyType}</span>
                       </div>
                       <div className="meta-item">
                         <span className="meta-label">Waarnemingen</span>
-                        <span className="meta-value">{hive.observations.length}</span>
+                        <span className="meta-value meta-value--small">{hive.observations.length}</span>
                       </div>
                     </div>
                   </Link>

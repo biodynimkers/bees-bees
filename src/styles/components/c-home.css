@@ -232,10 +232,15 @@
 }
 
 .meta-value {
-  font-size: 16px;
+  font-size: 2rem;
   color: rgb(14, 97, 93);
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.4;
+}
+
+.meta-value--small {
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .legend-item {
@@ -473,6 +478,87 @@ a.feature-card:hover .feature-card__title {
   font-weight: 600;
   color: rgb(14, 97, 93);
   margin-bottom: 14px;
+
+/* Admin card specific styles */
+.admin-card__title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: rgb(14, 97, 93);
+}
+
+.admin-card__description {
+  font-size: 0.9375rem;
+  color: rgba(14, 97, 93, 0.7);
+}
+
+/* Account page stat cards */
+.stat-card__title {
+  margin-bottom: 16px;
+}
+
+.add-card__label {
+  font-size: 14px;
+  color: rgba(14, 97, 93, 0.6);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-spacing {
+  padding-top: 40px;
+}
+
+/* User detail page - no longer needed, using .meta-value */
+
+.platform-hero__intro {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 12px;
+}
+
+/* Apiaries page specific */
+.map-section {
+  margin-bottom: 80px;
+}
+
+.map-section__title {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.apiary-card__divider {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(14, 97, 93, 0.1);
+  width: 100%;
+}
+
+/* Observation detail */
+.observation-detail__pollen-container {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.observation-detail__notes {
+  grid-column: 1 / -1;
+}
+
+.observation-detail__notes-text {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+/* Pollen color dot */
+.pollen-color-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
   letter-spacing: -0.3px;
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   opacity: 0.95;

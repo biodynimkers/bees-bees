@@ -85,7 +85,7 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Datum</span>
-                  <span className="meta-value">
+                  <span className="meta-value meta-value--small">
                     {new Date(observation.createdAt).toLocaleDateString('nl-BE', {
                       weekday: 'long',
                       year: 'numeric',
@@ -96,7 +96,7 @@ export default async function Observation({
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Tijd</span>
-                  <span className="meta-value">
+                  <span className="meta-value meta-value--small">
                     {new Date(observation.createdAt).toLocaleTimeString('nl-BE', {
                       hour: '2-digit',
                       minute: '2-digit',
@@ -111,7 +111,7 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Aantal bijen (geschat)</span>
-                  <span className="meta-value" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                  <span className="meta-value meta-value--small">
                     {formatBeeCount(observation.beeCount)}
                   </span>
                 </div>
@@ -123,21 +123,15 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Stuifmeelkleur</span>
-                  <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
+                  <div className="observation-detail__pollen-container">
                     {observation.pollenColor.split(', ').map((color, index) => {
                       const colorData = pollenColors.find(c => c.hex === color);
                       const plantNames = colorData?.species.join(', ') || 'Onbekend';
                       return (
                         <div
                           key={index}
-                          style={{
-                            width: '24px',
-                            height: '24px',
-                            borderRadius: '50%',
-                            backgroundColor: color,
-                            border: '2px solid rgba(0, 0, 0, 0.1)',
-                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                          }}
+                          className="pollen-color-dot"
+                          style={{ backgroundColor: color }}
                           title={`Mogelijke planten: ${plantNames}`}
                         />
                       );
@@ -146,7 +140,7 @@ export default async function Observation({
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Hoeveelheid stuifmeel</span>
-                  <span className="meta-value">{formatPollenAmount(observation.pollenAmount)}</span>
+                  <span className="meta-value meta-value--small">{formatPollenAmount(observation.pollenAmount)}</span>
                 </div>
               </div>
             </div>
@@ -156,11 +150,11 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Weersomstandigheden</span>
-                  <span className="meta-value">{formatWeatherCondition(observation.weatherCondition)}</span>
+                  <span className="meta-value meta-value--small">{formatWeatherCondition(observation.weatherCondition)}</span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Temperatuur</span>
-                  <span className="meta-value">{formatTemperature(observation.temperature)}</span>
+                  <span className="meta-value meta-value--small">{formatTemperature(observation.temperature)}</span>
                 </div>
               </div>
             </div>
@@ -170,13 +164,13 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Behuizing</span>
-                  <Link href={`/hives/${observation.hive.id}`} className="meta-value" style={{ textDecoration: 'underline' }}>
+                  <Link href={`/hives/${observation.hive.id}`} className="meta-value meta-value--small">
                     {observation.hive.name}
                   </Link>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Bijenstand</span>
-                  <Link href={`/apiaries/${observation.hive.apiary.id}`} className="meta-value" style={{ textDecoration: 'underline' }}>
+                  <Link href={`/apiaries/${observation.hive.apiary.id}`} className="meta-value meta-value--small">
                     {observation.hive.apiary.name}
                   </Link>
                 </div>
@@ -185,11 +179,11 @@ export default async function Observation({
 
             {/* Notities */}
             {observation.notes && (
-              <div className="feature-card" style={{ gridColumn: '1 / -1' }}>
+              <div className="feature-card observation-detail__notes">
                 <div className="feature-card__meta">
                   <div className="meta-item">
                     <span className="meta-label">Notities</span>
-                    <p className="meta-value" style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
+                    <p className="meta-value meta-value--small observation-detail__notes-text">
                       {observation.notes}
                     </p>
                   </div>

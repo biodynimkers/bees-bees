@@ -93,13 +93,7 @@ export default function ObservationsTable({
                   {formatBeeCount(observation.beeCount)}
                 </td>
                 <td data-label="Stuifmeel kleur">
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: '4px',
-                      alignItems: 'center',
-                    }}
-                  >
+                  <div className="table__pollen-colors">
                     {observation.pollenColor.split(', ').map((color, index) => {
                       const colorData = pollenColors.find(c => c.hex === color);
                       const plantNames =
@@ -107,14 +101,8 @@ export default function ObservationsTable({
                       return (
                         <div
                           key={index}
-                          style={{
-                            width: '16px',
-                            height: '16px',
-                            borderRadius: '50%',
-                            backgroundColor: color,
-                            border: '1px solid rgba(0, 0, 0, 0.2)',
-                            flexShrink: 0,
-                          }}
+                          className="table__pollen-dot"
+                          style={{ backgroundColor: color }}
                           title={`Mogelijke planten: ${plantNames}`}
                         />
                       );
@@ -124,14 +112,14 @@ export default function ObservationsTable({
                 <td data-label="Stuifmeel hoeveelheid">
                   {formatPollenAmount(observation.pollenAmount)}
                 </td>
-                <td data-label="Weer" style={{ fontSize: '1.25rem', textAlign: 'center' }}>
+                <td data-label="Weer" className="table__weather">
                   {getWeatherEmoji(observation.weatherCondition)}
                 </td>
                 <td data-label="Temperatuur">
                   {formatTemperature(observation.temperature)}
                 </td>
                 <td data-label="Notities">
-                  <Link href={getObservationLink(observation.id)} style={{ display: 'block' }}>
+                  <Link href={getObservationLink(observation.id)} className="table__notes-link">
                     {truncateNotes(observation.notes)}
                   </Link>
                 </td>
@@ -141,8 +129,7 @@ export default function ObservationsTable({
                       href={`https://www.google.com/maps?q=${observation.hive.apiary.latitude},${observation.hive.apiary.longitude}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn--secondary"
-                      style={{ padding: '4px 8px', fontSize: '0.75rem', display: 'inline-block' }}
+                      className="btn btn--secondary table__btn-small"
                     >
                       Kaart
                     </a>

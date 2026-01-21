@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import AdminCard from '@/components/admin/AdminCard';
 
 export default function AdminPage() {
   return (
@@ -18,59 +18,36 @@ export default function AdminPage() {
       <section className="home-features">
         <div className="container">
           <div className="home-features__grid">
-            <Link href="/admin/users" className="feature-card">
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '8px', color: 'rgb(14, 97, 93)' }}>
-                Gebruikers
-              </h3>
-              <p style={{ fontSize: '0.9375rem', color: 'rgba(14, 97, 93, 0.7)' }}>
-                Beheer alle gebruikers en hun rechten
-              </p>
-            </Link>
-
-            <Link href="/admin/apiaries" className="feature-card">
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '8px', color: 'rgb(14, 97, 93)' }}>
-                Bijenstanden
-              </h3>
-              <p style={{ fontSize: '0.9375rem', color: 'rgba(14, 97, 93, 0.7)' }}>
-                Overzicht van alle bijenstanden
-              </p>
-            </Link>
-
-            <Link href="/admin/hives" className="feature-card">
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '8px', color: 'rgb(14, 97, 93)' }}>
-                Behuizingen
-              </h3>
-              <p style={{ fontSize: '0.9375rem', color: 'rgba(14, 97, 93, 0.7)' }}>
-                Overzicht van alle bijenbehuizingen
-              </p>
-            </Link>
-
-            <Link href="/admin/observations" className="feature-card">
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '8px', color: 'rgb(14, 97, 93)' }}>
-                Waarnemingen
-              </h3>
-              <p style={{ fontSize: '0.9375rem', color: 'rgba(14, 97, 93, 0.7)' }}>
-                Alle geregistreerde waarnemingen
-              </p>
-            </Link>
-
-            <Link href="/admin/stats" className="feature-card">
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '8px', color: 'rgb(14, 97, 93)' }}>
-                Statistieken
-              </h3>
-              <p style={{ fontSize: '0.9375rem', color: 'rgba(14, 97, 93, 0.7)' }}>
-                Platform statistieken en analyses
-              </p>
-            </Link>
-
-            <Link href="/admin/extras" className="feature-card">
-              <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '8px', color: 'rgb(14, 97, 93)' }}>
-                Extra's
-              </h3>
-              <p style={{ fontSize: '0.9375rem', color: 'rgba(14, 97, 93, 0.7)' }}>
-                Beheer hero afbeelding en content
-              </p>
-            </Link>
+            <AdminCard
+              href="/admin/users"
+              title="Gebruikers"
+              description="Beheer alle gebruikers en hun rechten"
+            />
+            <AdminCard
+              href="/admin/apiaries"
+              title="Bijenstanden"
+              description="Overzicht van alle bijenstanden"
+            />
+            <AdminCard
+              href="/admin/hives"
+              title="Behuizingen"
+              description="Overzicht van alle bijenbehuizingen"
+            />
+            <AdminCard
+              href="/admin/observations"
+              title="Waarnemingen"
+              description="Alle geregistreerde waarnemingen"
+            />
+            <AdminCard
+              href="/admin/stats"
+              title="Statistieken"
+              description="Platform statistieken en analyses"
+            />
+            <AdminCard
+              href="/admin/extras"
+              title="Extra's"
+              description="Beheer hero afbeelding en content"
+            />
           </div>
         </div>
       </section>

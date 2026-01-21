@@ -47,8 +47,7 @@ export default function ApiariesTable({
                       href={`https://www.google.com/maps?q=${apiary.latitude},${apiary.longitude}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn--secondary"
-                      style={{ padding: '4px 8px', fontSize: '0.75rem', display: 'inline-block' }}
+                      className="btn btn--secondary table__btn-small"
                     >
                       Kaart
                     </a>

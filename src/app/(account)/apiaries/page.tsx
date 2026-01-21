@@ -62,7 +62,7 @@ export default async function AccountApiariesPage({
             <h1 className="platform-hero__title">
               Mijn bijenstanden
             </h1>
-            <div style={{ marginTop: '32px' }}>
+            <div className="mt-8">
               <Link href="/apiaries/new" className="btn btn--secondary btn--large">
                 + Nieuwe bijenstand
               </Link>
@@ -81,12 +81,16 @@ export default async function AccountApiariesPage({
           {apiaries.length > 0 ? (
             <>
               {/* Overzichtskaart */}
-              <div style={{ marginBottom: '60px' }}>
-                <h2 className="feature-card__title" style={{ textAlign: 'center', marginBottom: '32px' }}>
+              <div className="map-section">
+                <h2 className="platform-section__title">
                   Overzicht locaties
                 </h2>
                 <ApiariesOverviewMap apiaries={allApiaries} />
               </div>
+
+<h2 className="platform-section__title">
+                  Overzicht bijenstanden
+                </h2>
 
               {/* Bijenstanden grid */}
               <div className="home-features__grid">
@@ -95,15 +99,14 @@ export default async function AccountApiariesPage({
                     key={apiary.id}
                     href={`/apiaries/${apiary.id}`}
                     className="feature-card"
-                    style={{ textDecoration: 'none' }}
                   >
-                    <div style={{ fontSize: '14px', color: 'rgba(14, 97, 93, 0.6)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    <div className="add-card__label">
                       Bijenstand
                     </div>
                     <h3 className="feature-card__title">
                       {apiary.name}
                     </h3>
-                    <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid rgba(14, 97, 93, 0.1)', width: '100%' }}>
+                    <div className="apiary-card__divider">
                       <p className="feature-card__text">
                         {apiary.hives.length} {apiary.hives.length === 1 ? 'behuizing' : 'behuizingen'}
                       </p>
@@ -113,19 +116,13 @@ export default async function AccountApiariesPage({
               </div>
 
               {totalPages > 1 && (
-                <div style={{ 
-                  display: "flex", 
-                  justifyContent: "center", 
-                  alignItems: "center",
-                  gap: "16px",
-                  marginTop: "60px"
-                }}>
+                <div className="pagination">
                   <Link href={`/apiaries?page=${currentPage > 1 ? currentPage - 1 : 1}`}>
                     <button className="btn btn--secondary" disabled={currentPage === 1}>
                       Vorige
                     </button>
                   </Link>
-                  <span style={{ color: "rgba(14, 97, 93, 0.6)" }}>
+                  <span className="pagination__text">
                     Pagina {currentPage} van {totalPages}
                   </span>
                   <Link
