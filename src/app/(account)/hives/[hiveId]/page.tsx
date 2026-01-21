@@ -8,6 +8,8 @@ import { notFound } from 'next/navigation';
 import ObservationsFilter from '@/components/shared/ObservationsFilter';
 import { pollenColors } from '@/lib/pollenColors';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
+import ScrollToSection from '@/components/shared/ScrollToSection';
 
 export const dynamic = 'force-dynamic';
 type SearchParams = {
@@ -107,13 +109,20 @@ export default async function AccountApiaryHivePage({
 
   return (
     <div className="platform-page">
+      <ScrollToSection />
       <section className="platform-hero">
         <div className="container">
           <div className="platform-hero__content">
-            <span className="platform-hero__label">{totalObservations} {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}</span>
+            <span className="platform-hero__label">
+              {totalObservations}{' '}
+              {totalObservations === 1 ? 'waarneming' : 'waarnemingen'}
+            </span>
             <h1 className="platform-hero__title">{hive.name}</h1>
             <div className="btn-group">
-              <Link href={`/hives/${hive.id}/edit`} className="btn btn--secondary">
+              <Link
+                href={`/hives/${hive.id}/edit`}
+                className="btn btn--secondary"
+              >
                 Bewerk
               </Link>
               {hive && (
@@ -159,42 +168,60 @@ export default async function AccountApiaryHivePage({
             </div>
             <div className="feature-card">
               <h3 className="feature-card__title">Foto upload</h3>
-              <div className="empty-photo">
-                Coming soon
-              </div>
+              <div className="empty-photo">Coming soon</div>
             </div>
             <div className="feature-card">
               <h3 className="feature-card__title">Extra foto</h3>
-              <div className="empty-photo">
-                Coming soon
-              </div>
+              <div className="empty-photo">Coming soon</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="home-features">
+      <section className="home-features" id="observations-section">
         <div className="container">
           <div className="section-header">
-            <h2 className="feature-card__title">Waarnemingen in deze behuizing</h2>
-            <Link href={`/observations/new?hiveId=${hiveId}&hiveName=${hive.name}`} className="btn btn--secondary">
+            <h2 className="feature-card__title">
+              Waarnemingen in deze behuizing
+            </h2>
+            <Link
+              href={`/observations/new?hiveId=${hiveId}&hiveName=${hive.name}`}
+              className="btn btn--secondary"
+            >
               + Waarneming toevoegen
             </Link>
           </div>
 
-          <ObservationsFilter
-            observations={observations}
-            showHive={false}
-            showApiary={false}
-            showUser={false}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            currentPath={`/hives/${hiveId}`}
-            search={search}
-            colorFilter={colorFilter}
-            allColors={allColors}
-            placeholder="Zoek op notities"
-          />
+          {observations.length === 0 ? (
+            // Check if any filters are applied to determine which EmptyState to show
+            search || colorFilter ? (
+              <EmptyState
+                title="Geen waarnemingen gevonden"
+                description="Er zijn geen waarnemingen die voldoen aan de huidige filters. Probeer je zoekcriteria aan te passen."
+                buttonText="Filters wissen"
+                buttonHref={`/hives/${hiveId}`}
+              />
+            ) : (
+              <EmptyState
+                title="Nog geen waarnemingen"
+                description="Deze behuizing heeft nog geen waarnemingen. Gebruik de knop hierboven om de eerste waarneming toe te voegen."
+              />
+            )
+          ) : (
+            <ObservationsFilter
+              observations={observations}
+              showHive={false}
+              showApiary={false}
+              showUser={false}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              currentPath={`/hives/${hiveId}`}
+              search={search}
+              colorFilter={colorFilter}
+              allColors={allColors}
+              placeholder="Zoek op notities"
+            />
+          )}
         </div>
       </section>
     </div>
