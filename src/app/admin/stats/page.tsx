@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth-options';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 import prisma from '@/lib/client';
 import StatsCharts from '@/components/admin/StatsCharts';
+import ExportButton from '@/components/admin/ExportButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -90,6 +91,9 @@ export default async function AdminStatsPage() {
               {totalHives} korven · {totalObservations} waarnemingen
             </span>
             <h1 className="platform-hero__title">Statistieken</h1>
+            <div style={{ marginTop: '32px' }}>
+              <ExportButton />
+            </div>
           </div>
         </div>
       </section>
