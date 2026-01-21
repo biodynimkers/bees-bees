@@ -68,39 +68,17 @@ export default function ForgotPasswordPage() {
         <section className="section">
           <div className="container container--narrow">
             <div className="card">
-              <div className="card__content" style={{ textAlign: 'center' }}>
-                <div
-                  style={{
-                    fontSize: '3rem',
-                    marginBottom: 'var(--space-6)',
-                    color: 'var(--color-success)',
-                  }}
-                >
-                  ✓
-                </div>
-                <h2
-                  className="heading-secondary"
-                  style={{ marginBottom: 'var(--space-4)' }}
-                >
+              <div className="card__content text-center">
+                <div className="status-icon status-icon--success">✓</div>
+                <h2 className="heading-secondary margin-bottom-small">
                   E-mail verstuurd
                 </h2>
-                <p
-                  className="card__description"
-                  style={{ marginBottom: 'var(--space-6)' }}
-                >
+                <p className="card__description margin-bottom-large">
                   Als het e-mailadres in ons systeem bestaat, hebben we een
                   reset link verstuurd naar uw inbox. Klik op de link in de
-                  e-mail om uw wachtwoord te wijzigen.
+                  e-mail om uw wachtwoord te wijzigen.     De reset link is 1 uur geldig. Controleer ook uw spam folder.
                 </p>
-                <p
-                  className="text-small"
-                  style={{
-                    color: 'var(--color-text-light)',
-                    marginBottom: 'var(--space-6)',
-                  }}
-                >
-                  De reset link is 1 uur geldig. Controleer ook uw spam folder.
-                </p>
+            
                 <Link href="/auth/login" className="btn btn--secondary">
                   Terug naar inloggen
                 </Link>
@@ -162,22 +140,19 @@ export default function ForgotPasswordPage() {
 
             <button
               type="submit"
-              className="btn btn--primary btn--large"
+              className="btn btn--primary btn--large btn--full"
               disabled={loading || !email.trim()}
-              style={{ width: '100%' }}
             >
               {loading ? 'Versturen...' : 'Reset link versturen'}
             </button>
           </form>
 
-          <div className="text-center" style={{ marginTop: 'var(--space-8)' }}>
-            <p className="card__description">
-              Weet u uw wachtwoord weer?{' '}
-              <Link href="/auth/login" className="text-link">
-                Terug naar inloggen
-              </Link>
-            </p>
-          </div>
+          <p className="form__footer-text margin-top-medium">
+            Weet u uw wachtwoord weer?{' '}
+            <Link href="/auth/login" className="form__link">
+              Terug naar inloggen
+            </Link>
+          </p>
         </div>
       </section>
     </>

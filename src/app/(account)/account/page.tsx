@@ -130,31 +130,31 @@ export default async function AccountPage() {
             <section className="home-features">
               <div className="container">
                 <div className="home-features__grid">
-                  <Link href="/apiaries" className="feature-card" style={{ textDecoration: 'none' }}>
-                    <div style={{ fontSize: '48px', fontWeight: '600', color: 'rgb(14, 97, 93)', marginBottom: '12px' }}>
+                  <Link href="/apiaries" className="feature-card">
+                    <div className="meta-value">
                       {totalApiaries}
                     </div>
-                    <p className="feature-card__title" style={{ marginBottom: '16px' }}>
+                    <p className="feature-card__title stat-card__title">
                       {totalApiaries === 1 ? 'Bijenstand' : 'Bijenstanden'}
                     </p>
             
                   </Link>
 
-                  <Link href="/hives" className="feature-card" style={{ textDecoration: 'none' }}>
-                    <div style={{ fontSize: '48px', fontWeight: '600', color: 'rgb(14, 97, 93)', marginBottom: '12px' }}>
+                  <Link href="/hives" className="feature-card">
+                    <div className="meta-value">
                       {totalHives}
                     </div>
-                    <p className="feature-card__title" style={{ marginBottom: '16px' }}>
+                    <p className="feature-card__title stat-card__title">
                       {totalHives === 1 ? 'Behuizing' : 'Behuizingen'}
                     </p>
             
                   </Link>
 
-                  <Link href="/observations" className="feature-card" style={{ textDecoration: 'none' }}>
-                    <div style={{ fontSize: '48px', fontWeight: '600', color: 'rgb(14, 97, 93)', marginBottom: '12px' }}>
+                  <Link href="/observations" className="feature-card">
+                    <div className="meta-value">
                       {totalObservations}
                     </div>
-                    <p className="feature-card__title" style={{ marginBottom: '16px' }}>
+                    <p className="feature-card__title stat-card__title">
                       {totalObservations === 1 ? 'Waarneming' : 'Waarnemingen'}
                     </p>
                    
@@ -163,21 +163,22 @@ export default async function AccountPage() {
               </div>
             </section>
 
-            <section className="home-features" style={{ paddingTop: '40px' }}>
+            <section className="home-features section-spacing">
               <div className="container">
+                <h2 className="platform-section__title">Snelle acties</h2>
                 <div className="home-features__grid">
-                  <Link href="/apiaries/new" className="feature-card" style={{ textDecoration: 'none' }}>
-                    <div style={{ fontSize: '14px', color: 'rgba(14, 97, 93, 0.6)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>Toevoegen</div>
+                  <Link href="/apiaries/new" className="feature-card">
+                    <div className="add-card__label">Toevoegen</div>
                     <h3 className="feature-card__title">Bijenstand</h3>
                   </Link>
 
-                  <Link href="/hives/new" className="feature-card" style={{ textDecoration: 'none' }}>
-                    <div style={{ fontSize: '14px', color: 'rgba(14, 97, 93, 0.6)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>Toevoegen</div>
+                  <Link href="/hives/new" className="feature-card">
+                    <div className="add-card__label">Toevoegen</div>
                     <h3 className="feature-card__title">Behuizing</h3>
                   </Link>
 
-                  <Link href="/observations/new" className="feature-card" style={{ textDecoration: 'none' }}>
-                    <div style={{ fontSize: '14px', color: 'rgba(14, 97, 93, 0.6)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>Toevoegen</div>
+                  <Link href="/observations/new" className="feature-card">
+                    <div className="add-card__label">Toevoegen</div>
                     <h3 className="feature-card__title">Waarneming</h3>
                   </Link>
                 </div>

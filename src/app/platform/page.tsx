@@ -42,8 +42,7 @@ export default function PlatformPage() {
     <>
       <ScrollAnimations />
       
-      <div className="platform-page">
-        <section className="platform-hero">
+      <section className="platform-hero">
           <div className="container">
             <div className="platform-hero__content animate-on-scroll">
               <span className="platform-hero__label">Platform</span>
@@ -156,7 +155,6 @@ export default function PlatformPage() {
             </div>
           </div>
         </section>
-      </div>
     </>
   );
 }

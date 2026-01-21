@@ -1,9 +1,5 @@
 /* Platform Page - Architectural minimal style */
 
-.platform-page {
-  background-color: #fafaf9;
-}
-
 /* Hero Section - Compact elegant */
 .platform-hero {
   padding: 200px 0 60px;
@@ -58,7 +54,7 @@
 
 /* Use home-features grid with platform customizations */
 .platform-features__grid {
-  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .platform-feature__number {
@@ -72,23 +68,23 @@
 }
 
 .feature-card--highlight {
-  background-color: rgb(14, 97, 93) !important;
+  background-color: rgb(14, 97, 93);
 }
 
 .feature-card--highlight:hover {
-  transform: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
+  transform: none;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .feature-card--highlight .feature-card__title {
-  color: #ffffff !important;
-  opacity: 1 !important;
+  color: #ffffff;
+  opacity: 1;
 }
 
 .feature-card--highlight:hover .feature-card__title {
-  color: #ffffff !important;
-  opacity: 1 !important;
+  color: #ffffff;
+  opacity: 1;
 }
 
 .feature-card--highlight .feature-card__text {
@@ -137,15 +133,23 @@
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+.platform-section__title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  color: rgb(14, 97, 93);
+  letter-spacing: -0.01em;
+  margin-bottom: 32px;
+  padding-top: 1rem;
+}
+
 .platform-faq__list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5px;
-  background-color: rgba(14, 97, 93, 0.04);
 }
 
 .platform-faq__item {
-  background-color: #fafaf9;
   opacity: 1;
   transform: translateY(0);
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);

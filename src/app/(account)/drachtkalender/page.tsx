@@ -10,7 +10,7 @@ export default function DrachtkalenderPage() {
         <div className="container">
           <div className="platform-hero__content">
             <h1 className="platform-hero__title">Drachtkalender</h1>
-            <p style={{ fontSize: '1.125rem', color: 'rgba(255, 255, 255, 0.9)', marginTop: '12px' }}>
+            <p className="platform-hero__intro">
               Bloeiperiodes van belangrijke bijenplanten door het jaar heen
             </p>
           </div>

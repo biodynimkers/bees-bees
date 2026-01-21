@@ -22,37 +22,16 @@ function TokenErrorState() {
       <section className="section">
         <div className="container container--narrow">
           <div className="card">
-            <div className="card__content" style={{ textAlign: 'center' }}>
-              <div
-                style={{
-                  fontSize: '3rem',
-                  marginBottom: 'var(--space-6)',
-                  color: 'var(--color-error)',
-                }}
-              >
-                ✕
-              </div>
-              <h2
-                className="heading-secondary"
-                style={{ marginBottom: 'var(--space-4)' }}
-              >
+            <div className="card__content text-center">
+              <div className="status-icon status-icon--error">✕</div>
+              <h2 className="heading-secondary margin-bottom-small">
                 Reset link ongeldig
               </h2>
-              <p
-                className="card__description"
-                style={{ marginBottom: 'var(--space-6)' }}
-              >
+              <p className="card__description margin-bottom-large">
                 Deze wachtwoord reset link is ongeldig, verlopen of al gebruikt.
                 Probeer opnieuw een reset aan te vragen.
               </p>
-              <div
-                style={{
-                  display: 'flex',
-                  gap: 'var(--space-4)',
-                  justifyContent: 'center',
-                  flexWrap: 'wrap',
-                }}
-              >
+              <div className="flex justify-center gap-sm flex-wrap">
                 <Link href="/forgot-password" className="btn btn--primary">
                   Nieuwe reset aanvragen
                 </Link>
@@ -80,7 +59,7 @@ function LoadingState() {
       <section className="section">
         <div className="container container--narrow">
           <div className="card">
-            <div className="card__content" style={{ textAlign: 'center' }}>
+            <div className="card__content text-center">
               <p>Loading...</p>
             </div>
           </div>
