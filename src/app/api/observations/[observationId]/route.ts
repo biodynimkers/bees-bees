@@ -7,7 +7,7 @@ import { updateObservationSchema } from '@/lib/validators/schemas';
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: Promise<{ observationId: string }> }
+  { params }: { params: Promise<{ observationId: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -22,7 +22,7 @@ export async function GET(
     if (!observation) {
       return NextResponse.json({ error: 'Niet gevonden' }, { status: 404 });
     }
-    console.log('NextResponse:', observation);
+
     return NextResponse.json(observation);
   } catch (error) {
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
@@ -31,7 +31,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ observationId: string }> }
+  { params }: { params: Promise<{ observationId: string }> },
 ) {
   try {
     const session = await getServerSession(authOptions);
@@ -39,7 +39,14 @@ export async function PUT(
       return NextResponse.json({ error: 'Niet ingelogd' }, { status: 401 });
     }
     const body = await req.json();
-    const { beeCount, pollenColor, pollenAmount, weatherCondition, temperature, notes } = body;
+    const {
+      beeCount,
+      pollenColor,
+      pollenAmount,
+      weatherCondition,
+      temperature,
+      notes,
+    } = body;
 
     const validationResult = updateObservationSchema.safeParse({
       beeCount: parseInt(beeCount),
@@ -53,7 +60,7 @@ export async function PUT(
       const { fieldErrors } = validationResult.error.flatten();
       return NextResponse.json(
         { ok: false, errors: fieldErrors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const { observationId } = await params;
@@ -73,7 +80,7 @@ export async function PUT(
     if (!observation) {
       return NextResponse.json(
         { error: 'Bijenstand niet gevonden' },
-        { status: 404 }
+        { status: 404 },
       );
     }
     if (
@@ -98,7 +105,7 @@ export async function PUT(
     console.error('Error updating apiary:', error);
     return NextResponse.json(
       { error: 'Er ging iets mis bij het bijwerken van de bijenstand' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

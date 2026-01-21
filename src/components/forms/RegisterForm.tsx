@@ -42,7 +42,6 @@ export function RegisterForm({ createItem }: FormProps) {
     try {
       const res = await createItem(rawFormData);
       if (!res.ok) {
-        console.log('Registration errors:', res.errors);
         setErrors(res.errors);
         setLoading(false);
         return;

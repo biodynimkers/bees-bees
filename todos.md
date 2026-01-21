@@ -320,7 +320,10 @@ TODO
 - [] /observations/[id]/edit: redirect niet naar /observations/[id] maar naar /hives/id
 - [x] /observations/[id]/edit: krijg foutmelding 'Invalid input: expected number, received string' als ik geen wijziging doe
 
-- [] observations/new: bij geen stuifmeelkleur moet ik toch nog een hoeveelheid pollen invullen, zal "GEEN" in de enum moeten toevoegen en voorselecteren als er geen stuifmeelkleur is, of veld optioneel maken en 'GEEN' als default value maken, is dat niet het eenvoudigste?
+- [x] observations/new: bij geen stuifmeelkleur moet ik toch nog een hoeveelheid pollen invullen, zal "GEEN" in de enum moeten toevoegen en voorselecteren als er geen stuifmeelkleur is, of veld optioneel maken en 'GEEN' als default value maken, is dat niet het eenvoudigste?
+- []temperatuur in het observationform is optioneel, maar geeft 20 graden terug.
+
+- [] drachtkalender op nieuwe pagina of terugkeerbutton?
 
 TODO
 

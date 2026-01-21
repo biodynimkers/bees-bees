@@ -25,7 +25,7 @@ export default function ObservationForm({
   const [pollenColor, setPollenColor] = useState('');
   const [pollenAmount, setPollenAmount] = useState('');
   const [weatherCondition, setWeatherCondition] = useState('');
-  const [temperature, setTemperature] = useState<number | ''>(20);
+  const [temperature, setTemperature] = useState<number | ''>('');
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [notes, setNotes] = useState('');
   const [selectedHiveId, setSelectedHiveId] = useState(hiveId || '');
@@ -175,7 +175,7 @@ export default function ObservationForm({
       pollenColor,
       pollenAmount,
       weatherCondition,
-      temperature: temperature ? temperature : null,
+      temperature: temperature === '' ? null : Number(temperature),
       notes: notes || '',
       ...(!initialObservation && { hiveId: parseInt(finalHiveId) }),
     };
@@ -595,6 +595,11 @@ export default function ObservationForm({
                       const { temperature, ...rest } = prev;
                       return Object.keys(rest).length ? rest : null;
                     });
+                  }
+                }}
+                onFocus={e => {
+                  if (e.target.value === '') {
+                    setTemperature(20);
                   }
                 }}
                 className="form__input"

@@ -83,16 +83,15 @@ RESEND_API_KEY=re_jouw_api_key_hier
 NEXTAUTH_URL=https://jouw-vercel-app.vercel.app
 ```
 
-## 🔐 Test Accounts
+## 🔐 Test Account
 
-### Gebruiker
+### Superadmin
 
-- **Email:** lola@test.com
-- **Wachtwoord:** lola123456
+- **Email:** superadmin@example.com
+- **Wachtwoord:** test@123
 
 ### Admin
 
-- **Email:** admin@example.com
-- **Wachtwoord:** test@123
+- Admins worden aangemaakt door de superadmin
 
-by stefaan & joanna
+by Stefaan & Joanna

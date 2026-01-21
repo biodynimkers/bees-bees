@@ -46,7 +46,6 @@ export default function Login() {
       });
 
       if (!res?.ok) {
-        console.log('signIn errors:', res?.error);
         if (res?.error === 'CredentialsSignin') {
           setErrors(
             'Onjuiste inloggegevens. Controleer uw e-mail en wachtwoord.',
@@ -78,7 +77,6 @@ export default function Login() {
       <section className="page-header" data-page="—">
         <div className="container">
           <h1 className="heading-primary">Inloggen</h1>
-    
         </div>
       </section>
 
@@ -153,8 +151,6 @@ export default function Login() {
               )}
             </div>
 
-         
-
             <button
               type="submit"
               className="btn btn--primary btn--large btn--full"
@@ -163,19 +159,19 @@ export default function Login() {
               {loading ? 'Inloggen...' : 'Inloggen'}
             </button>
 
-
-
             <p className="form__footer-text">
               Nog geen account?{' '}
-              <Link href="/auth/register" className="form__link form__link--primary">
+              <Link
+                href="/auth/register"
+                className="form__link form__link--primary"
+              >
                 Registreer hier
               </Link>
-    <div className="form__group">
-              <Link href="/forgot-password" className="form__link">
-                Wachtwoord vergeten?
-              </Link>
-            </div>
-             
+              <div className="form__group">
+                <Link href="/forgot-password" className="form__link">
+                  Wachtwoord vergeten?
+                </Link>
+              </div>
             </p>
           </form>
         </div>

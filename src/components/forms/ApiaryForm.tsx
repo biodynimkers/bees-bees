@@ -65,11 +65,6 @@ export default function ApiaryForm({
         setLongitude(position.coords.longitude.toString());
         setGpsError('');
         setGeocodingLoading(false);
-        console.log('Locatie succesvol opgehaald:', {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          accuracy: position.coords.accuracy,
-        });
       },
       error => {
         setGeocodingLoading(false);
