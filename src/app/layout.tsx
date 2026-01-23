@@ -19,7 +19,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata = {
-  title: "BEES - Bijen Observatie Platform",
+  title: "Biodynamische Imkers Vlaanderen",
   description:
     "Digitaal imkeren voor de moderne bijhouder. Eenvoudig, overzichtelijk, effectief.",
 };
