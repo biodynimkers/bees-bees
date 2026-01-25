@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth-options';
 import { pollenColors } from '@/lib/pollenColors';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
 
 export const dynamic = 'force-dynamic';
 
@@ -126,20 +127,39 @@ export default async function AdminObservationsPage({
 
       <section className="home-features">
         <div className="container">
-          <ObservationsFilter
-            observations={observations}
-            showHive={true}
-            showApiary={true}
-            showUser={true}
-            basePath="/admin"
-            currentPage={currentPage}
-            totalPages={totalPages}
-            currentPath={'/admin/observations'}
-            search={search}
-            colorFilter={colorFilter}
-            allColors={allColors}
-            placeholder="Zoek op bijenstand, behuizing of notities"
-          />
+          {observations.length === 0 ? (
+            // Check if any filters are applied to determine which EmptyState to show
+            search || colorFilter ? (
+              <EmptyState
+                title="Geen waarnemingen gevonden"
+                description="Er zijn geen waarnemingen die voldoen aan de huidige filters. Probeer je zoekcriteria aan te passen."
+                buttonText="Filters wissen"
+                buttonHref="/admin/observations"
+              />
+            ) : (
+              <EmptyState
+                title="Nog geen waarnemingen"
+                description="Er zijn nog geen waarnemingen geregistreerd voor deze kast. Voeg een nieuwe waarneming toe of ga terug naar het overzicht van je behuizingen."
+                buttonText="Ga naar overzicht"
+                buttonHref="/admin"
+              />
+            )
+          ) : (
+            <ObservationsFilter
+              observations={observations}
+              showHive={true}
+              showApiary={true}
+              showUser={true}
+              basePath="/admin"
+              currentPage={currentPage}
+              totalPages={totalPages}
+              currentPath={'/admin/observations'}
+              search={search}
+              colorFilter={colorFilter}
+              allColors={allColors}
+              placeholder="Zoek op bijenstand, behuizing of notities"
+            />
+          )}
         </div>
       </section>
     </div>

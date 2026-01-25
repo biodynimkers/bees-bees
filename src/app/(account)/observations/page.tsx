@@ -181,9 +181,9 @@ export default async function AccountObservationsPage({
             ) : (
               <EmptyState
                 title="Nog geen waarnemingen"
-                description="Voeg eerst een bijenstand en behuizing toe om waarnemingen te kunnen registreren."
+                description="Je hebt nog geen waarnemingen geregistreerd. Voeg een nieuwe waarneming toe of bekijk je bijenstanden en kasten."
                 buttonText="+ Voeg je eerste bijenstand toe"
-                buttonHref="/apiaries/new"
+                buttonHref="/apiaries"
               />
             )
           ) : (
