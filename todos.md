@@ -332,3 +332,10 @@ TODO
 - [] een moeilijker paswoord laten aanmaken
 - [] kleuren van stuifmeel toevoegen in observationId
 - [] een scrolltTo toevoegen aan admin/hives/[hiveId]?
+
+TODO voordat ik merge naar main!
+
+- [] in admin route: emptyState toevoegen: gebruiker heeft nog geen kast toegevoegd en redirect naar gebruiker
+- [] filter toevoegen voor observaties van userId in admin route
+- [] eerst volledige flow herbekijken via (account)/observations en admin/hives/hiveId
+- [] alle breadcrumbs checken op dynamische content: ga ik van hiveId naar observations, dan terug naar HiveId en niet naar observations in het algemeen, zelfde voor hives. checken voor zowel account routes als user routes.

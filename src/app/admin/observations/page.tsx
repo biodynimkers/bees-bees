@@ -75,7 +75,7 @@ export default async function AdminObservationsPage({
   });
   const totalPages = Math.ceil(totalObservations / observationsPerPage);
 
-  // Get all unique colors for filter dropdown
+  // Get all unique colors for filter options
   const allColors = pollenColors
     .filter(c => !c.isNoPollenOption)
     .map(c => ({
@@ -113,8 +113,8 @@ export default async function AdminObservationsPage({
           <div className="platform-hero__content">
             <span className="platform-hero__label">
               Totaal: {totalObservations}
-              {search && ` (gefilterd op "${search}")`}
-              {colorFilter && ` (kleur gefilterd)`}
+              {search && ` (gefilterd op "${search}") `}
+              {colorFilter && '(gefilterd op kleur)'}
             </span>
             <h1 className="platform-hero__title">Alle waarnemingen</h1>
           </div>

@@ -34,7 +34,7 @@ export default async function AdminHiveDetailPage({
   } = searchParamsResult;
 
   const currentPage = Number(page);
-  const observationsPerPage = 20;
+  const observationsPerPage = 2;
   const baseWhere = {
     hiveId: parseInt(hiveId, 10),
   };
@@ -173,7 +173,7 @@ export default async function AdminHiveDetailPage({
               <EmptyState
                 title="Nog geen waarnemingen"
                 description="Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier."
-                buttonText="terug naar de bijenstand"
+                buttonText="terug naar de behuizingen"
                 buttonHref={returnUrl}
               />
             )

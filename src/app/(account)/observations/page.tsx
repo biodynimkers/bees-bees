@@ -181,8 +181,8 @@ export default async function AccountObservationsPage({
             ) : (
               <EmptyState
                 title="Nog geen waarnemingen"
-                description="Je hebt nog geen waarnemingen geregistreerd. Voeg een nieuwe waarneming toe of bekijk je bijenstanden en kasten."
-                buttonText="+ Voeg je eerste bijenstand toe"
+                description="Je hebt nog geen waarnemingen geregistreerd. Voeg een nieuwe waarneming toe of ga naar je bijenstanden en selecteer een behuizing."
+                buttonText="Bekijk je bijenstanden"
                 buttonHref="/apiaries"
               />
             )

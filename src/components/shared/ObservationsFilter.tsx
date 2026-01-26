@@ -84,7 +84,7 @@ export default function ObservationsFilter({
     router.push(`${currentPath}?${params.toString()}`);
   };
 
-  const colors = allColors; //
+  const colors = allColors;
 
   return (
     <>
