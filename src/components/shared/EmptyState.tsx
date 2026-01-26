@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 interface EmptyStateProps {
   title: string;
-  description: string;
+  description?: string;
   buttonText?: string;
   buttonHref?: string;
 }
