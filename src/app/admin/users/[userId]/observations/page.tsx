@@ -197,7 +197,7 @@ export default async function AdminUserObservationsPage({
               showHive={true}
               showApiary={true}
               showUser={false}
-              basePath={''}
+              basePath={'/admin'}
               currentPage={currentPage}
               totalPages={totalPages}
               currentPath={`/admin/users/${userId}/observations`}
