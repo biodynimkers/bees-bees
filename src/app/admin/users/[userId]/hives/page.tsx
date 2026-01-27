@@ -94,7 +94,8 @@ export default async function UserHivesPage({
             />
           ) : (
             <EmptyState
-              title={`${user?.name} heeft nog geen behuizingen toegevoegd`}
+              title="Nog geen behuizingen"
+              description="Deze lijst is nog leeg. Zodra er behuizingen zijn toegevoegd, verschijnen ze hier."
             />
           )}
         </div>

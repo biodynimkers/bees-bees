@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { requireAdmin } from '@/lib/auth-helpers';
 import ObservationsTable from '@/components/shared/ObservationsTable';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
 export default async function AdminUserObservationsPage({
   params,
   searchParams,
@@ -81,7 +82,12 @@ export default async function AdminUserObservationsPage({
 
       <section className="home-features">
         <div className="container">
-          {
+          {observations.length === 0 ? (
+            <EmptyState
+              title="Nog geen waarnemingen"
+              description="Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier."
+            />
+          ) : (
             <ObservationsTable
               observations={observations}
               showUser={false}
@@ -89,7 +95,7 @@ export default async function AdminUserObservationsPage({
               totalPages={totalPages}
               currentPath={`/admin/users/${userId}/observations`}
             />
-          }
+          )}
         </div>
       </section>
     </div>

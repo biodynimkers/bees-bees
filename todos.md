@@ -336,20 +336,18 @@ TODO
 TODO voordat ik merge naar main!
 
 - [] in admin route: emptyState toevoegen:
-  - [] gebruiker heeft nog geen bijenstand toegevoegd:'mark heeft nog geen bijenstanden'
-  - [] gebruiker heeft nog geen kast toegevoegd:'mark heeft nog geen behuizingen'
-  - [] gebruiker heeft nog geen waarnemingen: 'mark heeft nog geen waarnemingen toegevoegd
+  - [x] gebruiker heeft nog geen bijenstand toegevoegd:'mark heeft nog geen bijenstanden'
+  - [x] gebruiker heeft nog geen kast toegevoegd:'mark heeft nog geen behuizingen'
+        VOLGENDE TODO
+  - [] gebruiker heeft nog geen waarnemingen: 'Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier.', emptystate + searchfilter!
 
-- [] breadcrumbs in admin route:
-  - [] bijenstanden vanuit admin
-  - [] bijenstanden vanuit admin/users/[userId]
-  - [] behuizingen vanuit admin/apiaries in admin/apiaries/[apiaryId]
-  - [] behuizingen vanuit admin/users/[userId]
-  - [] behuizingen vanuit admin (of dropdown admin/hives)
-  - [] observaties vanuit admin
-  - [] observaties vanuit admin/users/[userId]/observations
-  - [] observaties in admin/hives/[hiveId] vanuit admin/apiaries/[apiaryId]
-
-- [] filter toevoegen voor observaties van userId in admin route
-- [] eerst volledige flow herbekijken via (account)/observations en admin/hives/hiveId
-- [] alle breadcrumbs checken op dynamische content: ga ik van hiveId naar observations, dan terug naar HiveId en niet naar observations in het algemeen, zelfde voor hives. checken voor zowel account routes als user routes.
+  - [] alle breadcrumbs checken op dynamische content: ga ik van hiveId naar observations, dan terug naar HiveId en niet naar observations in het algemeen, zelfde voor hives. checken voor zowel account routes als user routes.
+  - [] breadcrumbs in admin route:
+    - [] bijenstanden vanuit admin
+    - [] bijenstanden vanuit admin/users/[userId]
+    - [] behuizingen vanuit admin/apiaries in admin/apiaries/[apiaryId]
+    - [] behuizingen vanuit admin/users/[userId]
+    - [] behuizingen vanuit admin (of dropdown admin/hives)
+    - [] observaties vanuit admin
+    - [] observaties vanuit admin/users/[userId]/observations
+    - [] observaties in admin/hives/[hiveId] vanuit admin/apiaries/[apiaryId]

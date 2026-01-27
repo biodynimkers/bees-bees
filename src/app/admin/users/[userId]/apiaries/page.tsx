@@ -68,7 +68,8 @@ export default async function AdminUserApiariesPage({
             />
           ) : (
             <EmptyState
-              title={`${user?.name} heeft nog geen bijenstanden toegevoegd`}
+              title="Nog geen bijenstanden"
+              description="Deze lijst is nog leeg. Zodra er bijenstanden zijn toegevoegd, verschijnen ze hier."
             />
           )}
         </div>
