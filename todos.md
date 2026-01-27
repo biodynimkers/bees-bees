@@ -338,8 +338,12 @@ TODO voordat ik merge naar main!
 - [] in admin route: emptyState toevoegen:
   - [x] gebruiker heeft nog geen bijenstand toegevoegd:'mark heeft nog geen bijenstanden'
   - [x] gebruiker heeft nog geen kast toegevoegd:'mark heeft nog geen behuizingen'
+  - [x] gebruiker heeft nog geen waarnemingen: 'Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier.', emptystate + searchfilter!
+
         VOLGENDE TODO
-  - [] gebruiker heeft nog geen waarnemingen: 'Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier.', emptystate + searchfilter!
+
+  - [] alle links checken in observationstable in admin/users/[userId]/observations
+  - [] scrollTo lijkt nog niet te werken in admin/users/[userId]/observations
 
   - [] alle breadcrumbs checken op dynamische content: ga ik van hiveId naar observations, dan terug naar HiveId en niet naar observations in het algemeen, zelfde voor hives. checken voor zowel account routes als user routes.
   - [] breadcrumbs in admin route:
