@@ -90,7 +90,9 @@ export default function ObservationsTable({
             {observations.map(observation => (
               <tr key={observation.id}>
                 <td data-label="Datum">
-                  <Link href={`${basePath}/observations/${observation.id}`}>
+                  <Link
+                    href={`${basePath}/observations/${observation.id}?returnUrl=${encodeURIComponent(currentPath || '')}`}
+                  >
                     {new Date(observation.createdAt).toLocaleDateString(
                       'nl-BE',
                     )}

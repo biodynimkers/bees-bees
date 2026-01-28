@@ -342,7 +342,7 @@ TODO voordat ik merge naar main!
 
         VOLGENDE TODO
 
-  - [] alle links checken in observationstable in admin/users/[userId]/observations
+  - [x] alle links checken in observationstable in admin/users/[userId]/observations
   - [] scrollTo lijkt nog niet te werken in admin/users/[userId]/observations
 
   - [] alle breadcrumbs checken op dynamische content: ga ik van hiveId naar observations, dan terug naar HiveId en niet naar observations in het algemeen, zelfde voor hives. checken voor zowel account routes als user routes.
@@ -355,3 +355,9 @@ TODO voordat ik merge naar main!
     - [] observaties vanuit admin
     - [] observaties vanuit admin/users/[userId]/observations
     - [] observaties in admin/hives/[hiveId] vanuit admin/apiaries/[apiaryId]
+
+    - [x] breadcrumbs in user route:
+      - [x] behuizing vanuit /apiaries/[apiaryId]
+      - [x] behuizing vanuit /hives
+      - [x] waarneming vanuit /hives/[hiveId]
+      - [x] waarneming vanuit /observations
