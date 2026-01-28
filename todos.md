@@ -269,7 +269,7 @@ app/admin/
   - [x] Klikbare legende of een infoknop die de plantenlijst per kleur uitlegt.
 - [x] Uitleg tussen de velden in stappen!Layout moet beter!
 - [x] Bijenteller met de velden versmelten
-- [ ] Enkel binnenkomende bijen
+- [x] Enkel binnenkomende bijen
 - [ ] Tijd en datum bovenaan het formulier: 'Deze waarneming wordt gedaan op [uur en dag]'TODO
 - [x] Stuifmeel in drie maten: weinig, gemiddeld of veel TODO
 - [x] Bij veel bijen, die niet te tellen zijn: klik op optie 'teveel om te tellen'

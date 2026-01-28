@@ -1,9 +1,6 @@
 {
   "prisma.pinToPrisma6": true,
   "git.openDiffOnClick": false,
-  "git.autoRepositoryDetection": false,
   "scm.autoReveal": false,
-  "git.decorations.enabled": false,
-  "git.autoStash": false,
-  "git.autoStashOnMerge": false
+  "git.decorations.enabled": false
 }
