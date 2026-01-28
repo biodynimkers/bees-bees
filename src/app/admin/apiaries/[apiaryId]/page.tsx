@@ -45,12 +45,25 @@ export default async function ApiaryDetailPage({
         <div className="container">
           <div className="platform-hero__content">
             <span className="platform-hero__label">
-              Eigenaar: <Link href={`/admin/users/${apiary.user.id}`} style={{ color: 'inherit', textDecoration: 'underline' }}>{apiary.user.name}</Link>
+              Eigenaar:{' '}
+              <Link
+                href={`/admin/users/${apiary.user.id}`}
+                style={{ color: 'inherit', textDecoration: 'underline' }}
+              >
+                {apiary.user.name}
+              </Link>
             </span>
             <h1 className="platform-hero__title">{apiary.name}</h1>
-            <p style={{ fontSize: '1rem', color: 'rgba(255, 255, 255, 0.85)', marginTop: '8px' }}>
-              Locatie: {apiary.latitude && apiary.longitude ? (
-                <a 
+            <p
+              style={{
+                fontSize: '1rem',
+                color: 'rgba(255, 255, 255, 0.85)',
+                marginTop: '8px',
+              }}
+            >
+              Locatie:{' '}
+              {apiary.latitude && apiary.longitude ? (
+                <a
                   href={`https://www.google.com/maps?q=${apiary.latitude},${apiary.longitude}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -66,14 +79,29 @@ export default async function ApiaryDetailPage({
         </div>
       </section>
 
-      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Bijenstanden', href: '/admin/apiaries' }, { label: apiary.name }]} />
+      <Breadcrumbs
+        items={[
+          { label: 'Admin', href: '/admin' },
+          returnUrl && returnUrl
+            ? { label: 'Bijenstanden', href: returnUrl }
+            : { label: 'Bijenstanden', href: '/admin/apiaries' },
+          { label: apiary.name },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container">
-          <h2 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: 'var(--s-8)', color: 'rgb(14, 97, 93)' }}>
+          <h2
+            style={{
+              fontSize: '1.5rem',
+              fontWeight: '400',
+              marginBottom: 'var(--s-8)',
+              color: 'rgb(14, 97, 93)',
+            }}
+          >
             Behuizingen in deze bijenstand
           </h2>
-          
+
           <HivesTable
             hives={apiary.hives}
             showApiary={false}

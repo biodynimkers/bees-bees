@@ -341,8 +341,8 @@ TODO voordat ik merge naar main!
 
   - [] alle breadcrumbs checken op dynamische content: ga ik van hiveId naar observations, dan terug naar HiveId en niet naar observations in het algemeen, zelfde voor hives. checken voor zowel account routes als user routes.
   - [] breadcrumbs in admin route:
-    - [] bijenstanden vanuit admin
-    - [] bijenstanden vanuit admin/users/[userId]
+    - [x] bijenstand vanuit admin/apiaries
+    - [x] bijenstand vanuit admin/users/[userId]/apiaries
     - [x] behuizing vanuit admin/apiaries/[apiaryId]
     - [x] behuizing vanuit admin/users/[userId]
     - [x] behuizing vanuit admin/hives (of dropdown admin/hives)
