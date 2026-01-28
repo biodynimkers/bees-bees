@@ -60,13 +60,6 @@ export default function ObservationsTable({
   currentPage,
   totalPages,
 }: ObservationsTableProps) {
-  // const getObservationLink = (id: number) => {
-  //   if (currentPath?.includes('/admin')) {
-  //     return `/admin/observations/${id}`;
-  //   }
-  //   return `/observations/${id}`;
-  // };
-
   return (
     <>
       <div className="table-wrapper">

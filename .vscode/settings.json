@@ -1,6 +1,5 @@
 {
   "prisma.pinToPrisma6": true,
-  "git.openDiffOnClick": false,
   "scm.autoReveal": false,
-  "git.decorations.enabled": false
+  "git.openDiffOnClick": true
 }

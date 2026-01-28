@@ -183,6 +183,7 @@ export default async function AdminHiveDetailPage({
               showUser={false}
               showHive={false}
               showApiary={false}
+              basePath="/admin"
               currentPage={currentPage}
               totalPages={totalPages}
               currentPath={`/admin/hives/${hiveId}`}

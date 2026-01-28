@@ -29,13 +29,6 @@ export default async function AdminUserObservationsPage({
   const colorFilter = searchParamsResult?.color ?? '';
   const observationsPerPage = 20;
 
-  // const totalObservations = await prisma.observation.count({
-  //   where: {
-  //     hive: { apiary: { userId } },
-  //   },
-  // });
-  // const totalPages = Math.ceil(totalObservations / observationsPerPage);
-
   // Check if user exists
   const user = await prisma.user.findUnique({
     where: { id: userId },
@@ -106,28 +99,6 @@ export default async function AdminUserObservationsPage({
       hex: c.hex,
     }));
 
-  // Get all observations
-  // const observations = await prisma.observation.findMany({
-  //   skip: (currentPage - 1) * observationsPerPage,
-  //   take: observationsPerPage,
-
-  //   where: {
-  //     hive: {
-  //       apiary: {
-  //         userId,
-  //       },
-  //     },
-  //   },
-
-  //   include: {
-  //     hive: {
-  //       include: {
-  //         apiary: { include: { user: true } },
-  //       },
-  //     },
-  //   },
-  //   orderBy: { createdAt: 'desc' },
-  // });
   const observations = await prisma.observation.findMany({
     where: whereClause,
     skip: (currentPage - 1) * observationsPerPage,

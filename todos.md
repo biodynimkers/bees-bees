@@ -306,12 +306,6 @@ TODO
 - [] waarneming bewerkt
   - [] BUG in observations/[id]/edit
 
-- []
-- []
-- []
-- []
-- []
-
 ### Bugs gevonden
 
 - [x] /apiaries/new: bij toevoegen nieuwe bijenstand, als je via adres gaat,en je vult een adres in zonder op locatie te drukken en dan op de 'bijenstand toevoegen drukt, krijg je terecht de melding 'Vul een adres in en klik op "Zoek locatie".' Als je dan onmiddellijk drukt op locatie, krijg je de melding 'Invalid input: expected number, received NaN'. Maar als je toch weer op 'bijenstand toevoegen' klikt, wordt hij wel toegevoegd
@@ -335,7 +329,7 @@ TODO
 
 TODO voordat ik merge naar main!
 
-- [] in admin route: emptyState toevoegen:
+- [x] in admin route: emptyState toevoegen:
   - [x] gebruiker heeft nog geen bijenstand toegevoegd:'mark heeft nog geen bijenstanden'
   - [x] gebruiker heeft nog geen kast toegevoegd:'mark heeft nog geen behuizingen'
   - [x] gebruiker heeft nog geen waarnemingen: 'Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier.', emptystate + searchfilter!
@@ -352,9 +346,9 @@ TODO voordat ik merge naar main!
     - [] behuizingen vanuit admin/apiaries in admin/apiaries/[apiaryId]
     - [] behuizingen vanuit admin/users/[userId]
     - [] behuizingen vanuit admin (of dropdown admin/hives)
-    - [] observaties vanuit admin
-    - [] observaties vanuit admin/users/[userId]/observations
-    - [] observaties in admin/hives/[hiveId] vanuit admin/apiaries/[apiaryId]
+    - [x] observaties vanuit admin
+    - [x] observaties vanuit admin/users/[userId]/observations
+    - [x] observaties in admin/hives/[hiveId] vanuit admin/apiaries/[apiaryId]
 
     - [x] breadcrumbs in user route:
       - [x] behuizing vanuit /apiaries/[apiaryId]

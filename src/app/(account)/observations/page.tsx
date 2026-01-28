@@ -26,26 +26,6 @@ export default async function AccountObservationsPage({
   }
 
   const userId = session.user.id;
-  // const user = await prisma.user.findUnique({
-  //   where: { id: userId },
-  //   include: {
-  //     apiaries: {
-  //       include: {
-  //         hives: {
-  //           include: {
-  //             observations: {
-  //               orderBy: {
-  //                 createdAt: 'desc',
-  //               },
-  //             },
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // });
-
-  // if (!user) redirect('/auth/login');
 
   const searchParamsResult = await searchParams;
 
