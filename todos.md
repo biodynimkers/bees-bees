@@ -343,9 +343,9 @@ TODO voordat ik merge naar main!
   - [] breadcrumbs in admin route:
     - [] bijenstanden vanuit admin
     - [] bijenstanden vanuit admin/users/[userId]
-    - [x] behuizingen vanuit admin/apiaries/[apiaryId]
-    - [x] behuizingen vanuit admin/users/[userId]
-    - [x] behuizingen vanuit admin (of dropdown admin/hives)
+    - [x] behuizing vanuit admin/apiaries/[apiaryId]
+    - [x] behuizing vanuit admin/users/[userId]
+    - [x] behuizing vanuit admin/hives (of dropdown admin/hives)
     - [x] observaties vanuit admin
     - [x] observaties vanuit admin/users/[userId]/observations
     - [x] observaties in admin/hives/[hiveId] vanuit admin/apiaries/[apiaryId]
