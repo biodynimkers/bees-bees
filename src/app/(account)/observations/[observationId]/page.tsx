@@ -141,17 +141,37 @@ export default async function Observation({
                   <div className="observation-detail__pollen-container">
                     {observation.pollenColor.split(', ').map((color, index) => {
                       const colorData = pollenColors.find(c => c.hex === color);
+                      console.log('colorData', colorData?.hex);
                       const plantNames =
                         colorData?.species.join(', ') || 'Onbekend';
-                      return (
+                      return colorData ? (
                         <div
                           key={index}
                           className="pollen-color-dot"
-                          style={{ backgroundColor: color }}
+                          style={{
+                            backgroundColor: colorData?.hex,
+                          }}
                           title={`Mogelijke planten: ${plantNames}`}
                         />
-                      );
+                      ) : null;
                     })}
+                    {/* {observation.pollenColor.split(', ').map(color => {
+                      const colorData = pollenColors.find(c => c.hex === color);
+                      return colorData ? (
+                        <span
+                          key={color}
+                          style={{
+                            display: 'inline-block',
+                            width: 16,
+                            height: 16,
+                            backgroundColor: colorData.hex,
+                            border: '1px solid #ccc',
+                            marginRight: 4,
+                          }}
+                          title={colorData.species.join(', ')}
+                        />
+                      ) : null;
+                    })} */}
                   </div>
                 </div>
                 <div className="meta-item">

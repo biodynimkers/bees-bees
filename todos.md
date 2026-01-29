@@ -315,26 +315,19 @@ TODO
 - [x] /observations/[id]/edit: krijg foutmelding 'Invalid input: expected number, received string' als ik geen wijziging doe
 
 - [x] observations/new: bij geen stuifmeelkleur moet ik toch nog een hoeveelheid pollen invullen, zal "GEEN" in de enum moeten toevoegen en voorselecteren als er geen stuifmeelkleur is, of veld optioneel maken en 'GEEN' als default value maken, is dat niet het eenvoudigste?
-- []temperatuur in het observationform is optioneel, maar geeft 20 graden terug.
+- [x]temperatuur in het observationform is optioneel, maar geeft 20 graden terug.
 
-TODO
+### Testing tekorten
 
 - [x] de temperatuur in observationform weer laten tellen vanaf de placeholderwaarde
-- [] keys voor mapbox en resend voor klant?
-- [] de prisma-modellen plant en apiaryplant verwijderen?
-- [] in admin/hives/[id] nog een EmptyState component toevoegen maar met tekst voor admin als prop (bvb 'deze gebruiker heeft nog een waarnemingen toegevoegd'), ook zo voor als er nog geen kast of apiary is?
 - [] een moeilijker paswoord laten aanmaken
-- [] kleuren van stuifmeel toevoegen in observationId
-- [] een scrolltTo toevoegen aan admin/hives/[hiveId]?
-
-TODO voordat ik merge naar main!
+- [] kleuren van stuifmeel toevoegen in observationId TODO
+- [] mobiele versie titels volledig leesbaar?
 
 - [x] in admin route: emptyState toevoegen:
   - [x] gebruiker heeft nog geen bijenstand toegevoegd:'mark heeft nog geen bijenstanden'
   - [x] gebruiker heeft nog geen kast toegevoegd:'mark heeft nog geen behuizingen'
   - [x] gebruiker heeft nog geen waarnemingen: 'Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier.', emptystate + searchfilter!
-
-        VOLGENDE TODO
 
   - [x] alle links checken in observationstable in admin/users/[userId]/observations
   - [x] scrollTo lijkt nog niet te werken in admin/users/[userId]/observations
@@ -353,3 +346,7 @@ TODO voordat ik merge naar main!
       - [x] behuizing vanuit /hives
       - [x] waarneming vanuit /hives/[hiveId]
       - [x] waarneming vanuit /observations
+
+### Overdracht
+
+- [] keys voor mapbox en resend voor klant
