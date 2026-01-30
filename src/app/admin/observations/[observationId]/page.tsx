@@ -13,8 +13,10 @@ export const dynamic = 'force-dynamic';
 
 export default async function Observation({
   params,
+  searchParams,
 }: {
   params: Promise<{ observationId: string }>;
+  searchParams?: Promise<{ returnUrl?: string }>;
 }) {
   const session = await getServerSession(authOptions);
   const { observationId } = await params;
@@ -23,7 +25,7 @@ export default async function Observation({
     where: { id: parseInt(observationId) },
     include: {
       hive: {
-        include: { 
+        include: {
           apiary: {
             include: { user: true },
           },
@@ -37,6 +39,8 @@ export default async function Observation({
   if (session?.user.role !== 'ADMIN' && session?.user.role !== 'SUPERADMIN') {
     redirect('/unauthorized');
   }
+  const searchParamsResult = await searchParams;
+  const returnUrl = searchParamsResult?.returnUrl ?? '';
 
   return (
     <div className="platform-page">
@@ -44,13 +48,23 @@ export default async function Observation({
         <div className="container">
           <div className="platform-hero__content">
             <span className="platform-hero__label">
-              <Link href={`/admin/users/${observation.hive.apiary.user.id}`} style={{ color: 'inherit', textDecoration: 'underline' }}>
+              <Link
+                href={`/admin/users/${observation.hive.apiary.user.id}`}
+                style={{ color: 'inherit', textDecoration: 'underline' }}
+              >
                 {observation.hive.apiary.user.name}
               </Link>
-              {' • '}{observation.hive.name} • {observation.hive.apiary.name}
+              {' • '}
+              {observation.hive.name} • {observation.hive.apiary.name}
             </span>
             <h1 className="platform-hero__title">Waarneming</h1>
-            <p style={{ fontSize: '1.125rem', color: 'rgba(255, 255, 255, 0.9)', marginTop: '12px' }}>
+            <p
+              style={{
+                fontSize: '1.125rem',
+                color: 'rgba(255, 255, 255, 0.9)',
+                marginTop: '12px',
+              }}
+            >
               {new Date(observation.createdAt).toLocaleDateString('nl-BE', {
                 weekday: 'long',
                 year: 'numeric',
@@ -62,7 +76,17 @@ export default async function Observation({
         </div>
       </section>
 
-      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Waarnemingen', href: '/admin/observations' }, { label: 'Details' }]} />
+      <Breadcrumbs
+        items={[
+          { label: 'Admin', href: '/admin' },
+          returnUrl && returnUrl.includes('users')
+            ? { label: 'Gebruikerswaarnemingen', href: returnUrl }
+            : returnUrl && returnUrl.includes('hives')
+              ? { label: 'Behuizing', href: returnUrl }
+              : { label: 'Waarnemingen', href: '/admin/observations' },
+          { label: 'Details' },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container">
@@ -74,21 +98,27 @@ export default async function Observation({
                 <div className="meta-item">
                   <span className="meta-label">Datum</span>
                   <span className="meta-value meta-value--small">
-                    {new Date(observation.createdAt).toLocaleDateString('nl-BE', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
+                    {new Date(observation.createdAt).toLocaleDateString(
+                      'nl-BE',
+                      {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      },
+                    )}
                   </span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Tijd</span>
                   <span className="meta-value meta-value--small">
-                    {new Date(observation.createdAt).toLocaleTimeString('nl-BE', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    {new Date(observation.createdAt).toLocaleTimeString(
+                      'nl-BE',
+                      {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      },
+                    )}
                   </span>
                 </div>
               </div>
@@ -99,7 +129,10 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Aantal bijen (geschat)</span>
-                  <span className="meta-value meta-value--small" style={{ fontSize: '2rem', fontWeight: '300' }}>
+                  <span
+                    className="meta-value meta-value--small"
+                    style={{ fontSize: '2rem', fontWeight: '300' }}
+                  >
                     {formatBeeCount(observation.beeCount)}
                   </span>
                 </div>
@@ -120,29 +153,21 @@ export default async function Observation({
                       marginTop: '8px',
                     }}
                   >
-                      {observation.pollenColor
-                        .split(', ')
-                        .map((color, index) => {
-                          const colorData = pollenColors.find(
-                            c => c.hex === color
-                          );
-                          const plantNames =
-                            colorData?.species.join(', ') || 'Onbekend';
-                          return (
-                            <div
-                              key={index}
-                              style={{
-                                width: '24px',
-                                height: '24px',
-                                borderRadius: '50%',
-                                backgroundColor: color,
-                                border: '2px solid rgba(0, 0, 0, 0.1)',
-                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                              }}
-                              title={`Mogelijke planten: ${plantNames}`}
-                            />
-                          );
-                        })}
+                    {observation.pollenColor.split(', ').map((color, index) => {
+                      const colorData = pollenColors.find(c => c.hex === color);
+                      const plantNames =
+                        colorData?.species.join(', ') || 'Onbekend';
+                      return colorData ? (
+                        <div
+                          key={index}
+                          className="pollen-color-dot"
+                          style={{
+                            backgroundColor: colorData?.hex,
+                          }}
+                          title={`Mogelijke planten: ${plantNames}`}
+                        />
+                      ) : null;
+                    })}
                   </div>
                 </div>
               </div>
@@ -153,11 +178,15 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Behuizing</span>
-                  <span className="meta-value meta-value--small">{observation.hive.name}</span>
+                  <span className="meta-value meta-value--small">
+                    {observation.hive.name}
+                  </span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Bijenstand</span>
-                  <span className="meta-value meta-value--small">{observation.hive.apiary.name}</span>
+                  <span className="meta-value meta-value--small">
+                    {observation.hive.apiary.name}
+                  </span>
                 </div>
               </div>
             </div>
@@ -168,7 +197,13 @@ export default async function Observation({
                 <div className="feature-card__meta">
                   <div className="meta-item">
                     <span className="meta-label">Notities</span>
-                    <p style={{ fontSize: '0.9375rem', lineHeight: '1.6', marginTop: '8px' }}>
+                    <p
+                      style={{
+                        fontSize: '0.9375rem',
+                        lineHeight: '1.6',
+                        marginTop: '8px',
+                      }}
+                    >
                       {observation.notes}
                     </p>
                   </div>

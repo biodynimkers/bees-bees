@@ -1,9 +1,9 @@
 import prisma from '@/lib/client';
 import { redirect } from 'next/navigation';
-import Link from 'next/link';
 import { requireAdmin } from '@/lib/auth-helpers';
 import HivesTable from '@/components/admin/HivesTable';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
 
 export default async function UserHivesPage({
   params,
@@ -62,25 +62,42 @@ export default async function UserHivesPage({
         <div className="container">
           <div className="platform-hero__content">
             <span className="platform-hero__label">
-              Totaal: {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
+              Totaal: {totalHives}{' '}
+              {totalHives === 1 ? 'behuizing' : 'behuizingen'}
             </span>
-            <h1 className="platform-hero__title">Behuizingen van {user.name}</h1>
+            <h1 className="platform-hero__title">
+              Behuizingen van {user.name}
+            </h1>
           </div>
         </div>
       </section>
 
-      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Gebruikers', href: '/admin/users' }, { label: user.name, href: `/admin/users/${userId}` }, { label: 'Behuizingen' }]} />
+      <Breadcrumbs
+        items={[
+          { label: 'Admin', href: '/admin' },
+          { label: 'Gebruikers', href: '/admin/users' },
+          { label: user.name, href: `/admin/users/${userId}` },
+          { label: 'Behuizingen' },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container">
-          <HivesTable
-            hives={hives}
-            showApiary={true}
-            showUser={false}
-            currentPath={`/admin/users/${userId}/hives`}
-            totalPages={totalPages}
-            currentPage={currentPage}
-          />
+          {hives.length > 0 ? (
+            <HivesTable
+              hives={hives}
+              showApiary={true}
+              showUser={false}
+              currentPath={`/admin/users/${userId}/hives`}
+              totalPages={totalPages}
+              currentPage={currentPage}
+            />
+          ) : (
+            <EmptyState
+              title="Nog geen behuizingen"
+              description="Deze lijst is nog leeg. Zodra er behuizingen zijn toegevoegd, verschijnen ze hier."
+            />
+          )}
         </div>
       </section>
     </div>

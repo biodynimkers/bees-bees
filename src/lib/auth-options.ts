@@ -5,7 +5,6 @@ import type { Session } from 'next-auth';
 import { Role } from '@prisma/client';
 import prisma from '@/lib/client';
 import bcrypt from 'bcrypt';
-import z from 'zod';
 import { loginSchema } from '@/lib/validators/schemas';
 export const authOptions: AuthOptions = {
   providers: [
@@ -35,7 +34,7 @@ export const authOptions: AuthOptions = {
 
         const passwordsMatch = await bcrypt.compare(
           credentials.password,
-          user.hashedPassword
+          user.hashedPassword,
         );
 
         if (passwordsMatch) {

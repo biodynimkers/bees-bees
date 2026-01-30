@@ -68,8 +68,9 @@ export default function Timer() {
   const handleClick = () => {
     // Initialiseer AudioContext bij eerste klik
     if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
+      audioContextRef.current = new (
+        window.AudioContext || (window as any).webkitAudioContext
+      )();
     }
     setTime(seconds);
     setCountdown(3); // Start aftelling
@@ -94,9 +95,6 @@ export default function Timer() {
           </p>
         ) : (
           <>
-            {/* <p className="timer__label">
-              Observeer de bijen gedurende 30 seconden
-            </p> */}
             <div className="timer__time">
               00:{time < 10 ? '0' : ''}
               {time}
@@ -113,10 +111,10 @@ export default function Timer() {
         {countdown !== null
           ? 'Klaar maken'
           : isRunning
-          ? 'Timer loopt...'
-          : time === 0
-          ? 'Nieuwe poging'
-          : 'Start timer'}
+            ? 'Timer loopt...'
+            : time === 0
+              ? 'Nieuwe poging'
+              : 'Start timer'}
       </button>
     </div>
   );

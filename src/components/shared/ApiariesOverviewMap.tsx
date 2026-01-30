@@ -18,22 +18,24 @@ interface ApiariesOverviewMapProps {
   apiaries: Apiary[];
 }
 
-export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapProps) {
+export default function ApiariesOverviewMap({
+  apiaries,
+}: ApiariesOverviewMapProps) {
   const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
   const mapRef = useRef<any>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  
+
   // Bereken center en zoom level op basis van alle apiaries
   const calculateCenter = () => {
     if (apiaries.length === 0) {
       return { longitude: 4.4024, latitude: 51.2194, zoom: 8 }; // België center
     }
-    
+
     if (apiaries.length === 1) {
       return {
         longitude: apiaries[0].longitude,
         latitude: apiaries[0].latitude,
-        zoom: 12
+        zoom: 12,
       };
     }
 
@@ -44,21 +46,21 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
     const maxLat = Math.max(...lats);
     const minLng = Math.min(...lngs);
     const maxLng = Math.max(...lngs);
-    
+
     const centerLat = (minLat + maxLat) / 2;
     const centerLng = (minLng + maxLng) / 2;
-    
+
     // Simpele zoom berekening op basis van spread
     const latDiff = maxLat - minLat;
     const lngDiff = maxLng - minLng;
     const maxDiff = Math.max(latDiff, lngDiff);
-    
+
     let zoom = 12;
     if (maxDiff > 1) zoom = 8;
     else if (maxDiff > 0.5) zoom = 9;
     else if (maxDiff > 0.2) zoom = 10;
     else if (maxDiff > 0.1) zoom = 11;
-    
+
     return { longitude: centerLng, latitude: centerLat, zoom };
   };
 
@@ -85,16 +87,20 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
     };
 
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    return () =>
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
   if (apiaries.length === 0) {
     return (
-      <div className="card" style={{ 
-        padding: 'var(--space-10)', 
-        textAlign: 'center',
-        background: 'var(--color-gray-50)'
-      }}>
+      <div
+        className="card"
+        style={{
+          padding: 'var(--space-10)',
+          textAlign: 'center',
+          background: 'var(--color-gray-50)',
+        }}
+      >
         <p style={{ color: 'var(--color-text-light)' }}>
           Geen bijenstanden om weer te geven op de kaart
         </p>
@@ -103,14 +109,14 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
   }
 
   return (
-    <div 
+    <div
       id="apiaries-overview-map-wrapper"
       className="map-wrapper"
-      style={{ 
+      style={{
         position: 'relative',
         width: '100%',
         height: '500px',
-        minHeight: '500px'
+        minHeight: '500px',
       }}
     >
       <style jsx global>{`
@@ -125,20 +131,28 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
       <Map
         ref={mapRef}
         {...viewState}
-        onMove={(evt) => setViewState(evt.viewState)}
-        mapStyle="mapbox://styles/mapbox/satellite-v9"
+        onMove={evt => setViewState(evt.viewState)}
+        mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
         mapboxAccessToken={mapboxToken}
-        style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+        }}
       >
         <NavigationControl position="top-right" showCompass={false} />
 
         {/* Fullscreen Control */}
-        <div style={{
-          position: 'absolute',
-          top: '78px',
-          right: '10px',
-          zIndex: 1
-        }}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '78px',
+            right: '10px',
+            zIndex: 1,
+          }}
+        >
           <button
             onClick={handleFullscreenToggle}
             className="mapboxgl-ctrl mapboxgl-ctrl-group"
@@ -155,20 +169,20 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
               cursor: 'pointer',
               fontSize: '18px',
               fontWeight: 'bold',
-              color: '#333'
+              color: '#333',
             }}
           >
             {isFullscreen ? '⊡' : '⛶'}
           </button>
         </div>
 
-        {apiaries.map((apiary) => (
+        {apiaries.map(apiary => (
           <Marker
             key={apiary.id}
             longitude={apiary.longitude}
             latitude={apiary.latitude}
             anchor="bottom"
-            onClick={(e) => {
+            onClick={e => {
               e.originalEvent.stopPropagation();
               setSelectedApiary(apiary);
             }}
@@ -197,33 +211,44 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
             maxWidth="320px"
           >
             <div style={{ padding: '1rem' }}>
-              <h4 style={{ 
-                fontSize: '1.05rem', 
-                fontWeight: 600,
-                marginBottom: '0.85rem',
-                color: '#1a1a1a'
-              }}>
+              <h4
+                style={{
+                  fontSize: '1.05rem',
+                  fontWeight: 600,
+                  marginBottom: '0.85rem',
+                  color: '#1a1a1a',
+                }}
+              >
                 {selectedApiary.name}
               </h4>
-              
-              <div style={{ 
-                marginBottom: '0.75rem',
-                paddingBottom: '0.75rem',
-                borderBottom: '1px solid #e5e5e5'
-              }}>
-                <p style={{ 
-                  fontSize: '0.875rem', 
-                  color: '#666',
-                  marginBottom: '0.25rem'
-                }}>
+
+              <div
+                style={{
+                  marginBottom: '0.75rem',
+                  paddingBottom: '0.75rem',
+                  borderBottom: '1px solid #e5e5e5',
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: '0.875rem',
+                    color: '#666',
+                    marginBottom: '0.25rem',
+                  }}
+                >
                   Aantal behuizingen
                 </p>
-                <p style={{
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  color: '#1a1a1a'
-                }}>
-                  {selectedApiary._count?.hives || 0} {selectedApiary._count?.hives === 1 ? 'behuizing' : 'behuizingen'}
+                <p
+                  style={{
+                    fontSize: '1rem',
+                    fontWeight: 600,
+                    color: '#1a1a1a',
+                  }}
+                >
+                  {selectedApiary._count?.hives || 0}{' '}
+                  {selectedApiary._count?.hives === 1
+                    ? 'behuizing'
+                    : 'behuizingen'}
                 </p>
               </div>
 
@@ -238,12 +263,12 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
                   padding: '0.5rem 1rem',
                   background: 'rgba(245, 158, 11, 0.1)',
                   borderRadius: 'var(--border-radius)',
-                  transition: 'background 0.2s'
+                  transition: 'background 0.2s',
                 }}
-                onMouseEnter={(e) => {
+                onMouseEnter={e => {
                   e.currentTarget.style.background = 'rgba(245, 158, 11, 0.2)';
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={e => {
                   e.currentTarget.style.background = 'rgba(245, 158, 11, 0.1)';
                 }}
               >
@@ -267,7 +292,7 @@ export default function ApiariesOverviewMap({ apiaries }: ApiariesOverviewMapPro
           fontSize: '0.875rem',
           fontWeight: 500,
           zIndex: 1,
-          border: '1px solid rgba(0, 0, 0, 0.1)'
+          border: '1px solid rgba(0, 0, 0, 0.1)',
         }}
       >
         {apiaries.length} {apiaries.length === 1 ? 'locatie' : 'locaties'}

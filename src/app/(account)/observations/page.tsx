@@ -8,7 +8,6 @@ import ObservationsFilter from '@/components/shared/ObservationsFilter';
 import { pollenColors } from '@/lib/pollenColors';
 import EmptyState from '@/components/shared/EmptyState';
 import ScrollToSection from '@/components/shared/ScrollToSection';
-
 export const dynamic = 'force-dynamic';
 
 type SearchParams = {
@@ -21,33 +20,13 @@ export default async function AccountObservationsPage({
 }: {
   searchParams?: Promise<SearchParams>;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions); //functie uit het next-auth pakket
 
   if (!session?.user?.id) {
     redirect('/auth/login');
   }
 
   const userId = session.user.id;
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-    include: {
-      apiaries: {
-        include: {
-          hives: {
-            include: {
-              observations: {
-                orderBy: {
-                  createdAt: 'desc',
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
-
-  if (!user) redirect('/auth/login');
 
   const searchParamsResult = await searchParams;
 
@@ -184,9 +163,9 @@ export default async function AccountObservationsPage({
             ) : (
               <EmptyState
                 title="Nog geen waarnemingen"
-                description="Voeg eerst een bijenstand en behuizing toe om waarnemingen te kunnen registreren."
-                buttonText="+ Voeg je eerste bijenstand toe"
-                buttonHref="/apiaries/new"
+                description="Je hebt nog geen waarnemingen geregistreerd. Voeg een nieuwe waarneming toe of ga naar je bijenstanden en selecteer een behuizing."
+                buttonText="Bekijk je bijenstanden"
+                buttonHref="/apiaries"
               />
             )
           ) : (
@@ -195,6 +174,7 @@ export default async function AccountObservationsPage({
               showHive={true}
               showApiary={true}
               showUser={false}
+              basePath={''}
               currentPage={currentPage}
               totalPages={totalPages}
               currentPath={`/observations`}

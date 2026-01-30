@@ -4,8 +4,11 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ObservationsFilter from '@/components/shared/ObservationsFilter';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
-
 import { pollenColors } from '@/lib/pollenColors';
+import EmptyState from '@/components/shared/EmptyState';
+import ScrollToSection from '@/components/shared/ScrollToSection';
+
+export const dynamic = 'force-dynamic';
 type SearchParams = {
   page?: string;
   search?: string;
@@ -28,11 +31,11 @@ export default async function AdminHiveDetailPage({
     page = '1',
     search = '',
     color = '',
-    returnUrl = '/admin/hives',
+    returnUrl = '',
   } = searchParamsResult;
 
   const currentPage = Number(page);
-  const observationsPerPage = 20;
+  const observationsPerPage = 2;
   const baseWhere = {
     hiveId: parseInt(hiveId, 10),
   };
@@ -116,6 +119,7 @@ export default async function AdminHiveDetailPage({
   });
   return (
     <div className="platform-page">
+      <ScrollToSection />
       <section className="platform-hero">
         <div className="container">
           <div className="platform-hero__content">
@@ -123,9 +127,18 @@ export default async function AdminHiveDetailPage({
               {hive.type} • {hive.colonyType}
             </span>
             <h1 className="platform-hero__title">{hive.name}</h1>
-            <p style={{ fontSize: '1.125rem', color: 'rgba(255, 255, 255, 0.9)', marginTop: '12px' }}>
+            <p
+              style={{
+                fontSize: '1.125rem',
+                color: 'rgba(255, 255, 255, 0.9)',
+                marginTop: '12px',
+              }}
+            >
               Bijenstand:{' '}
-              <Link href={`/admin/apiaries/${hive.apiary.id}`} style={{ color: 'inherit', textDecoration: 'underline' }}>
+              <Link
+                href={`/admin/apiaries/${hive.apiary.id}`}
+                style={{ color: 'inherit', textDecoration: 'underline' }}
+              >
                 {hive.apiary.name}
               </Link>
             </p>
@@ -133,25 +146,60 @@ export default async function AdminHiveDetailPage({
         </div>
       </section>
 
-      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Behuizingen', href: '/admin/hives' }, { label: hive.name }]} />
+      <Breadcrumbs
+        items={[
+          { label: 'Admin', href: '/admin' },
+          { label: 'Gebruikers', href: '/admin/users' },
+          returnUrl && returnUrl.includes('users')
+            ? { label: hive.apiary.user.name, href: returnUrl }
+            : returnUrl && returnUrl.includes('apiaries')
+              ? { label: 'Bijenstand', href: returnUrl }
+              : { label: 'Behuizingen', href: '/admin/hives' },
+          { label: hive.name },
+        ]}
+      />
 
-      <section className="home-features">
+      <section className="home-features" id="observations-section">
         <div className="container">
-          <h2 className="heading-secondary" style={{ marginBottom: 'var(--space-8)' }}>Waarnemingen</h2>
-
-          <ObservationsFilter
-            observations={observations}
-            showUser={false}
-            showHive={false}
-            showApiary={false}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            currentPath={`/admin/hives/${hiveId}`}
-            search={search}
-            colorFilter={color}
-            allColors={allColors}
-            placeholder="Zoek op behuizing of notities"
-          />
+          <h2
+            className="heading-secondary"
+            style={{ marginBottom: 'var(--space-8)' }}
+          >
+            Waarnemingen
+          </h2>
+          {observations.length === 0 ? (
+            // Check if any filters are applied to determine which EmptyState to show
+            search || color ? (
+              <EmptyState
+                title="Geen waarnemingen gevonden"
+                description="Er zijn geen waarnemingen die voldoen aan de huidige filters. Probeer je zoekcriteria aan te passen."
+                buttonText="Filters wissen"
+                buttonHref={`/admin/hives/${hiveId}`}
+              />
+            ) : (
+              <EmptyState
+                title="Nog geen waarnemingen"
+                description="Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier."
+                buttonText="terug naar de behuizingen"
+                buttonHref={returnUrl}
+              />
+            )
+          ) : (
+            <ObservationsFilter
+              observations={observations}
+              showUser={false}
+              showHive={false}
+              showApiary={false}
+              basePath="/admin"
+              currentPage={currentPage}
+              totalPages={totalPages}
+              currentPath={`/admin/hives/${hiveId}`}
+              search={search}
+              colorFilter={color}
+              allColors={allColors}
+              placeholder="Zoek op behuizing of notities"
+            />
+          )}
         </div>
       </section>
     </div>

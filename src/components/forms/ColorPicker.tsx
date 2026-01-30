@@ -37,8 +37,8 @@ export default function ColorPicker({
                 isDisabled(colorData.hex) ? 'color-picker__color--disabled' : ''
               } ${isNoPollenOption ? 'color-picker__color--no-pollen' : ''}`}
               style={{ backgroundColor: colorData.hex }}
-              onClick={() =>
-                !isDisabled(colorData.hex) && onColorToggle(colorData.hex)
+              onClick={
+                () => !isDisabled(colorData.hex) && onColorToggle(colorData.hex) // !sisDisabled returns false if disabled
               }
               disabled={isDisabled(colorData.hex)}
               aria-label={

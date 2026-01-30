@@ -3,6 +3,7 @@ import ApiariesTable from '@/components/admin/ApiariesTable';
 import { requireAdmin } from '@/lib/auth-helpers';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
 export default async function AdminUserApiariesPage({
   params,
   searchParams,
@@ -36,24 +37,41 @@ export default async function AdminUserApiariesPage({
         <div className="container">
           <div className="platform-hero__content">
             <span className="platform-hero__label">
-              Totaal: {apiaries.length} {apiaries.length === 1 ? 'bijenstand' : 'bijenstanden'}
+              Totaal: {apiaries.length}{' '}
+              {apiaries.length === 1 ? 'bijenstand' : 'bijenstanden'}
             </span>
-            <h1 className="platform-hero__title">Bijenstanden van {user?.name}</h1>
+            <h1 className="platform-hero__title">
+              Bijenstanden van {user?.name}
+            </h1>
           </div>
         </div>
       </section>
 
-      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Gebruikers', href: '/admin/users' }, { label: user?.name || '', href: `/admin/users/${userId}` }, { label: 'Bijenstanden' }]} />
+      <Breadcrumbs
+        items={[
+          { label: 'Admin', href: '/admin' },
+          { label: 'Gebruikers', href: '/admin/users' },
+          { label: user?.name || '', href: `/admin/users/${userId}` },
+          { label: 'Bijenstanden' },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container">
-          <ApiariesTable
-            apiaries={apiaries}
-            showUser={false}
-            currentPath={`/admin/users/${userId}/apiaries`}
-            totalPages={totalPages}
-            currentPage={currentPage}
-          />
+          {apiaries.length > 0 ? (
+            <ApiariesTable
+              apiaries={apiaries}
+              showUser={false}
+              currentPath={`/admin/users/${userId}/apiaries`}
+              totalPages={totalPages}
+              currentPage={currentPage}
+            />
+          ) : (
+            <EmptyState
+              title="Nog geen bijenstanden"
+              description="Deze lijst is nog leeg. Zodra er bijenstanden zijn toegevoegd, verschijnen ze hier."
+            />
+          )}
         </div>
       </section>
     </div>

@@ -100,7 +100,7 @@ export default function ObservationForm({
   const handleColorToggle = (hex: string) => {
     const isNoPollenOption = pollenColors.find(
       color => color.hex === hex,
-    )?.isNoPollenOption;
+    )?.isNoPollenOption; //boolean
 
     setSelectedColors(prev => {
       if (isNoPollenOption) {
@@ -115,7 +115,7 @@ export default function ObservationForm({
 
         //als een reguliere kleur wordt geselecteerd, verwijder "geen stuifmeel" indien aanwezig en handel normaal af
         const filteredPrev = prev.filter(
-          color => !pollenColors.find(c => c.hex === color)?.isNoPollenOption,
+          color => !pollenColors.find(c => c.hex === color)?.isNoPollenOption, //als het effectief geen stuifmeel is, filteren we het eruit want true wordt false
         );
 
         if (filteredPrev.includes(hex)) {
@@ -125,7 +125,7 @@ export default function ObservationForm({
           // Add color
           return [...filteredPrev, hex];
         }
-        return filteredPrev;
+        return filteredPrev; //
       }
     });
 
@@ -205,8 +205,9 @@ export default function ObservationForm({
       });
 
       if (!response.ok) throw new Error('Kon observatie niet aanmaken');
-
-      router.push(`/hives/${finalHiveId}?scrollTo=observations`);
+      initialObservation
+        ? router.push(`/observations/${initialObservation}`)
+        : router.push(`/hives/${finalHiveId}?scrollTo=observations`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
       setLoading(false);
@@ -385,9 +386,9 @@ export default function ObservationForm({
               <span className="form__step-badge">Stap 2</span> Stuifmeelkleur
             </h3>
             <p className="form__instructions">
-              Neem even de tij om de stuifmeelkleuren op de bijen te observeren.
-              Selecteer maximaal 3 verschillende kleuren, of kies 'Geen' indien
-              geen stuifmeel zichtbaar is.
+              Neem even de tijd om de stuifmeelkleuren op de bijen te
+              observeren. Selecteer maximaal 3 verschillende kleuren, of kies
+              'Geen' indien geen stuifmeel zichtbaar is.
             </p>
             <label className="form__label">Stuifmeelkleur *</label>
             <ColorPicker

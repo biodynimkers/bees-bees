@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
-import Link from 'next/link';
 import ObservationsTable from '@/components/shared/ObservationsTable';
 import SearchInput from '@/components/shared/SearchInput';
 
@@ -35,6 +34,7 @@ export default function ObservationsFilter({
   showHive = true,
   showApiary = true,
   showUser = true,
+  basePath = '',
   search: initialSearch = '',
   colorFilter: initialColorFilter = '',
   allColors = [],
@@ -47,6 +47,7 @@ export default function ObservationsFilter({
   showHive?: boolean;
   showApiary?: boolean;
   showUser?: boolean;
+  basePath?: string;
   search?: string;
   colorFilter?: string;
   allColors?: { value: string; label: string; hex: string }[];
@@ -65,6 +66,7 @@ export default function ObservationsFilter({
       params.delete('search');
     }
     params.delete('page');
+    params.set('scrollTo', 'observations');
     router.push(`${currentPath}?${params.toString()}`);
   }, 300);
 
@@ -76,11 +78,13 @@ export default function ObservationsFilter({
     } else {
       params.delete('color');
     }
+
     params.delete('page'); // Reset to page 1 when filtering
+    params.set('scrollTo', 'observations');
     router.push(`${currentPath}?${params.toString()}`);
   };
 
-  const colors = allColors; //
+  const colors = allColors;
 
   return (
     <>
@@ -94,12 +98,10 @@ export default function ObservationsFilter({
             }}
             placeholder={placeholder}
           />
-          
+
           {allColors.length > 0 && (
             <div className="filter-group">
-              <label className="filter-group__label">
-                Stuifmeelkleur
-              </label>
+              <label className="filter-group__label">Stuifmeelkleur</label>
               <div className="filter-colors">
                 <button
                   type="button"
@@ -137,6 +139,7 @@ export default function ObservationsFilter({
         showHive={showHive}
         showApiary={showApiary}
         showUser={showUser}
+        basePath={basePath}
         currentPage={currentPage}
         totalPages={totalPages}
         currentPath={currentPath}

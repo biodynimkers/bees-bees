@@ -2,11 +2,16 @@ import { Observation, Hive, Apiary, User } from '@prisma/client';
 import Link from 'next/link';
 import { formatBeeCount } from '@/lib/utils/formatBeeCount';
 import { formatPollenAmount } from '@/lib/utils/formatPollenAmount';
-import { formatWeatherCondition, formatTemperature } from '@/lib/utils/formatWeather';
+import {
+  formatWeatherCondition,
+  formatTemperature,
+} from '@/lib/utils/formatWeather';
 
 import { pollenColors } from '@/lib/pollenColors';
 
-const getWeatherEmoji = (weatherCondition: string | null | undefined): string => {
+const getWeatherEmoji = (
+  weatherCondition: string | null | undefined,
+): string => {
   switch (weatherCondition) {
     case 'SUNNY':
       return '☀️';
@@ -39,6 +44,7 @@ interface ObservationsTableProps {
   showHive?: boolean;
   showApiary?: boolean;
   showUser?: boolean;
+  basePath?: string;
   currentPath?: string;
   currentPage: number;
   totalPages: number;
@@ -49,17 +55,11 @@ export default function ObservationsTable({
   showHive = true,
   showApiary = true,
   showUser = true,
+  basePath = '',
   currentPath,
   currentPage,
   totalPages,
 }: ObservationsTableProps) {
-  const getObservationLink = (id: number) => {
-    if (currentPath?.includes('/admin')) {
-      return `/admin/observations/${id}`;
-    }
-    return `/observations/${id}`;
-  };
-
   return (
     <>
       <div className="table-wrapper">
@@ -83,9 +83,11 @@ export default function ObservationsTable({
             {observations.map(observation => (
               <tr key={observation.id}>
                 <td data-label="Datum">
-                  <Link href={getObservationLink(observation.id)}>
+                  <Link
+                    href={`${basePath}/observations/${observation.id}?returnUrl=${encodeURIComponent(currentPath || '')}`}
+                  >
                     {new Date(observation.createdAt).toLocaleDateString(
-                      'nl-BE'
+                      'nl-BE',
                     )}
                   </Link>
                 </td>
@@ -119,13 +121,17 @@ export default function ObservationsTable({
                   {formatTemperature(observation.temperature)}
                 </td>
                 <td data-label="Notities">
-                  <Link href={getObservationLink(observation.id)} className="table__notes-link">
+                  <Link
+                    href={`${basePath}/observations/${observation.id}`}
+                    className="table__notes-link"
+                  >
                     {truncateNotes(observation.notes)}
                   </Link>
                 </td>
                 <td data-label="Locatie">
-                  {observation.hive?.apiary?.latitude && observation.hive?.apiary?.longitude ? (
-                    <a 
+                  {observation.hive?.apiary?.latitude &&
+                  observation.hive?.apiary?.longitude ? (
+                    <a
                       href={`https://www.google.com/maps?q=${observation.hive.apiary.latitude},${observation.hive.apiary.longitude}`}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -139,7 +145,7 @@ export default function ObservationsTable({
                 </td>
                 {showHive && observation.hive && (
                   <td data-label="Behuizing">
-                    <Link href={`/admin/hives/${observation.hive.id}`}>
+                    <Link href={`${basePath}/hives/${observation.hive.id}`}>
                       {observation.hive.name}
                     </Link>
                   </td>
@@ -147,7 +153,7 @@ export default function ObservationsTable({
                 {showApiary && observation.hive?.apiary && (
                   <td data-label="Bijenstand">
                     <Link
-                      href={`/admin/apiaries/${observation.hive.apiary.id}`}
+                      href={`${basePath}/apiaries/${observation.hive.apiary.id}`}
                     >
                       {observation.hive.apiary.name}
                     </Link>
@@ -156,7 +162,7 @@ export default function ObservationsTable({
                 {showUser && observation.hive?.apiary?.user && (
                   <td data-label="Eigenaar">
                     <Link
-                      href={`/admin/users/${observation.hive.apiary.userId}`}
+                      href={`${basePath}/users/${observation.hive.apiary.userId}`}
                     >
                       {observation.hive.apiary.user.name}
                     </Link>

@@ -256,8 +256,6 @@ app/admin/
 ### Wijzigingen en toevoegingen observatieformulier
 
 - [x] Veld 'kast' boven de teller
-- [ ] Vanuit snelle acties/observaties: tekstje 'Welke kast wil je observeren'
-- [ ] Vanuit kast: geen inputveld, gewoon tekst bovenaan
 - [x] Kleurkiezer voor het stuifmeelveld
   - [x] Array van kleuren definieren: met objecten: string van bloemen, hexcode
   - [x] Color picker maken
@@ -269,17 +267,14 @@ app/admin/
   - [x] Klikbare legende of een infoknop die de plantenlijst per kleur uitlegt.
 - [x] Uitleg tussen de velden in stappen!Layout moet beter!
 - [x] Bijenteller met de velden versmelten
-- [ ] Enkel binnenkomende bijen
-- [ ] Tijd en datum bovenaan het formulier: 'Deze waarneming wordt gedaan op [uur en dag]'TODO
+- [x] Enkel binnenkomende bijen
 - [x] Stuifmeel in drie maten: weinig, gemiddeld of veel TODO
 - [x] Bij veel bijen, die niet te tellen zijn: klik op optie 'teveel om te tellen'
 - [x] Knop: 'Geen stuifmeel waargenomen'
-- [ ] Algemene waarnemingen: mini text
 - [x] (Het weer toevoegen: weerbericht automatisch opnemen) + lokale observatie mogelijk maken (regen, bewolkt, halfzon, zon en temperatuur)
-- [ ] Automatische recording bij de notities
 - [x] Alle namen 'observatie(s)' veranderen door waarneming(en)
-- [ ] Export functie van data! CSV?TODO
-- [ ] BUG indien geen waarnemingen op http://localhost:3000/admin/hives/34?returnUrl=%2Fadmin%2Fusers%2Fcmij5yzbh0000uks06vvfkvfq%2Fhives : ternary : 'nog geen observaties'
+- [x] Export functie van data! CSV?TODO
+- [x] BUG indien geen waarnemingen op http://localhost:3000/admin/hives/34?returnUrl=%2Fadmin%2Fusers%2Fcmij5yzbh0000uks06vvfkvfq%2Fhives : ternary : 'nog geen observaties'
 - [ ] paswoord moet complexer worden in zod schema, vereisten ook synchroniseren bij reset password TODO
 
 ### 🎯 Eindresultaat
@@ -306,29 +301,48 @@ TODO
 - [] waarneming bewerkt
   - [] BUG in observations/[id]/edit
 
-- []
-- []
-- []
-- []
-- []
-
 ### Bugs gevonden
 
 - [x] /apiaries/new: bij toevoegen nieuwe bijenstand, als je via adres gaat,en je vult een adres in zonder op locatie te drukken en dan op de 'bijenstand toevoegen drukt, krijg je terecht de melding 'Vul een adres in en klik op "Zoek locatie".' Als je dan onmiddellijk drukt op locatie, krijg je de melding 'Invalid input: expected number, received NaN'. Maar als je toch weer op 'bijenstand toevoegen' klikt, wordt hij wel toegevoegd
-- [] na toevoegen bijenstanden en kasten vanuit /account gaat de redirect respectievelijk naar /apiaries en /apiaries[id], dus waar ze zijn toegevoegd
-- [] /hives/[id]/edit: het type behuizing staat niet voorgeselecteerd
-- [] /observations/[id]/edit: redirect niet naar /observations/[id] maar naar /hives/id
+- [x] /hives/[id]/edit: het type behuizing staat niet voorgeselecteerd
+- [x] /observations/[id]/edit: redirect niet naar /observations/[id] maar naar /hives/id
 - [x] /observations/[id]/edit: krijg foutmelding 'Invalid input: expected number, received string' als ik geen wijziging doe
 
 - [x] observations/new: bij geen stuifmeelkleur moet ik toch nog een hoeveelheid pollen invullen, zal "GEEN" in de enum moeten toevoegen en voorselecteren als er geen stuifmeelkleur is, of veld optioneel maken en 'GEEN' als default value maken, is dat niet het eenvoudigste?
-- []temperatuur in het observationform is optioneel, maar geeft 20 graden terug.
+- [x]temperatuur in het observationform is optioneel, maar geeft 20 graden terug.
 
-- [] drachtkalender op nieuwe pagina of terugkeerbutton?
+### Testing tekorten
 
-TODO
+- [x] de temperatuur in observationform weer laten tellen vanaf de placeholderwaarde
+- [] een moeilijker paswoord laten aanmaken
+- [x] kleuren van stuifmeel toevoegen in observationId
+- [] mobiele versie titels volledig leesbaar?
 
-- [] de temperatuur in observationform weer laten tellen vanaf de placeholderwaarde
-- [] bespreken met docent, deployment voor klant met eigen account enz.
-- [] keys voor mapbox en resend voor klant?
-- [] bespreken met docent, snelheid van de renders
-- [] de prisma-modellen plant en apiaryplant verwijderen?
+- [x] in admin route: emptyState toevoegen:
+  - [x] gebruiker heeft nog geen bijenstand toegevoegd:'mark heeft nog geen bijenstanden'
+  - [x] gebruiker heeft nog geen kast toegevoegd:'mark heeft nog geen behuizingen'
+  - [x] gebruiker heeft nog geen waarnemingen: 'Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier.', emptystate + searchfilter!
+
+  - [x] alle links checken in observationstable in admin/users/[userId]/observations
+  - [x] scrollTo lijkt nog niet te werken in admin/users/[userId]/observations
+  - [x] breadcrumbs in admin route:
+    - [x] bijenstand vanuit admin/apiaries
+    - [x] bijenstand vanuit admin/users/[userId]/apiaries
+    - [x] behuizing vanuit admin/apiaries/[apiaryId]
+    - [x] behuizing vanuit admin/users/[userId]
+    - [x] behuizing vanuit admin/hives (of dropdown admin/hives)
+    - [x] observaties vanuit admin
+    - [x] observaties vanuit admin/users/[userId]/observations
+    - [x] observaties in admin/hives/[hiveId] vanuit admin/apiaries/[apiaryId]
+
+    - [x] breadcrumbs in user route:
+      - [x] behuizing vanuit /apiaries/[apiaryId]
+      - [x] behuizing vanuit /hives
+      - [x] waarneming vanuit /hives/[hiveId]
+      - [x] waarneming vanuit /observations
+
+    - [x] labels op de kaart in apiaryId
+
+### Overdracht
+
+- [] keys voor mapbox en resend voor klant

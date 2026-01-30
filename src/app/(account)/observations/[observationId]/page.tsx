@@ -19,8 +19,10 @@ export const dynamic = 'force-dynamic';
 
 export default async function Observation({
   params,
+  searchParams,
 }: {
   params: Promise<{ observationId: string }>;
+  searchParams?: Promise<{ returnUrl?: string }>;
 }) {
   const session = await getServerSession(authOptions);
   const { observationId } = await params;
@@ -39,7 +41,8 @@ export default async function Observation({
   if (observation.hive.apiary.userId !== session?.user.id) {
     redirect('/unauthorized');
   }
-
+  const searchParamsResult = await searchParams;
+  const returnUrl = searchParamsResult?.returnUrl ?? '';
   return (
     <div className="platform-page">
       <section className="platform-hero">
@@ -49,10 +52,14 @@ export default async function Observation({
               {observation.hive.name} • {observation.hive.apiary.name}
             </span>
             <h1 className="platform-hero__title">
-              Waarneming {new Date(observation.createdAt).toLocaleDateString('nl-BE')}
+              Waarneming{' '}
+              {new Date(observation.createdAt).toLocaleDateString('nl-BE')}
             </h1>
             <div className="btn-group">
-              <Link href={`/observations/${observationId}/edit`} className="btn btn--secondary">
+              <Link
+                href={`/observations/${observationId}/edit?returnUrl=${encodeURIComponent(returnUrl)}`}
+                className="btn btn--secondary"
+              >
                 Bewerk
               </Link>
               {observation && (
@@ -70,7 +77,9 @@ export default async function Observation({
       <Breadcrumbs
         items={[
           { label: 'Account', href: '/account' },
-          { label: 'Waarnemingen', href: '/observations' },
+          returnUrl && returnUrl.includes(`hives`)
+            ? { label: 'Behuizing', href: returnUrl }
+            : { label: 'Waarnemingen', href: '/observations' },
           { label: 'Details' },
         ]}
       />
@@ -78,7 +87,7 @@ export default async function Observation({
       <section className="home-features">
         <div className="container">
           <PollenColorLegend style={{ marginBottom: 'var(--s-12)' }} />
-          
+
           <div className="home-features__grid">
             {/* Datum en tijd */}
             <div className="feature-card">
@@ -86,21 +95,27 @@ export default async function Observation({
                 <div className="meta-item">
                   <span className="meta-label">Datum</span>
                   <span className="meta-value meta-value--small">
-                    {new Date(observation.createdAt).toLocaleDateString('nl-BE', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
+                    {new Date(observation.createdAt).toLocaleDateString(
+                      'nl-BE',
+                      {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      },
+                    )}
                   </span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Tijd</span>
                   <span className="meta-value meta-value--small">
-                    {new Date(observation.createdAt).toLocaleTimeString('nl-BE', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
+                    {new Date(observation.createdAt).toLocaleTimeString(
+                      'nl-BE',
+                      {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      },
+                    )}
                   </span>
                 </div>
               </div>
@@ -126,21 +141,27 @@ export default async function Observation({
                   <div className="observation-detail__pollen-container">
                     {observation.pollenColor.split(', ').map((color, index) => {
                       const colorData = pollenColors.find(c => c.hex === color);
-                      const plantNames = colorData?.species.join(', ') || 'Onbekend';
-                      return (
+                      console.log('colorData', colorData?.hex);
+                      const plantNames =
+                        colorData?.species.join(', ') || 'Onbekend';
+                      return colorData ? (
                         <div
                           key={index}
                           className="pollen-color-dot"
-                          style={{ backgroundColor: color }}
+                          style={{
+                            backgroundColor: colorData?.hex,
+                          }}
                           title={`Mogelijke planten: ${plantNames}`}
                         />
-                      );
+                      ) : null;
                     })}
                   </div>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Hoeveelheid stuifmeel</span>
-                  <span className="meta-value meta-value--small">{formatPollenAmount(observation.pollenAmount)}</span>
+                  <span className="meta-value meta-value--small">
+                    {formatPollenAmount(observation.pollenAmount)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -150,11 +171,15 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Weersomstandigheden</span>
-                  <span className="meta-value meta-value--small">{formatWeatherCondition(observation.weatherCondition)}</span>
+                  <span className="meta-value meta-value--small">
+                    {formatWeatherCondition(observation.weatherCondition)}
+                  </span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Temperatuur</span>
-                  <span className="meta-value meta-value--small">{formatTemperature(observation.temperature)}</span>
+                  <span className="meta-value meta-value--small">
+                    {formatTemperature(observation.temperature)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -164,13 +189,19 @@ export default async function Observation({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Behuizing</span>
-                  <Link href={`/hives/${observation.hive.id}`} className="meta-value meta-value--small">
+                  <Link
+                    href={`/hives/${observation.hive.id}`}
+                    className="meta-value meta-value--small"
+                  >
                     {observation.hive.name}
                   </Link>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Bijenstand</span>
-                  <Link href={`/apiaries/${observation.hive.apiary.id}`} className="meta-value meta-value--small">
+                  <Link
+                    href={`/apiaries/${observation.hive.apiary.id}`}
+                    className="meta-value meta-value--small"
+                  >
                     {observation.hive.apiary.name}
                   </Link>
                 </div>

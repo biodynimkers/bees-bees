@@ -9,12 +9,16 @@ import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export const dynamic = 'force-dynamic';
 
+type SearchParams = {
+  page?: string;
+};
+
 export default async function AccountApiaryPage({
   params,
   searchParams,
 }: {
   params: Promise<{ apiaryId: string }>;
-  searchParams?: Promise<{ page?: string }>;
+  searchParams?: Promise<SearchParams>;
 }) {
   const session = await getServerSession(authOptions);
   const { apiaryId } = await params;
@@ -65,10 +69,15 @@ export default async function AccountApiaryPage({
       <section className="platform-hero">
         <div className="container">
           <div className="platform-hero__content">
-            <span className="platform-hero__label">{totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}</span>
+            <span className="platform-hero__label">
+              {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
+            </span>
             <h1 className="platform-hero__title">{apiary?.name}</h1>
             <div className="btn-group">
-              <Link href={`/apiaries/${apiary?.id}/edit`} className="btn btn--secondary">
+              <Link
+                href={`/apiaries/${apiary?.id}/edit`}
+                className="btn btn--secondary"
+              >
                 Bewerk
               </Link>
               {apiary && (
@@ -83,16 +92,18 @@ export default async function AccountApiaryPage({
         </div>
       </section>
 
-      <Breadcrumbs items={[
-        { label: 'Account', href: '/account' },
-        { label: 'Bijenstanden', href: '/apiaries' },
-        { label: apiary?.name || 'Bijenstand' }
-      ]} />
+      <Breadcrumbs
+        items={[
+          { label: 'Account', href: '/account' },
+          { label: 'Bijenstanden', href: '/apiaries' },
+          { label: apiary?.name || 'Bijenstand' },
+        ]}
+      />
 
       <section className="home-features">
         <div className="container">
           <h2 className="feature-card__title">Locatie & Foerageergebied</h2>
-          
+
           <div className="map-layout">
             <div className="map-layout__map">
               <ApiaryMapWrapper
@@ -110,15 +121,24 @@ export default async function AccountApiaryPage({
               <div className="map-info-card">
                 <h3 className="map-info-card__title">Foerageergebied</h3>
                 <div className="legend-item">
-                  <span className="legend-color" style={{ background: '#FF0000' }}></span>
+                  <span
+                    className="legend-color"
+                    style={{ background: '#FF0000' }}
+                  ></span>
                   <span>200m</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-color" style={{ background: '#0000FF' }}></span>
+                  <span
+                    className="legend-color"
+                    style={{ background: '#0000FF' }}
+                  ></span>
                   <span>2 km</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-color" style={{ background: '#800080' }}></span>
+                  <span
+                    className="legend-color"
+                    style={{ background: '#800080' }}
+                  ></span>
                   <span>7 km</span>
                 </div>
               </div>
@@ -141,7 +161,10 @@ export default async function AccountApiaryPage({
           <div className="section-header">
             <h2 className="feature-card__title">Behuizingen in deze stand</h2>
             {hives.length > 0 && (
-              <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`} className="btn btn--secondary">
+              <Link
+                href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}
+                className="btn btn--secondary"
+              >
                 + Nieuwe behuizing
               </Link>
             )}
@@ -153,7 +176,7 @@ export default async function AccountApiaryPage({
                 {hives.map(hive => (
                   <Link
                     key={hive.id}
-                    href={`/hives/${hive.id}`}
+                    href={`/hives/${hive.id}?returnUrl=/apiaries/${apiary?.id}`}
                     className="feature-card"
                   >
                     <span className="feature-card__label">Behuizing</span>
@@ -161,19 +184,27 @@ export default async function AccountApiaryPage({
                     <div className="feature-card__meta">
                       <div className="meta-item">
                         <span className="meta-label">Bijenstand</span>
-                        <span className="meta-value meta-value--small">{apiary?.name}</span>
+                        <span className="meta-value meta-value--small">
+                          {apiary?.name}
+                        </span>
                       </div>
                       <div className="meta-item">
                         <span className="meta-label">Type behuizing</span>
-                        <span className="meta-value meta-value--small">{hive.type}</span>
+                        <span className="meta-value meta-value--small">
+                          {hive.type}
+                        </span>
                       </div>
                       <div className="meta-item">
                         <span className="meta-label">Variëteit</span>
-                        <span className="meta-value meta-value--small">{hive.colonyType}</span>
+                        <span className="meta-value meta-value--small">
+                          {hive.colonyType}
+                        </span>
                       </div>
                       <div className="meta-item">
                         <span className="meta-label">Waarnemingen</span>
-                        <span className="meta-value meta-value--small">{hive.observations.length}</span>
+                        <span className="meta-value meta-value--small">
+                          {hive.observations.length}
+                        </span>
                       </div>
                     </div>
                   </Link>
@@ -182,13 +213,19 @@ export default async function AccountApiaryPage({
 
               {totalPages > 1 && (
                 <div className="pagination">
-                  <Link href={`/apiaries/${apiaryId}?page=${currentPage > 1 ? currentPage - 1 : 1}`} className="btn btn--secondary">
+                  <Link
+                    href={`/apiaries/${apiaryId}?page=${currentPage > 1 ? currentPage - 1 : 1}`}
+                    className="btn btn--secondary"
+                  >
                     Vorige
                   </Link>
                   <span className="pagination-info">
                     Pagina {currentPage} van {totalPages}
                   </span>
-                  <Link href={`/apiaries/${apiaryId}?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`} className="btn btn--secondary">
+                  <Link
+                    href={`/apiaries/${apiaryId}?page=${currentPage < totalPages ? currentPage + 1 : totalPages}`}
+                    className="btn btn--secondary"
+                  >
                     Volgende
                   </Link>
                 </div>
@@ -197,8 +234,13 @@ export default async function AccountApiaryPage({
           ) : (
             <div className="empty-state">
               <h2 className="feature-card__title">Nog geen behuizingen</h2>
-              <p className="feature-card__text">Voeg uw eerste behuizing toe aan deze stand</p>
-              <Link href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`} className="btn btn--primary">
+              <p className="feature-card__text">
+                Voeg uw eerste behuizing toe aan deze stand
+              </p>
+              <Link
+                href={`/hives/new?apiaryId=${apiary?.id}&apiaryName=${apiary?.name}`}
+                className="btn btn--primary"
+              >
                 + Eerste behuizing toevoegen
               </Link>
             </div>

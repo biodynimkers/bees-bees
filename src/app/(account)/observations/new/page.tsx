@@ -38,7 +38,9 @@ export default async function AccountObservationNewPage({
       <Breadcrumbs
         items={[
           { label: 'Account', href: '/account' },
-          { label: 'Waarnemingen', href: '/observations' },
+          hiveId && hiveName
+            ? { label: hiveName, href: `/hives/${hiveId}` }
+            : { label: 'Waarnemingen', href: '/observations' },
           { label: 'Nieuwe waarneming' },
         ]}
       />

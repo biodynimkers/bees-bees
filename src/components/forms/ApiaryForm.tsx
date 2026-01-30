@@ -32,6 +32,8 @@ export default function ApiaryForm({
         setName(data.name);
         setLatitude(data.latitude.toString());
         setLongitude(data.longitude.toString());
+        // Vul adres alleen in als het bestaat (voor edit via adres)
+        if (data.address) setAddress(data.address);
       } else {
         console.error('Failed to fetch apiary data');
       }
@@ -109,6 +111,7 @@ export default function ApiaryForm({
     setLocationMethod(method);
     setGeocodingError('');
     setGpsError('');
+    setAddress(''); // altijd adresveld leegmaken bij wisselen
   };
 
   // Functie om adres om te zetten naar coördinaten
@@ -196,8 +199,13 @@ export default function ApiaryForm({
     });
 
     // Check of gebruiker locatie heeft ingevuld via gekozen methode
-    const hasLocationError =
-      locationMethod === 'address' && (!latitude || !longitude);
+    let hasLocationError = false;
+    if (locationMethod === 'address') {
+      // Alleen verplicht als gebruiker adresmethode kiest
+      if (!latitude || !longitude) {
+        hasLocationError = true;
+      }
+    }
 
     // Als er validatiefouten zijn OF locatiefouten, toon alles tegelijk
     if (!validationResult.success || hasLocationError) {
@@ -230,7 +238,9 @@ export default function ApiaryForm({
       });
 
       if (!response.ok) throw new Error('Kon bijenstand niet aanmaken');
-      router.push(`/apiaries`);
+      initialApiary
+        ? router.push(`/apiaries/${initialApiary}`)
+        : router.push(`/apiaries`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
       setFieldErrors({}); // reset veldfouten in geval van algemene fout
@@ -326,7 +336,6 @@ export default function ApiaryForm({
               }}
               className="form__input"
               placeholder="Straat nummer, Stad"
-              required
             />
             <button
               type="button"

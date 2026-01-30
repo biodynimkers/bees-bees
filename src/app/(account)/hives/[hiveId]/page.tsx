@@ -16,6 +16,7 @@ type SearchParams = {
   page?: string;
   search?: string;
   color?: string;
+  returnUrl?: string;
 };
 
 export default async function AccountApiaryHivePage({
@@ -43,6 +44,7 @@ export default async function AccountApiaryHivePage({
   const currentPage = parseInt(searchParamsResult?.page ?? '1', 10);
   const search = searchParamsResult?.search ?? '';
   const colorFilter = searchParamsResult?.color ?? '';
+  const returnUrl = searchParamsResult?.returnUrl ?? '';
   const observationsPerPage = 20;
 
   const baseWhere = {
@@ -140,7 +142,9 @@ export default async function AccountApiaryHivePage({
       <Breadcrumbs
         items={[
           { label: 'Account', href: '/account' },
-          { label: 'Behuizingen', href: '/hives' },
+          returnUrl
+            ? { label: 'Bijenstand', href: returnUrl }
+            : { label: 'Behuizingen', href: '/hives' },
           { label: hive.name },
         ]}
       />
@@ -154,15 +158,21 @@ export default async function AccountApiaryHivePage({
               <div className="feature-card__meta">
                 <div className="meta-item">
                   <span className="meta-label">Bijenstand</span>
-                  <span className="meta-value meta-value--small">{hive.apiary.name}</span>
+                  <span className="meta-value meta-value--small">
+                    {hive.apiary.name}
+                  </span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Type behuizing</span>
-                  <span className="meta-value meta-value--small">{hive.type}</span>
+                  <span className="meta-value meta-value--small">
+                    {hive.type}
+                  </span>
                 </div>
                 <div className="meta-item">
                   <span className="meta-label">Variëteit</span>
-                  <span className="meta-value meta-value--small">{hive.colonyType}</span>
+                  <span className="meta-value meta-value--small">
+                    {hive.colonyType}
+                  </span>
                 </div>
               </div>
             </div>
