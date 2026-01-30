@@ -8,7 +8,14 @@ export default function NotFound() {
           <div className="platform-hero__content">
             <span className="platform-hero__label">404</span>
             <h1 className="platform-hero__title">Pagina niet gevonden</h1>
-            <p style={{ fontSize: '1.125rem', color: 'rgba(255, 255, 255, 0.9)', marginTop: '12px', marginBottom: '24px' }}>
+            <p
+              style={{
+                fontSize: '1.125rem',
+                color: 'rgba(255, 255, 255, 0.9)',
+                marginTop: '0.75rem',
+                marginBottom: '1.5rem',
+              }}
+            >
               De opgevraagde pagina bestaat niet of is verplaatst.
             </p>
             <Link href="/" className="btn btn--secondary">
