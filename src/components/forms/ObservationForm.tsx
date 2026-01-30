@@ -205,8 +205,9 @@ export default function ObservationForm({
       });
 
       if (!response.ok) throw new Error('Kon observatie niet aanmaken');
-
-      router.push(`/hives/${finalHiveId}?scrollTo=observations`);
+      initialObservation
+        ? router.push(`/observations/${initialObservation}`)
+        : router.push(`/hives/${finalHiveId}?scrollTo=observations`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Er ging iets mis');
       setLoading(false);

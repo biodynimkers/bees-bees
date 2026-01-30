@@ -57,7 +57,7 @@ export default async function Observation({
             </h1>
             <div className="btn-group">
               <Link
-                href={`/observations/${observationId}/edit`}
+                href={`/observations/${observationId}/edit?returnUrl=${encodeURIComponent(returnUrl)}`}
                 className="btn btn--secondary"
               >
                 Bewerk

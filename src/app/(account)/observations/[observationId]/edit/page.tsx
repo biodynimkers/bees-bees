@@ -7,8 +7,10 @@ import Breadcrumbs from '@/components/shared/Breadcrumbs';
 
 export default async function EditObservationPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ observationId: string }>;
+  searchParams?: Promise<{ returnUrl?: string }>;
 }) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) redirect('/auth/login');
@@ -23,6 +25,8 @@ export default async function EditObservationPage({
   if (!observation) {
     redirect('/observations');
   }
+  const searchParamsResult = await searchParams;
+  const returnUrl = searchParamsResult?.returnUrl ?? '';
 
   return (
     <div className="platform-page">
@@ -37,16 +41,18 @@ export default async function EditObservationPage({
       <Breadcrumbs
         items={[
           { label: 'Account', href: '/account' },
-          { label: 'Waarnemingen', href: '/observations' },
+          returnUrl
+            ? { label: 'Behuizing', href: returnUrl }
+            : { label: 'Waarnemingen', href: '/observations' },
           { label: 'Bewerken' },
         ]}
       />
 
       <section className="home-features">
         <div className="container container--narrow">
-          <ObservationForm 
-            initialObservation={observationId} 
-            hiveId={observation.hiveId.toString()} 
+          <ObservationForm
+            initialObservation={observationId}
+            hiveId={observation.hiveId.toString()}
           />
         </div>
       </section>
