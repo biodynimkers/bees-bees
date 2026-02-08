@@ -2,6 +2,7 @@ import { prisma } from '@/lib/client';
 import ApiariesFilter from '@/components/admin/ApiariesFilter';
 import { requireAdmin } from '@/lib/auth-helpers';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
 
 type SearchParams = {
   page?: string;
@@ -13,7 +14,7 @@ export default async function AdminApiariesPage({
 }: {
   searchParams: Promise<SearchParams>;
 }) {
- await requireAdmin();
+  await requireAdmin();
 
   const searchParamsResult = (await searchParams) || {};
   const { page = '1', search = '' } = searchParamsResult;
@@ -67,24 +68,36 @@ export default async function AdminApiariesPage({
         <div className="container">
           <div className="platform-hero__content">
             <span className="platform-hero__label">
-              Totaal: {totalApiaries} {totalApiaries === 1 ? 'bijenstand' : 'bijenstanden'}
+              Totaal: {totalApiaries}{' '}
+              {totalApiaries === 1 ? 'bijenstand' : 'bijenstanden'}
             </span>
             <h1 className="platform-hero__title">Alle bijenstanden</h1>
           </div>
         </div>
       </section>
 
-      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Bijenstanden' }]} />
+      <Breadcrumbs
+        items={[{ label: 'Admin', href: '/admin' }, { label: 'Bijenstanden' }]}
+      />
 
       <section className="home-features">
         <div className="container">
-          <ApiariesFilter
-            apiaries={apiaries}
-            currentPath={'/admin/apiaries'}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            search={search}
-          />
+          {apiaries.length > 0 ? (
+            <ApiariesFilter
+              apiaries={apiaries}
+              currentPath={'/admin/apiaries'}
+              totalPages={totalPages}
+              currentPage={currentPage}
+              search={search}
+            />
+          ) : (
+            <EmptyState
+              title="Nog geen bijenstanden"
+              description="Er zijn nog geen bijenstanden geregistreerd. Zodra er bijenstanden zijn, worden ze hier weergegeven."
+              buttonText="Ga naar overzicht"
+              buttonHref="/admin"
+            />
+          )}
         </div>
       </section>
     </div>

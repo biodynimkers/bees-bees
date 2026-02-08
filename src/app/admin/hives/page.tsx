@@ -3,6 +3,7 @@ import HivesFilter from '@/components/admin/HivesFilter';
 import { requireAdmin } from '@/lib/auth-helpers';
 import { HIVE_TYPES, COLONY_TYPES } from '@/lib/hiveOptions';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import EmptyState from '@/components/shared/EmptyState';
 
 type SearchParams = {
   page?: string;
@@ -96,30 +97,42 @@ export default async function AdminHivesPage({
         <div className="container">
           <div className="platform-hero__content">
             <span className="platform-hero__label">
-              Totaal: {totalHives} {totalHives === 1 ? 'behuizing' : 'behuizingen'}
+              Totaal: {totalHives}{' '}
+              {totalHives === 1 ? 'behuizing' : 'behuizingen'}
             </span>
             <h1 className="platform-hero__title">Alle behuizingen</h1>
           </div>
         </div>
       </section>
 
-      <Breadcrumbs items={[{ label: 'Admin', href: '/admin' }, { label: 'Behuizingen' }]} />
+      <Breadcrumbs
+        items={[{ label: 'Admin', href: '/admin' }, { label: 'Behuizingen' }]}
+      />
 
       <section className="home-features">
         <div className="container">
-          <HivesFilter
-            hives={hives}
-            showApiary={true}
-            showUser={true}
-            currentPath={'/admin/hives'}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            search={search}
-            typeFilter={type}
-            colonyFilter={colony}
-            types={types}
-            colonies={colonies}
-          />
+          {hives.length > 0 ? (
+            <HivesFilter
+              hives={hives}
+              showApiary={true}
+              showUser={true}
+              currentPath={'/admin/hives'}
+              totalPages={totalPages}
+              currentPage={currentPage}
+              search={search}
+              typeFilter={type}
+              colonyFilter={colony}
+              types={types}
+              colonies={colonies}
+            />
+          ) : (
+            <EmptyState
+              title="Nog geen behuizingen"
+              description="Er zijn nog geen behuizingen geregistreerd. Zodra er behuizingen zijn, worden ze hier weergegeven."
+              buttonText="Ga naar overzicht"
+              buttonHref="/admin"
+            />
+          )}
         </div>
       </section>
     </div>
