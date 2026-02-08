@@ -141,7 +141,7 @@ export default async function AdminObservationsPage({
             ) : (
               <EmptyState
                 title="Nog geen waarnemingen"
-                description="Er zijn nog geen waarnemingen geregistreerd voor deze kast. Voeg een nieuwe waarneming toe of ga terug naar het overzicht van je behuizingen."
+                description="Er zijn nog geen waarnemingen geregistreerd. Zodra er waarnemingen zijn, worden ze hier weergegeven."
                 buttonText="Ga naar overzicht"
                 buttonHref="/admin"
               />
