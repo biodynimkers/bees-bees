@@ -16,11 +16,12 @@ export async function sendPasswordResetEmail({
   try {
     // Use Resend's onboarding domain for development/testing
     // In production, you can add your own verified domain
-    const fromEmail =
-      process.env.NODE_ENV === 'production'
-        ? 'BEES Platform <noreply@resend.dev>' // Use your own domain when you have one
-        : 'BEES Platform <onboarding@resend.dev>'; // Resend test domain
+    // const fromEmail =
+    //   process.env.NODE_ENV === 'production'
+    //     ? 'BEES Platform <noreply@resend.dev>' // Use your own domain when you have one
+    //     : 'BEES Platform <onboarding@resend.dev>'; // Resend test domain
 
+    const fromEmail = 'BEES Platform <noreply@mail.biodynimkers.be>';
     const { data, error } = await resend.emails.send({
       from: fromEmail,
       to: [email],
