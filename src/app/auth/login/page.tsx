@@ -57,6 +57,9 @@ export default function Login() {
         return;
       }
 
+      // Refresh router to ensure session is properly loaded (fixes Vercel timing issue)
+      router.refresh();
+
       // Check user role and redirect accordingly
       const session = await getSession();
 
@@ -170,7 +173,7 @@ export default function Login() {
                 Registreer hier
               </Link>
             </p>
-            
+
             <p className="form__footer-text">
               <Link href="/forgot-password" className="form__link">
                 Wachtwoord vergeten?
