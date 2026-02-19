@@ -180,7 +180,7 @@ export default async function AdminHiveDetailPage({
               <EmptyState
                 title="Nog geen waarnemingen"
                 description="Deze lijst is nog leeg. Zodra er waarnemingen zijn toegevoegd, verschijnen ze hier."
-                buttonText="terug naar de behuizingen"
+                buttonText="Terug naar de behuizingen"
                 buttonHref={returnUrl}
               />
             )

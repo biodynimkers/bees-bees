@@ -5,6 +5,7 @@ import { requireAdmin } from '@/lib/auth-helpers';
 import HivesTable from '@/components/admin/HivesTable';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
 import ApiaryMapWrapper from '@/components/shared/ApiaryMapWrapper';
+import EmptyState from '@/components/shared/EmptyState';
 export default async function ApiaryDetailPage({
   params,
   searchParams,
@@ -111,14 +112,23 @@ export default async function ApiaryDetailPage({
             Behuizingen in deze bijenstand
           </h2>
 
-          <HivesTable
-            hives={apiary.hives}
-            showApiary={false}
-            showUser={false}
-            currentPath={`/admin/apiaries/${apiaryId}`}
-            totalPages={totalPages}
-            currentPage={currentPage}
-          />
+          {apiary.hives.length > 0 ? (
+            <HivesTable
+              hives={apiary.hives}
+              showApiary={false}
+              showUser={false}
+              currentPath={`/admin/apiaries/${apiaryId}`}
+              totalPages={totalPages}
+              currentPage={currentPage}
+            />
+          ) : (
+            <EmptyState
+              title="Nog geen behuizingen"
+              description="Er zijn nog geen behuizingen geregistreerd. Zodra er behuizingen zijn, worden ze hier weergegeven."
+              buttonText="Terug naar de bijenstanden"
+              buttonHref={returnUrl}
+            />
+          )}
         </div>
       </section>
     </div>
