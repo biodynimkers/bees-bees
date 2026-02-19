@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { requireAdmin } from '@/lib/auth-helpers';
 import HivesTable from '@/components/admin/HivesTable';
 import Breadcrumbs from '@/components/shared/Breadcrumbs';
+import ApiaryMapWrapper from '@/components/shared/ApiaryMapWrapper';
 export default async function ApiaryDetailPage({
   params,
   searchParams,
@@ -62,18 +63,9 @@ export default async function ApiaryDetailPage({
               }}
             >
               Locatie:{' '}
-              {apiary.latitude && apiary.longitude ? (
-                <a
-                  href={`https://www.google.com/maps?q=${apiary.latitude},${apiary.longitude}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: 'inherit', textDecoration: 'underline' }}
-                >
-                  {apiary.latitude}, {apiary.longitude}
-                </a>
-              ) : (
-                'Niet ingesteld'
-              )}
+              {apiary.latitude && apiary.longitude
+                ? `${apiary.latitude}, ${apiary.longitude}`
+                : 'Niet ingesteld'}
             </p>
           </div>
         </div>
@@ -88,6 +80,23 @@ export default async function ApiaryDetailPage({
           { label: apiary.name },
         ]}
       />
+
+      {apiary.latitude && apiary.longitude && (
+        <section className="home-features">
+          <div className="container">
+            <h2 className="feature-card__title">Locatie & Foerageergebied</h2>
+            <div className="map-layout">
+              <div className="map-layout__map">
+                <ApiaryMapWrapper
+                  latitude={apiary.latitude}
+                  longitude={apiary.longitude}
+                  showGbifData={true}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="home-features">
         <div className="container">

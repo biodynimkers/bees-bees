@@ -43,21 +43,23 @@ export default function ApiariesTable({
                 </td>
                 <td data-label="Locatie">
                   {apiary.latitude && apiary.longitude ? (
-                    <a 
-                      href={`https://www.google.com/maps?q=${apiary.latitude},${apiary.longitude}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={`/admin/apiaries/${
+                        apiary.id
+                      }?returnUrl=${encodeURIComponent(currentPath)}`}
                       className="btn btn--secondary table__btn-small"
                     >
                       Kaart
-                    </a>
+                    </Link>
                   ) : (
                     '-'
                   )}
                 </td>
                 {showUser && <td data-label="Eigenaar">{apiary.user.name}</td>}
                 <td data-label="Aantal behuizingen">{apiary._count.hives}</td>
-                <td data-label="Aangemaakt">{new Date(apiary.createdAt).toLocaleDateString('nl-BE')}</td>
+                <td data-label="Aangemaakt">
+                  {new Date(apiary.createdAt).toLocaleDateString('nl-BE')}
+                </td>
               </tr>
             ))}
           </tbody>
